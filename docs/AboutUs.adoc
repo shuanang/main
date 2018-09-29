@@ -17,7 +17,7 @@ Responsibilities: Team Lead
 
 '''
 
-=== And Yi Shaun
+=== Ang Yi Shaun
 image::shuanang.jpg[width="150", align="left"]
 {empty}[http://github.com/shuanang[github]] 
 
@@ -26,21 +26,21 @@ Responsibilities: Pressure group calculation
 
 '''
 
-=== Johnny Doe
+=== Terrence Tan
 image::ttaus.png[width="150", align="left"]
-{empty}[http://github.com/ttaus[github]] ]
+{empty}[http://github.com/ttaus[github]] 
 
 Role: Developer +
 Responsibilities: Dive plot UI
 
 '''
 
-=== 
+=== Chen Jun Xiang
 image::cjunxiang.jpg[width="150", align="left"]
 {empty}[http://github.com/cjunxiang[github]] 
 
 Role: Developer +
-Responsibilities:Search
+Responsibilities: Search
 
 '''
 
