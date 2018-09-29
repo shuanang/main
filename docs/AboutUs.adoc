@@ -18,7 +18,7 @@ Responsibilities: Team Lead
 '''
 
 === Ang Yi Shaun
-image::shuanang.jpg[width="150", align="left"]
+image::shuanang.jpeg[width="150", align="left"]
 {empty}[http://github.com/shuanang[github]] 
 
 Role: Developer
@@ -36,7 +36,7 @@ Responsibilities: Dive plot UI
 '''
 
 === Chen Jun Xiang
-image::cjunxiang.jpg[width="150", align="left"]
+image::cjunxiang.jpeg[width="150", align="left"]
 {empty}[http://github.com/cjunxiang[github]] 
 
 Role: Developer +
