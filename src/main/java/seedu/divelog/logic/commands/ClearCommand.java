@@ -3,7 +3,7 @@ package seedu.divelog.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.divelog.logic.CommandHistory;
-import seedu.divelog.model.AddressBook;
+import seedu.divelog.model.DiveLog;
 import seedu.divelog.model.Model;
 
 /**
@@ -18,7 +18,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.resetData(new AddressBook());
+        model.resetData(new DiveLog());
         model.commitAddressBook();
         return new CommandResult(MESSAGE_SUCCESS);
     }

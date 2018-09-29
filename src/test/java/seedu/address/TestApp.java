@@ -12,10 +12,10 @@ import seedu.divelog.commons.core.GuiSettings;
 import seedu.divelog.commons.exceptions.DataConversionException;
 import seedu.divelog.commons.util.FileUtil;
 import seedu.divelog.commons.util.XmlUtil;
-import seedu.divelog.model.AddressBook;
+import seedu.divelog.model.DiveLog;
 import seedu.divelog.model.Model;
 import seedu.divelog.model.ModelManager;
-import seedu.divelog.model.ReadOnlyAddressBook;
+import seedu.divelog.model.ReadOnlyDiveLog;
 import seedu.divelog.model.UserPrefs;
 import seedu.divelog.storage.UserPrefsStorage;
 import seedu.divelog.storage.XmlSerializableAddressBook;
@@ -33,13 +33,13 @@ public class TestApp extends MainApp {
 
     protected static final Path DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
             TestUtil.getFilePathInSandboxFolder("pref_testing.json");
-    protected Supplier<ReadOnlyAddressBook> initialDataSupplier = () -> null;
+    protected Supplier<ReadOnlyDiveLog> initialDataSupplier = () -> null;
     protected Path saveFileLocation = SAVE_LOCATION_FOR_TESTING;
 
     public TestApp() {
     }
 
-    public TestApp(Supplier<ReadOnlyAddressBook> initialDataSupplier, Path saveFileLocation) {
+    public TestApp(Supplier<ReadOnlyDiveLog> initialDataSupplier, Path saveFileLocation) {
         super();
         this.initialDataSupplier = initialDataSupplier;
         this.saveFileLocation = saveFileLocation;
@@ -72,11 +72,11 @@ public class TestApp extends MainApp {
     /**
      * Returns a defensive copy of the address book data stored inside the storage file.
      */
-    public AddressBook readStorageAddressBook() {
+    public DiveLog readStorageAddressBook() {
         try {
-            return new AddressBook(storage.readAddressBook().get());
+            return new DiveLog(storage.readDiveLog().get());
         } catch (DataConversionException dce) {
-            throw new AssertionError("Data is not in the AddressBook format.", dce);
+            throw new AssertionError("Data is not in the DiveLog format.", dce);
         } catch (IOException ioe) {
             throw new AssertionError("Storage file cannot be found.", ioe);
         }
@@ -86,7 +86,7 @@ public class TestApp extends MainApp {
      * Returns the file path of the storage file.
      */
     public Path getStorageSaveLocation() {
-        return storage.getAddressBookFilePath();
+        return storage.getDiveLogFilePath();
     }
 
     /**

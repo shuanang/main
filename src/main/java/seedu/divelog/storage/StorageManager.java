@@ -12,22 +12,22 @@ import seedu.divelog.commons.core.LogsCenter;
 import seedu.divelog.commons.events.model.AddressBookChangedEvent;
 import seedu.divelog.commons.events.storage.DataSavingExceptionEvent;
 import seedu.divelog.commons.exceptions.DataConversionException;
-import seedu.divelog.model.ReadOnlyAddressBook;
+import seedu.divelog.model.ReadOnlyDiveLog;
 import seedu.divelog.model.UserPrefs;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of DiveLog data in local storage.
  */
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private DiveLogStorage diveLogStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(DiveLogStorage diveLogStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.diveLogStorage = diveLogStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -49,33 +49,33 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ DiveLog methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getDiveLogFilePath() {
+        return diveLogStorage.getDiveLogFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyDiveLog> readDiveLog() throws DataConversionException, IOException {
+        return readDiveLog(diveLogStorage.getDiveLogFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyDiveLog> readDiveLog(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return diveLogStorage.readDiveLog(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveDiveLog(ReadOnlyDiveLog addressBook) throws IOException {
+        saveDiveLog(addressBook, diveLogStorage.getDiveLogFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveDiveLog(ReadOnlyDiveLog addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        diveLogStorage.saveDiveLog(addressBook, filePath);
     }
 
 
@@ -84,7 +84,7 @@ public class StorageManager extends ComponentManager implements Storage {
     public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
-            saveAddressBook(event.data);
+            saveDiveLog(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }

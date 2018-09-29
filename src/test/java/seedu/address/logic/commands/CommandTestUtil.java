@@ -18,7 +18,7 @@ import seedu.divelog.logic.commands.Command;
 import seedu.divelog.logic.commands.CommandResult;
 import seedu.divelog.logic.commands.EditCommand;
 import seedu.divelog.logic.commands.exceptions.CommandException;
-import seedu.divelog.model.AddressBook;
+import seedu.divelog.model.DiveLog;
 import seedu.divelog.model.Model;
 import seedu.divelog.model.person.NameContainsKeywordsPredicate;
 import seedu.divelog.model.person.Person;
@@ -102,7 +102,7 @@ public class CommandTestUtil {
             String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        DiveLog expectedDiveLog = new DiveLog(actualModel.getAddressBook());
         List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
@@ -112,7 +112,7 @@ public class CommandTestUtil {
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedAddressBook, actualModel.getAddressBook());
+            assertEquals(expectedDiveLog, actualModel.getAddressBook());
             assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }

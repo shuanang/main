@@ -6,7 +6,7 @@ import seedu.divelog.model.person.Person;
 /**
  * Unmodifiable view of an address book
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyDiveLog {
 
     /**
      * Returns an unmodifiable view of the persons list.

@@ -18,9 +18,9 @@ import seedu.divelog.logic.CommandHistory;
 import seedu.divelog.logic.commands.AddCommand;
 import seedu.divelog.logic.commands.CommandResult;
 import seedu.divelog.logic.commands.exceptions.CommandException;
-import seedu.divelog.model.AddressBook;
+import seedu.divelog.model.DiveLog;
 import seedu.divelog.model.Model;
-import seedu.divelog.model.ReadOnlyAddressBook;
+import seedu.divelog.model.ReadOnlyDiveLog;
 import seedu.divelog.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -96,12 +96,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void resetData(ReadOnlyAddressBook newData) {
+        public void resetData(ReadOnlyDiveLog newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyDiveLog getAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -198,8 +198,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyDiveLog getAddressBook() {
+            return new DiveLog();
         }
     }
 

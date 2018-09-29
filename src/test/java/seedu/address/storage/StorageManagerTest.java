@@ -16,14 +16,14 @@ import org.junit.rules.TemporaryFolder;
 
 import seedu.divelog.commons.events.model.AddressBookChangedEvent;
 import seedu.divelog.commons.events.storage.DataSavingExceptionEvent;
-import seedu.divelog.model.AddressBook;
-import seedu.divelog.model.ReadOnlyAddressBook;
+import seedu.divelog.model.DiveLog;
+import seedu.divelog.model.ReadOnlyDiveLog;
 import seedu.divelog.model.UserPrefs;
 import seedu.address.ui.testutil.EventsCollectorRule;
 import seedu.divelog.storage.JsonUserPrefsStorage;
 import seedu.divelog.storage.Storage;
 import seedu.divelog.storage.StorageManager;
-import seedu.divelog.storage.XmlAddressBookStorage;
+import seedu.divelog.storage.XmlDiveLogStorage;
 
 public class StorageManagerTest {
 
@@ -36,7 +36,7 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        XmlAddressBookStorage addressBookStorage = new XmlAddressBookStorage(getTempFilePath("ab"));
+        XmlDiveLogStorage addressBookStorage = new XmlDiveLogStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
     }
@@ -64,26 +64,26 @@ public class StorageManagerTest {
     public void addressBookReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link XmlAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link XmlAddressBookStorageTest} class.
+         * {@link XmlDiveLogStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link XmlDiveLogStorageTest} class.
          */
-        AddressBook original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+        DiveLog original = getTypicalAddressBook();
+        storageManager.saveDiveLog(original);
+        ReadOnlyDiveLog retrieved = storageManager.readDiveLog().get();
+        assertEquals(original, new DiveLog(retrieved));
     }
 
     @Test
     public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+        assertNotNull(storageManager.getDiveLogFilePath());
     }
 
     @Test
     public void handleAddressBookChangedEvent_exceptionThrown_eventRaised() {
         // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
-        Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub(Paths.get("dummy")),
+        Storage storage = new StorageManager(new XmlDiveLogStorageExceptionThrowingStub(Paths.get("dummy")),
                                              new JsonUserPrefsStorage(Paths.get("dummy")));
-        storage.handleAddressBookChangedEvent(new AddressBookChangedEvent(new AddressBook()));
+        storage.handleAddressBookChangedEvent(new AddressBookChangedEvent(new DiveLog()));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }
 
@@ -91,14 +91,14 @@ public class StorageManagerTest {
     /**
      * A Stub class to throw an exception when the save method is called
      */
-    class XmlAddressBookStorageExceptionThrowingStub extends XmlAddressBookStorage {
+    class XmlDiveLogStorageExceptionThrowingStub extends XmlDiveLogStorage {
 
-        public XmlAddressBookStorageExceptionThrowingStub(Path filePath) {
+        public XmlDiveLogStorageExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+        public void saveDiveLog(ReadOnlyDiveLog addressBook, Path filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }

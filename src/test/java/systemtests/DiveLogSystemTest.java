@@ -38,17 +38,17 @@ import seedu.divelog.logic.commands.ClearCommand;
 import seedu.divelog.logic.commands.FindCommand;
 import seedu.divelog.logic.commands.ListCommand;
 import seedu.divelog.logic.commands.SelectCommand;
-import seedu.divelog.model.AddressBook;
+import seedu.divelog.model.DiveLog;
 import seedu.divelog.model.Model;
 import seedu.address.testutil.TypicalPersons;
 import seedu.divelog.ui.BrowserPanel;
 import seedu.divelog.ui.CommandBox;
 
 /**
- * A system test class for AddressBook, which provides access to handles of GUI components and helper methods
+ * A system test class for DiveLog, which provides access to handles of GUI components and helper methods
  * for test verification.
  */
-public abstract class AddressBookSystemTest {
+public abstract class DiveLogSystemTest {
     @ClassRule
     public static ClockRule clockRule = new ClockRule();
 
@@ -84,7 +84,7 @@ public abstract class AddressBookSystemTest {
     /**
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
-    protected AddressBook getInitialData() {
+    protected DiveLog getInitialData() {
         return TypicalPersons.getTypicalAddressBook();
     }
 
@@ -179,7 +179,7 @@ public abstract class AddressBookSystemTest {
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
+        assertEquals(new DiveLog(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
         assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
     }
 

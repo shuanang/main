@@ -1,14 +1,14 @@
 package seedu.divelog.commons.events.model;
 
 import seedu.divelog.commons.events.BaseEvent;
-import seedu.divelog.model.ReadOnlyAddressBook;
+import seedu.divelog.model.ReadOnlyDiveLog;
 
-/** Indicates the AddressBook in the model has changed*/
+/** Indicates the DiveLog in the model has changed*/
 public class AddressBookChangedEvent extends BaseEvent {
 
-    public final ReadOnlyAddressBook data;
+    public final ReadOnlyDiveLog data;
 
-    public AddressBookChangedEvent(ReadOnlyAddressBook data) {
+    public AddressBookChangedEvent(ReadOnlyDiveLog data) {
         this.data = data;
     }
 

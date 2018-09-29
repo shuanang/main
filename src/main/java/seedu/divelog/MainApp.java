@@ -20,18 +20,18 @@ import seedu.divelog.commons.util.ConfigUtil;
 import seedu.divelog.commons.util.StringUtil;
 import seedu.divelog.logic.Logic;
 import seedu.divelog.logic.LogicManager;
-import seedu.divelog.model.AddressBook;
+import seedu.divelog.model.DiveLog;
 import seedu.divelog.model.Model;
 import seedu.divelog.model.ModelManager;
-import seedu.divelog.model.ReadOnlyAddressBook;
+import seedu.divelog.model.ReadOnlyDiveLog;
 import seedu.divelog.model.UserPrefs;
 import seedu.divelog.model.util.SampleDataUtil;
-import seedu.divelog.storage.AddressBookStorage;
+import seedu.divelog.storage.DiveLogStorage;
 import seedu.divelog.storage.JsonUserPrefsStorage;
 import seedu.divelog.storage.Storage;
 import seedu.divelog.storage.StorageManager;
 import seedu.divelog.storage.UserPrefsStorage;
-import seedu.divelog.storage.XmlAddressBookStorage;
+import seedu.divelog.storage.XmlDiveLogStorage;
 import seedu.divelog.ui.Ui;
 import seedu.divelog.ui.UiManager;
 
@@ -54,7 +54,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing DiveLog ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -62,7 +62,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new XmlAddressBookStorage(userPrefs.getAddressBookFilePath());
+        DiveLogStorage addressBookStorage = new XmlDiveLogStorage(userPrefs.getAddressBookFilePath());
         storage = new StorageManager(addressBookStorage, userPrefsStorage);
 
         initLogging(config);
@@ -82,20 +82,20 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyDiveLog> addressBookOptional;
+        ReadOnlyDiveLog initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
+            addressBookOptional = storage.readDiveLog();
             if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+                logger.info("Data file not found. Will be starting with a sample DiveLog");
             }
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Data file not in the correct format. Will be starting with an empty DiveLog");
+            initialData = new DiveLog();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Problem while reading from the file. Will be starting with an empty DiveLog");
+            initialData = new DiveLog();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -159,7 +159,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty DiveLog");
             initializedPrefs = new UserPrefs();
         }
 
@@ -179,7 +179,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION );
+        logger.info("Starting DiveLog " + MainApp.VERSION );
         ui.start(primaryStage);
     }
 

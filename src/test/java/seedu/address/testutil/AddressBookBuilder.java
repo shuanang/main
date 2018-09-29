@@ -1,34 +1,34 @@
 package seedu.address.testutil;
 
-import seedu.divelog.model.AddressBook;
+import seedu.divelog.model.DiveLog;
 import seedu.divelog.model.person.Person;
 
 /**
  * A utility class to help with building Addressbook objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
+ *     {@code DiveLog ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
  */
 public class AddressBookBuilder {
 
-    private AddressBook addressBook;
+    private DiveLog diveLog;
 
     public AddressBookBuilder() {
-        addressBook = new AddressBook();
+        diveLog = new DiveLog();
     }
 
-    public AddressBookBuilder(AddressBook addressBook) {
-        this.addressBook = addressBook;
+    public AddressBookBuilder(DiveLog diveLog) {
+        this.diveLog = diveLog;
     }
 
     /**
-     * Adds a new {@code Person} to the {@code AddressBook} that we are building.
+     * Adds a new {@code Person} to the {@code DiveLog} that we are building.
      */
     public AddressBookBuilder withPerson(Person person) {
-        addressBook.addPerson(person);
+        diveLog.addPerson(person);
         return this;
     }
 
-    public AddressBook build() {
-        return addressBook;
+    public DiveLog build() {
+        return diveLog;
     }
 }

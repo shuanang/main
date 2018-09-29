@@ -11,13 +11,13 @@ import org.junit.rules.ExpectedException;
 
 import seedu.divelog.commons.exceptions.IllegalValueException;
 import seedu.divelog.commons.util.XmlUtil;
-import seedu.divelog.model.AddressBook;
+import seedu.divelog.model.DiveLog;
 import seedu.address.testutil.TypicalPersons;
 import seedu.divelog.storage.XmlSerializableAddressBook;
 
-public class XmlSerializableAddressBookTest {
+public class XmlSerializableDiveLogTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlSerializableAddressBookTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlSerializableDiveLogTest");
     private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalPersonsAddressBook.xml");
     private static final Path INVALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("invalidPersonAddressBook.xml");
     private static final Path DUPLICATE_PERSON_FILE = TEST_DATA_FOLDER.resolve("duplicatePersonAddressBook.xml");
@@ -29,9 +29,9 @@ public class XmlSerializableAddressBookTest {
     public void toModelType_typicalPersonsFile_success() throws Exception {
         XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(TYPICAL_PERSONS_FILE,
                 XmlSerializableAddressBook.class);
-        AddressBook addressBookFromFile = dataFromFile.toModelType();
-        AddressBook typicalPersonsAddressBook = TypicalPersons.getTypicalAddressBook();
-        assertEquals(addressBookFromFile, typicalPersonsAddressBook);
+        DiveLog diveLogFromFile = dataFromFile.toModelType();
+        DiveLog typicalPersonsDiveLog = TypicalPersons.getTypicalAddressBook();
+        assertEquals(diveLogFromFile, typicalPersonsDiveLog);
     }
 
     @Test

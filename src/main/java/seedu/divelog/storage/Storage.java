@@ -7,13 +7,13 @@ import java.util.Optional;
 import seedu.divelog.commons.events.model.AddressBookChangedEvent;
 import seedu.divelog.commons.events.storage.DataSavingExceptionEvent;
 import seedu.divelog.commons.exceptions.DataConversionException;
-import seedu.divelog.model.ReadOnlyAddressBook;
+import seedu.divelog.model.ReadOnlyDiveLog;
 import seedu.divelog.model.UserPrefs;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage {
+public interface Storage extends DiveLogStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -22,13 +22,13 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     void saveUserPrefs(UserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    Path getDiveLogFilePath();
 
     @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyDiveLog> readDiveLog() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveDiveLog(ReadOnlyDiveLog addressBook) throws IOException;
 
     /**
      * Saves the current version of the Address Book to the hard disk.

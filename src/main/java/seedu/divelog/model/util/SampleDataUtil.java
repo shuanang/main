@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.divelog.model.AddressBook;
-import seedu.divelog.model.ReadOnlyAddressBook;
+import seedu.divelog.model.DiveLog;
+import seedu.divelog.model.ReadOnlyDiveLog;
 import seedu.divelog.model.person.Address;
 import seedu.divelog.model.person.Email;
 import seedu.divelog.model.person.Name;
@@ -14,7 +14,7 @@ import seedu.divelog.model.person.Phone;
 import seedu.divelog.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code DiveLog} with sample data.
  */
 public class SampleDataUtil {
     public static Person[] getSamplePersons() {
@@ -40,8 +40,8 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyDiveLog getSampleAddressBook() {
+        DiveLog sampleAb = new DiveLog();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }
