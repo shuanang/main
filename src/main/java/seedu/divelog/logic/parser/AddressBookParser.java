@@ -3,6 +3,7 @@ package seedu.divelog.logic.parser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.divelog.commons.core.Messages;
 import seedu.divelog.logic.commands.AddCommand;
 import seedu.divelog.logic.commands.ClearCommand;
 import seedu.divelog.logic.commands.Command;
@@ -17,7 +18,6 @@ import seedu.divelog.logic.commands.RedoCommand;
 import seedu.divelog.logic.commands.SelectCommand;
 import seedu.divelog.logic.commands.UndoCommand;
 import seedu.divelog.logic.parser.exceptions.ParseException;
-import seedu.divelog.commons.core.Messages;
 
 /**
  * Parses user input.

@@ -8,7 +8,7 @@ import static seedu.divelog.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.divelog.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.divelog.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.divelog.ui.UiPart.FXML_FILE_FOLDER;
-import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
+import static seedu.divelog.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -31,7 +31,7 @@ import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.divelog.MainApp;
-import seedu.address.TestApp;
+import seedu.divelog.TestApp;
 import seedu.divelog.commons.core.EventsCenter;
 import seedu.divelog.commons.core.index.Index;
 import seedu.divelog.logic.commands.ClearCommand;
@@ -40,7 +40,7 @@ import seedu.divelog.logic.commands.ListCommand;
 import seedu.divelog.logic.commands.SelectCommand;
 import seedu.divelog.model.DiveLog;
 import seedu.divelog.model.Model;
-import seedu.address.testutil.TypicalPersons;
+import seedu.divelog.testutil.TypicalPersons;
 import seedu.divelog.ui.BrowserPanel;
 import seedu.divelog.ui.CommandBox;
 
@@ -139,7 +139,7 @@ public abstract class DiveLogSystemTest {
     }
 
     /**
-     * Displays all persons in the address book.
+     * Displays all persons in the divelog book.
      */
     protected void showAllPersons() {
         executeCommand(ListCommand.COMMAND_WORD);
@@ -163,7 +163,7 @@ public abstract class DiveLogSystemTest {
     }
 
     /**
-     * Deletes all persons in the address book.
+     * Deletes all persons in the divelog book.
      */
     protected void deleteAllPersons() {
         executeCommand(ClearCommand.COMMAND_WORD);

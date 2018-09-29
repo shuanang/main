@@ -77,9 +77,9 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s divelog book and {@code userPrefs}. <br>
+     * The data from the sample divelog book will be used instead if {@code storage}'s divelog book is not found,
+     * or an empty divelog book will be used instead if errors occur when reading {@code storage}'s divelog book.
      */
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<ReadOnlyDiveLog> addressBookOptional;
@@ -179,7 +179,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting DiveLog " + MainApp.VERSION );
+        logger.info("Starting DiveLog " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 

@@ -9,7 +9,7 @@ import seedu.divelog.model.person.Person;
 import seedu.divelog.model.person.UniquePersonList;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the divelog-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
 public class DiveLog implements ReadOnlyDiveLog {
@@ -59,7 +59,7 @@ public class DiveLog implements ReadOnlyDiveLog {
     //// person-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a person with the same identity as {@code person} exists in the divelog book.
      */
     public boolean hasPerson(Person person) {
         requireNonNull(person);
@@ -67,8 +67,8 @@ public class DiveLog implements ReadOnlyDiveLog {
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a person to the divelog book.
+     * The person must not already exist in the divelog book.
      */
     public void addPerson(Person p) {
         persons.add(p);
@@ -76,8 +76,8 @@ public class DiveLog implements ReadOnlyDiveLog {
 
     /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * {@code target} must exist in the divelog book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the divelog book.
      */
     public void updatePerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
@@ -87,7 +87,7 @@ public class DiveLog implements ReadOnlyDiveLog {
 
     /**
      * Removes {@code key} from this {@code DiveLog}.
-     * {@code key} must exist in the address book.
+     * {@code key} must exist in the divelog book.
      */
     public void removePerson(Person key) {
         persons.remove(key);

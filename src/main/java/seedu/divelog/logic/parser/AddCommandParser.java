@@ -9,6 +9,7 @@ import static seedu.divelog.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import seedu.divelog.commons.core.Messages;
 import seedu.divelog.logic.commands.AddCommand;
 import seedu.divelog.logic.parser.exceptions.ParseException;
 import seedu.divelog.model.person.Address;
@@ -17,7 +18,6 @@ import seedu.divelog.model.person.Name;
 import seedu.divelog.model.person.Person;
 import seedu.divelog.model.person.Phone;
 import seedu.divelog.model.tag.Tag;
-import seedu.divelog.commons.core.Messages;
 
 /**
  * Parses input arguments and creates a new AddCommand object

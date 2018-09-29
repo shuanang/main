@@ -1,12 +1,11 @@
 package seedu.divelog.model.person;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.divelog.commons.util.AppUtil;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.divelog.commons.util.AppUtil.checkArgument;
-
 /**
- * Represents a Person's phone number in the address book.
+ * Represents a Person's phone number in the divelog book.
  * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
  */
 public class Phone {

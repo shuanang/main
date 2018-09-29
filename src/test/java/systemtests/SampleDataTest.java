@@ -1,6 +1,6 @@
 package systemtests;
 
-import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
+import static seedu.divelog.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,7 +11,7 @@ import org.junit.Test;
 import seedu.divelog.model.DiveLog;
 import seedu.divelog.model.person.Person;
 import seedu.divelog.model.util.SampleDataUtil;
-import seedu.address.testutil.TestUtil;
+import seedu.divelog.testutil.TestUtil;
 
 public class SampleDataTest extends DiveLogSystemTest {
     /**

@@ -1,7 +1,6 @@
 package seedu.divelog.commons.util;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.divelog.commons.util.AppUtil.checkArgument;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

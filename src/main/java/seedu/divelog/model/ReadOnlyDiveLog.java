@@ -4,7 +4,7 @@ import javafx.collections.ObservableList;
 import seedu.divelog.model.person.Person;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of an divelog book
  */
 public interface ReadOnlyDiveLog {
 

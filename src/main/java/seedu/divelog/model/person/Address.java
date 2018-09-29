@@ -1,12 +1,11 @@
 package seedu.divelog.model.person;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.divelog.commons.util.AppUtil;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.divelog.commons.util.AppUtil.checkArgument;
-
 /**
- * Represents a Person's address in the address book.
+ * Represents a Person's divelog in the divelog book.
  * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
  */
 public class Address {
@@ -15,7 +14,7 @@ public class Address {
             "Addresses can take any values, and it should not be blank";
 
     /*
-     * The first character of the address must not be a whitespace,
+     * The first character of the divelog must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String ADDRESS_VALIDATION_REGEX = "[^\\s].*";
@@ -25,7 +24,7 @@ public class Address {
     /**
      * Constructs an {@code Address}.
      *
-     * @param address A valid address.
+     * @param address A valid divelog.
      */
     public Address(String address) {
         requireNonNull(address);

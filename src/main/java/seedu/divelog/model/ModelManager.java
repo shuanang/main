@@ -1,7 +1,6 @@
 package seedu.divelog.model;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.divelog.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -12,11 +11,11 @@ import javafx.collections.transformation.FilteredList;
 import seedu.divelog.commons.core.ComponentManager;
 import seedu.divelog.commons.core.LogsCenter;
 import seedu.divelog.commons.events.model.AddressBookChangedEvent;
-import seedu.divelog.model.person.Person;
 import seedu.divelog.commons.util.CollectionUtil;
+import seedu.divelog.model.person.Person;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the divelog book data.
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -31,7 +30,7 @@ public class ModelManager extends ComponentManager implements Model {
         super();
         CollectionUtil.requireAllNonNull(addressBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with divelog book: " + addressBook + " and user prefs " + userPrefs);
 
         versionedAddressBook = new VersionedDiveLog(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());

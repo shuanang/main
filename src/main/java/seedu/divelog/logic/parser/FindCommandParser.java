@@ -2,10 +2,10 @@ package seedu.divelog.logic.parser;
 
 import java.util.Arrays;
 
+import seedu.divelog.commons.core.Messages;
 import seedu.divelog.logic.commands.FindCommand;
 import seedu.divelog.logic.parser.exceptions.ParseException;
 import seedu.divelog.model.person.NameContainsKeywordsPredicate;
-import seedu.divelog.commons.core.Messages;
 
 /**
  * Parses input arguments and creates a new FindCommand object

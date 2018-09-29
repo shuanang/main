@@ -7,7 +7,7 @@ import seedu.divelog.logic.commands.exceptions.CommandException;
 import seedu.divelog.model.Model;
 
 /**
- * Reverts the {@code model}'s address book to its previously undone state.
+ * Reverts the {@code model}'s divelog book to its previously undone state.
  */
 public class RedoCommand extends Command {
 

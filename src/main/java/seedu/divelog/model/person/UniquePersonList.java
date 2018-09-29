@@ -1,16 +1,15 @@
 package seedu.divelog.model.person;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.divelog.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.divelog.commons.util.CollectionUtil;
 import seedu.divelog.model.person.exceptions.DuplicatePersonException;
 import seedu.divelog.model.person.exceptions.PersonNotFoundException;
-import seedu.divelog.commons.util.CollectionUtil;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.

@@ -3,33 +3,33 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.divelog.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
+import static seedu.divelog.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.divelog.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+import static seedu.divelog.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.divelog.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.divelog.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.divelog.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.divelog.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.divelog.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.divelog.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.divelog.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.divelog.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.divelog.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.divelog.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
+import static seedu.divelog.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static seedu.divelog.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
+import static seedu.divelog.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.divelog.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.divelog.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
+import static seedu.divelog.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.divelog.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.divelog.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BOB;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.divelog.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.divelog.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.divelog.testutil.TypicalPersons.AMY;
+import static seedu.divelog.testutil.TypicalPersons.BOB;
+import static seedu.divelog.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
@@ -45,8 +45,8 @@ import seedu.divelog.model.person.Name;
 import seedu.divelog.model.person.Person;
 import seedu.divelog.model.person.Phone;
 import seedu.divelog.model.tag.Tag;
-import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.PersonUtil;
+import seedu.divelog.testutil.PersonBuilder;
+import seedu.divelog.testutil.PersonUtil;
 
 public class EditCommandSystemTest extends DiveLogSystemTest {
 
@@ -109,7 +109,7 @@ public class EditCommandSystemTest extends DiveLogSystemTest {
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
-        /* Case: filtered person list, edit index within bounds of address book and person list -> edited */
+        /* Case: filtered person list, edit index within bounds of divelog book and person list -> edited */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
@@ -118,7 +118,7 @@ public class EditCommandSystemTest extends DiveLogSystemTest {
         editedPerson = new PersonBuilder(personToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedPerson);
 
-        /* Case: filtered person list, edit index within bounds of address book but out of bounds of person list
+        /* Case: filtered person list, edit index within bounds of divelog book but out of bounds of person list
          * -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
@@ -175,7 +175,7 @@ public class EditCommandSystemTest extends DiveLogSystemTest {
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_EMAIL_DESC,
                 Email.MESSAGE_EMAIL_CONSTRAINTS);
 
-        /* Case: invalid address -> rejected */
+        /* Case: invalid divelog -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_ADDRESS_DESC,
                 Address.MESSAGE_ADDRESS_CONSTRAINTS);
 
@@ -197,7 +197,7 @@ public class EditCommandSystemTest extends DiveLogSystemTest {
                 + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 
-        /* Case: edit a person with new values same as another person's values but with different address -> rejected */
+        /* Case: edit a person with new values same as another person's values but with different divelog -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);

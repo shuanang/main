@@ -1,17 +1,15 @@
 package seedu.divelog.model.person;
 
-import static seedu.divelog.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.divelog.model.tag.Tag;
 import seedu.divelog.commons.util.CollectionUtil;
+import seedu.divelog.model.tag.Tag;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Person in the divelog book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {

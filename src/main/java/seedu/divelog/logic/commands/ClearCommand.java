@@ -7,7 +7,7 @@ import seedu.divelog.model.DiveLog;
 import seedu.divelog.model.Model;
 
 /**
- * Clears the address book.
+ * Clears the divelog book.
  */
 public class ClearCommand extends Command {
 

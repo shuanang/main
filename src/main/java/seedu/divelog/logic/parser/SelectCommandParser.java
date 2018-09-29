@@ -1,9 +1,9 @@
 package seedu.divelog.logic.parser;
 
+import seedu.divelog.commons.core.Messages;
 import seedu.divelog.commons.core.index.Index;
 import seedu.divelog.logic.commands.SelectCommand;
 import seedu.divelog.logic.parser.exceptions.ParseException;
-import seedu.divelog.commons.core.Messages;
 
 /**
  * Parses input arguments and creates a new SelectCommand object
