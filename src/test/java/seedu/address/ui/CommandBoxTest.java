@@ -9,11 +9,12 @@ import org.junit.Test;
 
 import guitests.guihandles.CommandBoxHandle;
 import javafx.scene.input.KeyCode;
-import seedu.address.logic.Logic;
-import seedu.address.logic.LogicManager;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
+import seedu.divelog.logic.Logic;
+import seedu.divelog.logic.LogicManager;
+import seedu.divelog.logic.commands.ListCommand;
+import seedu.divelog.model.Model;
+import seedu.divelog.model.ModelManager;
+import seedu.divelog.ui.CommandBox;
 
 public class CommandBoxTest extends GuiUnitTest {
 

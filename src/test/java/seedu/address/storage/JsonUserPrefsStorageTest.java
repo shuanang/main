@@ -13,8 +13,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.UserPrefs;
+import seedu.divelog.commons.exceptions.DataConversionException;
+import seedu.divelog.model.UserPrefs;
+import seedu.divelog.storage.JsonUserPrefsStorage;
 
 public class JsonUserPrefsStorageTest {
 

@@ -10,12 +10,13 @@ import org.testfx.api.FxToolkit;
 import guitests.guihandles.StageHandle;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import seedu.address.commons.core.Config;
-import seedu.address.commons.events.ui.ExitAppRequestEvent;
-import seedu.address.logic.LogicManager;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
+import seedu.divelog.commons.core.Config;
+import seedu.divelog.commons.events.ui.ExitAppRequestEvent;
+import seedu.divelog.logic.LogicManager;
+import seedu.divelog.model.ModelManager;
+import seedu.divelog.model.UserPrefs;
 import seedu.address.ui.testutil.EventsCollectorRule;
+import seedu.divelog.ui.MainWindow;
 
 /**
  * Contains tests for closing of the {@code MainWindow}.

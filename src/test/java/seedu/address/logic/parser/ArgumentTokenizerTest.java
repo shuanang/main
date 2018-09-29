@@ -6,6 +6,9 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+import seedu.divelog.logic.parser.ArgumentMultimap;
+import seedu.divelog.logic.parser.ArgumentTokenizer;
+import seedu.divelog.logic.parser.Prefix;
 
 public class ArgumentTokenizerTest {
 

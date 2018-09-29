@@ -11,6 +11,7 @@ import java.util.Map;
 import org.junit.Test;
 
 import javafx.application.Application;
+import seedu.divelog.AppParameters;
 
 public class AppParametersTest {
 

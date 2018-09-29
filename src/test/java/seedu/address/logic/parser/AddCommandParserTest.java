@@ -1,6 +1,6 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.divelog.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
@@ -31,13 +31,14 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.divelog.logic.commands.AddCommand;
+import seedu.divelog.logic.parser.AddCommandParser;
+import seedu.divelog.model.person.Address;
+import seedu.divelog.model.person.Email;
+import seedu.divelog.model.person.Name;
+import seedu.divelog.model.person.Person;
+import seedu.divelog.model.person.Phone;
+import seedu.divelog.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandParserTest {

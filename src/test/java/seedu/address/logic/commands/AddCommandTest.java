@@ -14,12 +14,14 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.divelog.logic.CommandHistory;
+import seedu.divelog.logic.commands.AddCommand;
+import seedu.divelog.logic.commands.CommandResult;
+import seedu.divelog.logic.commands.exceptions.CommandException;
+import seedu.divelog.model.AddressBook;
+import seedu.divelog.model.Model;
+import seedu.divelog.model.ReadOnlyAddressBook;
+import seedu.divelog.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {

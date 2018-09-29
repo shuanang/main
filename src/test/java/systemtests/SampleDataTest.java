@@ -8,9 +8,9 @@ import java.nio.file.Path;
 
 import org.junit.Test;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.person.Person;
-import seedu.address.model.util.SampleDataUtil;
+import seedu.divelog.model.AddressBook;
+import seedu.divelog.model.person.Person;
+import seedu.divelog.model.util.SampleDataUtil;
 import seedu.address.testutil.TestUtil;
 
 public class SampleDataTest extends AddressBookSystemTest {

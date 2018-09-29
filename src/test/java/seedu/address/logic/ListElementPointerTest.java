@@ -11,6 +11,7 @@ import java.util.NoSuchElementException;
 
 import org.junit.Before;
 import org.junit.Test;
+import seedu.divelog.logic.ListElementPointer;
 
 public class ListElementPointerTest {
     private static final String FIRST_ELEMENT = "first";

@@ -14,13 +14,14 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.Rule;
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
+import seedu.divelog.commons.core.Messages;
+import seedu.divelog.commons.core.index.Index;
+import seedu.divelog.commons.events.ui.JumpToListRequestEvent;
+import seedu.divelog.logic.CommandHistory;
+import seedu.divelog.logic.commands.SelectCommand;
+import seedu.divelog.model.Model;
+import seedu.divelog.model.ModelManager;
+import seedu.divelog.model.UserPrefs;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
 /**

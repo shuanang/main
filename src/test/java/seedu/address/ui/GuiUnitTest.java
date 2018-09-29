@@ -8,7 +8,7 @@ import org.junit.Rule;
 import guitests.GuiRobot;
 import guitests.guihandles.exceptions.NodeNotFoundException;
 import javafx.scene.Node;
-import seedu.address.commons.core.EventsCenter;
+import seedu.divelog.commons.core.EventsCenter;
 import seedu.address.ui.testutil.UiPartRule;
 
 /**

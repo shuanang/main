@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import seedu.address.testutil.Assert;
+import seedu.divelog.model.person.Name;
 
 public class NameTest {
 

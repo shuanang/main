@@ -14,12 +14,16 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.commons.events.storage.DataSavingExceptionEvent;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.UserPrefs;
+import seedu.divelog.commons.events.model.AddressBookChangedEvent;
+import seedu.divelog.commons.events.storage.DataSavingExceptionEvent;
+import seedu.divelog.model.AddressBook;
+import seedu.divelog.model.ReadOnlyAddressBook;
+import seedu.divelog.model.UserPrefs;
 import seedu.address.ui.testutil.EventsCollectorRule;
+import seedu.divelog.storage.JsonUserPrefsStorage;
+import seedu.divelog.storage.Storage;
+import seedu.divelog.storage.StorageManager;
+import seedu.divelog.storage.XmlAddressBookStorage;
 
 public class StorageManagerTest {
 

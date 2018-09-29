@@ -2,15 +2,16 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.HelpCommand.SHOWING_HELP_MESSAGE;
+import static seedu.divelog.logic.commands.HelpCommand.SHOWING_HELP_MESSAGE;
 
 import org.junit.Rule;
 import org.junit.Test;
 
-import seedu.address.commons.events.ui.ShowHelpRequestEvent;
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
+import seedu.divelog.commons.events.ui.ShowHelpRequestEvent;
+import seedu.divelog.logic.CommandHistory;
+import seedu.divelog.logic.commands.HelpCommand;
+import seedu.divelog.model.Model;
+import seedu.divelog.model.ModelManager;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
 public class HelpCommandTest {

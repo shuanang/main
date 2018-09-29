@@ -3,6 +3,7 @@ package seedu.address.model.tag;
 import org.junit.Test;
 
 import seedu.address.testutil.Assert;
+import seedu.divelog.model.tag.Tag;
 
 public class TagTest {
 

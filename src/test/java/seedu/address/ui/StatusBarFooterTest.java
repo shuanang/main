@@ -2,8 +2,8 @@ package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.EventsUtil.postNow;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
+import static seedu.divelog.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
+import static seedu.divelog.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,8 +18,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import guitests.guihandles.StatusBarFooterHandle;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.model.AddressBook;
+import seedu.divelog.commons.events.model.AddressBookChangedEvent;
+import seedu.divelog.model.AddressBook;
+import seedu.divelog.ui.StatusBarFooter;
 
 public class StatusBarFooterTest extends GuiUnitTest {
 

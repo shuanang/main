@@ -2,7 +2,7 @@ package seedu.address.commons.util;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.divelog.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.junit.Test;
+import seedu.divelog.commons.util.CollectionUtil;
 
 public class CollectionUtilTest {
     @Test
