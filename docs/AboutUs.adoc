@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::arjo129.jpg[width="150", align="left"]
 {empty}[https://arjo129.wordpress.com[homepage]] [https://github.com/arjo129[github]] 
 
-Role: Developer
+Role: Developer +
 Responsibilities: Team Lead
 
 '''
@@ -21,7 +21,7 @@ Responsibilities: Team Lead
 image::shuanang.jpeg[width="150", align="left"]
 {empty}[http://github.com/shuanang[github]] 
 
-Role: Developer
+Role: Developer +
 Responsibilities: Pressure group calculation
 
 '''
