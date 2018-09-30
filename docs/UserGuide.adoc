@@ -77,37 +77,32 @@ Format: `edit INDEX [ts/TIME_START] [te/TIME_END] [ss/SAFETY_STOP_TIME] [d/DEPTH
 ****
 
 Examples:
+`edit 1 pge/F l/Tioman`
 
-`edit 1 pge/F l/Tioman `
+=== Locating dives0 by location: `find`
 
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
+Finds dives whose location contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
+* The search is case insensitive. e.g `tioman` will match `Tioman`
+* Only the location is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `find Bali` +
+Returns `Dive at Bali` 
 
-=== Deleting a person : `delete`
+=== Deleting a dive : `delete`
 
-Deletes the specified person from the address book. +
+Deletes the specified dive from the address book. +
 Format: `delete INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the dive at the specified `INDEX`.
+* The index refers to the index number shown in the displayed dive list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -115,18 +110,18 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
+Deletes the 2nd dive in the Dive Log.
+* `find Bali` +
 `delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Deletes the 1st dive in the results of the `find` command.
 
 === Selecting a person : `select`
 
-Selects the person identified by the index number used in the displayed person list. +
+Selects the dive identified by the index number used in the displayed dive list. +
 Format: `select INDEX`
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
+* Selects the dive and loads the Google maps page the dive at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
@@ -135,10 +130,10 @@ Examples:
 
 * `list` +
 `select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
+Selects the 2nd dive in the address book.
+* `find Bali` +
 `select 1` +
-Selects the 1st person in the results of the `find` command.
+Selects the 1st dive in the results of the `find` command.
 
 === Listing entered commands : `history`
 
