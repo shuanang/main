@@ -79,7 +79,7 @@ Format: `edit INDEX [ts/TIME_START] [te/TIME_END] [ss/SAFETY_STOP_TIME] [d/DEPTH
 Examples:
 `edit 1 pge/F l/Tioman`
 
-=== Locating dives0 by location: `find`
+=== Locating dives by location: `find`
 
 Finds dives whose location contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
