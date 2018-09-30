@@ -4,16 +4,18 @@ import java.net.URL;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
+import com.sun.xml.bind.XmlAccessorFactory;
 
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.divelog.MainApp;
 import seedu.divelog.commons.core.LogsCenter;
-import seedu.divelog.commons.events.ui.PersonPanelSelectionChangedEvent;
-import seedu.divelog.model.person.Person;
+import seedu.divelog.commons.events.ui.DivePanelSelectionChangedEvent;
+import seedu.divelog.model.dive.DiveSession;
 
 /**
  * The Browser Panel of the App.
@@ -22,7 +24,7 @@ public class BrowserPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE = "default.html";
     public static final String SEARCH_PAGE_URL =
-            "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
+            "http://www.google.com/maps/search/";
 
     private static final String FXML = "BrowserPanel.fxml";
 
@@ -30,19 +32,20 @@ public class BrowserPanel extends UiPart<Region> {
 
     @FXML
     private WebView browser;
-
+    @FXML
+    private Label diveDetails;
     public BrowserPanel() {
         super(FXML);
 
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
-
+        diveDetails.setText("Hello World!");
         loadDefaultPage();
         registerAsAnEventHandler(this);
     }
 
-    private void loadPersonPage(Person person) {
-        loadPage(SEARCH_PAGE_URL + person.getName().fullName);
+    private void loadPersonPage(DiveSession dive) {
+        loadPage(SEARCH_PAGE_URL + dive.getLocation().getLocationName());
     }
 
     public void loadPage(String url) {
@@ -65,7 +68,7 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
+    private void handlePersonPanelSelectionChangedEvent(DivePanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadPersonPage(event.getNewSelection());
     }

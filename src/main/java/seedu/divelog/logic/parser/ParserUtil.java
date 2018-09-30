@@ -9,6 +9,7 @@ import java.util.Set;
 import seedu.divelog.commons.core.index.Index;
 import seedu.divelog.commons.util.StringUtil;
 import seedu.divelog.logic.parser.exceptions.ParseException;
+import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.person.Address;
 import seedu.divelog.model.person.Email;
 import seedu.divelog.model.person.Name;
@@ -21,7 +22,7 @@ import seedu.divelog.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-
+    public static final String MESSAGE_INVALID_DEPTH = "Depth must be a number.";
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
@@ -120,5 +121,18 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses depth profile
+     * @param depth
+     * @return
+     */
+    public static DepthProfile parseDepth(String depth) throws ParseException {
+        try {
+            return new DepthProfile(Float.valueOf(depth));
+        } catch (NumberFormatException n) {
+            throw new ParseException(MESSAGE_INVALID_DEPTH);
+        }
     }
 }

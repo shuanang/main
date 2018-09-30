@@ -95,14 +95,14 @@ public class DiveLogTest {
      * A stub ReadOnlyDiveLog whose persons list can violate interface constraints.
      */
     private static class DiveLogStub implements ReadOnlyDiveLog {
-        private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<DiveSession> persons = FXCollections.observableArrayList();
 
         DiveLogStub(Collection<Person> persons) {
             this.persons.setAll(persons);
         }
 
         @Override
-        public ObservableList<Person> getPersonList() {
+        public ObservableList<DiveSession> getPersonList() {
             return persons;
         }
     }

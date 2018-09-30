@@ -1,18 +1,18 @@
 package seedu.divelog.ui;
 
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.divelog.model.person.Person;
+import seedu.divelog.model.dive.DiveSession;
 
 /**
  * An UI component that displays information of a {@code Person}.
  */
-public class PersonCard extends UiPart<Region> {
+public class DiveSessionCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "DiveListCards.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -22,7 +22,7 @@ public class PersonCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on DiveLog level 4</a>
      */
 
-    public final Person person;
+    public final DiveSession dive;
 
     @FXML
     private HBox cardPane;
@@ -31,23 +31,14 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
-    @FXML
-    private Label address;
-    @FXML
-    private Label email;
-    @FXML
-    private FlowPane tags;
+    private Label depth;
 
-    public PersonCard(Person person, int displayedIndex) {
+    public DiveSessionCard(DiveSession dive, int displayedIndex) {
         super(FXML);
-        this.person = person;
+        this.dive = dive;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
-        person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        name.setText("Dive at " + dive.getLocation().getLocationName());
+        depth.setText(dive.getDepthProfile().getDepth()+"m");
     }
 
     @Override
@@ -58,13 +49,13 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof DiveSessionCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        DiveSessionCard card = (DiveSessionCard) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+                && dive.equals(card.dive);
     }
 }

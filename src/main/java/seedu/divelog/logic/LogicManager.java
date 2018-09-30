@@ -8,7 +8,7 @@ import seedu.divelog.commons.core.LogsCenter;
 import seedu.divelog.logic.commands.Command;
 import seedu.divelog.logic.commands.CommandResult;
 import seedu.divelog.logic.commands.exceptions.CommandException;
-import seedu.divelog.logic.parser.AddressBookParser;
+import seedu.divelog.logic.parser.DiveLogParser;
 import seedu.divelog.logic.parser.exceptions.ParseException;
 import seedu.divelog.model.Model;
 import seedu.divelog.model.dive.DiveSession;
@@ -21,19 +21,19 @@ public class LogicManager extends ComponentManager implements Logic {
 
     private final Model model;
     private final CommandHistory history;
-    private final AddressBookParser addressBookParser;
+    private final DiveLogParser diveLogParser;
 
     public LogicManager(Model model) {
         this.model = model;
         history = new CommandHistory();
-        addressBookParser = new AddressBookParser();
+        diveLogParser = new DiveLogParser();
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
-            Command command = addressBookParser.parseCommand(commandText);
+            Command command = diveLogParser.parseCommand(commandText);
             return command.execute(model, history);
         } finally {
             history.add(commandText);

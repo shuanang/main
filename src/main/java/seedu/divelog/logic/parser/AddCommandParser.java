@@ -1,23 +1,16 @@
 package seedu.divelog.logic.parser;
 
-import static seedu.divelog.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.divelog.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.divelog.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.divelog.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.divelog.logic.parser.CliSyntax.PREFIX_TAG;
-
-import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.divelog.commons.core.Messages;
 import seedu.divelog.logic.commands.AddCommand;
 import seedu.divelog.logic.parser.exceptions.ParseException;
-import seedu.divelog.model.person.Address;
-import seedu.divelog.model.person.Email;
-import seedu.divelog.model.person.Name;
-import seedu.divelog.model.person.Person;
-import seedu.divelog.model.person.Phone;
-import seedu.divelog.model.tag.Tag;
+import seedu.divelog.model.dive.DepthProfile;
+import seedu.divelog.model.dive.DiveSession;
+import seedu.divelog.model.dive.Location;
+import seedu.divelog.model.dive.PressureGroup;
+import seedu.divelog.model.dive.Time;
+
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -31,22 +24,25 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_TIME_START, CliSyntax.PREFIX_TIME_END, CliSyntax.PREFIX_SAFETY_STOP,
+                        CliSyntax.PREFIX_DEPTH, CliSyntax.PREFIX_PRESSURE_GROUP_START , CliSyntax.PREFIX_PRESSURE_GROUP_END, CliSyntax.PREFIX_LOCATION);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
+        if (!arePrefixesPresent(argMultimap, CliSyntax.PREFIX_TIME_START, CliSyntax.PREFIX_TIME_END, CliSyntax.PREFIX_SAFETY_STOP,
+                CliSyntax.PREFIX_DEPTH, CliSyntax.PREFIX_PRESSURE_GROUP_START, CliSyntax.PREFIX_PRESSURE_GROUP_END, CliSyntax.PREFIX_LOCATION)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-
-        Person person = new Person(name, phone, email, address, tagList);
-
-        return new AddCommand(person);
+        Time startTime = new Time(argMultimap.getValue(CliSyntax.PREFIX_TIME_START).get());
+        Time endTime = new Time(argMultimap.getValue(CliSyntax.PREFIX_TIME_END).get());
+        Time safetyStop = new Time(argMultimap.getValue(CliSyntax.PREFIX_SAFETY_STOP).get());
+        PressureGroup pressureGroupAtBegining = new PressureGroup(argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_START).get());
+        PressureGroup pressureGroupAtEnd = new PressureGroup(argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_END).get());
+        Location location = new Location(argMultimap.getValue(CliSyntax.PREFIX_LOCATION).get());
+        DepthProfile depthProfile = ParserUtil.parseDepth(argMultimap.getValue(CliSyntax.PREFIX_DEPTH).get());
+        DiveSession dive = new DiveSession(startTime, safetyStop, endTime, pressureGroupAtBegining,
+                pressureGroupAtEnd, location, depthProfile);
+        return new AddCommand(dive);
     }
 
     /**

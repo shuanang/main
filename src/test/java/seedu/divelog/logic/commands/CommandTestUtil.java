@@ -2,11 +2,7 @@ package seedu.divelog.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.divelog.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.divelog.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.divelog.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.divelog.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.divelog.logic.parser.CliSyntax.PREFIX_TAG;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,7 +13,7 @@ import seedu.divelog.logic.CommandHistory;
 import seedu.divelog.logic.commands.exceptions.CommandException;
 import seedu.divelog.model.DiveLog;
 import seedu.divelog.model.Model;
-import seedu.divelog.model.person.NameContainsKeywordsPredicate;
+import seedu.divelog.model.person.LocationContainsKeywordsPredicate;
 import seedu.divelog.model.person.Person;
 import seedu.divelog.testutil.EditPersonDescriptorBuilder;
 
@@ -57,8 +53,8 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditCommand.EditDiveDescriptor DESC_AMY;
+    public static final EditCommand.EditDiveDescriptor DESC_BOB;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -124,7 +120,7 @@ public class CommandTestUtil {
 
         Person person = model.getFilteredDiveList().get(targetIndex.getZeroBased());
         final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredDiveList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredDiveList(new LocationContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredDiveList().size());
     }

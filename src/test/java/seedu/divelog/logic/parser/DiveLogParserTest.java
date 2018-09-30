@@ -18,7 +18,6 @@ import seedu.divelog.logic.commands.AddCommand;
 import seedu.divelog.logic.commands.ClearCommand;
 import seedu.divelog.logic.commands.DeleteCommand;
 import seedu.divelog.logic.commands.EditCommand;
-import seedu.divelog.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.divelog.logic.commands.ExitCommand;
 import seedu.divelog.logic.commands.FindCommand;
 import seedu.divelog.logic.commands.HelpCommand;
@@ -28,7 +27,7 @@ import seedu.divelog.logic.commands.RedoCommand;
 import seedu.divelog.logic.commands.SelectCommand;
 import seedu.divelog.logic.commands.UndoCommand;
 import seedu.divelog.logic.parser.exceptions.ParseException;
-import seedu.divelog.model.person.NameContainsKeywordsPredicate;
+import seedu.divelog.model.person.LocationContainsKeywordsPredicate;
 import seedu.divelog.model.person.Person;
 import seedu.divelog.testutil.EditPersonDescriptorBuilder;
 import seedu.divelog.testutil.PersonBuilder;
@@ -38,7 +37,7 @@ public class DiveLogParserTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final DiveLogParser parser = new DiveLogParser();
 
     @Test
     public void parseCommand_add() throws Exception {
@@ -63,7 +62,7 @@ public class DiveLogParserTest {
     @Test
     public void parseCommand_edit() throws Exception {
         Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
+        EditCommand.EditDiveDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
@@ -80,7 +79,7 @@ public class DiveLogParserTest {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        assertEquals(new FindCommand(new LocationContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test

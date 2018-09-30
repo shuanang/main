@@ -9,6 +9,7 @@ import seedu.divelog.commons.core.index.Index;
 import seedu.divelog.logic.CommandHistory;
 import seedu.divelog.logic.commands.exceptions.CommandException;
 import seedu.divelog.model.Model;
+import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.person.Person;
 
 /**
@@ -34,20 +35,20 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredDiveList();
+        List<DiveSession> lastShownList = model.getFilteredDiveList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
+        DiveSession diveToDelete = lastShownList.get(targetIndex.getZeroBased());
         try {
-            model.deleteDiveSession(personToDelete);
+            model.deleteDiveSession(diveToDelete);
         } catch (seedu.divelog.model.dive.exceptions.DiveNotFoundException e) {
             e.printStackTrace();
         }
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, diveToDelete));
     }
 
     @Override

@@ -1,17 +1,17 @@
 package seedu.divelog.commons.events.ui;
 
 import seedu.divelog.commons.events.BaseEvent;
-import seedu.divelog.model.person.Person;
+import seedu.divelog.model.dive.DiveSession;
 
 /**
  * Represents a selection change in the Person List Panel
  */
-public class PersonPanelSelectionChangedEvent extends BaseEvent {
+public class DivePanelSelectionChangedEvent extends BaseEvent {
 
 
-    private final Person newSelection;
+    private final DiveSession newSelection;
 
-    public PersonPanelSelectionChangedEvent(Person newSelection) {
+    public DivePanelSelectionChangedEvent(DiveSession newSelection) {
         this.newSelection = newSelection;
     }
 
@@ -20,7 +20,7 @@ public class PersonPanelSelectionChangedEvent extends BaseEvent {
         return getClass().getSimpleName();
     }
 
-    public Person getNewSelection() {
+    public DiveSession getNewSelection() {
         return newSelection;
     }
 }

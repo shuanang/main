@@ -2,16 +2,13 @@ package seedu.divelog.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.Set;
-
 import seedu.divelog.commons.core.Messages;
 import seedu.divelog.commons.core.index.Index;
 import seedu.divelog.logic.commands.EditCommand;
 import seedu.divelog.logic.parser.exceptions.ParseException;
-import seedu.divelog.model.tag.Tag;
+import seedu.divelog.model.dive.Location;
+import seedu.divelog.model.dive.PressureGroup;
+import seedu.divelog.model.dive.Time;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -26,8 +23,14 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_NAME, CliSyntax.PREFIX_PHONE, CliSyntax.PREFIX_EMAIL,
-                        CliSyntax.PREFIX_ADDRESS, CliSyntax.PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args,
+                        CliSyntax.PREFIX_TIME_START,
+                        CliSyntax.PREFIX_TIME_END,
+                        CliSyntax.PREFIX_SAFETY_STOP,
+                        CliSyntax.PREFIX_DEPTH,
+                        CliSyntax.PREFIX_PRESSURE_GROUP_START,
+                        CliSyntax.PREFIX_PRESSURE_GROUP_END,
+                        CliSyntax.PREFIX_LOCATION);
 
         Index index;
 
@@ -38,22 +41,32 @@ public class EditCommandParser implements Parser<EditCommand> {
                     String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
-        EditCommand.EditPersonDescriptor editPersonDescriptor = new EditCommand.EditPersonDescriptor();
-        if (argMultimap.getValue(CliSyntax.PREFIX_NAME).isPresent()) {
-            editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(CliSyntax.PREFIX_NAME).get()));
+        EditCommand.EditDiveDescriptor editPersonDescriptor = new EditCommand.EditDiveDescriptor();
+        if (argMultimap.getValue(CliSyntax.PREFIX_TIME_START).isPresent()) {
+            editPersonDescriptor.setStart(new Time(argMultimap.getValue(CliSyntax.PREFIX_TIME_START).get()));
         }
-        if (argMultimap.getValue(CliSyntax.PREFIX_PHONE).isPresent()) {
-            editPersonDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(CliSyntax.PREFIX_PHONE).get()));
+        if (argMultimap.getValue(CliSyntax.PREFIX_SAFETY_STOP).isPresent()) {
+            editPersonDescriptor.setSafetyStop(new Time(argMultimap.getValue(CliSyntax.PREFIX_SAFETY_STOP).get()));
         }
-        if (argMultimap.getValue(CliSyntax.PREFIX_EMAIL).isPresent()) {
-            editPersonDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(CliSyntax.PREFIX_EMAIL).get()));
+        if (argMultimap.getValue(CliSyntax.PREFIX_TIME_END).isPresent()) {
+            editPersonDescriptor.setEnd(new Time(argMultimap.getValue(CliSyntax.PREFIX_TIME_END).get()));
         }
-        if (argMultimap.getValue(CliSyntax.PREFIX_ADDRESS).isPresent()) {
-            editPersonDescriptor.setAddress(
-                    ParserUtil.parseAddress(argMultimap.getValue(CliSyntax.PREFIX_ADDRESS).get()));
+        if (argMultimap.getValue(CliSyntax.PREFIX_DEPTH).isPresent()) {
+            editPersonDescriptor.setDepthProfile(
+                    ParserUtil.parseDepth(argMultimap.getValue(CliSyntax.PREFIX_DEPTH).get()));
         }
-        parseTagsForEdit(argMultimap.getAllValues(CliSyntax.PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
-
+        if (argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_START).isPresent()) {
+            editPersonDescriptor.setPressureGroupAtBeginning(
+                    new PressureGroup(argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_START).get()));
+        }
+        if (argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_END).isPresent()) {
+            editPersonDescriptor.setPressureGroupAtEnd(
+                    new PressureGroup(argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_END).get()));
+        }
+        if (argMultimap.getValue(CliSyntax.PREFIX_LOCATION).isPresent()) {
+            editPersonDescriptor.setLocation(
+                    new Location(argMultimap.getValue(CliSyntax.PREFIX_LOCATION).get()));
+        }
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
@@ -61,19 +74,5 @@ public class EditCommandParser implements Parser<EditCommand> {
         return new EditCommand(index, editPersonDescriptor);
     }
 
-    /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
-     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Tag>} containing zero tags.
-     */
-    private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws ParseException {
-        assert tags != null;
-
-        if (tags.isEmpty()) {
-            return Optional.empty();
-        }
-        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
-        return Optional.of(ParserUtil.parseTags(tagSet));
-    }
 
 }

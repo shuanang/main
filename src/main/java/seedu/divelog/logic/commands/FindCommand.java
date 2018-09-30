@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.divelog.commons.core.Messages;
 import seedu.divelog.logic.CommandHistory;
 import seedu.divelog.model.Model;
-import seedu.divelog.model.person.NameContainsKeywordsPredicate;
+import seedu.divelog.model.person.LocationContainsKeywordsPredicate;
 
 /**
  * Finds and lists all persons in divelog book whose name contains any of the argument keywords.
@@ -15,14 +15,11 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds a dive based on location";
 
-    private final NameContainsKeywordsPredicate predicate;
+    private final LocationContainsKeywordsPredicate predicate;
 
-    public FindCommand(NameContainsKeywordsPredicate predicate) {
+    public FindCommand(LocationContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 

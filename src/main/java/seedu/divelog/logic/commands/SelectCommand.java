@@ -11,7 +11,7 @@ import seedu.divelog.commons.events.ui.JumpToListRequestEvent;
 import seedu.divelog.logic.CommandHistory;
 import seedu.divelog.logic.commands.exceptions.CommandException;
 import seedu.divelog.model.Model;
-import seedu.divelog.model.person.Person;
+import seedu.divelog.model.dive.DiveSession;
 
 /**
  * Selects a person identified using it's displayed index from the divelog book.
@@ -37,7 +37,7 @@ public class SelectCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        List<Person> filteredPersonList = model.getFilteredDiveList();
+        List<DiveSession> filteredPersonList = model.getFilteredDiveList();
 
         if (targetIndex.getZeroBased() >= filteredPersonList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);

@@ -5,7 +5,7 @@ import java.util.Arrays;
 import seedu.divelog.commons.core.Messages;
 import seedu.divelog.logic.commands.FindCommand;
 import seedu.divelog.logic.parser.exceptions.ParseException;
-import seedu.divelog.model.person.NameContainsKeywordsPredicate;
+import seedu.divelog.model.person.LocationContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -26,7 +26,7 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        return new FindCommand(new LocationContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
     }
 
 }

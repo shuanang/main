@@ -8,7 +8,6 @@ import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.Location;
 import seedu.divelog.model.dive.PressureGroup;
 import seedu.divelog.model.dive.Time;
-import seedu.divelog.model.person.Person;
 
 /**
  * JAXB-friendly version of the Person.
@@ -51,7 +50,7 @@ public class XmlAdaptedDiveSession {
     }
 
     /**
-     * Converts a given Person into this class for JAXB use.
+     * Converts a given DiveSession into this class for JAXB use.
      *
      * @param source future changes to this will not affect the created XmlAdaptedDiveSession
      */
@@ -66,11 +65,11 @@ public class XmlAdaptedDiveSession {
     }
 
     /**
-     * Converts this jaxb-friendly adapted person object into the model's DiveSession object.
+     * Converts this jaxb-friendly adapted dive session object into the model's DiveSession object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
-    public DiveSession toModelType() throws IllegalValueException {
+    public DiveSession toModelType() {
         return new DiveSession(new Time(startTime), new Time(safetyStop), new  Time(endTime),
                 new PressureGroup(pressureGroupAtBeginning), new PressureGroup(pressureGroupAtEnd),
                 new Location(location), new DepthProfile(depthProfile));
@@ -85,5 +84,14 @@ public class XmlAdaptedDiveSession {
         if (!(other instanceof XmlAdaptedDiveSession)) {
             return false;
         }
+
+        XmlAdaptedDiveSession x = (XmlAdaptedDiveSession)other;
+        return startTime.equals(x.startTime)
+                && endTime.equals(x.endTime)
+                && safetyStop.equals(x.safetyStop)
+                && location.equals(x.location)
+                && pressureGroupAtEnd.equals(x.pressureGroupAtEnd)
+                && pressureGroupAtBeginning.equals(x.pressureGroupAtBeginning)
+                && depthProfile == x.depthProfile;
     }
 }

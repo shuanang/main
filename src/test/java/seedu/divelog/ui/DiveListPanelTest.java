@@ -24,7 +24,7 @@ import seedu.divelog.commons.util.XmlUtil;
 import seedu.divelog.model.person.Person;
 import seedu.divelog.storage.XmlSerializableDiveLog;
 
-public class PersonListPanelTest extends GuiUnitTest {
+public class DiveListPanelTest extends GuiUnitTest {
     private static final ObservableList<Person> TYPICAL_PERSONS =
             FXCollections.observableList(getTypicalPersons());
 
@@ -62,7 +62,7 @@ public class PersonListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Verifies that creating and deleting large number of persons in {@code PersonListPanel} requires lesser than
+     * Verifies that creating and deleting large number of persons in {@code DiveListPanel} requires lesser than
      * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
     @Test
@@ -77,7 +77,7 @@ public class PersonListPanelTest extends GuiUnitTest {
 
     /**
      * Returns a list of persons containing {@code personCount} persons that is used to populate the
-     * {@code PersonListPanel}.
+     * {@code DiveListPanel}.
      */
     private ObservableList<Person> createBackingList(int personCount) throws Exception {
         Path xmlFile = createXmlFileWithPersons(personCount);
@@ -111,14 +111,14 @@ public class PersonListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Initializes {@code personListPanelHandle} with a {@code PersonListPanel} backed by {@code backingList}.
-     * Also shows the {@code Stage} that displays only {@code PersonListPanel}.
+     * Initializes {@code personListPanelHandle} with a {@code DiveListPanel} backed by {@code backingList}.
+     * Also shows the {@code Stage} that displays only {@code DiveListPanel}.
      */
     private void initUi(ObservableList<Person> backingList) {
-        PersonListPanel personListPanel = new PersonListPanel(backingList);
-        uiPartRule.setUiPart(personListPanel);
+        DiveListPanel diveListPanel = new DiveListPanel(backingList);
+        uiPartRule.setUiPart(diveListPanel);
 
-        personListPanelHandle = new PersonListPanelHandle(getChildNode(personListPanel.getRoot(),
+        personListPanelHandle = new PersonListPanelHandle(getChildNode(diveListPanel.getRoot(),
                 PersonListPanelHandle.PERSON_LIST_VIEW_ID));
     }
 }

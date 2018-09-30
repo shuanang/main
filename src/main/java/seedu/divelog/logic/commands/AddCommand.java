@@ -1,16 +1,11 @@
 package seedu.divelog.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.divelog.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.divelog.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.divelog.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.divelog.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.divelog.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.divelog.logic.CommandHistory;
-import seedu.divelog.logic.commands.exceptions.CommandException;
+import seedu.divelog.logic.parser.CliSyntax;
 import seedu.divelog.model.Model;
-import seedu.divelog.model.person.Person;
+import seedu.divelog.model.dive.DiveSession;
 
 /**
  * Adds a person to the divelog book.
@@ -21,43 +16,41 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the divelog book. "
             + "Parameters: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_PHONE + "PHONE "
-            + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_ADDRESS + "ADDRESS "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + CliSyntax.PREFIX_TIME_START + "START_TIME "
+            + CliSyntax.PREFIX_TIME_END + "END_TIME "
+            + CliSyntax.PREFIX_SAFETY_STOP + "SAFETY_STOP_TIME "
+            + CliSyntax.PREFIX_DEPTH + "DEPTH "
+            + CliSyntax.PREFIX_PRESSURE_GROUP_START + "PRESSURE_GROUP_START "
+            + CliSyntax.PREFIX_PRESSURE_GROUP_END + "PRESSURE_GROUP_END "
+            + CliSyntax.PREFIX_LOCATION + "LOCATION \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_PHONE + "98765432 "
-            + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + CliSyntax.PREFIX_TIME_START + "0700 "
+            + CliSyntax.PREFIX_TIME_END + "0945 "
+            + CliSyntax.PREFIX_SAFETY_STOP + "0930 "
+            + CliSyntax.PREFIX_DEPTH + "15 "
+            + CliSyntax.PREFIX_PRESSURE_GROUP_START + "A "
+            + CliSyntax.PREFIX_PRESSURE_GROUP_END + "R "
+            + CliSyntax.PREFIX_LOCATION + "Sentosa ";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New dive session added!";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the divelog book";
 
-    private final Person toAdd;
+    private final DiveSession toAdd;
 
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
-    public AddCommand(Person person) {
-        requireNonNull(person);
-        toAdd = person;
+    public AddCommand(DiveSession dive) {
+        requireNonNull(dive);
+        toAdd = dive;
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history)  {
         requireNonNull(model);
-
-        if (model.hasPerson(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-        }
-
         model.addDiveSession(toAdd);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 
     @Override

@@ -6,10 +6,11 @@ package seedu.divelog.logic.parser;
 public class CliSyntax {
 
     /* Prefix definitions */
-    public static final Prefix PREFIX_NAME = new Prefix("n/");
-    public static final Prefix PREFIX_PHONE = new Prefix("p/");
-    public static final Prefix PREFIX_EMAIL = new Prefix("e/");
-    public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
-    public static final Prefix PREFIX_TAG = new Prefix("t/");
-
+    public static final Prefix PREFIX_TIME_START = new Prefix("ts/");
+    public static final Prefix PREFIX_TIME_END = new Prefix("te/");
+    public static final Prefix PREFIX_SAFETY_STOP = new Prefix("ss/");
+    public static final Prefix PREFIX_DEPTH = new Prefix("d/");
+    public static final Prefix PREFIX_PRESSURE_GROUP_START = new Prefix("pg/");
+    public static final Prefix PREFIX_PRESSURE_GROUP_END = new Prefix("pge/");
+    public static final Prefix PREFIX_LOCATION = new Prefix("l/");
 }

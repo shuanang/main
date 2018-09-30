@@ -9,7 +9,7 @@ import static seedu.divelog.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 
 import seedu.divelog.logic.commands.AddCommand;
-import seedu.divelog.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.divelog.logic.commands.EditCommand;
 import seedu.divelog.model.person.Person;
 import seedu.divelog.model.tag.Tag;
 
@@ -41,9 +41,9 @@ public class PersonUtil {
     }
 
     /**
-     * Returns the part of command string for the given {@code EditPersonDescriptor}'s details.
+     * Returns the part of command string for the given {@code EditDiveDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditPersonDescriptor descriptor) {
+    public static String getEditPersonDescriptorDetails(EditCommand.EditDiveDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
