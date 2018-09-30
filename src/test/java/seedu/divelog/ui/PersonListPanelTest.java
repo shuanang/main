@@ -22,7 +22,7 @@ import seedu.divelog.commons.events.ui.JumpToListRequestEvent;
 import seedu.divelog.commons.util.FileUtil;
 import seedu.divelog.commons.util.XmlUtil;
 import seedu.divelog.model.person.Person;
-import seedu.divelog.storage.XmlSerializableAddressBook;
+import seedu.divelog.storage.XmlSerializableDiveLog;
 
 public class PersonListPanelTest extends GuiUnitTest {
     private static final ObservableList<Person> TYPICAL_PERSONS =
@@ -81,9 +81,9 @@ public class PersonListPanelTest extends GuiUnitTest {
      */
     private ObservableList<Person> createBackingList(int personCount) throws Exception {
         Path xmlFile = createXmlFileWithPersons(personCount);
-        XmlSerializableAddressBook xmlAddressBook =
-                XmlUtil.getDataFromFile(xmlFile, XmlSerializableAddressBook.class);
-        return FXCollections.observableArrayList(xmlAddressBook.toModelType().getPersonList());
+        XmlSerializableDiveLog xmlAddressBook =
+                XmlUtil.getDataFromFile(xmlFile, XmlSerializableDiveLog.class);
+        return FXCollections.observableArrayList(xmlAddressBook.toModelType().getDiveSessionList());
     }
 
     /**

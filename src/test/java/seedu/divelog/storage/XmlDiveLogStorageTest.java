@@ -85,14 +85,14 @@ public class XmlDiveLogStorageTest {
         assertEquals(original, new DiveLog(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addPerson(HOON);
-        original.removePerson(ALICE);
+        original.addDive(HOON);
+        original.removeDive(ALICE);
         xmlAddressBookStorage.saveDiveLog(original, filePath);
         readBack = xmlAddressBookStorage.readDiveLog(filePath).get();
         assertEquals(original, new DiveLog(readBack));
 
         //Save and read without specifying file path
-        original.addPerson(IDA);
+        original.addDive(IDA);
         xmlAddressBookStorage.saveDiveLog(original); //file path not specified
         readBack = xmlAddressBookStorage.readDiveLog().get(); //file path not specified
         assertEquals(original, new DiveLog(readBack));

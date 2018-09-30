@@ -18,7 +18,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import guitests.guihandles.StatusBarFooterHandle;
-import seedu.divelog.commons.events.model.AddressBookChangedEvent;
+import seedu.divelog.commons.events.model.DiveLogChangedEvent;
 import seedu.divelog.model.DiveLog;
 
 public class StatusBarFooterTest extends GuiUnitTest {
@@ -26,7 +26,7 @@ public class StatusBarFooterTest extends GuiUnitTest {
     private static final Path STUB_SAVE_LOCATION = Paths.get("Stub");
     private static final Path RELATIVE_PATH = Paths.get(".");
 
-    private static final AddressBookChangedEvent EVENT_STUB = new AddressBookChangedEvent(new DiveLog());
+    private static final DiveLogChangedEvent EVENT_STUB = new DiveLogChangedEvent(new DiveLog());
 
     private static final Clock originalClock = StatusBarFooter.getClock();
     private static final Clock injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());

@@ -5,8 +5,10 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.divelog.model.person.Person;
-import seedu.divelog.model.person.UniquePersonList;
+import seedu.divelog.model.dive.DiveSession;
+import seedu.divelog.model.dive.DiveSessionList;
+import seedu.divelog.model.dive.exceptions.DiveNotFoundException;
+
 
 /**
  * Wraps all data at the divelog-book level
@@ -14,7 +16,7 @@ import seedu.divelog.model.person.UniquePersonList;
  */
 public class DiveLog implements ReadOnlyDiveLog {
 
-    private final UniquePersonList persons;
+    private final DiveSessionList diveSessions;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -24,13 +26,13 @@ public class DiveLog implements ReadOnlyDiveLog {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        diveSessions = new DiveSessionList();
     }
 
     public DiveLog() {}
 
     /**
-     * Creates an DiveLog using the Persons in the {@code toBeCopied}
+     * Creates an DiveLog using the DiveSessions in the {@code toBeCopied}
      */
     public DiveLog(ReadOnlyDiveLog toBeCopied) {
         this();
@@ -40,11 +42,12 @@ public class DiveLog implements ReadOnlyDiveLog {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the dive list with {@code diveSessions}.
+     * {@code diveSessions} must not contain duplicate diveSessions.
+     * @param diveSessions
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+    public void setDives(List<DiveSession> diveSessions) {
+        this.diveSessions.setDives(diveSessions);
     }
 
     /**
@@ -53,68 +56,70 @@ public class DiveLog implements ReadOnlyDiveLog {
     public void resetData(ReadOnlyDiveLog newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setDives(newData.getDiveList());
     }
 
     //// person-level operations
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the divelog book.
+     * @param diveSession
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
+    public boolean hasDive(DiveSession diveSession) {
+        requireNonNull(diveSession);
+        return diveSessions.contains(diveSession);
     }
 
     /**
-     * Adds a person to the divelog book.
-     * The person must not already exist in the divelog book.
+     * Adds a dive session to the dive log.
+     * The person must not already exist in the dive log.
      */
-    public void addPerson(Person p) {
-        persons.add(p);
+    public void addDive(DiveSession p) {
+        diveSessions.add(p);
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given dive {@code target} in the list with {@code editedDive}.
      * {@code target} must exist in the divelog book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the divelog book.
+     * The person identity of {@code editedDive} must not be the same as another existing person in the divelog book.
+     * @param target
+     * @param editedDive
      */
-    public void updatePerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
-
-        persons.setPerson(target, editedPerson);
+    public void updateDive(DiveSession target, DiveSession editedDive) throws DiveNotFoundException {
+        requireNonNull(editedDive);
+        diveSessions.setDiveSession(target, editedDive);
     }
 
     /**
      * Removes {@code key} from this {@code DiveLog}.
      * {@code key} must exist in the divelog book.
      */
-    public void removePerson(Person key) {
-        persons.remove(key);
+    public void removeDive(DiveSession key) throws DiveNotFoundException {
+        diveSessions.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return diveSessions.asUnmodifiableObservableList().size() + " diveSessions";
         // TODO: refine later
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+    public ObservableList<DiveSession> getDiveList() {
+        return diveSessions.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DiveLog // instanceof handles nulls
-                && persons.equals(((DiveLog) other).persons));
+                && diveSessions.equals(((DiveLog) other).diveSessions));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return diveSessions.hashCode();
     }
 }

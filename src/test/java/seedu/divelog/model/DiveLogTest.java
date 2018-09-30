@@ -32,7 +32,7 @@ public class DiveLogTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), diveLog.getPersonList());
+        assertEquals(Collections.emptyList(), diveLog.getDiveSessionList());
     }
 
     @Test
@@ -63,32 +63,32 @@ public class DiveLogTest {
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        diveLog.hasPerson(null);
+        diveLog.hasDive(null);
     }
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(diveLog.hasPerson(ALICE));
+        assertFalse(diveLog.hasDive(ALICE));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        diveLog.addPerson(ALICE);
-        assertTrue(diveLog.hasPerson(ALICE));
+        diveLog.addDive(ALICE);
+        assertTrue(diveLog.hasDive(ALICE));
     }
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        diveLog.addPerson(ALICE);
+        diveLog.addDive(ALICE);
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(diveLog.hasPerson(editedAlice));
+        assertTrue(diveLog.hasDive(editedAlice));
     }
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        diveLog.getPersonList().remove(0);
+        diveLog.getDiveSessionList().remove(0);
     }
 
     /**

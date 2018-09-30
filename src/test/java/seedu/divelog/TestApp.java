@@ -17,7 +17,7 @@ import seedu.divelog.model.ModelManager;
 import seedu.divelog.model.ReadOnlyDiveLog;
 import seedu.divelog.model.UserPrefs;
 import seedu.divelog.storage.UserPrefsStorage;
-import seedu.divelog.storage.XmlSerializableAddressBook;
+import seedu.divelog.storage.XmlSerializableDiveLog;
 import seedu.divelog.testutil.TestUtil;
 import systemtests.ModelHelper;
 
@@ -45,7 +45,7 @@ public class TestApp extends MainApp {
 
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
-            createDataFileWithData(new XmlSerializableAddressBook(this.initialDataSupplier.get()),
+            createDataFileWithData(new XmlSerializableDiveLog(this.initialDataSupplier.get()),
                     this.saveFileLocation);
         }
     }
@@ -92,8 +92,8 @@ public class TestApp extends MainApp {
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
-        Model copy = new ModelManager((model.getAddressBook()), new UserPrefs());
-        ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
+        Model copy = new ModelManager((model.getDiveLog()), new UserPrefs());
+        ModelHelper.setFilteredList(copy, model.getFilteredDiveList());
         return copy;
     }
 

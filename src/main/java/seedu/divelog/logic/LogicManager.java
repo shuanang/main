@@ -11,7 +11,7 @@ import seedu.divelog.logic.commands.exceptions.CommandException;
 import seedu.divelog.logic.parser.AddressBookParser;
 import seedu.divelog.logic.parser.exceptions.ParseException;
 import seedu.divelog.model.Model;
-import seedu.divelog.model.person.Person;
+import seedu.divelog.model.dive.DiveSession;
 
 /**
  * The main LogicManager of the app.
@@ -41,8 +41,8 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ObservableList<DiveSession> getFilteredDiveList() {
+        return model.getFilteredDiveList();
     }
 
     @Override

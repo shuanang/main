@@ -10,9 +10,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.divelog.commons.core.ComponentManager;
 import seedu.divelog.commons.core.LogsCenter;
-import seedu.divelog.commons.events.model.AddressBookChangedEvent;
+import seedu.divelog.commons.events.model.DiveLogChangedEvent;
 import seedu.divelog.commons.util.CollectionUtil;
-import seedu.divelog.model.person.Person;
+import seedu.divelog.model.dive.DiveSession;
+import seedu.divelog.model.dive.exceptions.DiveNotFoundException;
 
 /**
  * Represents the in-memory model of the divelog book data.
@@ -20,8 +21,8 @@ import seedu.divelog.model.person.Person;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedDiveLog versionedAddressBook;
-    private final FilteredList<Person> filteredPersons;
+    private final VersionedDiveLog versionedDiveLog;
+    private final FilteredList<DiveSession> filteredDives;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -32,8 +33,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         logger.fine("Initializing with divelog book: " + addressBook + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedDiveLog(addressBook);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        versionedDiveLog = new VersionedDiveLog(addressBook);
+        filteredDives = new FilteredList<>(versionedDiveLog.getDiveList());
     }
 
     public ModelManager() {
@@ -42,91 +43,85 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void resetData(ReadOnlyDiveLog newData) {
-        versionedAddressBook.resetData(newData);
+        versionedDiveLog.resetData(newData);
         indicateAddressBookChanged();
     }
 
     @Override
-    public ReadOnlyDiveLog getAddressBook() {
-        return versionedAddressBook;
+    public ReadOnlyDiveLog getDiveLog() {
+        return versionedDiveLog;
     }
 
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(versionedAddressBook));
+        raise(new DiveLogChangedEvent(versionedDiveLog));
     }
 
-    @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return versionedAddressBook.hasPerson(person);
-    }
 
     @Override
-    public void deletePerson(Person target) {
-        versionedAddressBook.removePerson(target);
+    public void deleteDiveSession(DiveSession target) throws DiveNotFoundException {
+        versionedDiveLog.removeDive(target);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void addPerson(Person person) {
-        versionedAddressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addDiveSession(DiveSession diveSession) {
+        versionedDiveLog.addDive(diveSession);
+        updateFilteredDiveList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void updatePerson(Person target, Person editedPerson) {
-        CollectionUtil.requireAllNonNull(target, editedPerson);
-
-        versionedAddressBook.updatePerson(target, editedPerson);
+    public void updateDiveSession(DiveSession target, DiveSession editedDiveSession) throws DiveNotFoundException {
+        CollectionUtil.requireAllNonNull(target, editedDiveSession);
+        versionedDiveLog.updateDive(target, editedDiveSession);
         indicateAddressBookChanged();
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered DiveSession List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the list of {@code Dive} backed by the internal list of
+     * {@code versionedDiveLog}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return FXCollections.unmodifiableObservableList(filteredPersons);
+    public ObservableList<DiveSession> getFilteredDiveList() {
+        return FXCollections.unmodifiableObservableList(filteredDives);
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredDiveList(Predicate<DiveSession> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredDives.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
 
     @Override
     public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
+        return versionedDiveLog.canUndo();
     }
 
     @Override
     public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+        return versionedDiveLog.canRedo();
     }
 
     @Override
     public void undoAddressBook() {
-        versionedAddressBook.undo();
+        versionedDiveLog.undo();
         indicateAddressBookChanged();
     }
 
     @Override
     public void redoAddressBook() {
-        versionedAddressBook.redo();
+        versionedDiveLog.redo();
         indicateAddressBookChanged();
     }
 
     @Override
     public void commitAddressBook() {
-        versionedAddressBook.commit();
+        versionedDiveLog.commit();
     }
 
     @Override
@@ -143,8 +138,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
-                && filteredPersons.equals(other.filteredPersons);
+        return versionedDiveLog.equals(other.versionedDiveLog)
+                && filteredDives.equals(other.filteredDives);
     }
 
 }

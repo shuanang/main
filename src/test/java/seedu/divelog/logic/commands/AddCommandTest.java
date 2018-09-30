@@ -19,6 +19,8 @@ import seedu.divelog.logic.commands.exceptions.CommandException;
 import seedu.divelog.model.DiveLog;
 import seedu.divelog.model.Model;
 import seedu.divelog.model.ReadOnlyDiveLog;
+import seedu.divelog.model.dive.DiveSession;
+import seedu.divelog.model.dive.exceptions.DiveNotFoundException;
 import seedu.divelog.model.person.Person;
 import seedu.divelog.testutil.PersonBuilder;
 
@@ -89,7 +91,7 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public void addPerson(Person person) {
+        public void addDiveSession(DiveSession diveSession) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -99,7 +101,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyDiveLog getAddressBook() {
+        public ReadOnlyDiveLog getDiveLog() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -109,22 +111,22 @@ public class AddCommandTest {
         }
 
         @Override
-        public void deletePerson(Person target) {
+        public void deleteDiveSession(DiveSession target) throws DiveNotFoundException {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updatePerson(Person target, Person editedPerson) {
+        public void updateDiveSession(DiveSession target, DiveSession editedDiveSession) throws DiveNotFoundException {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Person> getFilteredPersonList() {
+        public ObservableList<DiveSession> getFilteredDiveList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
+        public void updateFilteredDiveList(Predicate<DiveSession> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -185,9 +187,9 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addDiveSession(DiveSession diveSession) {
+            requireNonNull(diveSession);
+            personsAdded.add(diveSession);
         }
 
         @Override
@@ -196,7 +198,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyDiveLog getAddressBook() {
+        public ReadOnlyDiveLog getDiveLog() {
             return new DiveLog();
         }
     }

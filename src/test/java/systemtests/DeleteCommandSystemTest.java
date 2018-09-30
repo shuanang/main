@@ -61,14 +61,14 @@ public class DeleteCommandSystemTest extends DiveLogSystemTest {
         /* Case: filtered person list, delete index within bounds of divelog book and person list -> deleted */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         Index index = INDEX_FIRST_PERSON;
-        assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
+        assertTrue(index.getZeroBased() < getModel().getFilteredDiveList().size());
         assertCommandSuccess(index);
 
         /* Case: filtered person list, delete index within bounds of divelog book but out of bounds of person list
          * -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAddressBook().getPersonList().size();
+        int invalidIndex = getModel().getDiveLog().getPersonList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
@@ -97,7 +97,7 @@ public class DeleteCommandSystemTest extends DiveLogSystemTest {
 
         /* Case: invalid index (size + 1) -> rejected */
         Index outOfBoundsIndex = Index.fromOneBased(
-                getModel().getAddressBook().getPersonList().size() + 1);
+                getModel().getDiveLog().getPersonList().size() + 1);
         command = DeleteCommand.COMMAND_WORD + " " + outOfBoundsIndex.getOneBased();
         assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
@@ -117,7 +117,11 @@ public class DeleteCommandSystemTest extends DiveLogSystemTest {
      */
     private Person removePerson(Model model, Index index) {
         Person targetPerson = getPerson(model, index);
-        model.deletePerson(targetPerson);
+        try {
+            model.deleteDiveSession(targetPerson);
+        } catch (seedu.divelog.model.dive.exceptions.DiveNotFoundException e) {
+            e.printStackTrace();
+        }
         return targetPerson;
     }
 

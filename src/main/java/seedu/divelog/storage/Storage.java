@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
-import seedu.divelog.commons.events.model.AddressBookChangedEvent;
+import seedu.divelog.commons.events.model.DiveLogChangedEvent;
 import seedu.divelog.commons.events.storage.DataSavingExceptionEvent;
 import seedu.divelog.commons.exceptions.DataConversionException;
 import seedu.divelog.model.ReadOnlyDiveLog;
@@ -35,5 +35,5 @@ public interface Storage extends DiveLogStorage, UserPrefsStorage {
      *   Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    void handleAddressBookChangedEvent(AddressBookChangedEvent abce);
+    void handleAddressBookChangedEvent(DiveLogChangedEvent abce);
 }

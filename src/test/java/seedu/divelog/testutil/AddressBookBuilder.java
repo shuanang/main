@@ -24,7 +24,7 @@ public class AddressBookBuilder {
      * Adds a new {@code Person} to the {@code DiveLog} that we are building.
      */
     public AddressBookBuilder withPerson(Person person) {
-        diveLog.addPerson(person);
+        diveLog.addDive(person);
         return this;
     }
 

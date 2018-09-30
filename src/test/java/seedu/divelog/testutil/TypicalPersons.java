@@ -65,7 +65,7 @@ public class TypicalPersons {
     public static DiveLog getTypicalAddressBook() {
         DiveLog ab = new DiveLog();
         for (Person person : getTypicalPersons()) {
-            ab.addPerson(person);
+            ab.addDive(person);
         }
         return ab;
     }

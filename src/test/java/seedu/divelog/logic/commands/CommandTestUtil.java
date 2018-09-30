@@ -99,8 +99,8 @@ public class CommandTestUtil {
             String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        DiveLog expectedDiveLog = new DiveLog(actualModel.getAddressBook());
-        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        DiveLog expectedDiveLog = new DiveLog(actualModel.getDiveLog());
+        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredDiveList());
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -109,8 +109,8 @@ public class CommandTestUtil {
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedDiveLog, actualModel.getAddressBook());
-            assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+            assertEquals(expectedDiveLog, actualModel.getDiveLog());
+            assertEquals(expectedFilteredList, actualModel.getFilteredDiveList());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }
@@ -120,21 +120,25 @@ public class CommandTestUtil {
      * {@code model}'s divelog book.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredDiveList().size());
 
-        Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
+        Person person = model.getFilteredDiveList().get(targetIndex.getZeroBased());
         final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredDiveList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(1, model.getFilteredDiveList().size());
     }
 
     /**
      * Deletes the first person in {@code model}'s filtered list from {@code model}'s divelog book.
      */
     public static void deleteFirstPerson(Model model) {
-        Person firstPerson = model.getFilteredPersonList().get(0);
-        model.deletePerson(firstPerson);
+        Person firstPerson = model.getFilteredDiveList().get(0);
+        try {
+            model.deleteDiveSession(firstPerson);
+        } catch (seedu.divelog.model.dive.exceptions.DiveNotFoundException e) {
+            e.printStackTrace();
+        }
         model.commitAddressBook();
     }
 

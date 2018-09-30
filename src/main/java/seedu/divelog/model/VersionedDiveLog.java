@@ -8,14 +8,14 @@ import java.util.List;
  */
 public class VersionedDiveLog extends DiveLog {
 
-    private final List<ReadOnlyDiveLog> addressBookStateList;
+    private final List<ReadOnlyDiveLog> diveLogStateList;
     private int currentStatePointer;
 
     public VersionedDiveLog(ReadOnlyDiveLog initialState) {
         super(initialState);
 
-        addressBookStateList = new ArrayList<>();
-        addressBookStateList.add(new DiveLog(initialState));
+        diveLogStateList = new ArrayList<>();
+        diveLogStateList.add(new DiveLog(initialState));
         currentStatePointer = 0;
     }
 
@@ -25,12 +25,12 @@ public class VersionedDiveLog extends DiveLog {
      */
     public void commit() {
         removeStatesAfterCurrentPointer();
-        addressBookStateList.add(new DiveLog(this));
+        diveLogStateList.add(new DiveLog(this));
         currentStatePointer++;
     }
 
     private void removeStatesAfterCurrentPointer() {
-        addressBookStateList.subList(currentStatePointer + 1, addressBookStateList.size()).clear();
+        diveLogStateList.subList(currentStatePointer + 1, diveLogStateList.size()).clear();
     }
 
     /**
@@ -41,7 +41,7 @@ public class VersionedDiveLog extends DiveLog {
             throw new NoUndoableStateException();
         }
         currentStatePointer--;
-        resetData(addressBookStateList.get(currentStatePointer));
+        resetData(diveLogStateList.get(currentStatePointer));
     }
 
     /**
@@ -52,7 +52,7 @@ public class VersionedDiveLog extends DiveLog {
             throw new NoRedoableStateException();
         }
         currentStatePointer++;
-        resetData(addressBookStateList.get(currentStatePointer));
+        resetData(diveLogStateList.get(currentStatePointer));
     }
 
     /**
@@ -66,7 +66,7 @@ public class VersionedDiveLog extends DiveLog {
      * Returns true if {@code redo()} has divelog book states to redo.
      */
     public boolean canRedo() {
-        return currentStatePointer < addressBookStateList.size() - 1;
+        return currentStatePointer < diveLogStateList.size() - 1;
     }
 
     @Override
@@ -85,7 +85,7 @@ public class VersionedDiveLog extends DiveLog {
 
         // state check
         return super.equals(otherVersionedAddressBook)
-                && addressBookStateList.equals(otherVersionedAddressBook.addressBookStateList)
+                && diveLogStateList.equals(otherVersionedAddressBook.diveLogStateList)
                 && currentStatePointer == otherVersionedAddressBook.currentStatePointer;
     }
 

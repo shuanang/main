@@ -3,53 +3,54 @@ package seedu.divelog.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.divelog.model.person.Person;
+import seedu.divelog.model.dive.DiveSession;
+import seedu.divelog.model.dive.exceptions.DiveNotFoundException;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<DiveSession> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyDiveLog newData);
 
     /** Returns the DiveLog */
-    ReadOnlyDiveLog getAddressBook();
+    ReadOnlyDiveLog getDiveLog();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the divelog book.
-     */
-    boolean hasPerson(Person person);
-
-    /**
-     * Deletes the given person.
+     * Deletes the given dive.
      * The person must exist in the divelog book.
+     * @param target
      */
-    void deletePerson(Person target);
+    void deleteDiveSession(DiveSession target) throws DiveNotFoundException;
 
     /**
-     * Adds the given person.
+     * Adds the given dive.
      * {@code person} must not already exist in the divelog book.
+     * @param diveSession
      */
-    void addPerson(Person person);
+    void addDiveSession(DiveSession diveSession);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given dive {@code target} with {@code editedDiveSession}.
      * {@code target} must exist in the divelog book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the divelog book.
+     * @param target
+     * @param editedDiveSession
      */
-    void updatePerson(Person target, Person editedPerson);
+    void updateDiveSession(DiveSession target, DiveSession editedDiveSession) throws DiveNotFoundException;
 
     /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    ObservableList<DiveSession> getFilteredDiveList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
+     * @param predicate
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredDiveList(Predicate<DiveSession> predicate);
 
     /**
      * Returns true if the model has previous divelog book states to restore.
