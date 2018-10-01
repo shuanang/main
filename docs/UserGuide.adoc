@@ -116,7 +116,7 @@ Selects the dive identified by the index number used in the displayed dive list.
 Format: `select INDEX`
 
 ****
-* Selects the dive and loads the Google maps page the dive at the specified `INDEX`.
+* Selects the dive and loads the details of the dive at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
