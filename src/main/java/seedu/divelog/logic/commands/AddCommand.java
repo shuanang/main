@@ -16,9 +16,9 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the divelog book. "
             + "Parameters: "
-            + CliSyntax.PREFIX_TIME_START + "START_TIME "
-            + CliSyntax.PREFIX_TIME_END + "END_TIME "
-            + CliSyntax.PREFIX_SAFETY_STOP + "SAFETY_STOP_TIME "
+            + CliSyntax.PREFIX_TIME_START + "START_TIME (24Hr Format) "
+            + CliSyntax.PREFIX_TIME_END + "END_TIME (24Hr Format) "
+            + CliSyntax.PREFIX_SAFETY_STOP + "SAFETY_STOP_TIME (24Hr Format) "
             + CliSyntax.PREFIX_DEPTH + "DEPTH "
             + CliSyntax.PREFIX_PRESSURE_GROUP_START + "PRESSURE_GROUP_START "
             + CliSyntax.PREFIX_PRESSURE_GROUP_END + "PRESSURE_GROUP_END "
