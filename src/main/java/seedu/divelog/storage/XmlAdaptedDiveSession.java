@@ -70,7 +70,7 @@ public class XmlAdaptedDiveSession {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public DiveSession toModelType() {
-        return new DiveSession(new Time(startTime), new Time(safetyStop), new  Time(endTime),
+        return new DiveSession(new Time(startTime), new Time(safetyStop), new Time(endTime),
                 new PressureGroup(pressureGroupAtBeginning), new PressureGroup(pressureGroupAtEnd),
                 new Location(location), new DepthProfile(depthProfile));
     }

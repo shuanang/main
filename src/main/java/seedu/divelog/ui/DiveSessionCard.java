@@ -1,6 +1,5 @@
 package seedu.divelog.ui;
 
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -38,7 +37,7 @@ public class DiveSessionCard extends UiPart<Region> {
         this.dive = dive;
         id.setText(displayedIndex + ". ");
         name.setText("Dive at " + dive.getLocation().getLocationName());
-        depth.setText(dive.getDepthProfile().getDepth()+"m");
+        depth.setText(dive.getDepthProfile().getDepth() + "m");
     }
 
     @Override

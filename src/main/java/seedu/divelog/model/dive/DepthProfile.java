@@ -6,8 +6,9 @@ package seedu.divelog.model.dive;
  * TODO: Implement complex dives
  */
 public class DepthProfile {
-    private final float depth;
     private static final String DEPTH_VALIDATION_REGEX = "[+-]?([0-9]*[.])?[0-9]+";
+
+    private final float depth;
 
     public DepthProfile(float depth) {
         this.depth = depth;

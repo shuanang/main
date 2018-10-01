@@ -42,8 +42,8 @@ public class AddCommandParser implements Parser<AddCommand> {
                 CliSyntax.PREFIX_PRESSURE_GROUP_END,
                 CliSyntax.PREFIX_LOCATION)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT
-                    ,AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddCommand.MESSAGE_USAGE));
         }
 
         Time startTime = new Time(argMultimap.getValue(CliSyntax.PREFIX_TIME_START).get());
