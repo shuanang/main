@@ -10,7 +10,6 @@ import seedu.divelog.logic.CommandHistory;
 import seedu.divelog.logic.commands.exceptions.CommandException;
 import seedu.divelog.model.Model;
 import seedu.divelog.model.dive.DiveSession;
-import seedu.divelog.model.person.Person;
 
 /**
  * Deletes a person identified using it's displayed index from the divelog book.

@@ -11,8 +11,8 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.divelog.commons.core.LogsCenter;
-import seedu.divelog.commons.events.ui.JumpToListRequestEvent;
 import seedu.divelog.commons.events.ui.DivePanelSelectionChangedEvent;
+import seedu.divelog.commons.events.ui.JumpToListRequestEvent;
 import seedu.divelog.model.dive.DiveSession;
 
 /**

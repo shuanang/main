@@ -24,21 +24,37 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_TIME_START, CliSyntax.PREFIX_TIME_END, CliSyntax.PREFIX_SAFETY_STOP,
-                        CliSyntax.PREFIX_DEPTH, CliSyntax.PREFIX_PRESSURE_GROUP_START , CliSyntax.PREFIX_PRESSURE_GROUP_END, CliSyntax.PREFIX_LOCATION);
+                ArgumentTokenizer.tokenize(args,
+                        CliSyntax.PREFIX_TIME_START,
+                        CliSyntax.PREFIX_TIME_END,
+                        CliSyntax.PREFIX_SAFETY_STOP,
+                        CliSyntax.PREFIX_DEPTH,
+                        CliSyntax.PREFIX_PRESSURE_GROUP_START,
+                        CliSyntax.PREFIX_PRESSURE_GROUP_END,
+                        CliSyntax.PREFIX_LOCATION);
 
-        if (!arePrefixesPresent(argMultimap, CliSyntax.PREFIX_TIME_START, CliSyntax.PREFIX_TIME_END, CliSyntax.PREFIX_SAFETY_STOP,
-                CliSyntax.PREFIX_DEPTH, CliSyntax.PREFIX_PRESSURE_GROUP_START, CliSyntax.PREFIX_PRESSURE_GROUP_END, CliSyntax.PREFIX_LOCATION)
+        if (!arePrefixesPresent(argMultimap,
+                CliSyntax.PREFIX_TIME_START,
+                CliSyntax.PREFIX_TIME_END,
+                CliSyntax.PREFIX_SAFETY_STOP,
+                CliSyntax.PREFIX_DEPTH,
+                CliSyntax.PREFIX_PRESSURE_GROUP_START,
+                CliSyntax.PREFIX_PRESSURE_GROUP_END,
+                CliSyntax.PREFIX_LOCATION)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT
+                    ,AddCommand.MESSAGE_USAGE));
         }
 
         Time startTime = new Time(argMultimap.getValue(CliSyntax.PREFIX_TIME_START).get());
         Time endTime = new Time(argMultimap.getValue(CliSyntax.PREFIX_TIME_END).get());
         Time safetyStop = new Time(argMultimap.getValue(CliSyntax.PREFIX_SAFETY_STOP).get());
-        PressureGroup pressureGroupAtBegining = new PressureGroup(argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_START).get());
-        PressureGroup pressureGroupAtEnd = new PressureGroup(argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_END).get());
-        Location location = new Location(argMultimap.getValue(CliSyntax.PREFIX_LOCATION).get());
+        PressureGroup pressureGroupAtBegining =
+                new PressureGroup(argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_START).get());
+        PressureGroup pressureGroupAtEnd =
+                new PressureGroup(argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_END).get());
+        Location location =
+                new Location(argMultimap.getValue(CliSyntax.PREFIX_LOCATION).get());
         DepthProfile depthProfile = ParserUtil.parseDepth(argMultimap.getValue(CliSyntax.PREFIX_DEPTH).get());
         DiveSession dive = new DiveSession(startTime, safetyStop, endTime, pressureGroupAtBegining,
                 pressureGroupAtEnd, location, depthProfile);

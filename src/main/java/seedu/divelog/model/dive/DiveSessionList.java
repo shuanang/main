@@ -11,6 +11,9 @@ import seedu.divelog.commons.util.CollectionUtil;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.exceptions.DiveNotFoundException;
 
+/**
+ * Stores a list of dives
+ */
 public class DiveSessionList implements Iterable<DiveSession> {
     private final ObservableList<DiveSession> internalList = FXCollections.observableArrayList();
     /**

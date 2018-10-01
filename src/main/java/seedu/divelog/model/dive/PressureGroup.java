@@ -1,6 +1,8 @@
 package seedu.divelog.model.dive;
-
-public class PressureGroup  {
+/**
+ * Represents a pressure group
+ */
+public class PressureGroup {
 
     private final String pressureGroup;
 

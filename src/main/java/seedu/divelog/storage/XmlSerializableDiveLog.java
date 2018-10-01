@@ -11,7 +11,6 @@ import seedu.divelog.commons.exceptions.IllegalValueException;
 import seedu.divelog.model.DiveLog;
 import seedu.divelog.model.ReadOnlyDiveLog;
 import seedu.divelog.model.dive.DiveSession;
-import seedu.divelog.model.person.Person;
 
 /**
  * An Immutable DiveLog that is serializable to XML format

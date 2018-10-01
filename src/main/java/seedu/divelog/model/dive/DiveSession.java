@@ -1,5 +1,8 @@
 package seedu.divelog.model.dive;
 
+/**
+ * This class represents a single dive session
+ */
 public class DiveSession {
     private final Time start;
     private final Time safetyStop;
@@ -36,19 +39,24 @@ public class DiveSession {
         return pressureGroupAtEnd;
     }
 
-    public Time getSafetyStop() { return safetyStop; }
+    public Time getSafetyStop() {
+        return safetyStop;
+    }
 
-    public DepthProfile getDepthProfile() { return depthProfile; }
+    public DepthProfile getDepthProfile() {
+        return depthProfile;
+    }
 
-    public Location getLocation() { return location; }
-
+    public Location getLocation() {
+        return location;
+    }
 
     /**
      *
      * @param dive
      * @return
      */
-    public boolean isSameDiveSession(DiveSession dive){
+    public boolean isSameDiveSession(DiveSession dive) {
         return dive == this;
     }
 }

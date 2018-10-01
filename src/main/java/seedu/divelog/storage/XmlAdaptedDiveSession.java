@@ -85,7 +85,7 @@ public class XmlAdaptedDiveSession {
             return false;
         }
 
-        XmlAdaptedDiveSession x = (XmlAdaptedDiveSession)other;
+        XmlAdaptedDiveSession x = (XmlAdaptedDiveSession) other;
         return startTime.equals(x.startTime)
                 && endTime.equals(x.endTime)
                 && safetyStop.equals(x.safetyStop)
