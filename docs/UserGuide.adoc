@@ -53,7 +53,7 @@ Format: `help`
 Adds a dive session to the address book.
 Format: add ts/TIME_DIVE_STARTED te/TIME_DIVE_ENDED ss/SAFETY_STOP  d/DEPTH  l/LOCATION pg/INITIAL_PRESSURE_GROUP pge/FINAL_PRESSURE_GROUP
 Words in UPPER_CASE are the parameters, items in SQUARE_BRACKETS are optional, items with …​ after them can have multiple instances. Order of parameters are fixed.
-Put a ts/ before the time started(24 hours format - HHMM), te/time ended(24 hours format - HHMM), d/depth (in metres), l/ location (location name), per dive at v1.0) (optional) and pg/initial pressure group, pge/final pressure groupt. 
+Put a ts/ before the time started(24 hours format - HHMM), te/time ended(24 hours format - HHMM), d/depth (in metres), l/ location (location name), per dive at v1.0) (optional) and pg/initial pressure group, pge/final pressure group.
 Example:
 add ts/0900 te/1020 ss/1015 d/15 l/Bukit Lagoon pg/C pge/F
 
@@ -90,7 +90,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 Examples:
 
 * `find Bali` +
-Returns `Dive at Bali` 
+Returns `Dive at Bali`
 
 === Deleting a dive : `delete`
 Deletes the specified dive from the address book. +
