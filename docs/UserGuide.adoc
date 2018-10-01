@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= Dive Log - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -31,14 +31,7 @@ image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
-
-.  Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
@@ -46,7 +39,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add l/LOCATION`, `LOCATION` is a parameter which can be used as `add l/Sentosa`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -56,72 +49,56 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding a dive session: `add`
+Adds a dive session to the address book.
+Format: add ts/TIME_DIVE_STARTED te/TIME_DIVE_ENDED ss/SAFETY_STOP  d/DEPTH  l/LOCATION pg/INITIAL_PRESSURE_GROUP pge/FINAL_PRESSURE_GROUP
+Words in UPPER_CASE are the parameters, items in SQUARE_BRACKETS are optional, items with …​ after them can have multiple instances. Order of parameters are fixed.
+Put a ts/ before the time started(24 hours format - HHMM), te/time ended(24 hours format - HHMM), d/depth (in metres), l/ location (location name), per dive at v1.0) (optional) and pg/initial pressure group, pge/final pressure group.
+Example:
+add ts/0900 te/1020 ss/1015 d/15 l/Bukit Lagoon pg/C pge/F
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+=== Listing all dives : `list`
 
-[TIP]
-A person can have any number of tags (including 0)
-
-Examples:
-
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
+Shows a list of all dives in the dive log. +
 Format: `list`
 
-=== Editing a person : `edit`
+=== Editing a dive : `edit`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Edits an existing dive in the address book. +
+Format: `edit INDEX [ts/TIME_START] [te/TIME_END] [ss/SAFETY_STOP_TIME] [d/DEPTH] [pg/PG_AT_START][pge/PG_AT_END][l/LOCATION]...`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the dive at the specified `INDEX`. The index refers to the index number shown in the displayed dive list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
 ****
 
 Examples:
+`edit 1 pge/F l/Tioman`
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+=== Locating dives by location: `find`
 
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
+Finds dives whose location contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
+* The search is case insensitive. e.g `tioman` will match `Tioman`
+* Only the location is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `find Bali` +
+Returns `Dive at Bali`
 
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
+=== Deleting a dive : `delete`
+Deletes the specified dive from the address book. +
 Format: `delete INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the dive at the specified `INDEX`.
+* The index refers to the index number shown in the displayed dive list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -129,18 +106,18 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
+Deletes the 2nd dive in the Dive Log.
+* `find Bali` +
 `delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Deletes the 1st dive in the results of the `find` command.
 
 === Selecting a person : `select`
 
-Selects the person identified by the index number used in the displayed person list. +
+Selects the dive identified by the index number used in the displayed dive list. +
 Format: `select INDEX`
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
+* Selects the dive and loads the Google maps page the dive at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
@@ -149,10 +126,10 @@ Examples:
 
 * `list` +
 `select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
+Selects the 2nd dive in the address book.
+* `find Bali` +
 `select 1` +
-Selects the 1st person in the results of the `find` command.
+Selects the 1st dive in the results of the `find` command.
 
 === Listing entered commands : `history`
 
@@ -229,32 +206,11 @@ Format: `exit`
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
-== Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
