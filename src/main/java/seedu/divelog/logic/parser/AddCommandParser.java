@@ -11,7 +11,6 @@ import seedu.divelog.model.dive.Location;
 import seedu.divelog.model.dive.PressureGroup;
 import seedu.divelog.model.dive.Time;
 
-
 /**
  * Parses input arguments and creates a new AddCommand object
  */
