@@ -90,7 +90,7 @@ public class EditCommand extends Command {
      */
     private static DiveSession createEditedDive(DiveSession diveToEdit, EditDiveDescriptor editPersonDescriptor) {
         assert diveToEdit != null;
-        Date dateStart =  editPersonDescriptor.getDateStart().orElse(diveToEdit.getDateStart());
+        Date dateStart = editPersonDescriptor.getDateStart().orElse(diveToEdit.getDateStart());
         Time start = editPersonDescriptor.getStart().orElse(diveToEdit.getStart());
         Date dateEnd = editPersonDescriptor.getDateEnd().orElse(diveToEdit.getDateEnd());
         Time end = editPersonDescriptor.getEnd().orElse(diveToEdit.getEnd());
@@ -101,7 +101,7 @@ public class EditCommand extends Command {
                 .orElse(diveToEdit.getPressureGroupAtEnd());
         Location location = editPersonDescriptor.getLocation().orElse(diveToEdit.getLocation());
         DepthProfile depth = editPersonDescriptor.getDepthProfile().orElse(diveToEdit.getDepthProfile());
-        return new DiveSession(dateStart, start, safetyStop,dateEnd, end, pressureGroupAtBeginning, pressureGroupAtEnd,
+        return new DiveSession(dateStart, start, safetyStop, dateEnd, end, pressureGroupAtBeginning, pressureGroupAtEnd,
                 location, depth);
     }
 
@@ -156,7 +156,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(dateStart, start, safetyStop,dateEnd, end,
+            return CollectionUtil.isAnyNonNull(dateStart, start, safetyStop, dateEnd, end,
                     pressureGroupAtBeginning, pressureGroupAtEnd, location, depthProfile);
         }
 
@@ -177,7 +177,7 @@ public class EditCommand extends Command {
             // state check
             EditDiveDescriptor e = (EditDiveDescriptor) other;
 
-            return  getDateStart() == e.getDateStart()
+            return getDateStart() == e.getDateStart()
                     && getStart() == e.getStart()
                     && getDateEnd() == e.getDateEnd()
                     && getEnd() == e.getEnd()
@@ -187,11 +187,11 @@ public class EditCommand extends Command {
                     && getDepthProfile() == e.getDepthProfile();
         }
 
-        public void setDateStart(Date dateStart){
+        public void setDateStart(Date dateStart) {
             this.dateStart = dateStart;
         }
 
-        public void setDateEnd(Date dateEnd){
+        public void setDateEnd(Date dateEnd) {
             this.dateEnd = dateEnd;
         }
 
@@ -223,11 +223,11 @@ public class EditCommand extends Command {
             this.depthProfile = depthProfile;
         }
 
-        public Optional<Date> getDateStart(){
+        public Optional<Date> getDateStart() {
             return Optional.ofNullable(dateStart);
         }
 
-        public Optional<Date> getDateEnd(){
+        public Optional<Date> getDateEnd() {
             return Optional.ofNullable(dateEnd);
         }
 

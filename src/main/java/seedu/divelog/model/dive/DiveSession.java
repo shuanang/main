@@ -14,7 +14,8 @@ public class DiveSession {
     private final Location location;
     private final DepthProfile depthProfile;
 
-    public DiveSession(Date dateStart, Time start, Time safetyStop, Date dateEnd, Time end, PressureGroup pressureGroupAtBeginning,
+    public DiveSession(Date dateStart, Time start, Time safetyStop, Date dateEnd, Time end,
+                       PressureGroup pressureGroupAtBeginning,
                        PressureGroup pressureGroupAtEnd, Location location, DepthProfile depthProfile) {
         this.dateStart = dateStart;
         this.start = start;
@@ -27,11 +28,11 @@ public class DiveSession {
         this.depthProfile = depthProfile;
     }
 
-    public Date getDateStart(){
+    public Date getDateStart() {
         return dateStart;
     }
 
-    public Date getDateEnd(){
+    public Date getDateEnd() {
         return dateEnd;
     }
 

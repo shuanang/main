@@ -7,8 +7,8 @@ import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.Location;
 import seedu.divelog.model.dive.PressureGroup;
-import seedu.divelog.model.dive.Time;
 import seedu.divelog.model.dive.Date;
+import seedu.divelog.model.dive.Time;
 
 /**
  * JAXB-friendly version of the Person.
@@ -43,7 +43,8 @@ public class XmlAdaptedDiveSession {
     /**
      * Constructs an {@code XmlAdaptedDiveSession} with the given person details.
      */
-    public XmlAdaptedDiveSession(String dateStart, String startTime, String safetyStop,String dateEnd, String endTime, String pressureGroupAtBeginning,
+    public XmlAdaptedDiveSession(String dateStart, String startTime, String safetyStop, String dateEnd,
+                                 String endTime, String pressureGroupAtBeginning,
                                  String pressureGroupAtEnd, String location, float depthProfile) {
         this.dateStart = dateStart;
         this.startTime = startTime;
@@ -79,7 +80,8 @@ public class XmlAdaptedDiveSession {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public DiveSession toModelType() {
-        return new DiveSession(new Date(dateStart), new Time(startTime), new Time(safetyStop),new Date(dateEnd), new Time(endTime),
+        return new DiveSession(new Date(dateStart), new Time(startTime), new Time(safetyStop),
+                new Date(dateEnd), new Time(endTime),
                 new PressureGroup(pressureGroupAtBeginning), new PressureGroup(pressureGroupAtEnd),
                 new Location(location), new DepthProfile(depthProfile));
     }
@@ -95,7 +97,7 @@ public class XmlAdaptedDiveSession {
         }
 
         XmlAdaptedDiveSession x = (XmlAdaptedDiveSession) other;
-        return  dateStart.equals(x.dateStart)
+        return dateStart.equals(x.dateStart)
                 && startTime.equals(x.startTime)
                 && dateEnd.equals(x.dateEnd)
                 && endTime.equals(x.endTime)

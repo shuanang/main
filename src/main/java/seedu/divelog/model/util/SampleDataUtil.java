@@ -6,8 +6,9 @@ import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.Location;
 import seedu.divelog.model.dive.PressureGroup;
-import seedu.divelog.model.dive.Time;
 import seedu.divelog.model.dive.Date;
+import seedu.divelog.model.dive.Time;
+
 
 /**
  * Contains utility methods for populating {@code DiveLog} with sample data.
