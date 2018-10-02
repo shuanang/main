@@ -994,20 +994,14 @@ A contact detail that is not meant to be shared with others
 
 [appendix]
 == Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+Author: Arjo Chakravarty
+A few similar products exist out there. Firstly, one of the team members (Arjo) uses a paper equivalent of such a dive log. This dive log records all the necessary information and provides a user with the basic safety information of the PG being provided as fields. However, the pressure group information must be hand calculated leading to error or negligence.
+image::paper_notebook.jpg[width="300"]
+Linus Torvalds, the benevolent dictator of the linux kernel and mastermind behind git has also created a dive log program. Linus’s program, known as Subsurface, is written in C++ and uses the Qt library allowing for cross-platform usage.
+image::subsurface_1.png[width="300"]
+Subsurface has a comprehensive interface for entering a lot of details. It allows the user to enter things such as the depth, who the dive master was, dive buddy’s name and equipment. It also has a nice satellite map to show where you are planning the dive. The plot on the right hand side illustrates the depth. This includes the so called “safety stop” where the diver allows some of the nitrogen to be released from his bloodstream before surfacing. The plot also is capable of showing a nitrogen profile and a rough estimate of how much oxygen should be kept in reserve for each part of the dive. All of this make it a very complete product with the exception that its initial learning curve is fairly steep.
+image::subsurface_2.png[width="300"]
+When the user first opens the dive log he or she is greeted with this screen, which is not very indicative of what exactly is going on. It takes the user a few attempts to figure out how to add a dive as the add dive is nested very deep inside the menu. It also does not display the pressure group anywhere.This can be confusing for beginner divers as they rely on pressure groups to ensure their own safety.
 
 [appendix]
 == Instructions for Manual Testing
