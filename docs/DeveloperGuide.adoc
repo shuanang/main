@@ -847,10 +847,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Add dive entries
 |So that I can know my pressure group.
 
-|BLANK
-|BLANK
-|BLANK
-|BLANK
+|`**`
+|Diver
+|Be able to enter data in local time
+|Save time when calculating my pressure groups.
+
+|`**`
+|Diver
+|Plan my dives ahead of performing them
+|So that I know what a safe limit is.
 
 |`*`
 |Diver
@@ -864,8 +869,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |===
 
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
