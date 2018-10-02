@@ -11,7 +11,6 @@ import seedu.divelog.model.dive.Location;
 import seedu.divelog.model.dive.PressureGroup;
 import seedu.divelog.model.dive.Time;
 
-
 /**
  * Parses input arguments and creates a new AddCommand object
  */
@@ -42,8 +41,13 @@ public class AddCommandParser implements Parser<AddCommand> {
                 CliSyntax.PREFIX_PRESSURE_GROUP_END,
                 CliSyntax.PREFIX_LOCATION)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+
+        if (argMultimap.getValue(CliSyntax.PREFIX_TIME_START).get().length() != 4
+            || argMultimap.getValue(CliSyntax.PREFIX_TIME_END).get().length() != 4
+            || argMultimap.getValue(CliSyntax.PREFIX_SAFETY_STOP).get().length() != 4) {
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_TIME_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
         Time startTime = new Time(argMultimap.getValue(CliSyntax.PREFIX_TIME_START).get());
@@ -56,8 +60,10 @@ public class AddCommandParser implements Parser<AddCommand> {
         Location location =
                 new Location(argMultimap.getValue(CliSyntax.PREFIX_LOCATION).get());
         DepthProfile depthProfile = ParserUtil.parseDepth(argMultimap.getValue(CliSyntax.PREFIX_DEPTH).get());
-        DiveSession dive = new DiveSession(startTime, safetyStop, endTime, pressureGroupAtBegining,
-                pressureGroupAtEnd, location, depthProfile);
+        DiveSession dive =
+                new DiveSession(startTime, safetyStop, endTime, pressureGroupAtBegining,
+                        pressureGroupAtEnd, location, depthProfile);
+
         return new AddCommand(dive);
     }
 
