@@ -12,6 +12,7 @@ import seedu.divelog.logic.CommandHistory;
 import seedu.divelog.logic.commands.exceptions.CommandException;
 import seedu.divelog.logic.parser.CliSyntax;
 import seedu.divelog.model.Model;
+import seedu.divelog.model.dive.Date;
 import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.Location;
@@ -30,7 +31,9 @@ public class EditCommand extends Command {
             + "by the index number used in the displayed dive list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
+            + "[" + CliSyntax.PREFIX_DATE_START + "DATE_START] "
             + "[" + CliSyntax.PREFIX_TIME_START + "TIME_START] "
+            + "[" + CliSyntax.PREFIX_DATE_END + "DATE_END] "
             + "[" + CliSyntax.PREFIX_TIME_END + "TIME_END] "
             + "[" + CliSyntax.PREFIX_SAFETY_STOP + "SAFETY_STOP_TIME] "
             + "[" + CliSyntax.PREFIX_DEPTH + "DEPTH] "
@@ -87,7 +90,9 @@ public class EditCommand extends Command {
      */
     private static DiveSession createEditedDive(DiveSession diveToEdit, EditDiveDescriptor editPersonDescriptor) {
         assert diveToEdit != null;
+        Date dateStart = editPersonDescriptor.getDateStart().orElse(diveToEdit.getDateStart());
         Time start = editPersonDescriptor.getStart().orElse(diveToEdit.getStart());
+        Date dateEnd = editPersonDescriptor.getDateEnd().orElse(diveToEdit.getDateEnd());
         Time end = editPersonDescriptor.getEnd().orElse(diveToEdit.getEnd());
         Time safetyStop = editPersonDescriptor.getSafetyStop().orElse(diveToEdit.getSafetyStop());
         PressureGroup pressureGroupAtBeginning = editPersonDescriptor.getPressureGroupAtBeginning()
@@ -96,7 +101,7 @@ public class EditCommand extends Command {
                 .orElse(diveToEdit.getPressureGroupAtEnd());
         Location location = editPersonDescriptor.getLocation().orElse(diveToEdit.getLocation());
         DepthProfile depth = editPersonDescriptor.getDepthProfile().orElse(diveToEdit.getDepthProfile());
-        return new DiveSession(start, safetyStop, end, pressureGroupAtBeginning, pressureGroupAtEnd,
+        return new DiveSession(dateStart, start, safetyStop, dateEnd, end, pressureGroupAtBeginning, pressureGroupAtEnd,
                 location, depth);
     }
 
@@ -123,9 +128,10 @@ public class EditCommand extends Command {
      * corresponding field value of the person.
      */
     public static class EditDiveDescriptor {
-
+        private Date dateStart;
         private Time start;
         private Time safetyStop;
+        private Date dateEnd;
         private Time end;
         private PressureGroup pressureGroupAtBeginning;
         private PressureGroup pressureGroupAtEnd;
@@ -136,8 +142,10 @@ public class EditCommand extends Command {
         public EditDiveDescriptor() {}
 
         public EditDiveDescriptor(EditDiveDescriptor descriptor) {
+            setDateStart(descriptor.dateStart);
             setStart(descriptor.start);
             setSafetyStop(descriptor.safetyStop);
+            setDateEnd(descriptor.dateEnd);
             setEnd(descriptor.end);
             setPressureGroupAtBeginning(descriptor.pressureGroupAtBeginning);
             setPressureGroupAtEnd(descriptor.pressureGroupAtEnd);
@@ -148,7 +156,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(start, safetyStop, end,
+            return CollectionUtil.isAnyNonNull(dateStart, start, safetyStop, dateEnd, end,
                     pressureGroupAtBeginning, pressureGroupAtEnd, location, depthProfile);
         }
 
@@ -169,12 +177,22 @@ public class EditCommand extends Command {
             // state check
             EditDiveDescriptor e = (EditDiveDescriptor) other;
 
-            return getStart() == e.getStart()
+            return getDateStart() == e.getDateStart()
+                    && getStart() == e.getStart()
+                    && getDateEnd() == e.getDateEnd()
                     && getEnd() == e.getEnd()
                     && getPressureGroupAtBeginning() == e.getPressureGroupAtBeginning()
                     && getPressureGroupAtEnd() == e.getPressureGroupAtEnd()
                     && getLocation() == e.getLocation()
                     && getDepthProfile() == e.getDepthProfile();
+        }
+
+        public void setDateStart(Date dateStart) {
+            this.dateStart = dateStart;
+        }
+
+        public void setDateEnd(Date dateEnd) {
+            this.dateEnd = dateEnd;
         }
 
         public void setStart(Time start) {
@@ -205,6 +223,13 @@ public class EditCommand extends Command {
             this.depthProfile = depthProfile;
         }
 
+        public Optional<Date> getDateStart() {
+            return Optional.ofNullable(dateStart);
+        }
+
+        public Optional<Date> getDateEnd() {
+            return Optional.ofNullable(dateEnd);
+        }
 
         public Optional<Time> getStart() {
             return Optional.ofNullable(start);

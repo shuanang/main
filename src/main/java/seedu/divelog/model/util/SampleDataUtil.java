@@ -2,11 +2,13 @@ package seedu.divelog.model.util;
 
 import seedu.divelog.model.DiveLog;
 import seedu.divelog.model.ReadOnlyDiveLog;
+import seedu.divelog.model.dive.Date;
 import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.Location;
 import seedu.divelog.model.dive.PressureGroup;
 import seedu.divelog.model.dive.Time;
+
 
 /**
  * Contains utility methods for populating {@code DiveLog} with sample data.
@@ -14,8 +16,10 @@ import seedu.divelog.model.dive.Time;
 public class SampleDataUtil {
     public static DiveSession[] getSampleDives() {
         return new DiveSession[] {
-            new DiveSession(new Time("0700"),
+            new DiveSession(new Date("04082018"),
+                    new Time("0700"),
                     new Time("0945"),
+                    new Date("04082018"),
                     new Time("1000"),
                     new PressureGroup("A"),
                     new PressureGroup("R"),
@@ -31,7 +35,5 @@ public class SampleDataUtil {
         }
         return sampleDl;
     }
-
-
 
 }
