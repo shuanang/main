@@ -2,11 +2,11 @@ package seedu.divelog.model.util;
 
 import seedu.divelog.model.DiveLog;
 import seedu.divelog.model.ReadOnlyDiveLog;
+import seedu.divelog.model.dive.Date;
 import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.Location;
 import seedu.divelog.model.dive.PressureGroup;
-import seedu.divelog.model.dive.Date;
 import seedu.divelog.model.dive.Time;
 
 

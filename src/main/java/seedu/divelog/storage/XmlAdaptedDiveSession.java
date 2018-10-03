@@ -3,11 +3,11 @@ package seedu.divelog.storage;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.divelog.commons.exceptions.IllegalValueException;
+import seedu.divelog.model.dive.Date;
 import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.Location;
 import seedu.divelog.model.dive.PressureGroup;
-import seedu.divelog.model.dive.Date;
 import seedu.divelog.model.dive.Time;
 
 /**
