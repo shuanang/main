@@ -51,11 +51,25 @@ Format: `help`
 
 === Adding a dive session: `add`
 Adds a dive session to the address book.
-Format: add ts/TIME_DIVE_STARTED te/TIME_DIVE_ENDED ss/SAFETY_STOP  d/DEPTH  l/LOCATION pg/INITIAL_PRESSURE_GROUP pge/FINAL_PRESSURE_GROUP
+
+Format: `add ds/DATE_STAERTED ts/TIME_DIVE_STARTED de/DATE_ENDED te/TIME_DIVE_ENDED ss/SAFETY_STOP  d/DEPTH  l/LOCATION pg/INITIAL_PRESSURE_GROUP pge/FINAL_PRESSURE_GROUP`
+
 Words in UPPER_CASE are the parameters, items in SQUARE_BRACKETS are optional, items with …​ after them can have multiple instances. Order of parameters are fixed.
-Put a ts/ before the time started(24 hours format - HHMM), te/time ended(24 hours format - HHMM), d/depth (in metres), l/ location (location name), per dive at v1.0) (optional) and pg/initial pressure group, pge/final pressure group.
+Put a `ts/` before the time started(24 hours format - HHMM), te/time ended (24 hours format - HHMM), d/depth (in metres), l/ location (location name), per dive at v1.0) (optional) and pg/initial pressure group, pge/final pressure group.
 Example:
-add ts/0900 te/1020 ss/1015 d/15 l/Bukit Lagoon pg/C pge/F
+add ds/04082018 ts/0900 de/04082018  te/1020 ss/1015 d/15 l/Bukit Lagoon pg/C pge/F
+
+
+.Table of Prefix and Data
+[options="header"]
+|=========================================
+|Data                                           |Prefix         |Example
+|Date started / Ended (DDMMYYYY)                |ds or de       |ds/04082018 or de/05082018
+|Time Started / Ended (DDMMYYYY)                |ts or de       |ts/0800 or te/0900
+|Location                                       |l              |l/Sentosa
+|Depth (integer value)                          |d              |d/18
+|Initial/Final Pressure Group (Character Value) |pg or pge      |pg/A or pge/D
+|=========================================
 
 === Listing all dives : `list`
 
