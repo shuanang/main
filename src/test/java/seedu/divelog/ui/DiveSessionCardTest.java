@@ -9,20 +9,20 @@ import org.junit.Test;
 
 import guitests.guihandles.PersonCardHandle;
 import seedu.divelog.model.person.Person;
-import seedu.divelog.testutil.PersonBuilder;
+import seedu.divelog.testutil.DiveSessionBuilder;
 
 public class DiveSessionCardTest extends GuiUnitTest {
 
     @Test
     public void display() {
         // no tags
-        Person personWithNoTags = new PersonBuilder().withTags(new String[0]).build();
+        Person personWithNoTags = new DiveSessionBuilder().withTags(new String[0]).build();
         DiveSessionCard personCard = new DiveSessionCard(personWithNoTags, 1);
         uiPartRule.setUiPart(personCard);
         assertCardDisplay(personCard, personWithNoTags, 1);
 
         // with tags
-        Person personWithTags = new PersonBuilder().build();
+        Person personWithTags = new DiveSessionBuilder().build();
         personCard = new DiveSessionCard(personWithTags, 2);
         uiPartRule.setUiPart(personCard);
         assertCardDisplay(personCard, personWithTags, 2);
@@ -30,7 +30,7 @@ public class DiveSessionCardTest extends GuiUnitTest {
 
     @Test
     public void equals() {
-        Person person = new PersonBuilder().build();
+        Person person = new DiveSessionBuilder().build();
         DiveSessionCard personCard = new DiveSessionCard(person, 0);
 
         // same person, same index -> returns true
@@ -47,7 +47,7 @@ public class DiveSessionCardTest extends GuiUnitTest {
         assertFalse(personCard.equals(0));
 
         // different person, same index -> returns false
-        Person differentPerson = new PersonBuilder().withName("differentName").build();
+        Person differentPerson = new DiveSessionBuilder().withName("differentName").build();
         assertFalse(personCard.equals(new DiveSessionCard(differentPerson, 0)));
 
         // same person, different index -> returns false

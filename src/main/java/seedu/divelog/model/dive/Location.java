@@ -14,4 +14,12 @@ public class Location {
         return locationName;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof PressureGroup)) {
+            return false;
+        }
+        Location other = (Location) obj;
+        return other.getLocationName().equals(locationName);
+    }
 }

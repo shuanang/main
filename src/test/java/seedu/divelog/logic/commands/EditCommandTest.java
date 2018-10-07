@@ -11,9 +11,9 @@ import static seedu.divelog.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.divelog.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.divelog.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.divelog.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.divelog.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.divelog.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.divelog.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.divelog.testutil.TypicalIndexes.INDEX_FIRST_DIVE;
+import static seedu.divelog.testutil.TypicalIndexes.INDEX_SECOND_DIVE;
+import static seedu.divelog.testutil.TypicalDiveSessions.getTypicalAddressBook;
 
 import org.junit.Test;
 
@@ -26,8 +26,8 @@ import seedu.divelog.model.Model;
 import seedu.divelog.model.ModelManager;
 import seedu.divelog.model.UserPrefs;
 import seedu.divelog.model.person.Person;
-import seedu.divelog.testutil.EditPersonDescriptorBuilder;
-import seedu.divelog.testutil.PersonBuilder;
+import seedu.divelog.testutil.EditDiveDescriptorBuilder;
+import seedu.divelog.testutil.DiveSessionBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
@@ -39,9 +39,9 @@ public class EditCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Person editedPerson = new PersonBuilder().build();
-        EditDiveDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
+        Person editedPerson = new DiveSessionBuilder().build();
+        EditDiveDescriptor descriptor = new EditDiveDescriptorBuilder(editedPerson).build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_DIVE, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
@@ -61,11 +61,11 @@ public class EditCommandTest {
         Index indexLastPerson = Index.fromOneBased(model.getFilteredDiveList().size());
         Person lastPerson = model.getFilteredDiveList().get(indexLastPerson.getZeroBased());
 
-        PersonBuilder personInList = new PersonBuilder(lastPerson);
+        DiveSessionBuilder personInList = new DiveSessionBuilder(lastPerson);
         Person editedPerson = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
-        EditDiveDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
+        EditDiveDescriptor descriptor = new EditDiveDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
 
@@ -84,8 +84,8 @@ public class EditCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditDiveDescriptor());
-        Person editedPerson = model.getFilteredDiveList().get(INDEX_FIRST_PERSON.getZeroBased());
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_DIVE, new EditDiveDescriptor());
+        Person editedPerson = model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
@@ -97,12 +97,12 @@ public class EditCommandTest {
 
     @Test
     public void execute_filteredList_success() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showPersonAtIndex(model, INDEX_FIRST_DIVE);
 
-        Person personInFilteredList = model.getFilteredDiveList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Person editedPerson = new PersonBuilder(personInFilteredList).withName(VALID_NAME_BOB).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
-                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
+        Person personInFilteredList = model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased());
+        Person editedPerson = new DiveSessionBuilder(personInFilteredList).withName(VALID_NAME_BOB).build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_DIVE,
+                new EditDiveDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
@@ -119,21 +119,21 @@ public class EditCommandTest {
 
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() {
-        Person firstPerson = model.getFilteredDiveList().get(INDEX_FIRST_PERSON.getZeroBased());
-        EditDiveDescriptor descriptor = new EditPersonDescriptorBuilder(firstPerson).build();
-        EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
+        Person firstPerson = model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased());
+        EditDiveDescriptor descriptor = new EditDiveDescriptorBuilder(firstPerson).build();
+        EditCommand editCommand = new EditCommand(INDEX_SECOND_DIVE, descriptor);
 
         assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
     @Test
     public void execute_duplicatePersonFilteredList_failure() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showPersonAtIndex(model, INDEX_FIRST_DIVE);
 
         // edit person in filtered list into a duplicate in divelog book
-        Person personInList = model.getDiveLog().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
-                new EditPersonDescriptorBuilder(personInList).build());
+        Person personInList = model.getDiveLog().getPersonList().get(INDEX_SECOND_DIVE.getZeroBased());
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_DIVE,
+                new EditDiveDescriptorBuilder(personInList).build());
 
         assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_PERSON);
     }
@@ -141,7 +141,7 @@ public class EditCommandTest {
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredDiveList().size() + 1);
-        EditDiveDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditDiveDescriptor descriptor = new EditDiveDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -153,23 +153,23 @@ public class EditCommandTest {
      */
     @Test
     public void execute_invalidPersonIndexFilteredList_failure() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+        showPersonAtIndex(model, INDEX_FIRST_DIVE);
+        Index outOfBoundIndex = INDEX_SECOND_DIVE;
         // ensures that outOfBoundIndex is still in bounds of divelog book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getDiveLog().getPersonList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
-                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
+                new EditDiveDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
-        Person editedPerson = new PersonBuilder().build();
-        Person personToEdit = model.getFilteredDiveList().get(INDEX_FIRST_PERSON.getZeroBased());
-        EditDiveDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
+        Person editedPerson = new DiveSessionBuilder().build();
+        Person personToEdit = model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased());
+        EditDiveDescriptor descriptor = new EditDiveDescriptorBuilder(editedPerson).build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_DIVE, descriptor);
         Model expectedModel = new ModelManager(new DiveLog(model.getDiveLog()), new UserPrefs());
         expectedModel.updateDiveSession(personToEdit, editedPerson);
         expectedModel.commitAddressBook();
@@ -189,7 +189,7 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredDiveList().size() + 1);
-        EditDiveDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditDiveDescriptor descriptor = new EditDiveDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         // execution failed -> divelog book state not added into model
@@ -209,13 +209,13 @@ public class EditCommandTest {
      */
     @Test
     public void executeUndoRedo_validIndexFilteredList_samePersonEdited() throws Exception {
-        Person editedPerson = new PersonBuilder().build();
-        EditDiveDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
+        Person editedPerson = new DiveSessionBuilder().build();
+        EditDiveDescriptor descriptor = new EditDiveDescriptorBuilder(editedPerson).build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_DIVE, descriptor);
         Model expectedModel = new ModelManager(new DiveLog(model.getDiveLog()), new UserPrefs());
 
-        showPersonAtIndex(model, INDEX_SECOND_PERSON);
-        Person personToEdit = model.getFilteredDiveList().get(INDEX_FIRST_PERSON.getZeroBased());
+        showPersonAtIndex(model, INDEX_SECOND_DIVE);
+        Person personToEdit = model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased());
         expectedModel.updateDiveSession(personToEdit, editedPerson);
         expectedModel.commitAddressBook();
 
@@ -226,7 +226,7 @@ public class EditCommandTest {
         expectedModel.undoAddressBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        assertNotEquals(model.getFilteredDiveList().get(INDEX_FIRST_PERSON.getZeroBased()), personToEdit);
+        assertNotEquals(model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased()), personToEdit);
         // redo -> edits same second person in unfiltered person list
         expectedModel.redoAddressBook();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
@@ -234,11 +234,11 @@ public class EditCommandTest {
 
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_PERSON, DESC_AMY);
+        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_DIVE, DESC_AMY);
 
         // same values -> returns true
         EditDiveDescriptor copyDescriptor = new EditDiveDescriptor(DESC_AMY);
-        EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_PERSON, copyDescriptor);
+        EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_DIVE, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -251,10 +251,10 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_PERSON, DESC_AMY)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_DIVE, DESC_AMY)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_PERSON, DESC_BOB)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_DIVE, DESC_BOB)));
     }
 
 }

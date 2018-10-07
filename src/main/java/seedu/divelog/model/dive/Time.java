@@ -14,4 +14,13 @@ public class Time {
     public String getTimeString() {
         return value;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof Time)) {
+            return false;
+        }
+        Time time = (Time) obj;
+        return value.equals(time.getTimeString());
+    }
 }

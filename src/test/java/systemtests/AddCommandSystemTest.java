@@ -21,13 +21,13 @@ import static seedu.divelog.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.divelog.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.divelog.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.divelog.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.divelog.testutil.TypicalPersons.ALICE;
-import static seedu.divelog.testutil.TypicalPersons.AMY;
-import static seedu.divelog.testutil.TypicalPersons.BOB;
-import static seedu.divelog.testutil.TypicalPersons.CARL;
-import static seedu.divelog.testutil.TypicalPersons.HOON;
-import static seedu.divelog.testutil.TypicalPersons.IDA;
-import static seedu.divelog.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.divelog.testutil.TypicalDiveSessions.ALICE;
+import static seedu.divelog.testutil.TypicalDiveSessions.AMY;
+import static seedu.divelog.testutil.TypicalDiveSessions.BOB;
+import static seedu.divelog.testutil.TypicalDiveSessions.CARL;
+import static seedu.divelog.testutil.TypicalDiveSessions.HOON;
+import static seedu.divelog.testutil.TypicalDiveSessions.IDA;
+import static seedu.divelog.testutil.TypicalDiveSessions.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
@@ -43,8 +43,8 @@ import seedu.divelog.model.person.Name;
 import seedu.divelog.model.person.Person;
 import seedu.divelog.model.person.Phone;
 import seedu.divelog.model.tag.Tag;
-import seedu.divelog.testutil.PersonBuilder;
-import seedu.divelog.testutil.PersonUtil;
+import seedu.divelog.testutil.DiveSessionBuilder;
+import seedu.divelog.testutil.DiveUtil;
 
 public class AddCommandSystemTest extends DiveLogSystemTest {
 
@@ -74,7 +74,7 @@ public class AddCommandSystemTest extends DiveLogSystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: add a person with all fields same as another person in the divelog book except name -> added */
-        toAdd = new PersonBuilder(AMY).withName(VALID_NAME_BOB).build();
+        toAdd = new DiveSessionBuilder(AMY).withName(VALID_NAME_BOB).build();
         command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
                 + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
@@ -82,8 +82,8 @@ public class AddCommandSystemTest extends DiveLogSystemTest {
         /* Case: add a person with all fields same as another person in the divelog book except phone and email
          * -> added
          */
-        toAdd = new PersonBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        toAdd = new DiveSessionBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        command = DiveUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty divelog book -> added */
@@ -114,26 +114,26 @@ public class AddCommandSystemTest extends DiveLogSystemTest {
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
         /* Case: add a duplicate person -> rejected */
-        command = PersonUtil.getAddCommand(HOON);
+        command = DiveUtil.getAddCommand(HOON);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: add a duplicate person except with different phone -> rejected */
-        toAdd = new PersonBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        toAdd = new DiveSessionBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
+        command = DiveUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: add a duplicate person except with different email -> rejected */
-        toAdd = new PersonBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        toAdd = new DiveSessionBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
+        command = DiveUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: add a duplicate person except with different divelog -> rejected */
-        toAdd = new PersonBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        toAdd = new DiveSessionBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
+        command = DiveUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: add a duplicate person except with different tags -> rejected */
-        command = PersonUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
+        command = DiveUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: missing name -> rejected */
@@ -153,7 +153,7 @@ public class AddCommandSystemTest extends DiveLogSystemTest {
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
-        command = "adds " + PersonUtil.getPersonDetails(toAdd);
+        command = "adds " + DiveUtil.getDiveDetails(toAdd);
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
@@ -193,7 +193,7 @@ public class AddCommandSystemTest extends DiveLogSystemTest {
      * @see DiveLogSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(Person toAdd) {
-        assertCommandSuccess(PersonUtil.getAddCommand(toAdd), toAdd);
+        assertCommandSuccess(DiveUtil.getAddCommand(toAdd), toAdd);
     }
 
     /**

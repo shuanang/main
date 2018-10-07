@@ -4,9 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.divelog.testutil.TypicalPersons.AMY;
-import static seedu.divelog.testutil.TypicalPersons.BOB;
-import static seedu.divelog.testutil.TypicalPersons.CARL;
+import static seedu.divelog.testutil.TypicalDiveSessions.DIVE_AT_BALI;
+import static seedu.divelog.testutil.TypicalDiveSessions.DIVE_AT_NIGHT;
+import static seedu.divelog.testutil.TypicalDiveSessions.DIVE_AT_TIOMAN;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,285 +14,292 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.divelog.testutil.AddressBookBuilder;
+import seedu.divelog.testutil.DiveLogBuilder;
 
 public class VersionedDiveLogTest {
 
-    private final ReadOnlyDiveLog addressBookWithAmy = new AddressBookBuilder().withPerson(AMY).build();
-    private final ReadOnlyDiveLog addressBookWithBob = new AddressBookBuilder().withPerson(BOB).build();
-    private final ReadOnlyDiveLog addressBookWithCarl = new AddressBookBuilder().withPerson(CARL).build();
-    private final ReadOnlyDiveLog emptyAddressBook = new AddressBookBuilder().build();
+    private final ReadOnlyDiveLog diveLogWithBali = new DiveLogBuilder()
+            .withDive(DIVE_AT_BALI)
+            .build();
+    private final ReadOnlyDiveLog diveLogWithTioman = new DiveLogBuilder()
+            .withDive(DIVE_AT_TIOMAN)
+            .build();
+    private final ReadOnlyDiveLog addressBookWithCarl = new DiveLogBuilder()
+            .withDive(DIVE_AT_NIGHT)
+            .build();
+    private final ReadOnlyDiveLog emptyDiveLog = new DiveLogBuilder().build();
 
     @Test
-    public void commit_singleAddressBook_noStatesRemovedCurrentStateSaved() {
-        VersionedDiveLog versionedAddressBook = prepareAddressBookList(emptyAddressBook);
+    public void commit_singleDiveLog_noStatesRemovedCurrentStateSaved() {
+        VersionedDiveLog versionedDiveLog = prepareDiveLogList(emptyDiveLog);
 
-        versionedAddressBook.commit();
-        assertAddressBookListStatus(versionedAddressBook,
-                Collections.singletonList(emptyAddressBook),
-                emptyAddressBook,
+        versionedDiveLog.commit();
+        assertDiveLogListStatus(versionedDiveLog,
+                Collections.singletonList(emptyDiveLog),
+                emptyDiveLog,
                 Collections.emptyList());
     }
 
     @Test
-    public void commit_multipleAddressBookPointerAtEndOfStateList_noStatesRemovedCurrentStateSaved() {
-        VersionedDiveLog versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void commit_multipleDiveLogPointerAtEndOfStateList_noStatesRemovedCurrentStateSaved() {
+        VersionedDiveLog versionedDiveLog = prepareDiveLogList(
+                emptyDiveLog, diveLogWithBali, diveLogWithTioman);
 
-        versionedAddressBook.commit();
-        assertAddressBookListStatus(versionedAddressBook,
-                Arrays.asList(emptyAddressBook, addressBookWithAmy, addressBookWithBob),
-                addressBookWithBob,
+        versionedDiveLog.commit();
+        assertDiveLogListStatus(versionedDiveLog,
+                Arrays.asList(emptyDiveLog, diveLogWithBali, diveLogWithTioman),
+                diveLogWithTioman,
                 Collections.emptyList());
     }
 
     @Test
-    public void commit_multipleAddressBookPointerNotAtEndOfStateList_statesAfterPointerRemovedCurrentStateSaved() {
-        VersionedDiveLog versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 2);
+    public void commit_multipleDiveLogPointerNotAtEndOfStateList_statesAfterPointerRemovedCurrentStateSaved() {
+        VersionedDiveLog versionedDiveLog = prepareDiveLogList(
+                emptyDiveLog, diveLogWithBali, diveLogWithTioman);
+        shiftCurrentStatePointerLeftwards(versionedDiveLog, 2);
 
-        versionedAddressBook.commit();
-        assertAddressBookListStatus(versionedAddressBook,
-                Collections.singletonList(emptyAddressBook),
-                emptyAddressBook,
+        versionedDiveLog.commit();
+        assertDiveLogListStatus(versionedDiveLog,
+                Collections.singletonList(emptyDiveLog),
+                emptyDiveLog,
                 Collections.emptyList());
     }
 
     @Test
-    public void canUndo_multipleAddressBookPointerAtEndOfStateList_returnsTrue() {
-        VersionedDiveLog versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void canUndo_multipleDiveLogPointerAtEndOfStateList_returnsTrue() {
+        VersionedDiveLog versionedDiveLog = prepareDiveLogList(
+                emptyDiveLog, diveLogWithBali, diveLogWithTioman);
 
-        assertTrue(versionedAddressBook.canUndo());
+        assertTrue(versionedDiveLog.canUndo());
     }
 
     @Test
-    public void canUndo_multipleAddressBookPointerAtStartOfStateList_returnsTrue() {
-        VersionedDiveLog versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 1);
+    public void canUndo_multipleDiveLogPointerAtStartOfStateList_returnsTrue() {
+        VersionedDiveLog versionedDiveLog = prepareDiveLogList(
+                emptyDiveLog, diveLogWithBali, diveLogWithTioman);
+        shiftCurrentStatePointerLeftwards(versionedDiveLog, 1);
 
-        assertTrue(versionedAddressBook.canUndo());
+        assertTrue(versionedDiveLog.canUndo());
     }
 
     @Test
-    public void canUndo_singleAddressBook_returnsFalse() {
-        VersionedDiveLog versionedAddressBook = prepareAddressBookList(emptyAddressBook);
+    public void canUndo_singleDiveLog_returnsFalse() {
+        VersionedDiveLog versionedDiveLog = prepareDiveLogList(emptyDiveLog);
 
-        assertFalse(versionedAddressBook.canUndo());
+        assertFalse(versionedDiveLog.canUndo());
     }
 
     @Test
-    public void canUndo_multipleAddressBookPointerAtStartOfStateList_returnsFalse() {
-        VersionedDiveLog versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 2);
+    public void canUndo_multipleDiveLogPointerAtStartOfStateList_returnsFalse() {
+        VersionedDiveLog versionedDiveLog = prepareDiveLogList(
+                emptyDiveLog, diveLogWithBali, diveLogWithTioman);
+        shiftCurrentStatePointerLeftwards(versionedDiveLog, 2);
 
-        assertFalse(versionedAddressBook.canUndo());
+        assertFalse(versionedDiveLog.canUndo());
     }
 
     @Test
-    public void canRedo_multipleAddressBookPointerNotAtEndOfStateList_returnsTrue() {
-        VersionedDiveLog versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 1);
+    public void canRedo_multipleDiveLogPointerNotAtEndOfStateList_returnsTrue() {
+        VersionedDiveLog versionedDiveLog = prepareDiveLogList(
+                emptyDiveLog, diveLogWithBali, diveLogWithTioman);
+        shiftCurrentStatePointerLeftwards(versionedDiveLog, 1);
 
-        assertTrue(versionedAddressBook.canRedo());
+        assertTrue(versionedDiveLog.canRedo());
     }
 
     @Test
-    public void canRedo_multipleAddressBookPointerAtStartOfStateList_returnsTrue() {
-        VersionedDiveLog versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 2);
+    public void canRedo_multipleDiveLogPointerAtStartOfStateList_returnsTrue() {
+        VersionedDiveLog versionedDiveLog = prepareDiveLogList(
+                emptyDiveLog, diveLogWithBali, diveLogWithTioman);
+        shiftCurrentStatePointerLeftwards(versionedDiveLog, 2);
 
-        assertTrue(versionedAddressBook.canRedo());
+        assertTrue(versionedDiveLog.canRedo());
     }
 
     @Test
-    public void canRedo_singleAddressBook_returnsFalse() {
-        VersionedDiveLog versionedAddressBook = prepareAddressBookList(emptyAddressBook);
+    public void canRedo_singleDiveLog_returnsFalse() {
+        VersionedDiveLog versionedDiveLog = prepareDiveLogList(emptyDiveLog);
 
-        assertFalse(versionedAddressBook.canRedo());
+        assertFalse(versionedDiveLog.canRedo());
     }
 
     @Test
-    public void canRedo_multipleAddressBookPointerAtEndOfStateList_returnsFalse() {
-        VersionedDiveLog versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void canRedo_multipleDiveLogPointerAtEndOfStateList_returnsFalse() {
+        VersionedDiveLog versionedDiveLog = prepareDiveLogList(
+                emptyDiveLog, diveLogWithBali, diveLogWithTioman);
 
-        assertFalse(versionedAddressBook.canRedo());
+        assertFalse(versionedDiveLog.canRedo());
     }
 
     @Test
-    public void undo_multipleAddressBookPointerAtEndOfStateList_success() {
-        VersionedDiveLog versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void undo_multipleDiveLogPointerAtEndOfStateList_success() {
+        VersionedDiveLog versionedDiveLog = prepareDiveLogList(
+                emptyDiveLog, diveLogWithBali, diveLogWithTioman);
 
-        versionedAddressBook.undo();
-        assertAddressBookListStatus(versionedAddressBook,
-                Collections.singletonList(emptyAddressBook),
-                addressBookWithAmy,
-                Collections.singletonList(addressBookWithBob));
+        versionedDiveLog.undo();
+        assertDiveLogListStatus(versionedDiveLog,
+                Collections.singletonList(emptyDiveLog),
+                diveLogWithBali,
+                Collections.singletonList(diveLogWithTioman));
     }
 
     @Test
-    public void undo_multipleAddressBookPointerNotAtStartOfStateList_success() {
-        VersionedDiveLog versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 1);
+    public void undo_multipleDiveLogPointerNotAtStartOfStateList_success() {
+        VersionedDiveLog versionedDiveLog = prepareDiveLogList(
+                emptyDiveLog, diveLogWithBali, diveLogWithTioman);
+        shiftCurrentStatePointerLeftwards(versionedDiveLog, 1);
 
-        versionedAddressBook.undo();
-        assertAddressBookListStatus(versionedAddressBook,
+        versionedDiveLog.undo();
+        assertDiveLogListStatus(versionedDiveLog,
                 Collections.emptyList(),
-                emptyAddressBook,
-                Arrays.asList(addressBookWithAmy, addressBookWithBob));
+                emptyDiveLog,
+                Arrays.asList(diveLogWithBali, diveLogWithTioman));
     }
 
     @Test
-    public void undo_singleAddressBook_throwsNoUndoableStateException() {
-        VersionedDiveLog versionedAddressBook = prepareAddressBookList(emptyAddressBook);
+    public void undo_singleDiveLog_throwsNoUndoableStateException() {
+        VersionedDiveLog versionedDiveLog = prepareDiveLogList(emptyDiveLog);
 
-        assertThrows(VersionedDiveLog.NoUndoableStateException.class, versionedAddressBook::undo);
+        assertThrows(VersionedDiveLog.NoUndoableStateException.class, versionedDiveLog::undo);
     }
 
     @Test
-    public void undo_multipleAddressBookPointerAtStartOfStateList_throwsNoUndoableStateException() {
-        VersionedDiveLog versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 2);
+    public void undo_multipleDiveLogPointerAtStartOfStateList_throwsNoUndoableStateException() {
+        VersionedDiveLog versionedDiveLog = prepareDiveLogList(
+                emptyDiveLog, diveLogWithBali, diveLogWithTioman);
+        shiftCurrentStatePointerLeftwards(versionedDiveLog, 2);
 
-        assertThrows(VersionedDiveLog.NoUndoableStateException.class, versionedAddressBook::undo);
+        assertThrows(VersionedDiveLog.NoUndoableStateException.class, versionedDiveLog::undo);
     }
 
     @Test
-    public void redo_multipleAddressBookPointerNotAtEndOfStateList_success() {
-        VersionedDiveLog versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 1);
+    public void redo_multipleDiveLogPointerNotAtEndOfStateList_success() {
+        VersionedDiveLog versionversionedDiveLog = prepareDiveLogList(
+                emptyDiveLog, diveLogWithBali, diveLogWithTioman);
+        shiftCurrentStatePointerLeftwards(versionversionedDiveLog, 1);
 
-        versionedAddressBook.redo();
-        assertAddressBookListStatus(versionedAddressBook,
-                Arrays.asList(emptyAddressBook, addressBookWithAmy),
-                addressBookWithBob,
+        versionversionedDiveLog.redo();
+        assertDiveLogListStatus(versionversionedDiveLog,
+                Arrays.asList(emptyDiveLog, diveLogWithBali),
+                diveLogWithTioman,
                 Collections.emptyList());
     }
 
     @Test
-    public void redo_multipleAddressBookPointerAtStartOfStateList_success() {
-        VersionedDiveLog versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 2);
+    public void redo_multipleDiveLogPointerAtStartOfStateList_success() {
+        VersionedDiveLog versionedDiveLog = prepareDiveLogList(
+                emptyDiveLog, diveLogWithBali, diveLogWithTioman);
+        shiftCurrentStatePointerLeftwards(versionedDiveLog, 2);
 
-        versionedAddressBook.redo();
-        assertAddressBookListStatus(versionedAddressBook,
-                Collections.singletonList(emptyAddressBook),
-                addressBookWithAmy,
-                Collections.singletonList(addressBookWithBob));
+        versionedDiveLog.redo();
+        assertDiveLogListStatus(versionedDiveLog,
+                Collections.singletonList(emptyDiveLog),
+                diveLogWithBali,
+                Collections.singletonList(diveLogWithTioman));
     }
 
     @Test
-    public void redo_singleAddressBook_throwsNoRedoableStateException() {
-        VersionedDiveLog versionedAddressBook = prepareAddressBookList(emptyAddressBook);
+    public void redo_singleDiveLog_throwsNoRedoableStateException() {
+        VersionedDiveLog versionedDiveLog = prepareDiveLogList(emptyDiveLog);
 
-        assertThrows(VersionedDiveLog.NoRedoableStateException.class, versionedAddressBook::redo);
+        assertThrows(VersionedDiveLog.NoRedoableStateException.class, versionedDiveLog::redo);
     }
 
     @Test
-    public void redo_multipleAddressBookPointerAtEndOfStateList_throwsNoRedoableStateException() {
-        VersionedDiveLog versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void redo_multipleDiveLogPointerAtEndOfStateList_throwsNoRedoableStateException() {
+        VersionedDiveLog versionedDiveLog = prepareDiveLogList(
+                emptyDiveLog, diveLogWithBali, diveLogWithTioman);
 
-        assertThrows(VersionedDiveLog.NoRedoableStateException.class, versionedAddressBook::redo);
+        assertThrows(VersionedDiveLog.NoRedoableStateException.class, versionedDiveLog::redo);
     }
 
     @Test
     public void equals() {
-        VersionedDiveLog versionedAddressBook = prepareAddressBookList(addressBookWithAmy, addressBookWithBob);
+        VersionedDiveLog versionedDiveLog = prepareDiveLogList(diveLogWithBali, diveLogWithTioman);
 
         // same values -> returns true
-        VersionedDiveLog copy = prepareAddressBookList(addressBookWithAmy, addressBookWithBob);
-        assertTrue(versionedAddressBook.equals(copy));
+        VersionedDiveLog copy = prepareDiveLogList(diveLogWithBali, diveLogWithTioman);
+        assertTrue(versionedDiveLog.equals(copy));
 
         // same object -> returns true
-        assertTrue(versionedAddressBook.equals(versionedAddressBook));
+        assertTrue(versionedDiveLog.equals(versionedDiveLog));
 
         // null -> returns false
-        assertFalse(versionedAddressBook.equals(null));
+        assertFalse(versionedDiveLog.equals(null));
 
         // different types -> returns false
-        assertFalse(versionedAddressBook.equals(1));
+        assertFalse(versionedDiveLog.equals(1));
 
         // different state list -> returns false
-        VersionedDiveLog differentAddressBookList = prepareAddressBookList(addressBookWithBob, addressBookWithCarl);
-        assertFalse(versionedAddressBook.equals(differentAddressBookList));
+        VersionedDiveLog differentAddressBookList = prepareDiveLogList(diveLogWithTioman, addressBookWithCarl);
+        assertFalse(versionedDiveLog.equals(differentAddressBookList));
 
         // different current pointer index -> returns false
-        VersionedDiveLog differentCurrentStatePointer = prepareAddressBookList(
-                addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 1);
-        assertFalse(versionedAddressBook.equals(differentCurrentStatePointer));
+        VersionedDiveLog differentCurrentStatePointer = prepareDiveLogList(
+                diveLogWithBali, diveLogWithTioman);
+        shiftCurrentStatePointerLeftwards(versionedDiveLog, 1);
+        assertFalse(versionedDiveLog.equals(differentCurrentStatePointer));
     }
 
     /**
-     * Asserts that {@code versionedAddressBook} is currently pointing at {@code expectedCurrentState},
-     * states before {@code versionedAddressBook#currentStatePointer} is equal to {@code expectedStatesBeforePointer},
-     * and states after {@code versionedAddressBook#currentStatePointer} is equal to {@code expectedStatesAfterPointer}.
+     * Asserts that {@code versionedDiveLog} is currently pointing at {@code expectedCurrentState},
+     * states before {@code versionedDiveLog#currentStatePointer} is equal to {@code expectedStatesBeforePointer},
+     * and states after {@code versionedDiveLog#currentStatePointer} is equal to {@code expectedStatesAfterPointer}.
      */
-    private void assertAddressBookListStatus(VersionedDiveLog versionedAddressBook,
-                                             List<ReadOnlyDiveLog> expectedStatesBeforePointer,
-                                             ReadOnlyDiveLog expectedCurrentState,
-                                             List<ReadOnlyDiveLog> expectedStatesAfterPointer) {
+    private void assertDiveLogListStatus(VersionedDiveLog versionedDiveLog,
+                                         List<ReadOnlyDiveLog> expectedStatesBeforePointer,
+                                         ReadOnlyDiveLog expectedCurrentState,
+                                         List<ReadOnlyDiveLog> expectedStatesAfterPointer) {
         // check state currently pointing at is correct
-        assertEquals(new DiveLog(versionedAddressBook), expectedCurrentState);
+        assertEquals(new DiveLog(versionedDiveLog), expectedCurrentState);
 
         // shift pointer to start of state list
-        while (versionedAddressBook.canUndo()) {
-            versionedAddressBook.undo();
+        while (versionedDiveLog.canUndo()) {
+            versionedDiveLog.undo();
         }
 
         // check states before pointer are correct
         for (ReadOnlyDiveLog expectedAddressBook : expectedStatesBeforePointer) {
-            assertEquals(expectedAddressBook, new DiveLog(versionedAddressBook));
-            versionedAddressBook.redo();
+            assertEquals(expectedAddressBook, new DiveLog(versionedDiveLog));
+            versionedDiveLog.redo();
         }
 
         // check states after pointer are correct
         for (ReadOnlyDiveLog expectedAddressBook : expectedStatesAfterPointer) {
-            versionedAddressBook.redo();
-            assertEquals(expectedAddressBook, new DiveLog(versionedAddressBook));
+            versionedDiveLog.redo();
+            assertEquals(expectedAddressBook, new DiveLog(versionedDiveLog));
         }
 
         // check that there are no more states after pointer
-        assertFalse(versionedAddressBook.canRedo());
+        assertFalse(versionedDiveLog.canRedo());
 
         // revert pointer to original position
-        expectedStatesAfterPointer.forEach(unused -> versionedAddressBook.undo());
+        expectedStatesAfterPointer.forEach(unused -> versionedDiveLog.undo());
     }
 
     /**
      * Creates and returns a {@code VersionedDiveLog} with the {@code addressBookStates} added into it, and the
      * {@code VersionedDiveLog#currentStatePointer} at the end of list.
+     * @param diveLogStates
      */
-    private VersionedDiveLog prepareAddressBookList(ReadOnlyDiveLog... addressBookStates) {
-        assertFalse(addressBookStates.length == 0);
+    private VersionedDiveLog prepareDiveLogList(ReadOnlyDiveLog... diveLogStates) {
+        assertFalse(diveLogStates.length == 0);
 
-        VersionedDiveLog versionedAddressBook = new VersionedDiveLog(addressBookStates[0]);
-        for (int i = 1; i < addressBookStates.length; i++) {
-            versionedAddressBook.resetData(addressBookStates[i]);
-            versionedAddressBook.commit();
+        VersionedDiveLog versionedDiveLog = new VersionedDiveLog(diveLogStates[0]);
+        for (int i = 1; i < diveLogStates.length; i++) {
+            versionedDiveLog.resetData(diveLogStates[i]);
+            versionedDiveLog.commit();
         }
 
-        return versionedAddressBook;
+        return versionedDiveLog;
     }
 
     /**
-     * Shifts the {@code versionedAddressBook#currentStatePointer} by {@code count} to the left of its list.
+     * Shifts the {@code versionedDiveLog#currentStatePointer} by {@code count} to the left of its list.
      */
-    private void shiftCurrentStatePointerLeftwards(VersionedDiveLog versionedAddressBook, int count) {
+    private void shiftCurrentStatePointerLeftwards(VersionedDiveLog versionedDiveLog, int count) {
         for (int i = 0; i < count; i++) {
-            versionedAddressBook.undo();
+            versionedDiveLog.undo();
         }
     }
 }

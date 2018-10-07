@@ -1,18 +1,17 @@
-package seedu.divelog.model.person;
+package seedu.divelog.model.dive;
 
 import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.divelog.commons.util.StringUtil;
-import seedu.divelog.model.dive.DiveSession;
 
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Dives}'s {@code location} matches any of the keywords given.
  */
-public class LocationContainsKeywordsPredicate implements Predicate<DiveSession> {
+public class LocationContainsKeywordPredicate implements Predicate<DiveSession> {
     private final List<String> keywords;
 
-    public LocationContainsKeywordsPredicate(List<String> keywords) {
+    public LocationContainsKeywordPredicate(List<String> keywords) {
         this.keywords = keywords;
     }
 
@@ -25,8 +24,8 @@ public class LocationContainsKeywordsPredicate implements Predicate<DiveSession>
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof LocationContainsKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((LocationContainsKeywordsPredicate) other).keywords)); // state check
+                || (other instanceof LocationContainsKeywordPredicate // instanceof handles nulls
+                && keywords.equals(((LocationContainsKeywordPredicate) other).keywords)); // state check
     }
 
 }

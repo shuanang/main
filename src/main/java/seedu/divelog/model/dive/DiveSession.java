@@ -59,4 +59,12 @@ public class DiveSession {
     public boolean isSameDiveSession(DiveSession dive) {
         return dive == this;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof DiveSession)) {
+            return false;
+        }
+        return super.equals(obj);
+    }
 }

@@ -1,7 +1,7 @@
 package seedu.divelog.logic.commands;
 
 import static seedu.divelog.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.divelog.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.divelog.testutil.TypicalDiveSessions.getTypicalAddressBook;
 
 import org.junit.Test;
 

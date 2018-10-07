@@ -22,7 +22,7 @@ import seedu.divelog.model.ReadOnlyDiveLog;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.exceptions.DiveNotFoundException;
 import seedu.divelog.model.person.Person;
-import seedu.divelog.testutil.PersonBuilder;
+import seedu.divelog.testutil.DiveSessionBuilder;
 
 public class AddCommandTest {
 
@@ -42,7 +42,7 @@ public class AddCommandTest {
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+        Person validPerson = new DiveSessionBuilder().build();
 
         CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
 
@@ -53,7 +53,7 @@ public class AddCommandTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        Person validPerson = new PersonBuilder().build();
+        Person validPerson = new DiveSessionBuilder().build();
         AddCommand addCommand = new AddCommand(validPerson);
         ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
@@ -64,8 +64,8 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
+        Person alice = new DiveSessionBuilder().withName("Alice").build();
+        Person bob = new DiveSessionBuilder().withName("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 

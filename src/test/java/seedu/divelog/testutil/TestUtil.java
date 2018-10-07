@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 
 import seedu.divelog.commons.core.index.Index;
 import seedu.divelog.model.Model;
-import seedu.divelog.model.person.Person;
+import seedu.divelog.model.dive.DiveSession;
 
 /**
  * A utility class for test cases.
@@ -49,7 +49,7 @@ public class TestUtil {
     /**
      * Returns the person in the {@code model}'s person list at {@code index}.
      */
-    public static Person getPerson(Model model, Index index) {
+    public static DiveSession getDive(Model model, Index index) {
         return model.getFilteredDiveList().get(index.getZeroBased());
     }
 }

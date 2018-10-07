@@ -3,7 +3,7 @@ package seedu.divelog.storage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static seedu.divelog.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.divelog.testutil.TypicalDiveSessions.getTypicalAddressBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
