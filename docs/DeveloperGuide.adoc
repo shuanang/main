@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= Divelog - Developer Guide v.1.0
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,11 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team CS2113-AY1819S1-W13-2`      Since: `Aug 2018`      Licence: `MIT`
+
+== Context
+When a diver goes on a dive, the pressure underwater causes nitrogen to build up in the blood stream. When the diver returns to the surface, he or she has that level of nitrogen in his or her blood. However, due to the atmospheric pressure being lower than underwater, the partial pressure of nitrogen is different. Having too much nitrogen build up can be dangerous particularly if you are planning a second dive or going on a flight as the nitrogen can form bubbles inside one’s bloodstream. In order to solve this problem, divers manually calculate their “pressure groups”. The pressure groups are on a range from A,B,C all the way to X. Depending on your pressure group you can attempt your next dive. It is generally advised to be below the “B” pressure group before your next dive.
+
 
 == Setting up
 
@@ -826,25 +830,45 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 [appendix]
 == User Stories
 
-Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`, Null (Not Implementing) - `-`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
-|=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+[cols="2,2,2,2", options="header"]
+.List of user stories
+|===
+|Priority |As a... |I want to... | So that I can...
 
-|`* * *` |user |add a new person |
+|`* * *`
+|Diver
+|Know my current pressure group
+|Plan my next dive safely
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *`
+|Diver
+|Add dive entries
+|So that I can know my pressure group.
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`**`
+|Diver
+|Be able to enter data in local time
+|Save time when calculating my pressure groups.
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`**`
+|Diver
+|Plan my dives ahead of performing them
+|So that I know what a safe limit is.
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
-|=======================================================================
+|`*`
+|Diver
+|to see where I have been
+|Reminisce
 
-_{More to be added}_
+|`-`
+|Dive master
+|Check my dive buddy’s logs
+|Make sure all of us have a safe trip
+
+|===
+
 
 [appendix]
 == Use Cases
@@ -852,30 +876,99 @@ _{More to be added}_
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add dive session
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  Diver opens system
+2.  System shows him a list of dive sessions
+3.  Diver chooses to add a new dive session
+4.  System returns and requests for data from Diver
+5.  Diver adds time spent at different depths, marine species diver has seen
+6.  System confirms the details
+7.  Diver confirms the details
+8.  System adds the dive session and shows it is successful
+9.  Diver confirms
+10.  System shows recommended time to next dive or flight
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
+* 3a. The data entered is invalid. (i.e. The diver enters text instead of numeric values for depth.)
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. System points to the invalid data and asks user to clarify data.
 +
-Use case resumes at step 2.
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: View details of a dive session
+
+*MSS*
+
+1.  Diver opens system
+2.  System shows him a list of dive sessions
+3.  Diver selects dive session to view details of the dive sesion
+4.  System returns the dive session details
+
+[discrete]
+=== Use case: Edit a dive session
+
+*MSS*
+
+1.  Diver opens system
+2.  System shows him a list of dive sessions
+3.  Diver selects dive session to edit
+4.  System returns the parameters of the specific dive session
+5.  Diver enters the new information of that dive session
+6.  System confirms the edit of that dive session.
+
+*Extensions*
+
+[none]
+* 5a. The data entered is invalid. (i.e The diver enters text instead of numeric values for depth.)
++
+[none]
+** 5a1. System points to the invalid data entered and asks user to clarify data.
++
+Use case resumes at step 5.
+[none]
+* 7b. The user realizes the input is invalid. He enters undo.
++
+[none]
+** 7b1. System rolls back the last edit.
+
+=== Use case: Remove a dive session
+
+*MSS*
+
+1.  Diver opens system
+2.  System shows him a list of dive sessions
+3.  Diver selects the dive session to remove
+4.  System confirms the deletion
+5.  Diver confirms.
+6.  System removes dive session.
+
+*Extensions*
+
+[none]
+* 5a. Diver cancels.
++
+[none]
+** 5a1. System does not make any changes to current state.
++
+Use case ends here.
+
+=== Use case: Check current pressure group
+
+*MSS*
+
+1.  Diver opens system
+2.  System shows him a list of dive sessions
+3.  Diver requests system for his current pressure group
+4.  System displays his current pressure group, the time needed to the next pressure group, and the time needed for him to reach his desired pressure group as well as the recommended time to his next dive or flight.
 
 _{More to be added}_
 
@@ -883,8 +976,10 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should be able to hold up to 1000 dive sessions without a noticeable sluggishness in performance for typical usage.
+.  Should allow users to select and view dives in addition to the command line.
+.  Should be able to calculate the pressure groups as specified by PADI’s dive table.
+.  Should have a simple tutorial walk through to orientate the users if it is their first time running the application
 
 _{More to be added}_
 
@@ -899,20 +994,14 @@ A contact detail that is not meant to be shared with others
 
 [appendix]
 == Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+Author: Arjo Chakravarty
+A few similar products exist out there. Firstly, one of the team members (Arjo) uses a paper equivalent of such a dive log. This dive log records all the necessary information and provides a user with the basic safety information of the PG being provided as fields. However, the pressure group information must be hand calculated leading to error or negligence.
+image::paper_notebook.jpg[width="300"]
+Linus Torvalds, the benevolent dictator of the linux kernel and mastermind behind git has also created a dive log program. Linus’s program, known as Subsurface, is written in C++ and uses the Qt library allowing for cross-platform usage.
+image::subsurface_1.png[width="300"]
+Subsurface has a comprehensive interface for entering a lot of details. It allows the user to enter things such as the depth, who the dive master was, dive buddy’s name and equipment. It also has a nice satellite map to show where you are planning the dive. The plot on the right hand side illustrates the depth. This includes the so called “safety stop” where the diver allows some of the nitrogen to be released from his bloodstream before surfacing. The plot also is capable of showing a nitrogen profile and a rough estimate of how much oxygen should be kept in reserve for each part of the dive. All of this make it a very complete product with the exception that its initial learning curve is fairly steep.
+image::subsurface_2.png[width="300"]
+When the user first opens the dive log he or she is greeted with this screen, which is not very indicative of what exactly is going on. It takes the user a few attempts to figure out how to add a dive as the add dive is nested very deep inside the menu. It also does not display the pressure group anywhere.This can be confusing for beginner divers as they rely on pressure groups to ensure their own safety.
 
 [appendix]
 == Instructions for Manual Testing

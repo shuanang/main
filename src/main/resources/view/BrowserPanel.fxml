@@ -1,10 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.web.WebView?>
-
 <?import javafx.scene.control.Label?>
-<StackPane xmlns:fx="http://javafx.com/fxml/1">
-  <Label fx:id="diveDetails"/>
-  <WebView fx:id="browser"/>
-</StackPane>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox layoutX="11.0" layoutY="4.0" prefHeight="393.0" prefWidth="579.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <Label fx:id="diveLocation" text="Dive Name" style="-fx-font-size: 45">
+      <font>
+        <Font size="45.0" />
+      </font>
+    </Label>
+    <Label fx:id="diveDepth" text="You Dove To _m" />
+    <HBox prefHeight="100.0" prefWidth="200.0">
+      <children>
+        <VBox prefHeight="100.0" prefWidth="199.0">
+          <children>
+            <Label fx:id="pgStart" alignment="CENTER" contentDisplay="CENTER" text="A" textAlignment="CENTER" style="-fx-font-size: 52">
+              <font>
+                <Font size="52.0" />
+              </font>
+            </Label>
+            <Label text="Starting Pressure Group" />
+          </children>
+        </VBox>
+        <VBox prefHeight="100.0" prefWidth="200.0">
+          <children>
+            <Label fx:id="pgEnd" alignment="CENTER" contentDisplay="CENTER" text="B" style="-fx-font-size: 52">
+              <font>
+                <Font size="52.0" />
+              </font>
+            </Label>
+            <Label text="Ending Pressure Group" />
+          </children>
+        </VBox>
+      </children>
+    </HBox>
+    <Label fx:id="startTime" text="Dive Started:" />
+    <Label fx:id="endTime" text="Dive Ended:" />
+    <Label fx:id="safetyStop" text="Safety Stop:" />
+  </children>
+</VBox>
