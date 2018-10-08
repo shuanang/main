@@ -5,6 +5,7 @@ import java.util.stream.Stream;
 import seedu.divelog.commons.core.Messages;
 import seedu.divelog.logic.commands.AddCommand;
 import seedu.divelog.logic.parser.exceptions.ParseException;
+import seedu.divelog.model.dive.Date;
 import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.Location;
@@ -24,7 +25,9 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args,
+                        CliSyntax.PREFIX_DATE_START,
                         CliSyntax.PREFIX_TIME_START,
+                        CliSyntax.PREFIX_DATE_END,
                         CliSyntax.PREFIX_TIME_END,
                         CliSyntax.PREFIX_SAFETY_STOP,
                         CliSyntax.PREFIX_DEPTH,
@@ -33,7 +36,9 @@ public class AddCommandParser implements Parser<AddCommand> {
                         CliSyntax.PREFIX_LOCATION);
 
         if (!arePrefixesPresent(argMultimap,
+                CliSyntax.PREFIX_DATE_START,
                 CliSyntax.PREFIX_TIME_START,
+                CliSyntax.PREFIX_DATE_END,
                 CliSyntax.PREFIX_TIME_END,
                 CliSyntax.PREFIX_SAFETY_STOP,
                 CliSyntax.PREFIX_DEPTH,
@@ -49,8 +54,14 @@ public class AddCommandParser implements Parser<AddCommand> {
             || argMultimap.getValue(CliSyntax.PREFIX_SAFETY_STOP).get().length() != 4) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_TIME_FORMAT, AddCommand.MESSAGE_USAGE));
         }
+        if (argMultimap.getValue(CliSyntax.PREFIX_DATE_START).get().length() != 8
+            || argMultimap.getValue(CliSyntax.PREFIX_DATE_END).get().length() != 8) {
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_DATE_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
 
+        Date dateStart = new Date(argMultimap.getValue(CliSyntax.PREFIX_DATE_START).get());
         Time startTime = new Time(argMultimap.getValue(CliSyntax.PREFIX_TIME_START).get());
+        Date dateEnd = new Date(argMultimap.getValue(CliSyntax.PREFIX_DATE_END).get());
         Time endTime = new Time(argMultimap.getValue(CliSyntax.PREFIX_TIME_END).get());
         Time safetyStop = new Time(argMultimap.getValue(CliSyntax.PREFIX_SAFETY_STOP).get());
         PressureGroup pressureGroupAtBegining =
@@ -61,7 +72,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 new Location(argMultimap.getValue(CliSyntax.PREFIX_LOCATION).get());
         DepthProfile depthProfile = ParserUtil.parseDepth(argMultimap.getValue(CliSyntax.PREFIX_DEPTH).get());
         DiveSession dive =
-                new DiveSession(startTime, safetyStop, endTime, pressureGroupAtBegining,
+                new DiveSession(dateStart, startTime, safetyStop, dateEnd, endTime, pressureGroupAtBegining,
                         pressureGroupAtEnd, location, depthProfile);
 
         return new AddCommand(dive);
