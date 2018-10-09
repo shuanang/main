@@ -8,7 +8,7 @@ import seedu.divelog.model.dive.Time;
 /**
  * A class with methods to compare Date and Time
  */
-public class compareUtil {
+public class CompareUtil {
 
     /**
      * Tells time difference between 2 timings in MINUTES (long)
