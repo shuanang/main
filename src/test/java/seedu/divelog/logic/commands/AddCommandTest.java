@@ -15,7 +15,6 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
 import seedu.divelog.logic.CommandHistory;
-import seedu.divelog.logic.commands.exceptions.CommandException;
 import seedu.divelog.model.DiveLog;
 import seedu.divelog.model.Model;
 import seedu.divelog.model.ReadOnlyDiveLog;
@@ -42,48 +41,37 @@ public class AddCommandTest {
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new DiveSessionBuilder().build();
+        DiveSession validPerson = new DiveSessionBuilder().build();
 
         CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(Arrays.asList(validPerson), modelStub.diveAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        Person validPerson = new DiveSessionBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
-
-        thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
-        addCommand.execute(modelStub, commandHistory);
-    }
-
-    @Test
     public void equals() {
-        Person alice = new DiveSessionBuilder().withName("Alice").build();
-        Person bob = new DiveSessionBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        DiveSession nightDive = new DiveSessionBuilder().withStart("2100").withEnd("2200").withSafetyStop("2145").build();
+        DiveSession morningDive = new DiveSessionBuilder().withStart("0800").withEnd("0900").withSafetyStop("0845").build();
+        AddCommand addNightDiveCommand = new AddCommand(nightDive);
+        AddCommand addMorningDiveCommand = new AddCommand(morningDive);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addNightDiveCommand.equals(addNightDiveCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddCommand addNightDiveCommandCopy = new AddCommand(nightDive);
+        assertTrue(addNightDiveCommand.equals(addNightDiveCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addNightDiveCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addNightDiveCommand.equals(null));
 
-        // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        // different diveSession -> returns false
+        assertFalse(addNightDiveCommand.equals(addMorningDiveCommand));
     }
 
     /**
@@ -102,11 +90,6 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlyDiveLog getDiveLog() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -131,69 +114,58 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean canUndoAddressBook() {
+        public boolean canUndoDiveLog() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canRedoAddressBook() {
+        public boolean canRedoDiveLog() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void undoAddressBook() {
+        public void undoDiveLog() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoAddressBook() {
+        public void redoDiveLog() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitDiveLog() {
             throw new AssertionError("This method should not be called.");
         }
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single diveSession.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ModelStubWithDive extends ModelStub {
+        private final DiveSession diveSession;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithDive(DiveSession diveSession) {
+            requireNonNull(diveSession);
+            this.diveSession = diveSession;
         }
 
-        @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
-        }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the diveSession being added.
      */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
-
-        @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
-        }
+        final ArrayList<DiveSession> diveAdded = new ArrayList<>();
 
         @Override
         public void addDiveSession(DiveSession diveSession) {
             requireNonNull(diveSession);
-            personsAdded.add(diveSession);
+            diveAdded.add(diveSession);
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitDiveLog() {
             // called by {@code AddCommand#execute()}
         }
 

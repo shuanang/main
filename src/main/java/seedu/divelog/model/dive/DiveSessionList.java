@@ -11,6 +11,7 @@ import seedu.divelog.commons.util.CollectionUtil;
 import seedu.divelog.model.dive.exceptions.DiveNotFoundException;
 
 /**
+ * @author arjo
  * Stores a list of dives
  */
 public class DiveSessionList implements Iterable<DiveSession> {
@@ -20,7 +21,7 @@ public class DiveSessionList implements Iterable<DiveSession> {
      */
     public boolean contains(DiveSession toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameDiveSession);
+        return internalList.stream().anyMatch(toCheck::equals);
     }
 
     /**
@@ -57,6 +58,10 @@ public class DiveSessionList implements Iterable<DiveSession> {
         }
     }
 
+    /**
+     * Sets all the dives in a dive session list.
+     * @param replacement
+     */
     public void setDives(DiveSessionList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);

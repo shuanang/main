@@ -27,9 +27,10 @@ public class ParserUtil {
     }
 
     /**
+     * @author arjo
      * Parses depth profile
      * @param depth
-     * @return
+     * @return a Depth Profile object.
      */
     public static DepthProfile parseDepth(String depth) throws ParseException {
         try {

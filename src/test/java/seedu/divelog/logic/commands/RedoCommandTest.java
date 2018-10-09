@@ -2,7 +2,7 @@ package seedu.divelog.logic.commands;
 
 import static seedu.divelog.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.divelog.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.divelog.logic.commands.CommandTestUtil.deleteFirstPerson;
+import static seedu.divelog.logic.commands.CommandTestUtil.deleteFirstDive;
 import static seedu.divelog.testutil.TypicalDiveSessions.getTypicalAddressBook;
 
 import org.junit.Before;
@@ -22,25 +22,25 @@ public class RedoCommandTest {
     @Before
     public void setUp() {
         // set up of both models' undo/redo history
-        deleteFirstPerson(model);
-        deleteFirstPerson(model);
-        model.undoAddressBook();
-        model.undoAddressBook();
+        deleteFirstDive(model);
+        deleteFirstDive(model);
+        model.undoDiveLog();
+        model.undoDiveLog();
 
-        deleteFirstPerson(expectedModel);
-        deleteFirstPerson(expectedModel);
-        expectedModel.undoAddressBook();
-        expectedModel.undoAddressBook();
+        deleteFirstDive(expectedModel);
+        deleteFirstDive(expectedModel);
+        expectedModel.undoDiveLog();
+        expectedModel.undoDiveLog();
     }
 
     @Test
     public void execute() {
         // multiple redoable states in model
-        expectedModel.redoAddressBook();
+        expectedModel.redoDiveLog();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // single redoable state in model
-        expectedModel.redoAddressBook();
+        expectedModel.redoDiveLog();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // no redoable state in model

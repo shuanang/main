@@ -246,7 +246,7 @@ public class EditCommandSystemTest extends DiveLogSystemTest {
         expectedModel.updateFilteredDiveList(PREDICATE_SHOW_ALL_PERSONS);
 
         assertCommandSuccess(command, expectedModel,
-                String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson), expectedSelectedCardIndex);
+                String.format(EditCommand.MESSAGE_EDIT_DIVE_SUCCESS, editedPerson), expectedSelectedCardIndex);
     }
 
     /**

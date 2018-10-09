@@ -5,7 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.divelog.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.divelog.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.divelog.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.divelog.logic.commands.CommandTestUtil.showDiveAtIndex;
 import static seedu.divelog.testutil.TypicalIndexes.INDEX_FIRST_DIVE;
 import static seedu.divelog.testutil.TypicalIndexes.INDEX_SECOND_DIVE;
 import static seedu.divelog.testutil.TypicalIndexes.INDEX_THIRD_DIVE;
@@ -52,16 +52,16 @@ public class SelectCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showPersonAtIndex(model, INDEX_FIRST_DIVE);
-        showPersonAtIndex(expectedModel, INDEX_FIRST_DIVE);
+        showDiveAtIndex(model, INDEX_FIRST_DIVE);
+        showDiveAtIndex(expectedModel, INDEX_FIRST_DIVE);
 
         assertExecutionSuccess(INDEX_FIRST_DIVE);
     }
 
     @Test
     public void execute_invalidIndexFilteredList_failure() {
-        showPersonAtIndex(model, INDEX_FIRST_DIVE);
-        showPersonAtIndex(expectedModel, INDEX_FIRST_DIVE);
+        showDiveAtIndex(model, INDEX_FIRST_DIVE);
+        showDiveAtIndex(expectedModel, INDEX_FIRST_DIVE);
 
         Index outOfBoundsIndex = INDEX_SECOND_DIVE;
         // ensures that outOfBoundIndex is still in bounds of divelog book list

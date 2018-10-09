@@ -49,7 +49,7 @@ public class AddCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.addDiveSession(toAdd);
-        model.commitAddressBook();
+        model.commitDiveLog();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

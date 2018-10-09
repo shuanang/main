@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import seedu.divelog.commons.util.StringUtil;
 
 /**
+ * @author arjo
  * Tests that a {@code Dives}'s {@code location} matches any of the keywords given.
  */
 public class LocationContainsKeywordPredicate implements Predicate<DiveSession> {

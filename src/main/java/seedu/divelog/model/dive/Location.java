@@ -1,6 +1,7 @@
 package seedu.divelog.model.dive;
 
 /**
+ * @author arjo
  * Stores location information
  */
 public class Location {
@@ -16,7 +17,7 @@ public class Location {
 
     @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof PressureGroup)) {
+        if (!(obj instanceof PressureGroup)) {
             return false;
         }
         Location other = (Location) obj;

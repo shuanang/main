@@ -16,7 +16,7 @@ public class PressureGroup {
 
     @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof PressureGroup)) {
+        if (!(obj instanceof PressureGroup)) {
             return false;
         }
         PressureGroup pg = (PressureGroup) obj;

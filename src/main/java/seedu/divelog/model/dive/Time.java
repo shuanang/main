@@ -17,7 +17,7 @@ public class Time {
 
     @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof Time)) {
+        if (!(obj instanceof Time)) {
             return false;
         }
         Time time = (Time) obj;

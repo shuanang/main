@@ -98,29 +98,29 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
+    public boolean canUndoDiveLog() {
         return versionedDiveLog.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
+    public boolean canRedoDiveLog() {
         return versionedDiveLog.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
+    public void undoDiveLog() {
         versionedDiveLog.undo();
         indicateAddressBookChanged();
     }
 
     @Override
-    public void redoAddressBook() {
+    public void redoDiveLog() {
         versionedDiveLog.redo();
         indicateAddressBookChanged();
     }
 
     @Override
-    public void commitAddressBook() {
+    public void commitDiveLog() {
         versionedDiveLog.commit();
     }
 

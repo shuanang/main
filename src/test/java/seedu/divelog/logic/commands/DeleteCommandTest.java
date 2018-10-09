@@ -5,7 +5,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.divelog.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.divelog.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.divelog.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.divelog.logic.commands.CommandTestUtil.showDiveAtIndex;
 import static seedu.divelog.testutil.TypicalIndexes.INDEX_FIRST_DIVE;
 import static seedu.divelog.testutil.TypicalIndexes.INDEX_SECOND_DIVE;
 import static seedu.divelog.testutil.TypicalDiveSessions.getTypicalAddressBook;
@@ -18,7 +18,7 @@ import seedu.divelog.logic.CommandHistory;
 import seedu.divelog.model.Model;
 import seedu.divelog.model.ModelManager;
 import seedu.divelog.model.UserPrefs;
-import seedu.divelog.model.person.Person;
+import seedu.divelog.model.dive.DiveSession;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -31,18 +31,18 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Person personToDelete = model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased());
+        DiveSession diveToDelete = model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_DIVE);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, diveToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getDiveLog(), new UserPrefs());
         try {
-            expectedModel.deleteDiveSession(personToDelete);
+            expectedModel.deleteDiveSession(diveToDelete);
         } catch (seedu.divelog.model.dive.exceptions.DiveNotFoundException e) {
             e.printStackTrace();
         }
-        expectedModel.commitAddressBook();
+        expectedModel.commitDiveLog();
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -57,9 +57,9 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showPersonAtIndex(model, INDEX_FIRST_DIVE);
+        showDiveAtIndex(model, INDEX_FIRST_DIVE);
 
-        Person personToDelete = model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased());
+        DiveSession personToDelete = model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_DIVE);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
@@ -70,7 +70,7 @@ public class DeleteCommandTest {
         } catch (seedu.divelog.model.dive.exceptions.DiveNotFoundException e) {
             e.printStackTrace();
         }
-        expectedModel.commitAddressBook();
+        expectedModel.commitDiveLog();
         showNoPerson(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -78,11 +78,11 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showPersonAtIndex(model, INDEX_FIRST_DIVE);
+        showDiveAtIndex(model, INDEX_FIRST_DIVE);
 
         Index outOfBoundIndex = INDEX_SECOND_DIVE;
         // ensures that outOfBoundIndex is still in bounds of divelog book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getDiveLog().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getDiveLog().getDiveList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
@@ -91,21 +91,21 @@ public class DeleteCommandTest {
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
-        Person personToDelete = model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased());
+        DiveSession personToDelete = model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_DIVE);
         Model expectedModel = new ModelManager(model.getDiveLog(), new UserPrefs());
         expectedModel.deleteDiveSession(personToDelete);
-        expectedModel.commitAddressBook();
+        expectedModel.commitDiveLog();
 
         // delete -> first person deleted
         deleteCommand.execute(model, commandHistory);
 
         // undo -> reverts addressbook back to previous state and filtered person list to show all persons
-        expectedModel.undoAddressBook();
+        expectedModel.undoDiveLog();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first person deleted again
-        expectedModel.redoAddressBook();
+        expectedModel.redoDiveLog();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
@@ -134,21 +134,21 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_DIVE);
         Model expectedModel = new ModelManager(model.getDiveLog(), new UserPrefs());
 
-        showPersonAtIndex(model, INDEX_SECOND_DIVE);
-        Person personToDelete = model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased());
+        showDiveAtIndex(model, INDEX_SECOND_DIVE);
+        DiveSession personToDelete = model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased());
         expectedModel.deleteDiveSession(personToDelete);
-        expectedModel.commitAddressBook();
+        expectedModel.commitDiveLog();
 
         // delete -> deletes second person in unfiltered person list / first person in filtered person list
         deleteCommand.execute(model, commandHistory);
 
         // undo -> reverts addressbook back to previous state and filtered person list to show all persons
-        expectedModel.undoAddressBook();
+        expectedModel.undoDiveLog();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         assertNotEquals(personToDelete, model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased()));
         // redo -> deletes same second person in unfiltered person list
-        expectedModel.redoAddressBook();
+        expectedModel.redoDiveLog();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
