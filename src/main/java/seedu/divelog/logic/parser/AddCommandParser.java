@@ -70,7 +70,10 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         return new AddCommand(dive);
     }
-
+    /**
+     * Returns true if string given is INT
+     * {@code ArgumentMultimap}.
+     */
     public void checkTimeformat(ArgumentMultimap argMultimap) throws ParseException {
         if (argMultimap.getValue(CliSyntax.PREFIX_TIME_START).get().length() != 4
             || argMultimap.getValue(CliSyntax.PREFIX_TIME_END).get().length() != 4
@@ -79,15 +82,17 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         try {
-            int g=Integer.parseInt(argMultimap.getValue(CliSyntax.PREFIX_TIME_END).get());
-            int f=Integer.parseInt(argMultimap.getValue(CliSyntax.PREFIX_SAFETY_STOP).get());
-            int i=Integer.parseInt(argMultimap.getValue(CliSyntax.PREFIX_TIME_START).get());
-        }
-        catch (NumberFormatException nfe) {
+            int g = Integer.parseInt(argMultimap.getValue(CliSyntax.PREFIX_TIME_END).get());
+            int f = Integer.parseInt(argMultimap.getValue(CliSyntax.PREFIX_SAFETY_STOP).get());
+            int i = Integer.parseInt(argMultimap.getValue(CliSyntax.PREFIX_TIME_START).get());
+        } catch (NumberFormatException nfe) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_TIME_FORMAT, AddCommand.MESSAGE_USAGE));
         }
     }
-
+    /**
+     *  Returns true if string given is INT
+     * {@code ArgumentMultimap}.
+     */
     public void checkDateformat(ArgumentMultimap argMultimap) throws ParseException {
         if (argMultimap.getValue(CliSyntax.PREFIX_DATE_START).get().length() != 8
             || argMultimap.getValue(CliSyntax.PREFIX_DATE_END).get().length() != 8) {
@@ -95,10 +100,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         try {
-            int g=Integer.parseInt(argMultimap.getValue(CliSyntax.PREFIX_DATE_START).get());
-            int f=Integer.parseInt(argMultimap.getValue(CliSyntax.PREFIX_DATE_END).get());
-        }
-        catch (NumberFormatException nfe) {
+            int g = Integer.parseInt(argMultimap.getValue(CliSyntax.PREFIX_DATE_START).get());
+            int f = Integer.parseInt(argMultimap.getValue(CliSyntax.PREFIX_DATE_END).get());
+        } catch (NumberFormatException nfe) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_DATE_FORMAT, AddCommand.MESSAGE_USAGE));
         }
     }
