@@ -29,7 +29,7 @@ public class DepthProfile {
 
     @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof DepthProfile)) {
+        if (!(obj instanceof DepthProfile)) {
             return false;
         }
         DepthProfile other = (DepthProfile) obj;
