@@ -5,15 +5,16 @@ package seedu.divelog.model.dive;
  * TODO: Implement parsing of date etc.
  */
 
-public class Date {
+public class OurDate {
     private final String value;
 
-    public Date(String date) {
+    public OurDate(String date) {
         this.value = date;
     }
 
-    public String getDateString() {
+    public String getOurDateString() {
         return value;
     }
 }
+
 
