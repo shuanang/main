@@ -49,15 +49,8 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        if (argMultimap.getValue(CliSyntax.PREFIX_TIME_START).get().length() != 4
-            || argMultimap.getValue(CliSyntax.PREFIX_TIME_END).get().length() != 4
-            || argMultimap.getValue(CliSyntax.PREFIX_SAFETY_STOP).get().length() != 4) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_TIME_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
-        if (argMultimap.getValue(CliSyntax.PREFIX_DATE_START).get().length() != 8
-            || argMultimap.getValue(CliSyntax.PREFIX_DATE_END).get().length() != 8) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_DATE_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
+        checkTimeformat(argMultimap);
+        checkDateformat(argMultimap);
 
         Date dateStart = new Date(argMultimap.getValue(CliSyntax.PREFIX_DATE_START).get());
         Time startTime = new Time(argMultimap.getValue(CliSyntax.PREFIX_TIME_START).get());
@@ -76,6 +69,38 @@ public class AddCommandParser implements Parser<AddCommand> {
                         pressureGroupAtEnd, location, depthProfile);
 
         return new AddCommand(dive);
+    }
+
+    public void checkTimeformat(ArgumentMultimap argMultimap) throws ParseException {
+        if (argMultimap.getValue(CliSyntax.PREFIX_TIME_START).get().length() != 4
+            || argMultimap.getValue(CliSyntax.PREFIX_TIME_END).get().length() != 4
+            || argMultimap.getValue(CliSyntax.PREFIX_SAFETY_STOP).get().length() != 4) {
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_TIME_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+
+        try {
+            int g=Integer.parseInt(argMultimap.getValue(CliSyntax.PREFIX_TIME_END).get());
+            int f=Integer.parseInt(argMultimap.getValue(CliSyntax.PREFIX_SAFETY_STOP).get());
+            int i=Integer.parseInt(argMultimap.getValue(CliSyntax.PREFIX_TIME_START).get());
+        }
+        catch (NumberFormatException nfe) {
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_TIME_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+    }
+
+    public void checkDateformat(ArgumentMultimap argMultimap) throws ParseException {
+        if (argMultimap.getValue(CliSyntax.PREFIX_DATE_START).get().length() != 8
+            || argMultimap.getValue(CliSyntax.PREFIX_DATE_END).get().length() != 8) {
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_DATE_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+
+        try {
+            int g=Integer.parseInt(argMultimap.getValue(CliSyntax.PREFIX_DATE_START).get());
+            int f=Integer.parseInt(argMultimap.getValue(CliSyntax.PREFIX_DATE_END).get());
+        }
+        catch (NumberFormatException nfe) {
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_DATE_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
     }
 
     /**
