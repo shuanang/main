@@ -26,4 +26,13 @@ public class DepthProfile {
     public float getDepth() {
         return depth;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof DepthProfile)) {
+            return false;
+        }
+        DepthProfile other = (DepthProfile) obj;
+        return other.getDepth() == depth;
+    }
 }

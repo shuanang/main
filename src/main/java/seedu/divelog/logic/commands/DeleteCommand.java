@@ -46,7 +46,7 @@ public class DeleteCommand extends Command {
         } catch (seedu.divelog.model.dive.exceptions.DiveNotFoundException e) {
             e.printStackTrace();
         }
-        model.commitAddressBook();
+        model.commitDiveLog();
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, diveToDelete));
     }
 

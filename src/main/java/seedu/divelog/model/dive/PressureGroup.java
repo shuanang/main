@@ -14,4 +14,12 @@ public class PressureGroup {
         return pressureGroup;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof PressureGroup)) {
+            return false;
+        }
+        PressureGroup pg = (PressureGroup) obj;
+        return pg.getPressureGroup().equals(pressureGroup);
+    }
 }

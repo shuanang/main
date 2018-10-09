@@ -1,7 +1,7 @@
 package systemtests;
 
 import static seedu.divelog.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.divelog.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.divelog.testutil.TypicalDiveSessions.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 

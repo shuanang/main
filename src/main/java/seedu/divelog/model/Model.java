@@ -55,25 +55,25 @@ public interface Model {
     /**
      * Returns true if the model has previous divelog book states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndoDiveLog();
 
     /**
      * Returns true if the model has undone divelog book states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canRedoDiveLog();
 
     /**
      * Restores the model's divelog book to its previous state.
      */
-    void undoAddressBook();
+    void undoDiveLog();
 
     /**
      * Restores the model's divelog book to its previously undone state.
      */
-    void redoAddressBook();
+    void redoDiveLog();
 
     /**
      * Saves the current divelog book state for undo/redo.
      */
-    void commitAddressBook();
+    void commitDiveLog();
 }

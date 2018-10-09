@@ -2,10 +2,9 @@ package seedu.divelog.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.divelog.testutil.TypicalPersons.ALICE;
-import static seedu.divelog.testutil.TypicalPersons.HOON;
-import static seedu.divelog.testutil.TypicalPersons.IDA;
-import static seedu.divelog.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.divelog.testutil.TypicalDiveSessions.DIVE_AT_BALI;
+import static seedu.divelog.testutil.TypicalDiveSessions.DIVE_AT_NIGHT;
+import static seedu.divelog.testutil.TypicalDiveSessions.getTypicalAddressBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -75,7 +74,7 @@ public class XmlDiveLogStorageTest {
 
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
-        Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.xml");
+        Path filePath = testFolder.getRoot().toPath().resolve("TempDiveLog.xml");
         DiveLog original = getTypicalAddressBook();
         XmlDiveLogStorage xmlAddressBookStorage = new XmlDiveLogStorage(filePath);
 
@@ -85,14 +84,13 @@ public class XmlDiveLogStorageTest {
         assertEquals(original, new DiveLog(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addDive(HOON);
-        original.removeDive(ALICE);
+        original.addDive(DIVE_AT_BALI);
         xmlAddressBookStorage.saveDiveLog(original, filePath);
         readBack = xmlAddressBookStorage.readDiveLog(filePath).get();
         assertEquals(original, new DiveLog(readBack));
 
         //Save and read without specifying file path
-        original.addDive(IDA);
+        original.addDive(DIVE_AT_NIGHT);
         xmlAddressBookStorage.saveDiveLog(original); //file path not specified
         readBack = xmlAddressBookStorage.readDiveLog().get(); //file path not specified
         assertEquals(original, new DiveLog(readBack));

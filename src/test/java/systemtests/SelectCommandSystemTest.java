@@ -7,8 +7,8 @@ import static seedu.divelog.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.divelog.logic.commands.SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS;
 import static seedu.divelog.testutil.TestUtil.getLastIndex;
 import static seedu.divelog.testutil.TestUtil.getMidIndex;
-import static seedu.divelog.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.divelog.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.divelog.testutil.TypicalIndexes.INDEX_FIRST_DIVE;
+import static seedu.divelog.testutil.TypicalDiveSessions.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
@@ -26,8 +26,8 @@ public class SelectCommandSystemTest extends DiveLogSystemTest {
         /* Case: select the first card in the person list, command with leading spaces and trailing spaces
          * -> selected
          */
-        String command = "   " + SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + "   ";
-        assertCommandSuccess(command, INDEX_FIRST_PERSON);
+        String command = "   " + SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_DIVE.getOneBased() + "   ";
+        assertCommandSuccess(command, INDEX_FIRST_DIVE);
 
         /* Case: select the last card in the person list -> selected */
         Index personCount = getLastIndex(getModel());
@@ -94,7 +94,7 @@ public class SelectCommandSystemTest extends DiveLogSystemTest {
 
         /* Case: select from empty divelog book -> rejected */
         deleteAllPersons();
-        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
+        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_DIVE.getOneBased(),
                 MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 

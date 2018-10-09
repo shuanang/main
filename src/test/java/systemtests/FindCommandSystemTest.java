@@ -3,10 +3,10 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static seedu.divelog.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.divelog.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.divelog.testutil.TypicalPersons.BENSON;
-import static seedu.divelog.testutil.TypicalPersons.CARL;
-import static seedu.divelog.testutil.TypicalPersons.DANIEL;
-import static seedu.divelog.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.divelog.testutil.TypicalDiveSessions.BENSON;
+import static seedu.divelog.testutil.TypicalDiveSessions.CARL;
+import static seedu.divelog.testutil.TypicalDiveSessions.DANIEL;
+import static seedu.divelog.testutil.TypicalDiveSessions.KEYWORD_MATCHING_MEIER;
 
 import java.util.ArrayList;
 import java.util.List;

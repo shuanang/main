@@ -40,7 +40,7 @@ import seedu.divelog.logic.commands.ListCommand;
 import seedu.divelog.logic.commands.SelectCommand;
 import seedu.divelog.model.DiveLog;
 import seedu.divelog.model.Model;
-import seedu.divelog.testutil.TypicalPersons;
+import seedu.divelog.testutil.TypicalDiveSessions;
 import seedu.divelog.ui.BrowserPanel;
 import seedu.divelog.ui.CommandBox;
 
@@ -85,7 +85,7 @@ public abstract class DiveLogSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected DiveLog getInitialData() {
-        return TypicalPersons.getTypicalAddressBook();
+        return TypicalDiveSessions.getTypicalAddressBook();
     }
 
     /**

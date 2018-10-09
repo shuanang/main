@@ -5,8 +5,6 @@ import static org.junit.Assert.assertEquals;
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Collections;
-import java.util.List;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -17,10 +15,9 @@ import org.junit.rules.ExpectedException;
 
 import seedu.divelog.model.DiveLog;
 import seedu.divelog.storage.XmlAdaptedDiveSession;
-import seedu.divelog.storage.XmlAdaptedTag;
 import seedu.divelog.storage.XmlSerializableDiveLog;
-import seedu.divelog.testutil.AddressBookBuilder;
-import seedu.divelog.testutil.PersonBuilder;
+import seedu.divelog.testutil.DiveLogBuilder;
+import seedu.divelog.testutil.DiveSessionBuilder;
 import seedu.divelog.testutil.TestUtil;
 
 public class XmlUtilTest {
@@ -28,19 +25,18 @@ public class XmlUtilTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlUtilTest");
     private static final Path EMPTY_FILE = TEST_DATA_FOLDER.resolve("empty.xml");
     private static final Path MISSING_FILE = TEST_DATA_FOLDER.resolve("missing.xml");
-    private static final Path VALID_FILE = TEST_DATA_FOLDER.resolve("validAddressBook.xml");
-    private static final Path MISSING_PERSON_FIELD_FILE = TEST_DATA_FOLDER.resolve("missingPersonField.xml");
-    private static final Path INVALID_PERSON_FIELD_FILE = TEST_DATA_FOLDER.resolve("invalidPersonField.xml");
-    private static final Path VALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("validPerson.xml");
+    private static final Path VALID_FILE = TEST_DATA_FOLDER.resolve("validDiveLog.xml");
+    private static final Path MISSING_DIVE_FIELD_FILE = TEST_DATA_FOLDER.resolve("missingDiveField.xml");
+    private static final Path VALID_DIVE_FILE = TEST_DATA_FOLDER.resolve("validDive.xml");
     private static final Path TEMP_FILE = TestUtil.getFilePathInSandboxFolder("tempAddressBook.xml");
 
-    private static final String INVALID_PHONE = "9482asf424";
-
-    private static final String VALID_NAME = "Hans Muster";
-    private static final String VALID_PHONE = "9482424";
-    private static final String VALID_EMAIL = "hans@example";
-    private static final String VALID_ADDRESS = "4th street";
-    private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("friends"));
+    private static final String VALID_START = "0700";
+    private static final String VALID_END = "0800";
+    private static final String VALID_SAFETY_STOP = "0745";
+    private static final String VALID_PRESSURE_GROUP_START = "A";
+    private static final String VALID_PRESSURE_GROUP_END = "F";
+    private static final String VALID_LOCATION = "Bali";
+    private static final float VALID_DEPTH = 5;
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -72,34 +68,27 @@ public class XmlUtilTest {
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
         DiveLog dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableDiveLog.class).toModelType();
-        assertEquals(9, dataFromFile.getDiveSessionList().size());
+        assertEquals(9, dataFromFile.getDiveList().size());
     }
 
     @Test
     public void xmlAdaptedPersonFromFile_fileWithMissingPersonField_validResult() throws Exception {
-        XmlAdaptedDiveSession actualPerson = XmlUtil.getDataFromFile(
-                MISSING_PERSON_FIELD_FILE, XmlAdaptedDiveSessionWithRootElement.class);
-        XmlAdaptedDiveSession expectedPerson = new XmlAdaptedDiveSession(
-                null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        assertEquals(expectedPerson, actualPerson);
-    }
-
-    @Test
-    public void xmlAdaptedPersonFromFile_fileWithInvalidPersonField_validResult() throws Exception {
-        XmlAdaptedDiveSession actualPerson = XmlUtil.getDataFromFile(
-                INVALID_PERSON_FIELD_FILE, XmlAdaptedDiveSessionWithRootElement.class);
-        XmlAdaptedDiveSession expectedPerson = new XmlAdaptedDiveSession(
-                VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        assertEquals(expectedPerson, actualPerson);
+        XmlAdaptedDiveSession actualDive = XmlUtil.getDataFromFile(
+                MISSING_DIVE_FIELD_FILE, XmlAdaptedDiveSessionWithRootElement.class);
+        XmlAdaptedDiveSession expectedDive = new XmlAdaptedDiveSession(
+                null, VALID_SAFETY_STOP, VALID_END, VALID_PRESSURE_GROUP_START,
+                VALID_PRESSURE_GROUP_END, VALID_LOCATION, VALID_DEPTH);
+        assertEquals(expectedDive, actualDive);
     }
 
     @Test
     public void xmlAdaptedPersonFromFile_fileWithValidPerson_validResult() throws Exception {
-        XmlAdaptedDiveSession actualPerson = XmlUtil.getDataFromFile(
-                VALID_PERSON_FILE, XmlAdaptedDiveSessionWithRootElement.class);
-        XmlAdaptedDiveSession expectedPerson = new XmlAdaptedDiveSession(
-                VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        assertEquals(expectedPerson, actualPerson);
+        XmlAdaptedDiveSession actualDive = XmlUtil.getDataFromFile(
+                VALID_DIVE_FILE, XmlAdaptedDiveSessionWithRootElement.class);
+        XmlAdaptedDiveSession expectedDive = new XmlAdaptedDiveSession(
+                VALID_START, VALID_SAFETY_STOP, VALID_END, VALID_PRESSURE_GROUP_START,
+                VALID_PRESSURE_GROUP_END, VALID_LOCATION, VALID_DEPTH);
+        assertEquals(expectedDive, actualDive);
     }
 
     @Test
@@ -128,9 +117,9 @@ public class XmlUtilTest {
         XmlSerializableDiveLog dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableDiveLog.class);
         assertEquals(dataToWrite, dataFromFile);
 
-        AddressBookBuilder builder = new AddressBookBuilder(new DiveLog());
+        DiveLogBuilder builder = new DiveLogBuilder(new DiveLog());
         dataToWrite = new XmlSerializableDiveLog(
-                builder.withPerson(new PersonBuilder().build()).build());
+                builder.withDive(new DiveSessionBuilder().build()).build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableDiveLog.class);

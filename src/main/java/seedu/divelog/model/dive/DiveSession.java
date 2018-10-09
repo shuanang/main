@@ -1,6 +1,7 @@
 package seedu.divelog.model.dive;
 
 /**
+ * @author arjo
  * This class represents a single dive session
  */
 public class DiveSession {
@@ -64,12 +65,11 @@ public class DiveSession {
         return location;
     }
 
-    /**
-     *
-     * @param dive
-     * @return
-     */
-    public boolean isSameDiveSession(DiveSession dive) {
-        return dive == this;
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof DiveSession)) {
+            return false;
+        }
+        return super.equals(obj);
     }
 }

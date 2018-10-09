@@ -1,7 +1,7 @@
 package seedu.divelog.logic.commands;
 
 import static seedu.divelog.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.divelog.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.divelog.testutil.TypicalDiveSessions.getTypicalAddressBook;
 
 import org.junit.Test;
 
@@ -19,7 +19,7 @@ public class ClearCommandTest {
     public void execute_emptyAddressBook_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
-        expectedModel.commitAddressBook();
+        expectedModel.commitDiveLog();
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
@@ -29,7 +29,7 @@ public class ClearCommandTest {
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         expectedModel.resetData(new DiveLog());
-        expectedModel.commitAddressBook();
+        expectedModel.commitDiveLog();
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }

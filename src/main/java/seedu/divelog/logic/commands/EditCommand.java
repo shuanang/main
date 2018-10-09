@@ -44,7 +44,7 @@ public class EditCommand extends Command {
             + CliSyntax.PREFIX_PRESSURE_GROUP_END + "F "
             + CliSyntax.PREFIX_LOCATION + "Tioman ";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_DIVE_SUCCESS = "Edited Dive: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
 
     private final Index index;
@@ -80,8 +80,8 @@ public class EditCommand extends Command {
             e.printStackTrace();
         }
         model.updateFilteredDiveList(Model.PREDICATE_SHOW_ALL_PERSONS);
-        model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedDive));
+        model.commitDiveLog();
+        return new CommandResult(String.format(MESSAGE_EDIT_DIVE_SUCCESS, editedDive));
     }
 
     /**
