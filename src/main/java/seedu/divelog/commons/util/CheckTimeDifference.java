@@ -17,5 +17,4 @@ public class CheckTimeDifference {
         long difference = (secondDate.getTime() - firstDate.getTime());
         return difference/1000;
     }
-    
 }
