@@ -4,7 +4,7 @@ package seedu.divelog.model.dive;
  * @author arjo
  * This class represents a single dive session
  */
-public class DiveSession extends Object {
+public class DiveSession {
     private final OurDate dateStart;
     private final Time start;
     private final Time safetyStop;
@@ -16,7 +16,8 @@ public class DiveSession extends Object {
     private final DepthProfile depthProfile;
     private final TimeZone timezone;
 
-    public DiveSession(OurDate dateStart, Time start, Time safetyStop, OurDate dateEnd, Time end,
+    public DiveSession(OurDate dateStart, Time start, Time safetyStop,
+                       OurDate dateEnd, Time end,
                        PressureGroup pressureGroupAtBeginning,
                        PressureGroup pressureGroupAtEnd, Location location,
                        DepthProfile depthProfile, TimeZone timezone) {
