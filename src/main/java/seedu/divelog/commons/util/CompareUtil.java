@@ -1,13 +1,13 @@
 package seedu.divelog.commons.util;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import seedu.divelog.model.dive.OurDate;
 import seedu.divelog.model.dive.Time;
 import seedu.divelog.model.dive.TimeZone;
 
-import java.text.SimpleDateFormat;
 
-import java.util.concurrent.TimeUnit;
-import java.util.Date;
 
 /**
  * A class with methods to compare Date and Time, with respect to Timezone
@@ -18,7 +18,7 @@ public class CompareUtil {
      * Tells time difference between 2 timings in MINUTES (long)
      */
     public long checkTimeDifference(Time startTime, Time endTime, OurDate startDate, OurDate endDate, TimeZone timeZone)
-            throws Exception{
+            throws Exception {
         SimpleDateFormat format = new SimpleDateFormat("DDMMYYYYHHMM");
         String startTimeDate = startDate.getOurDateString().concat(startTime.getTimeString());
         String endTimeDate = endDate.getOurDateString().concat(startTime.getTimeString());
@@ -28,7 +28,7 @@ public class CompareUtil {
         Date time2 = format.parse(endTimeDate);
 
         long difference = (time2.getTime() - time1.getTime());
-        return (difference/1000);
+        return (difference / 1000);
     }
 
     /**
