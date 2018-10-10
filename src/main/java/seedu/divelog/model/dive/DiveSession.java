@@ -13,10 +13,11 @@ public class DiveSession {
     private final PressureGroup pressureGroupAtEnd;
     private final Location location;
     private final DepthProfile depthProfile;
+    private final TimeZone timezone;
 
     public DiveSession(OurDate dateStart, Time start, Time safetyStop, OurDate dateEnd, Time end,
                        PressureGroup pressureGroupAtBeginning,
-                       PressureGroup pressureGroupAtEnd, Location location, DepthProfile depthProfile) {
+                       PressureGroup pressureGroupAtEnd, Location location, DepthProfile depthProfile, TimeZone timezone) {
         this.dateStart = dateStart;
         this.start = start;
         this.safetyStop = safetyStop;
@@ -26,6 +27,7 @@ public class DiveSession {
         this.pressureGroupAtEnd = pressureGroupAtEnd;
         this.location = location;
         this.depthProfile = depthProfile;
+        this.timezone = timezone;
     }
 
     public OurDate getDateStart() {
@@ -62,6 +64,10 @@ public class DiveSession {
 
     public Location getLocation() {
         return location;
+    }
+
+    public TimeZone getTimeZone() {
+        return timezone;
     }
 
     /**

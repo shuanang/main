@@ -15,4 +15,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_PRESSURE_GROUP_START = new Prefix("pg/");
     public static final Prefix PREFIX_PRESSURE_GROUP_END = new Prefix("pge/");
     public static final Prefix PREFIX_LOCATION = new Prefix("l/");
+    public static final Prefix PREFIX_TIMEZONE = new Prefix("tz/");
 }
