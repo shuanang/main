@@ -10,7 +10,7 @@ public class TimeZone {
     public TimeZone(String timezone) {
         try {
             this.timeZoneDifference = Integer.parseInt(timezone);
-        } catch(NumberFormatException ex) {
+        } catch (NumberFormatException ex) {
             System.err.println("Illegal input");
         }
     }

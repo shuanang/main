@@ -1,12 +1,13 @@
 package seedu.divelog.commons.util;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import seedu.divelog.model.dive.OurDate;
 import seedu.divelog.model.dive.Time;
 import seedu.divelog.model.dive.TimeZone;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
+
 
 /**
  * A class with methods to compare Date and Time, with respect to Timezone
