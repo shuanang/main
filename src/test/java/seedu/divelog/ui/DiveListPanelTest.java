@@ -4,8 +4,8 @@ import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.divelog.testutil.EventsUtil.postNow;
-import static seedu.divelog.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.divelog.testutil.TypicalPersons.getTypicalPersons;
+import static seedu.divelog.testutil.TypicalIndexes.INDEX_SECOND_DIVE;
+import static seedu.divelog.testutil.TypicalDiveSessions.getTypicalPersons;
 import static seedu.divelog.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 import static seedu.divelog.ui.testutil.GuiTestAssert.assertCardEquals;
 
@@ -28,7 +28,7 @@ public class DiveListPanelTest extends GuiUnitTest {
     private static final ObservableList<Person> TYPICAL_PERSONS =
             FXCollections.observableList(getTypicalPersons());
 
-    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_PERSON);
+    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_DIVE);
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "sandbox");
 
@@ -56,7 +56,7 @@ public class DiveListPanelTest extends GuiUnitTest {
         postNow(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 
-        PersonCardHandle expectedPerson = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
+        PersonCardHandle expectedPerson = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_DIVE.getZeroBased());
         PersonCardHandle selectedPerson = personListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedPerson, selectedPerson);
     }

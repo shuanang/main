@@ -26,8 +26,8 @@ import static seedu.divelog.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.divelog.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.divelog.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.divelog.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.divelog.testutil.TypicalPersons.AMY;
-import static seedu.divelog.testutil.TypicalPersons.BOB;
+import static seedu.divelog.testutil.TypicalDiveSessions.AMY;
+import static seedu.divelog.testutil.TypicalDiveSessions.BOB;
 
 import org.junit.Test;
 
@@ -38,14 +38,14 @@ import seedu.divelog.model.person.Name;
 import seedu.divelog.model.person.Person;
 import seedu.divelog.model.person.Phone;
 import seedu.divelog.model.tag.Tag;
-import seedu.divelog.testutil.PersonBuilder;
+import seedu.divelog.testutil.DiveSessionBuilder;
 
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Person expectedPerson = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+        Person expectedPerson = new DiveSessionBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
@@ -68,7 +68,7 @@ public class AddCommandParserTest {
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
 
         // multiple tags - all accepted
-        Person expectedPersonMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+        Person expectedPersonMultipleTags = new DiveSessionBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedPersonMultipleTags));
@@ -77,7 +77,7 @@ public class AddCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
+        Person expectedPerson = new DiveSessionBuilder(AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
                 new AddCommand(expectedPerson));
     }

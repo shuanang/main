@@ -6,9 +6,9 @@ import static seedu.divelog.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.divelog.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
 import static seedu.divelog.testutil.TestUtil.getLastIndex;
 import static seedu.divelog.testutil.TestUtil.getMidIndex;
-import static seedu.divelog.testutil.TestUtil.getPerson;
-import static seedu.divelog.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.divelog.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.divelog.testutil.TestUtil.getDive;
+import static seedu.divelog.testutil.TypicalIndexes.INDEX_FIRST_DIVE;
+import static seedu.divelog.testutil.TypicalDiveSessions.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
@@ -31,8 +31,8 @@ public class DeleteCommandSystemTest extends DiveLogSystemTest {
 
         /* Case: delete the first person in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
-        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_PERSON.getOneBased() + "       ";
-        Person deletedPerson = removePerson(expectedModel, INDEX_FIRST_PERSON);
+        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_DIVE.getOneBased() + "       ";
+        Person deletedPerson = removePerson(expectedModel, INDEX_FIRST_DIVE);
         String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
@@ -60,7 +60,7 @@ public class DeleteCommandSystemTest extends DiveLogSystemTest {
 
         /* Case: filtered person list, delete index within bounds of divelog book and person list -> deleted */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        Index index = INDEX_FIRST_PERSON;
+        Index index = INDEX_FIRST_DIVE;
         assertTrue(index.getZeroBased() < getModel().getFilteredDiveList().size());
         assertCommandSuccess(index);
 
@@ -116,7 +116,7 @@ public class DeleteCommandSystemTest extends DiveLogSystemTest {
      * @return the removed person
      */
     private Person removePerson(Model model, Index index) {
-        Person targetPerson = getPerson(model, index);
+        Person targetPerson = getDive(model, index);
         try {
             model.deleteDiveSession(targetPerson);
         } catch (seedu.divelog.model.dive.exceptions.DiveNotFoundException e) {

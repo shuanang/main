@@ -3,7 +3,7 @@ package seedu.divelog.logic.parser;
 import static seedu.divelog.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.divelog.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.divelog.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.divelog.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.divelog.testutil.TypicalIndexes.INDEX_FIRST_DIVE;
 
 import org.junit.Test;
 
@@ -19,7 +19,7 @@ public class SelectCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsSelectCommand() {
-        assertParseSuccess(parser, "1", new SelectCommand(INDEX_FIRST_PERSON));
+        assertParseSuccess(parser, "1", new SelectCommand(INDEX_FIRST_DIVE));
     }
 
     @Test

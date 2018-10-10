@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.divelog.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.divelog.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.divelog.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.divelog.testutil.TypicalIndexes.INDEX_FIRST_DIVE;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,9 +29,9 @@ import seedu.divelog.logic.commands.UndoCommand;
 import seedu.divelog.logic.parser.exceptions.ParseException;
 import seedu.divelog.model.person.LocationContainsKeywordsPredicate;
 import seedu.divelog.model.person.Person;
-import seedu.divelog.testutil.EditPersonDescriptorBuilder;
-import seedu.divelog.testutil.PersonBuilder;
-import seedu.divelog.testutil.PersonUtil;
+import seedu.divelog.testutil.EditDiveDescriptorBuilder;
+import seedu.divelog.testutil.DiveSessionBuilder;
+import seedu.divelog.testutil.DiveUtil;
 
 public class DiveLogParserTest {
     @Rule
@@ -41,8 +41,8 @@ public class DiveLogParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        Person person = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
+        Person person = new DiveSessionBuilder().build();
+        AddCommand command = (AddCommand) parser.parseCommand(DiveUtil.getAddCommand(person));
         assertEquals(new AddCommand(person), command);
     }
 
@@ -55,17 +55,17 @@ public class DiveLogParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_DIVE.getOneBased());
+        assertEquals(new DeleteCommand(INDEX_FIRST_DIVE), command);
     }
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Person person = new PersonBuilder().build();
-        EditCommand.EditDiveDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
+        Person person = new DiveSessionBuilder().build();
+        EditCommand.EditDiveDescriptor descriptor = new EditDiveDescriptorBuilder(person).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
+                + INDEX_FIRST_DIVE.getOneBased() + " " + DiveUtil.getEditDiveDescriptorDetails(descriptor));
+        assertEquals(new EditCommand(INDEX_FIRST_DIVE, descriptor), command);
     }
 
     @Test
@@ -110,8 +110,8 @@ public class DiveLogParserTest {
     @Test
     public void parseCommand_select() throws Exception {
         SelectCommand command = (SelectCommand) parser.parseCommand(
-                SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new SelectCommand(INDEX_FIRST_PERSON), command);
+                SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_DIVE.getOneBased());
+        assertEquals(new SelectCommand(INDEX_FIRST_DIVE), command);
     }
 
     @Test
