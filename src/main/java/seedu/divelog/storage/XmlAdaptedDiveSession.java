@@ -3,12 +3,13 @@ package seedu.divelog.storage;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.divelog.commons.exceptions.IllegalValueException;
-import seedu.divelog.model.dive.OurDate;
 import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.Location;
+import seedu.divelog.model.dive.OurDate;
 import seedu.divelog.model.dive.PressureGroup;
 import seedu.divelog.model.dive.Time;
+import seedu.divelog.model.dive.TimeZone;
 
 /**
  * JAXB-friendly version of the Person.
@@ -34,6 +35,8 @@ public class XmlAdaptedDiveSession {
     private String location;
     @XmlElement(required = true)
     private float depthProfile;
+    @XmlElement(required = false)
+    private String timezone;
     /**
      * Constructs an XmlAdaptedDiveSession.
      * This is the no-arg constructor that is required by JAXB.
@@ -45,7 +48,7 @@ public class XmlAdaptedDiveSession {
      */
     public XmlAdaptedDiveSession(String dateStart, String startTime, String safetyStop, String dateEnd,
                                  String endTime, String pressureGroupAtBeginning,
-                                 String pressureGroupAtEnd, String location, float depthProfile) {
+                                 String pressureGroupAtEnd, String location, float depthProfile, String timezone) {
         this.dateStart = dateStart;
         this.startTime = startTime;
         this.safetyStop = safetyStop;
@@ -55,11 +58,11 @@ public class XmlAdaptedDiveSession {
         this.pressureGroupAtEnd = pressureGroupAtEnd;
         this.location = location;
         this.depthProfile = depthProfile;
+        this.timezone = timezone;
     }
 
     /**
      * Converts a given DiveSession into this class for JAXB use.
-     *
      * @param source future changes to this will not affect the created XmlAdaptedDiveSession
      */
     public XmlAdaptedDiveSession(DiveSession source) {
@@ -72,6 +75,7 @@ public class XmlAdaptedDiveSession {
         this.pressureGroupAtBeginning = source.getPressureGroupAtBeginning().getPressureGroup();
         this.pressureGroupAtEnd = source.getPressureGroupAtEnd().getPressureGroup();
         this.depthProfile = source.getDepthProfile().getDepth();
+        this.timezone = Integer.toString(source.getTimeZone().getTimeZoneString());
     }
 
     /**
@@ -83,7 +87,7 @@ public class XmlAdaptedDiveSession {
         return new DiveSession(new OurDate(dateStart), new Time(startTime), new Time(safetyStop),
                 new OurDate(dateEnd), new Time(endTime),
                 new PressureGroup(pressureGroupAtBeginning), new PressureGroup(pressureGroupAtEnd),
-                new Location(location), new DepthProfile(depthProfile));
+                new Location(location), new DepthProfile(depthProfile), new TimeZone(timezone));
     }
 
     @Override
@@ -105,6 +109,7 @@ public class XmlAdaptedDiveSession {
                 && location.equals(x.location)
                 && pressureGroupAtEnd.equals(x.pressureGroupAtEnd)
                 && pressureGroupAtBeginning.equals(x.pressureGroupAtBeginning)
-                && depthProfile == x.depthProfile;
+                && depthProfile == x.depthProfile
+                && timezone.equals(x.timezone);
     }
 }
