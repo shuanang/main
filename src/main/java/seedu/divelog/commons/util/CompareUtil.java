@@ -15,7 +15,7 @@ public class CompareUtil {
      * Tells time difference between 2 timings in MINUTES (long)
      */
     public long checkTimeDifference(Time startTime, Time endTime, OurDate startDate, OurDate endDate)
-            throws Exception {
+            throws Exception{
         SimpleDateFormat format = new SimpleDateFormat("DDMMYYYYHHMM");
         String startTimeDate = (startDate.getOurDateString() + startTime.getTimeString());
         String endTimeDate = (endDate.getOurDateString() + startTime.getTimeString());

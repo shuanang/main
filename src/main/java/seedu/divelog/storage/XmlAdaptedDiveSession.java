@@ -3,7 +3,7 @@ package seedu.divelog.storage;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.divelog.commons.exceptions.IllegalValueException;
-import seedu.divelog.model.dive.Date;
+import seedu.divelog.model.dive.OurDate;
 import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.Location;
@@ -63,10 +63,10 @@ public class XmlAdaptedDiveSession {
      * @param source future changes to this will not affect the created XmlAdaptedDiveSession
      */
     public XmlAdaptedDiveSession(DiveSession source) {
-        this.dateStart = source.getDateStart().getDateString();
+        this.dateStart = source.getDateStart().getOurDateString();
         this.startTime = source.getStart().getTimeString();
         this.safetyStop = source.getSafetyStop().getTimeString();
-        this.dateEnd = source.getDateEnd().getDateString();
+        this.dateEnd = source.getDateEnd().getOurDateString();
         this.endTime = source.getEnd().getTimeString();
         this.location = source.getLocation().getLocationName();
         this.pressureGroupAtBeginning = source.getPressureGroupAtBeginning().getPressureGroup();
@@ -80,8 +80,8 @@ public class XmlAdaptedDiveSession {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public DiveSession toModelType() {
-        return new DiveSession(new Date(dateStart), new Time(startTime), new Time(safetyStop),
-                new Date(dateEnd), new Time(endTime),
+        return new DiveSession(new OurDate(dateStart), new Time(startTime), new Time(safetyStop),
+                new OurDate(dateEnd), new Time(endTime),
                 new PressureGroup(pressureGroupAtBeginning), new PressureGroup(pressureGroupAtEnd),
                 new Location(location), new DepthProfile(depthProfile));
     }
