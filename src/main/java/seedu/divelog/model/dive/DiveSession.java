@@ -4,17 +4,17 @@ package seedu.divelog.model.dive;
  * This class represents a single dive session
  */
 public class DiveSession {
-    private final Date dateStart;
+    private final OurDate dateStart;
     private final Time start;
     private final Time safetyStop;
-    private final Date dateEnd;
+    private final OurDate dateEnd;
     private final Time end;
     private final PressureGroup pressureGroupAtBeginning;
     private final PressureGroup pressureGroupAtEnd;
     private final Location location;
     private final DepthProfile depthProfile;
 
-    public DiveSession(Date dateStart, Time start, Time safetyStop, Date dateEnd, Time end,
+    public DiveSession(OurDate dateStart, Time start, Time safetyStop, OurDate dateEnd, Time end,
                        PressureGroup pressureGroupAtBeginning,
                        PressureGroup pressureGroupAtEnd, Location location, DepthProfile depthProfile) {
         this.dateStart = dateStart;
@@ -28,11 +28,11 @@ public class DiveSession {
         this.depthProfile = depthProfile;
     }
 
-    public Date getDateStart() {
+    public OurDate getDateStart() {
         return dateStart;
     }
 
-    public Date getDateEnd() {
+    public OurDate getDateEnd() {
         return dateEnd;
     }
 

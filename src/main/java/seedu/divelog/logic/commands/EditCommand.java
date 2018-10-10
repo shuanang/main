@@ -12,7 +12,7 @@ import seedu.divelog.logic.CommandHistory;
 import seedu.divelog.logic.commands.exceptions.CommandException;
 import seedu.divelog.logic.parser.CliSyntax;
 import seedu.divelog.model.Model;
-import seedu.divelog.model.dive.Date;
+import seedu.divelog.model.dive.OurDate;
 import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.Location;
@@ -90,9 +90,9 @@ public class EditCommand extends Command {
      */
     private static DiveSession createEditedDive(DiveSession diveToEdit, EditDiveDescriptor editPersonDescriptor) {
         assert diveToEdit != null;
-        Date dateStart = editPersonDescriptor.getDateStart().orElse(diveToEdit.getDateStart());
+        OurDate dateStart = editPersonDescriptor.getDateStart().orElse(diveToEdit.getDateStart());
         Time start = editPersonDescriptor.getStart().orElse(diveToEdit.getStart());
-        Date dateEnd = editPersonDescriptor.getDateEnd().orElse(diveToEdit.getDateEnd());
+        OurDate dateEnd = editPersonDescriptor.getDateEnd().orElse(diveToEdit.getDateEnd());
         Time end = editPersonDescriptor.getEnd().orElse(diveToEdit.getEnd());
         Time safetyStop = editPersonDescriptor.getSafetyStop().orElse(diveToEdit.getSafetyStop());
         PressureGroup pressureGroupAtBeginning = editPersonDescriptor.getPressureGroupAtBeginning()
@@ -128,10 +128,10 @@ public class EditCommand extends Command {
      * corresponding field value of the person.
      */
     public static class EditDiveDescriptor {
-        private Date dateStart;
+        private OurDate dateStart;
         private Time start;
         private Time safetyStop;
-        private Date dateEnd;
+        private OurDate dateEnd;
         private Time end;
         private PressureGroup pressureGroupAtBeginning;
         private PressureGroup pressureGroupAtEnd;
@@ -187,11 +187,11 @@ public class EditCommand extends Command {
                     && getDepthProfile() == e.getDepthProfile();
         }
 
-        public void setDateStart(Date dateStart) {
+        public void setDateStart(OurDate dateStart) {
             this.dateStart = dateStart;
         }
 
-        public void setDateEnd(Date dateEnd) {
+        public void setDateEnd(OurDate dateEnd) {
             this.dateEnd = dateEnd;
         }
 
@@ -223,11 +223,11 @@ public class EditCommand extends Command {
             this.depthProfile = depthProfile;
         }
 
-        public Optional<Date> getDateStart() {
+        public Optional<OurDate> getDateStart() {
             return Optional.ofNullable(dateStart);
         }
 
-        public Optional<Date> getDateEnd() {
+        public Optional<OurDate> getDateEnd() {
             return Optional.ofNullable(dateEnd);
         }
 

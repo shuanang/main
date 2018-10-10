@@ -5,7 +5,7 @@ import java.util.stream.Stream;
 import seedu.divelog.commons.core.Messages;
 import seedu.divelog.logic.commands.AddCommand;
 import seedu.divelog.logic.parser.exceptions.ParseException;
-import seedu.divelog.model.dive.Date;
+import seedu.divelog.model.dive.OurDate;
 import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.Location;
@@ -52,9 +52,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         checkTimeformat(argMultimap);
         checkDateformat(argMultimap);
 
-        Date dateStart = new Date(argMultimap.getValue(CliSyntax.PREFIX_DATE_START).get());
+        OurDate dateStart = new OurDate(argMultimap.getValue(CliSyntax.PREFIX_DATE_START).get());
         Time startTime = new Time(argMultimap.getValue(CliSyntax.PREFIX_TIME_START).get());
-        Date dateEnd = new Date(argMultimap.getValue(CliSyntax.PREFIX_DATE_END).get());
+        OurDate dateEnd = new OurDate(argMultimap.getValue(CliSyntax.PREFIX_DATE_END).get());
         Time endTime = new Time(argMultimap.getValue(CliSyntax.PREFIX_TIME_END).get());
         Time safetyStop = new Time(argMultimap.getValue(CliSyntax.PREFIX_SAFETY_STOP).get());
         PressureGroup pressureGroupAtBegining =
@@ -82,9 +82,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         try {
-            int g = Integer.parseInt(argMultimap.getValue(CliSyntax.PREFIX_TIME_END).get());
-            int f = Integer.parseInt(argMultimap.getValue(CliSyntax.PREFIX_SAFETY_STOP).get());
-            int i = Integer.parseInt(argMultimap.getValue(CliSyntax.PREFIX_TIME_START).get());
+            Integer.parseInt(argMultimap.getValue(CliSyntax.PREFIX_TIME_END).get());
+            Integer.parseInt(argMultimap.getValue(CliSyntax.PREFIX_SAFETY_STOP).get());
+            Integer.parseInt(argMultimap.getValue(CliSyntax.PREFIX_TIME_START).get());
         } catch (NumberFormatException nfe) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_TIME_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -100,8 +100,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         try {
-            int g = Integer.parseInt(argMultimap.getValue(CliSyntax.PREFIX_DATE_START).get());
-            int f = Integer.parseInt(argMultimap.getValue(CliSyntax.PREFIX_DATE_END).get());
+            Integer.parseInt(argMultimap.getValue(CliSyntax.PREFIX_DATE_START).get());
+            Integer.parseInt(argMultimap.getValue(CliSyntax.PREFIX_DATE_END).get());
         } catch (NumberFormatException nfe) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_DATE_FORMAT, AddCommand.MESSAGE_USAGE));
         }
