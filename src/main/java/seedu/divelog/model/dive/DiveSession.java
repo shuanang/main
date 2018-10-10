@@ -17,7 +17,8 @@ public class DiveSession {
 
     public DiveSession(OurDate dateStart, Time start, Time safetyStop, OurDate dateEnd, Time end,
                        PressureGroup pressureGroupAtBeginning,
-                       PressureGroup pressureGroupAtEnd, Location location, DepthProfile depthProfile, TimeZone timezone) {
+                       PressureGroup pressureGroupAtEnd, Location location,
+                       DepthProfile depthProfile, TimeZone timezone) {
         this.dateStart = dateStart;
         this.start = start;
         this.safetyStop = safetyStop;
