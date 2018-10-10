@@ -1,7 +1,5 @@
 package seedu.divelog.model.dive;
 
-import java.lang.Object;
-
 /**
  * @author arjo
  * This class represents a single dive session
