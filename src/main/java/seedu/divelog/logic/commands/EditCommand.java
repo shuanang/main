@@ -15,8 +15,10 @@ import seedu.divelog.model.Model;
 import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.Location;
+import seedu.divelog.model.dive.OurDate;
 import seedu.divelog.model.dive.PressureGroup;
 import seedu.divelog.model.dive.Time;
+import seedu.divelog.model.dive.TimeZone;
 
 
 /**
@@ -30,7 +32,9 @@ public class EditCommand extends Command {
             + "by the index number used in the displayed dive list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
+            + "[" + CliSyntax.PREFIX_DATE_START + "DATE_START] "
             + "[" + CliSyntax.PREFIX_TIME_START + "TIME_START] "
+            + "[" + CliSyntax.PREFIX_DATE_END + "DATE_END] "
             + "[" + CliSyntax.PREFIX_TIME_END + "TIME_END] "
             + "[" + CliSyntax.PREFIX_SAFETY_STOP + "SAFETY_STOP_TIME] "
             + "[" + CliSyntax.PREFIX_DEPTH + "DEPTH] "
@@ -39,7 +43,8 @@ public class EditCommand extends Command {
             + "[" + CliSyntax.PREFIX_LOCATION + "LOCATION]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + CliSyntax.PREFIX_PRESSURE_GROUP_END + "F "
-            + CliSyntax.PREFIX_LOCATION + "Tioman ";
+            + CliSyntax.PREFIX_LOCATION + "Tioman "
+            + CliSyntax.PREFIX_TIMEZONE + "+7 ";
 
     public static final String MESSAGE_EDIT_DIVE_SUCCESS = "Edited Dive: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -87,7 +92,9 @@ public class EditCommand extends Command {
      */
     private static DiveSession createEditedDive(DiveSession diveToEdit, EditDiveDescriptor editPersonDescriptor) {
         assert diveToEdit != null;
+        OurDate dateStart = editPersonDescriptor.getDateStart().orElse(diveToEdit.getDateStart());
         Time start = editPersonDescriptor.getStart().orElse(diveToEdit.getStart());
+        OurDate dateEnd = editPersonDescriptor.getDateEnd().orElse(diveToEdit.getDateEnd());
         Time end = editPersonDescriptor.getEnd().orElse(diveToEdit.getEnd());
         Time safetyStop = editPersonDescriptor.getSafetyStop().orElse(diveToEdit.getSafetyStop());
         PressureGroup pressureGroupAtBeginning = editPersonDescriptor.getPressureGroupAtBeginning()
@@ -96,8 +103,9 @@ public class EditCommand extends Command {
                 .orElse(diveToEdit.getPressureGroupAtEnd());
         Location location = editPersonDescriptor.getLocation().orElse(diveToEdit.getLocation());
         DepthProfile depth = editPersonDescriptor.getDepthProfile().orElse(diveToEdit.getDepthProfile());
-        return new DiveSession(start, safetyStop, end, pressureGroupAtBeginning, pressureGroupAtEnd,
-                location, depth);
+        TimeZone timezone = editPersonDescriptor.getTimeZone().orElse(diveToEdit.getTimeZone());
+        return new DiveSession(dateStart, start, safetyStop, dateEnd, end, pressureGroupAtBeginning, pressureGroupAtEnd,
+                location, depth, timezone);
     }
 
     @Override
@@ -123,33 +131,38 @@ public class EditCommand extends Command {
      * corresponding field value of the person.
      */
     public static class EditDiveDescriptor {
-
+        private OurDate dateStart;
         private Time start;
         private Time safetyStop;
+        private OurDate dateEnd;
         private Time end;
         private PressureGroup pressureGroupAtBeginning;
         private PressureGroup pressureGroupAtEnd;
         private Location location;
         private DepthProfile depthProfile;
+        private TimeZone timezone;
 
 
         public EditDiveDescriptor() {}
 
         public EditDiveDescriptor(EditDiveDescriptor descriptor) {
+            setDateStart(descriptor.dateStart);
             setStart(descriptor.start);
             setSafetyStop(descriptor.safetyStop);
+            setDateEnd(descriptor.dateEnd);
             setEnd(descriptor.end);
             setPressureGroupAtBeginning(descriptor.pressureGroupAtBeginning);
             setPressureGroupAtEnd(descriptor.pressureGroupAtEnd);
             setLocation(descriptor.location);
             setDepthProfile(descriptor.depthProfile);
+            setTimeZone(descriptor.timezone);
         }
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(start, safetyStop, end,
-                    pressureGroupAtBeginning, pressureGroupAtEnd, location, depthProfile);
+            return CollectionUtil.isAnyNonNull(dateStart, start, safetyStop, dateEnd, end,
+                    pressureGroupAtBeginning, pressureGroupAtEnd, location, depthProfile, timezone);
         }
 
 
@@ -169,12 +182,23 @@ public class EditCommand extends Command {
             // state check
             EditDiveDescriptor e = (EditDiveDescriptor) other;
 
-            return getStart() == e.getStart()
+            return getDateStart() == e.getDateStart()
+                    && getStart() == e.getStart()
+                    && getDateEnd() == e.getDateEnd()
                     && getEnd() == e.getEnd()
                     && getPressureGroupAtBeginning() == e.getPressureGroupAtBeginning()
                     && getPressureGroupAtEnd() == e.getPressureGroupAtEnd()
                     && getLocation() == e.getLocation()
-                    && getDepthProfile() == e.getDepthProfile();
+                    && getDepthProfile() == e.getDepthProfile()
+                    && getTimeZone() == e.getTimeZone();
+        }
+
+        public void setDateStart(OurDate dateStart) {
+            this.dateStart = dateStart;
+        }
+
+        public void setDateEnd(OurDate dateEnd) {
+            this.dateEnd = dateEnd;
         }
 
         public void setStart(Time start) {
@@ -205,6 +229,17 @@ public class EditCommand extends Command {
             this.depthProfile = depthProfile;
         }
 
+        public void setTimeZone(TimeZone timezone) {
+            this.timezone = timezone;
+        }
+
+        public Optional<OurDate> getDateStart() {
+            return Optional.ofNullable(dateStart);
+        }
+
+        public Optional<OurDate> getDateEnd() {
+            return Optional.ofNullable(dateEnd);
+        }
 
         public Optional<Time> getStart() {
             return Optional.ofNullable(start);
@@ -234,5 +269,8 @@ public class EditCommand extends Command {
             return Optional.ofNullable(depthProfile);
         }
 
+        public Optional<TimeZone> getTimeZone() {
+            return Optional.ofNullable(timezone);
+        }
     }
 }

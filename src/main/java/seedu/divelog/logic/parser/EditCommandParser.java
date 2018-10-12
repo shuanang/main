@@ -24,7 +24,9 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args,
+                        CliSyntax.PREFIX_DATE_START,
                         CliSyntax.PREFIX_TIME_START,
+                        CliSyntax.PREFIX_DATE_END,
                         CliSyntax.PREFIX_TIME_END,
                         CliSyntax.PREFIX_SAFETY_STOP,
                         CliSyntax.PREFIX_DEPTH,
@@ -42,11 +44,17 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         EditCommand.EditDiveDescriptor editPersonDescriptor = new EditCommand.EditDiveDescriptor();
+        if (argMultimap.getValue(CliSyntax.PREFIX_DATE_START).isPresent()) {
+            editPersonDescriptor.setStart(new Time(argMultimap.getValue(CliSyntax.PREFIX_DATE_START).get()));
+        }
         if (argMultimap.getValue(CliSyntax.PREFIX_TIME_START).isPresent()) {
             editPersonDescriptor.setStart(new Time(argMultimap.getValue(CliSyntax.PREFIX_TIME_START).get()));
         }
         if (argMultimap.getValue(CliSyntax.PREFIX_SAFETY_STOP).isPresent()) {
             editPersonDescriptor.setSafetyStop(new Time(argMultimap.getValue(CliSyntax.PREFIX_SAFETY_STOP).get()));
+        }
+        if (argMultimap.getValue(CliSyntax.PREFIX_DATE_END).isPresent()) {
+            editPersonDescriptor.setStart(new Time(argMultimap.getValue(CliSyntax.PREFIX_DATE_END).get()));
         }
         if (argMultimap.getValue(CliSyntax.PREFIX_TIME_END).isPresent()) {
             editPersonDescriptor.setEnd(new Time(argMultimap.getValue(CliSyntax.PREFIX_TIME_END).get()));
@@ -73,6 +81,5 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         return new EditCommand(index, editPersonDescriptor);
     }
-
 
 }
