@@ -1,4 +1,4 @@
-package guitests.guihandles;
+package seedu.divelog.guitests.guihandles;
 
 import java.util.List;
 import java.util.stream.Collectors;
