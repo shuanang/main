@@ -46,9 +46,10 @@ public class XmlAdaptedDiveSession {
     /**
      * Constructs an {@code XmlAdaptedDiveSession} with the given person details.
      */
-    public XmlAdaptedDiveSession(String dateStart, String startTime, String safetyStop, String dateEnd,
-                                 String endTime, String pressureGroupAtBeginning,
-                                 String pressureGroupAtEnd, String location, float depthProfile, String timezone) {
+    public XmlAdaptedDiveSession(
+            String dateStart, String startTime, String safetyStop, String dateEnd,
+            String endTime, String pressureGroupAtBeginning,
+            String pressureGroupAtEnd, String location, float depthProfile, String timezone) {
         this.dateStart = dateStart;
         this.startTime = startTime;
         this.safetyStop = safetyStop;
