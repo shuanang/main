@@ -1,33 +1,6 @@
 package systemtests;
 
 import static seedu.divelog.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.divelog.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.divelog.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.divelog.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.divelog.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.divelog.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.divelog.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.divelog.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.divelog.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.divelog.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.divelog.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.divelog.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.divelog.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.divelog.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.divelog.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.divelog.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.divelog.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.divelog.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.divelog.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.divelog.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.divelog.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.divelog.testutil.TypicalDiveSessions.ALICE;
-import static seedu.divelog.testutil.TypicalDiveSessions.AMY;
-import static seedu.divelog.testutil.TypicalDiveSessions.BOB;
-import static seedu.divelog.testutil.TypicalDiveSessions.CARL;
-import static seedu.divelog.testutil.TypicalDiveSessions.HOON;
-import static seedu.divelog.testutil.TypicalDiveSessions.IDA;
-import static seedu.divelog.testutil.TypicalDiveSessions.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
@@ -37,12 +10,6 @@ import seedu.divelog.logic.commands.AddCommand;
 import seedu.divelog.logic.commands.RedoCommand;
 import seedu.divelog.logic.commands.UndoCommand;
 import seedu.divelog.model.Model;
-import seedu.divelog.model.person.Address;
-import seedu.divelog.model.person.Email;
-import seedu.divelog.model.person.Name;
-import seedu.divelog.model.person.Person;
-import seedu.divelog.model.person.Phone;
-import seedu.divelog.model.tag.Tag;
 import seedu.divelog.testutil.DiveSessionBuilder;
 import seedu.divelog.testutil.DiveUtil;
 
@@ -57,125 +24,7 @@ public class AddCommandSystemTest extends DiveLogSystemTest {
         /* Case: add a person without tags to a non-empty divelog book, command with leading spaces and trailing spaces
          * -> added
          */
-        Person toAdd = AMY;
-        String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
-                + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
-        assertCommandSuccess(command, toAdd);
 
-        /* Case: undo adding Amy to the list -> Amy deleted */
-        command = UndoCommand.COMMAND_WORD;
-        String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, model, expectedResultMessage);
-
-        /* Case: redo adding Amy to the list -> Amy added again */
-        command = RedoCommand.COMMAND_WORD;
-        model.addDiveSession(toAdd);
-        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, model, expectedResultMessage);
-
-        /* Case: add a person with all fields same as another person in the divelog book except name -> added */
-        toAdd = new DiveSessionBuilder(AMY).withName(VALID_NAME_BOB).build();
-        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + TAG_DESC_FRIEND;
-        assertCommandSuccess(command, toAdd);
-
-        /* Case: add a person with all fields same as another person in the divelog book except phone and email
-         * -> added
-         */
-        toAdd = new DiveSessionBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
-        command = DiveUtil.getAddCommand(toAdd);
-        assertCommandSuccess(command, toAdd);
-
-        /* Case: add to empty divelog book -> added */
-        deleteAllPersons();
-        assertCommandSuccess(ALICE);
-
-        /* Case: add a person with tags, command with parameters in random order -> added */
-        toAdd = BOB;
-        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
-                + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
-        assertCommandSuccess(command, toAdd);
-
-        /* Case: add a person, missing tags -> added */
-        assertCommandSuccess(HOON);
-
-        /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
-
-        /* Case: filters the person list before adding -> added */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        assertCommandSuccess(IDA);
-
-        /* ------------------------ Perform add operation while a person card is selected --------------------------- */
-
-        /* Case: selects first card in the person list, add a person -> added, card selection remains unchanged */
-        selectPerson(Index.fromOneBased(1));
-        assertCommandSuccess(CARL);
-
-        /* ----------------------------------- Perform invalid add operations --------------------------------------- */
-
-        /* Case: add a duplicate person -> rejected */
-        command = DiveUtil.getAddCommand(HOON);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
-
-        /* Case: add a duplicate person except with different phone -> rejected */
-        toAdd = new DiveSessionBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
-        command = DiveUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
-
-        /* Case: add a duplicate person except with different email -> rejected */
-        toAdd = new DiveSessionBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
-        command = DiveUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
-
-        /* Case: add a duplicate person except with different divelog -> rejected */
-        toAdd = new DiveSessionBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
-        command = DiveUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
-
-        /* Case: add a duplicate person except with different tags -> rejected */
-        command = DiveUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
-
-        /* Case: missing name -> rejected */
-        command = AddCommand.COMMAND_WORD + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-
-        /* Case: missing phone -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-
-        /* Case: missing email -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-
-        /* Case: missing divelog -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-
-        /* Case: invalid keyword -> rejected */
-        command = "adds " + DiveUtil.getDiveDetails(toAdd);
-        assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
-
-        /* Case: invalid name -> rejected */
-        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
-        assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
-
-        /* Case: invalid phone -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
-        assertCommandFailure(command, Phone.MESSAGE_PHONE_CONSTRAINTS);
-
-        /* Case: invalid email -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC + ADDRESS_DESC_AMY;
-        assertCommandFailure(command, Email.MESSAGE_EMAIL_CONSTRAINTS);
-
-        /* Case: invalid divelog -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + INVALID_ADDRESS_DESC;
-        assertCommandFailure(command, Address.MESSAGE_ADDRESS_CONSTRAINTS);
-
-        /* Case: invalid tag -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + INVALID_TAG_DESC;
-        assertCommandFailure(command, Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
     /**

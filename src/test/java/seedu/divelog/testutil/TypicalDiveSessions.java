@@ -32,7 +32,7 @@ public class TypicalDiveSessions {
     /**
      * Returns an {@code DiveLog} with all the typical persons.
      */
-    public static DiveLog getTypicalAddressBook() {
+    public static DiveLog getTypicalDiveLog() {
         DiveLog ab = new DiveLog();
         for (DiveSession dive : getTypicalDives()) {
             ab.addDive(dive);

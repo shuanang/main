@@ -3,7 +3,7 @@ package seedu.divelog.logic.commands;
 import static seedu.divelog.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.divelog.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.divelog.logic.commands.CommandTestUtil.deleteFirstDive;
-import static seedu.divelog.testutil.TypicalDiveSessions.getTypicalAddressBook;
+import static seedu.divelog.testutil.TypicalDiveSessions.getTypicalDiveLog;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,8 +15,8 @@ import seedu.divelog.model.UserPrefs;
 
 public class UndoCommandTest {
 
-    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalDiveLog(), new UserPrefs());
+    private final Model expectedModel = new ModelManager(getTypicalDiveLog(), new UserPrefs());
     private final CommandHistory commandHistory = new CommandHistory();
 
     @Before

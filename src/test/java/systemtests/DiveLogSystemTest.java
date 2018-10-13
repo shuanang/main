@@ -1,14 +1,11 @@
 package systemtests;
 
-import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.divelog.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.divelog.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.divelog.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.divelog.ui.UiPart.FXML_FILE_FOLDER;
-import static seedu.divelog.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -23,13 +20,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 
-import guitests.guihandles.BrowserPanelHandle;
-import guitests.guihandles.CommandBoxHandle;
-import guitests.guihandles.MainMenuHandle;
-import guitests.guihandles.MainWindowHandle;
-import guitests.guihandles.PersonListPanelHandle;
-import guitests.guihandles.ResultDisplayHandle;
-import guitests.guihandles.StatusBarFooterHandle;
 import seedu.divelog.MainApp;
 import seedu.divelog.TestApp;
 import seedu.divelog.commons.core.EventsCenter;
@@ -70,8 +60,6 @@ public abstract class DiveLogSystemTest {
         setupHelper = new SystemTestSetupHelper();
         testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
-
-        waitUntilBrowserLoaded(getBrowserPanel());
         assertApplicationStartingStateIsCorrect();
     }
 
@@ -85,7 +73,7 @@ public abstract class DiveLogSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected DiveLog getInitialData() {
-        return TypicalDiveSessions.getTypicalAddressBook();
+        return TypicalDiveSessions.getTypicalDiveLog();
     }
 
     /**
@@ -132,32 +120,29 @@ public abstract class DiveLogSystemTest {
         // Injects a fixed clock before executing a command so that the time stamp shown in the status bar
         // after each command is predictable and also different from the previous command.
         clockRule.setInjectedClockToCurrentTime();
-
         mainWindowHandle.getCommandBox().run(command);
-
-        waitUntilBrowserLoaded(getBrowserPanel());
     }
 
     /**
-     * Displays all persons in the divelog book.
+     * Displays all dive in the divelog book.
      */
-    protected void showAllPersons() {
+    protected void showAllDives() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getDiveLog().getPersonList().size(), getModel().getFilteredDiveList().size());
+        assertEquals(getModel().getDiveLog().getDiveList().size(), getModel().getFilteredDiveList().size());
     }
 
     /**
-     * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
+     * Displays all dive with any parts of their names matching {@code keyword} (case-insensitive).
      */
-    protected void showPersonsWithName(String keyword) {
+    protected void showDivesWithLocation(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredDiveList().size() < getModel().getDiveLog().getPersonList().size());
+        assertTrue(getModel().getFilteredDiveList().size() < getModel().getDiveLog().getDiveList().size());
     }
 
     /**
-     * Selects the person at {@code index} of the displayed list.
+     * Selects the dive at {@code index} of the displayed list.
      */
-    protected void selectPerson(Index index) {
+    protected void selectDive(Index index) {
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
         assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
     }
@@ -167,7 +152,7 @@ public abstract class DiveLogSystemTest {
      */
     protected void deleteAllPersons() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getDiveLog().getPersonList().size());
+        assertEquals(0, getModel().getDiveLog().getDiveList().size());
     }
 
     /**

@@ -59,7 +59,7 @@ public class DeleteCommandSystemTest extends DiveLogSystemTest {
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
         /* Case: filtered person list, delete index within bounds of divelog book and person list -> deleted */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showDivesWithLocation(KEYWORD_MATCHING_MEIER);
         Index index = INDEX_FIRST_DIVE;
         assertTrue(index.getZeroBased() < getModel().getFilteredDiveList().size());
         assertCommandSuccess(index);
@@ -67,7 +67,7 @@ public class DeleteCommandSystemTest extends DiveLogSystemTest {
         /* Case: filtered person list, delete index within bounds of divelog book but out of bounds of person list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showDivesWithLocation(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getDiveLog().getPersonList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -75,7 +75,7 @@ public class DeleteCommandSystemTest extends DiveLogSystemTest {
         /* --------------------- Performing delete operation while a person card is selected ------------------------ */
 
         /* Case: delete the selected person -> person list panel selects the person before the deleted person */
-        showAllPersons();
+        showAllDives();
         expectedModel = getModel();
         Index selectedIndex = getLastIndex(expectedModel);
         Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);

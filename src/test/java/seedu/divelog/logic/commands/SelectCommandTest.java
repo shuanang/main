@@ -9,7 +9,7 @@ import static seedu.divelog.logic.commands.CommandTestUtil.showDiveAtIndex;
 import static seedu.divelog.testutil.TypicalIndexes.INDEX_FIRST_DIVE;
 import static seedu.divelog.testutil.TypicalIndexes.INDEX_SECOND_DIVE;
 import static seedu.divelog.testutil.TypicalIndexes.INDEX_THIRD_DIVE;
-import static seedu.divelog.testutil.TypicalDiveSessions.getTypicalAddressBook;
+import static seedu.divelog.testutil.TypicalDiveSessions.getTypicalDiveLog;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -30,8 +30,8 @@ public class SelectCommandTest {
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalDiveLog(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalDiveLog(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

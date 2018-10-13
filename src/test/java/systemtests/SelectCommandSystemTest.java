@@ -57,7 +57,7 @@ public class SelectCommandSystemTest extends DiveLogSystemTest {
         /* Case: filtered person list, select index within bounds of divelog book but out of bounds of person list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showDivesWithLocation(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getDiveLog().getPersonList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
