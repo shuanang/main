@@ -2,7 +2,6 @@ package guitests.guihandles;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
@@ -11,14 +10,14 @@ import seedu.divelog.model.dive.DiveSession;
 /**
  * Provides a handle for {@code DiveListPanel} containing the list of {@code DiveSessionCard}.
  */
-public class PersonListPanelHandle extends NodeHandle<ListView<DiveSession>> {
+public class DiveListPanelHandle extends NodeHandle<ListView<DiveSession>> {
     public static final String PERSON_LIST_VIEW_ID = "#personListView";
 
     private static final String CARD_PANE_ID = "#cardPane";
 
     private Optional<DiveSession> lastRememberedSelectedDiveCard;
 
-    public PersonListPanelHandle(ListView<DiveSession> personListPanelNode) {
+    public DiveListPanelHandle(ListView<DiveSession> personListPanelNode) {
         super(personListPanelNode);
     }
 
@@ -98,10 +97,10 @@ public class PersonListPanelHandle extends NodeHandle<ListView<DiveSession>> {
     }
 
     /**
-     * Returns the person card handle of a person associated with the {@code index} in the list.
+     * Returns the dive card handle of a dive associated with the {@code index} in the list.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
-    public DiveSessionCardHandle getPersonCardHandle(int index) {
+    public DiveSessionCardHandle getDiveCardHandle(int index) {
         return getAllCardNodes().stream()
                 .map(DiveSessionCardHandle::new)
                 .filter(handle -> handle.equals(getDive(index)))

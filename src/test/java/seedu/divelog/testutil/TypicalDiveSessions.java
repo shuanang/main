@@ -25,7 +25,7 @@ public class TypicalDiveSessions {
             .withEnd("2200")
             .build();
 
-
+    public static final String KEYWORD_MATCHING_TIOMAN = "tioman";
 
     private TypicalDiveSessions() {} // prevents instantiation
 

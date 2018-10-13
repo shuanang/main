@@ -44,6 +44,6 @@ public class SampleDataTest extends DiveLogSystemTest {
     @Test
     public void addressBook_dataFileDoesNotExist_loadSampleData() {
         DiveSession[] expectedList = SampleDataUtil.getSampleDives();
-        assertListMatching(getPersonListPanel(), expectedList);
+        assertListMatching(getDiveListPanel(), expectedList);
     }
 }

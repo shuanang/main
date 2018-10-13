@@ -6,10 +6,6 @@ import static seedu.divelog.ui.BrowserPanel.FORMAT_END_TIME;
 import static seedu.divelog.ui.BrowserPanel.FORMAT_SAFETY_STOP;
 import static seedu.divelog.ui.BrowserPanel.FORMAT_START_TIME;
 
-import java.net.URL;
-
-import guitests.GuiRobot;
-import javafx.concurrent.Worker;
 import javafx.scene.control.Label;
 import javafx.scene.Node;
 import seedu.divelog.model.dive.DiveSession;
@@ -18,6 +14,7 @@ import seedu.divelog.model.dive.DiveSession;
  * A handler for the {@code BrowserPanel} of the UI.
  */
 public class BrowserPanelHandle extends NodeHandle<Node> {
+    public static final String BROWSER_ID = "#";
     private static final String LOCATION_ID = "#diveLocation";
     private static final String DEPTH_FIELD_ID = "#diveDepth";
     private static final String PG_START_ID = "#pgStart";
@@ -45,7 +42,11 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
     }
 
     @Override
-    public boolean equals(DiveSession dive) {
+    public boolean equals(Object obj) {
+        if (!(obj instanceof DiveSession)) {
+            return false;
+        }
+        DiveSession dive = (DiveSession) obj;
         String location = String.format(FORMAT_DIVE_LOCATION, dive.getLocation().getLocationName());
         if (!location.equals(diveLocation.getText())) {
             return false;

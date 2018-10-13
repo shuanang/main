@@ -1,7 +1,7 @@
 package systemtests;
 
 import static seedu.divelog.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.divelog.testutil.TypicalDiveSessions.KEYWORD_MATCHING_MEIER;
+import static seedu.divelog.testutil.TypicalDiveSessions.KEYWORD_MATCHING_TIOMAN;
 
 import org.junit.Test;
 
@@ -44,7 +44,7 @@ public class ClearCommandSystemTest extends DiveLogSystemTest {
 
         /* Case: filters the person list before clearing -> entire divelog book cleared */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original divelog book
-        showDivesWithLocation(KEYWORD_MATCHING_MEIER);
+        showDivesWithLocation(KEYWORD_MATCHING_TIOMAN);
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 

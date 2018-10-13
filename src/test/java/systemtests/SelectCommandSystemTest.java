@@ -7,6 +7,7 @@ import static seedu.divelog.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.divelog.logic.commands.SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS;
 import static seedu.divelog.testutil.TestUtil.getLastIndex;
 import static seedu.divelog.testutil.TestUtil.getMidIndex;
+import static seedu.divelog.testutil.TypicalDiveSessions.KEYWORD_MATCHING_TIOMAN;
 import static seedu.divelog.testutil.TypicalIndexes.INDEX_FIRST_DIVE;
 
 import org.junit.Test;
@@ -56,7 +57,7 @@ public class SelectCommandSystemTest extends DiveLogSystemTest {
         /* Case: filtered person list, select index within bounds of divelog book but out of bounds of person list
          * -> rejected
          */
-        showDivesWithLocation(KEYWORD_MATCHING_MEIER);
+        showDivesWithLocation(KEYWORD_MATCHING_TIOMAN);
         int invalidIndex = getModel().getDiveLog().getDiveList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
@@ -115,7 +116,7 @@ public class SelectCommandSystemTest extends DiveLogSystemTest {
         Model expectedModel = getModel();
         String expectedResultMessage = String.format(
                 MESSAGE_SELECT_PERSON_SUCCESS, expectedSelectedCardIndex.getOneBased());
-        int preExecutionSelectedCardIndex = getPersonListPanel().getSelectedCardIndex();
+        int preExecutionSelectedCardIndex = getDiveListPanel().getSelectedCardIndex();
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
