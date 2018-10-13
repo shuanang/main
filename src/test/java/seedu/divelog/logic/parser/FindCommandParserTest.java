@@ -9,6 +9,7 @@ import java.util.Arrays;
 import org.junit.Test;
 
 import seedu.divelog.logic.commands.FindCommand;
+import seedu.divelog.model.dive.LocationContainsKeywordPredicate;
 import seedu.divelog.model.person.LocationContainsKeywordsPredicate;
 
 public class FindCommandParserTest {
@@ -24,11 +25,11 @@ public class FindCommandParserTest {
     public void parse_validArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
         FindCommand expectedFindCommand =
-                new FindCommand(new LocationContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
-        assertParseSuccess(parser, "Alice Bob", expectedFindCommand);
+                new FindCommand(new LocationContainsKeywordPredicate(Arrays.asList("Tioman", "Bali")));
+        assertParseSuccess(parser, "Tioman Bali", expectedFindCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedFindCommand);
+        assertParseSuccess(parser, " \n Tioman \n \t Bali  \t", expectedFindCommand);
     }
 
 }

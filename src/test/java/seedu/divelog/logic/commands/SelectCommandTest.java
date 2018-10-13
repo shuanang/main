@@ -65,7 +65,7 @@ public class SelectCommandTest {
 
         Index outOfBoundsIndex = INDEX_SECOND_DIVE;
         // ensures that outOfBoundIndex is still in bounds of divelog book list
-        assertTrue(outOfBoundsIndex.getZeroBased() < model.getDiveLog().getPersonList().size());
+        assertTrue(outOfBoundsIndex.getZeroBased() < model.getDiveLog().getDiveList().size());
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
