@@ -19,7 +19,8 @@ import seedu.divelog.commons.events.storage.DataSavingExceptionEvent;
 import seedu.divelog.model.DiveLog;
 import seedu.divelog.model.ReadOnlyDiveLog;
 import seedu.divelog.model.UserPrefs;
-import seedu.divelog.ui.testutil.EventsCollectorRule;
+import seedu.divelog.testutil.EventsCollectorRule;
+
 
 public class StorageManagerTest {
 

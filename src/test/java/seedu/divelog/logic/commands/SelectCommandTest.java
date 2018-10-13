@@ -21,7 +21,7 @@ import seedu.divelog.logic.CommandHistory;
 import seedu.divelog.model.Model;
 import seedu.divelog.model.ModelManager;
 import seedu.divelog.model.UserPrefs;
-import seedu.divelog.ui.testutil.EventsCollectorRule;
+import seedu.divelog.testutil.EventsCollectorRule;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.

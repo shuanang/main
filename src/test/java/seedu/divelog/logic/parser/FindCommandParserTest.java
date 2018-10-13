@@ -10,7 +10,6 @@ import org.junit.Test;
 
 import seedu.divelog.logic.commands.FindCommand;
 import seedu.divelog.model.dive.LocationContainsKeywordPredicate;
-import seedu.divelog.model.person.LocationContainsKeywordsPredicate;
 
 public class FindCommandParserTest {
 

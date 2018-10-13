@@ -11,7 +11,7 @@ import seedu.divelog.commons.events.ui.ShowHelpRequestEvent;
 import seedu.divelog.logic.CommandHistory;
 import seedu.divelog.model.Model;
 import seedu.divelog.model.ModelManager;
-import seedu.divelog.ui.testutil.EventsCollectorRule;
+import seedu.divelog.testutil.EventsCollectorRule;
 
 public class HelpCommandTest {
     @Rule

@@ -10,6 +10,7 @@ import seedu.divelog.logic.commands.AddCommand;
 import seedu.divelog.logic.commands.RedoCommand;
 import seedu.divelog.logic.commands.UndoCommand;
 import seedu.divelog.model.Model;
+import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.testutil.DiveSessionBuilder;
 import seedu.divelog.testutil.DiveUtil;
 
@@ -41,16 +42,16 @@ public class AddCommandSystemTest extends DiveLogSystemTest {
      * {@code DiveLogSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see DiveLogSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandSuccess(Person toAdd) {
+    private void assertCommandSuccess(DiveSession toAdd) {
         assertCommandSuccess(DiveUtil.getAddCommand(toAdd), toAdd);
     }
 
     /**
      * Performs the same verification as {@code assertCommandSuccess(Person)}. Executes {@code command}
      * instead.
-     * @see AddCommandSystemTest#assertCommandSuccess(Person)
+     * @see AddCommandSystemTest#assertCommandSuccess(DiveSession)
      */
-    private void assertCommandSuccess(String command, Person toAdd) {
+    private void assertCommandSuccess(String command, DiveSession toAdd) {
         Model expectedModel = getModel();
         expectedModel.addDiveSession(toAdd);
         String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, toAdd);
@@ -64,7 +65,7 @@ public class AddCommandSystemTest extends DiveLogSystemTest {
      * 1. Result display box displays {@code expectedResultMessage}.<br>
      * 2. {@code Storage} and {@code DiveListPanel} equal to the corresponding components in
      * {@code expectedModel}.<br>
-     * @see AddCommandSystemTest#assertCommandSuccess(String, Person)
+     * @see AddCommandSystemTest#assertCommandSuccess(String, DiveSession)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
         executeCommand(command);
