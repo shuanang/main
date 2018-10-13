@@ -1,9 +1,7 @@
 package systemtests;
 
-import static org.junit.Assert.assertTrue;
 import static seedu.divelog.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
 import static seedu.divelog.testutil.TestUtil.getDive;
-import static seedu.divelog.testutil.TypicalDiveSessions.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
@@ -12,7 +10,6 @@ import seedu.divelog.commons.core.index.Index;
 import seedu.divelog.logic.commands.DeleteCommand;
 import seedu.divelog.model.Model;
 import seedu.divelog.model.dive.DiveSession;
-import seedu.divelog.model.person.Person;
 
 public class DeleteCommandSystemTest extends DiveLogSystemTest {
 
