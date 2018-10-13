@@ -8,7 +8,6 @@ import static seedu.divelog.logic.commands.SelectCommand.MESSAGE_SELECT_PERSON_S
 import static seedu.divelog.testutil.TestUtil.getLastIndex;
 import static seedu.divelog.testutil.TestUtil.getMidIndex;
 import static seedu.divelog.testutil.TypicalIndexes.INDEX_FIRST_DIVE;
-import static seedu.divelog.testutil.TypicalDiveSessions.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
@@ -58,7 +57,7 @@ public class SelectCommandSystemTest extends DiveLogSystemTest {
          * -> rejected
          */
         showDivesWithLocation(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getDiveLog().getPersonList().size();
+        int invalidIndex = getModel().getDiveLog().getDiveList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
         /* Case: filtered person list, select index within bounds of divelog book and person list -> selected */

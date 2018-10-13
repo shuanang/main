@@ -38,7 +38,7 @@ public class ClearCommandSystemTest extends DiveLogSystemTest {
 
         /* Case: selects first card in person list and clears divelog book -> cleared and no card selected */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original divelog book
-        selectPerson(Index.fromOneBased(1));
+        selectDive(Index.fromOneBased(1));
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardDeselected();
 

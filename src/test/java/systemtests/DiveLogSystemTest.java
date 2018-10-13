@@ -142,7 +142,7 @@ public abstract class DiveLogSystemTest {
     /**
      * Selects the dive at {@code index} of the displayed list.
      */
-    protected void selectDive(Index index) {
+    protected void selectDives(Index index) {
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
         assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
     }

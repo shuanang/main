@@ -1,7 +1,5 @@
 package systemtests;
 
-import static seedu.divelog.ui.testutil.GuiTestAssert.assertListMatching;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -9,7 +7,7 @@ import java.nio.file.Path;
 import org.junit.Test;
 
 import seedu.divelog.model.DiveLog;
-import seedu.divelog.model.person.Person;
+import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.util.SampleDataUtil;
 import seedu.divelog.testutil.TestUtil;
 
@@ -45,7 +43,7 @@ public class SampleDataTest extends DiveLogSystemTest {
 
     @Test
     public void addressBook_dataFileDoesNotExist_loadSampleData() {
-        Person[] expectedList = SampleDataUtil.getSamplePersons();
+        DiveSession[] expectedList = SampleDataUtil.getSampleDives();
         assertListMatching(getPersonListPanel(), expectedList);
     }
 }
