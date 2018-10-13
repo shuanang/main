@@ -273,7 +273,12 @@ public abstract class DiveLogSystemTest {
      * @param filteredDiveList
      */
     private void assertListMatching(DiveListPanelHandle diveListPanel, ObservableList<DiveSession> filteredDiveList) {
-        DiveSession dives[] = filteredDiveList.toArray();
+        DiveSession dives[] = filteredDiveList.toArray(new DiveSession[0]);
+        assertListMatching(diveListPanel,dives);
+    }
+
+    private void assertListMatching(DiveListPanelHandle diveListPanel, DiveSession[] dives) {
+
         for (int i = 0; i < dives.length; i++) {
             diveListPanel.navigateToCard(i);
             assertCardDisplays(dives[i], diveListPanel.getDiveCardHandle(i));
