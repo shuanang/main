@@ -76,7 +76,6 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         return new AddCommand(dive);
     }
-    
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
