@@ -96,6 +96,7 @@ public class ParserUtil {
         } catch (NumberFormatException nfe) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_TIME_FORMAT, AddCommand.MESSAGE_USAGE));
         }
+    }
 
     //@@author arjo129
     /**
@@ -104,7 +105,7 @@ public class ParserUtil {
      * @return a {@code PressureGroup} object
      * @throws ParseException if the pressureGroup is not a valid pressure group. {@see PressureGroup#PressureGroup}
      */
-    public static PressureGroup parsePressureGroup(String pressureGroup) throws ParseException {
+    public static PressureGroup parsePressureGroup (String pressureGroup) throws ParseException {
         if (!PressureGroup.isValid(pressureGroup)) {
             throw new ParseException(MESSAGE_INVALID_PRESSURE_GROUP);
         }
