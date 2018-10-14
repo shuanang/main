@@ -11,6 +11,7 @@ import seedu.divelog.model.dive.TimeZone;
 
 /**
  * A class with methods to compare Date and Time, with respect to Timezone
+ * @@author Cjunx
  */
 public class CompareUtil {
 
