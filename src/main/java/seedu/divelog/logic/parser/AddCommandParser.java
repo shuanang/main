@@ -75,7 +75,9 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         return new AddCommand(dive);
     }
+    //@@author cjunxiang
     /**
+     * TODO: Move to ParserUtil
      * Returns true if string given is TIME FORMATTED
      * {@code ArgumentMultimap}.
      */
@@ -94,8 +96,10 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_TIME_FORMAT, AddCommand.MESSAGE_USAGE));
         }
     }
+    //@@author cjunxiang
     /**
-     *  Returns true if string given is DATE FORMATTED
+     * TODO: Move to ParserUtil
+     * Returns true if string given is DATE FORMATTED
      * {@code ArgumentMultimap}.
      */
     private void checkDateformat(ArgumentMultimap argMultimap) throws ParseException {
@@ -111,8 +115,9 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_DATE_FORMAT, AddCommand.MESSAGE_USAGE));
         }
     }
-
+    //@@author cjunxiang
     /**
+     * TODO: Move to ParserUtil
      *  Returns true if string given is TIMEZONE FORMATTED
      * {@code ArgumentMultimap}.
      */

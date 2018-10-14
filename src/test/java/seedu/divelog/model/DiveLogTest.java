@@ -3,7 +3,7 @@ package seedu.divelog.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.divelog.testutil.TypicalDiveSessions.getTypicalAddressBook;
+import static seedu.divelog.testutil.TypicalDiveSessions.getTypicalDiveLog;
 
 import java.util.Collections;
 
@@ -31,7 +31,7 @@ public class DiveLogTest {
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        DiveLog newData = getTypicalAddressBook();
+        DiveLog newData = getTypicalDiveLog();
         diveLog.resetData(newData);
         assertEquals(newData, diveLog);
     }

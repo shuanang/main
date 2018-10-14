@@ -1,10 +1,13 @@
 package seedu.divelog.testutil;
 
+import static seedu.divelog.logic.parser.CliSyntax.PREFIX_DATE_END;
+import static seedu.divelog.logic.parser.CliSyntax.PREFIX_DATE_START;
 import static seedu.divelog.logic.parser.CliSyntax.PREFIX_DEPTH;
 import static seedu.divelog.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.divelog.logic.parser.CliSyntax.PREFIX_PRESSURE_GROUP_END;
 import static seedu.divelog.logic.parser.CliSyntax.PREFIX_PRESSURE_GROUP_START;
 import static seedu.divelog.logic.parser.CliSyntax.PREFIX_SAFETY_STOP;
+import static seedu.divelog.logic.parser.CliSyntax.PREFIX_TIMEZONE;
 import static seedu.divelog.logic.parser.CliSyntax.PREFIX_TIME_END;
 import static seedu.divelog.logic.parser.CliSyntax.PREFIX_TIME_START;
 
@@ -30,13 +33,16 @@ public class DiveUtil {
      */
     public static String getDiveDetails(DiveSession dive) {
         StringBuilder sb = new StringBuilder();
+        sb.append(PREFIX_DATE_START + dive.getDateStart().getOurDateString() + " ");
         sb.append(PREFIX_TIME_START + dive.getStart().getTimeString() + " ");
+        sb.append(PREFIX_DATE_END + dive.getDateStart().getOurDateString() + " ");
         sb.append(PREFIX_TIME_END + dive.getEnd().getTimeString() + " ");
         sb.append(PREFIX_SAFETY_STOP + dive.getSafetyStop().getTimeString() + " ");
         sb.append(PREFIX_DEPTH + String.valueOf(dive.getDepthProfile().getDepth()) + " ");
-        sb.append(PREFIX_PRESSURE_GROUP_START+dive.getPressureGroupAtBeginning().getPressureGroup() + " ");
-        sb.append(PREFIX_PRESSURE_GROUP_END+dive.getPressureGroupAtEnd().getPressureGroup() + " ");
-        sb.append(PREFIX_LOCATION+dive.getLocation().getLocationName() + " ");
+        sb.append(PREFIX_PRESSURE_GROUP_START + dive.getPressureGroupAtBeginning().getPressureGroup() + " ");
+        sb.append(PREFIX_PRESSURE_GROUP_END + dive.getPressureGroupAtEnd().getPressureGroup() + " ");
+        sb.append(PREFIX_LOCATION + dive.getLocation().getLocationName() + " ");
+        sb.append(PREFIX_TIMEZONE + dive.getTimeZone().getTimeZoneString() + " ");
         return sb.toString();
     }
 

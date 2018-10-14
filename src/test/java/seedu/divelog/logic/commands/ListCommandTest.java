@@ -3,7 +3,7 @@ package seedu.divelog.logic.commands;
 import static seedu.divelog.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.divelog.logic.commands.CommandTestUtil.showDiveAtIndex;
 import static seedu.divelog.testutil.TypicalIndexes.INDEX_FIRST_DIVE;
-import static seedu.divelog.testutil.TypicalDiveSessions.getTypicalAddressBook;
+import static seedu.divelog.testutil.TypicalDiveSessions.getTypicalDiveLog;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +24,7 @@ public class ListCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalDiveLog(), new UserPrefs());
         expectedModel = new ModelManager(model.getDiveLog(), new UserPrefs());
     }
 

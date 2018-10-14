@@ -8,7 +8,7 @@ import static seedu.divelog.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.divelog.logic.commands.CommandTestUtil.showDiveAtIndex;
 import static seedu.divelog.testutil.TypicalIndexes.INDEX_FIRST_DIVE;
 import static seedu.divelog.testutil.TypicalIndexes.INDEX_SECOND_DIVE;
-import static seedu.divelog.testutil.TypicalDiveSessions.getTypicalAddressBook;
+import static seedu.divelog.testutil.TypicalDiveSessions.getTypicalDiveLog;
 
 import org.junit.Test;
 
@@ -26,7 +26,7 @@ import seedu.divelog.model.dive.DiveSession;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalDiveLog(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

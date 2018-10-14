@@ -25,14 +25,14 @@ public class TypicalDiveSessions {
             .withEnd("2200")
             .build();
 
-
+    public static final String KEYWORD_MATCHING_TIOMAN = "tioman";
 
     private TypicalDiveSessions() {} // prevents instantiation
 
     /**
      * Returns an {@code DiveLog} with all the typical persons.
      */
-    public static DiveLog getTypicalAddressBook() {
+    public static DiveLog getTypicalDiveLog() {
         DiveLog ab = new DiveLog();
         for (DiveSession dive : getTypicalDives()) {
             ab.addDive(dive);

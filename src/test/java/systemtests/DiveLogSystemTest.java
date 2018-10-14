@@ -1,17 +1,11 @@
 package systemtests;
 
-import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.divelog.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.divelog.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.divelog.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
-import static seedu.divelog.ui.UiPart.FXML_FILE_FOLDER;
-import static seedu.divelog.ui.testutil.GuiTestAssert.assertListMatching;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -25,12 +19,13 @@ import org.junit.ClassRule;
 
 import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
+import guitests.guihandles.DiveListPanelHandle;
+import guitests.guihandles.DiveSessionCardHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
-import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
-import seedu.divelog.MainApp;
+import javafx.collections.ObservableList;
 import seedu.divelog.TestApp;
 import seedu.divelog.commons.core.EventsCenter;
 import seedu.divelog.commons.core.index.Index;
@@ -40,8 +35,8 @@ import seedu.divelog.logic.commands.ListCommand;
 import seedu.divelog.logic.commands.SelectCommand;
 import seedu.divelog.model.DiveLog;
 import seedu.divelog.model.Model;
+import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.testutil.TypicalDiveSessions;
-import seedu.divelog.ui.BrowserPanel;
 import seedu.divelog.ui.CommandBox;
 
 /**
@@ -70,8 +65,6 @@ public abstract class DiveLogSystemTest {
         setupHelper = new SystemTestSetupHelper();
         testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
-
-        waitUntilBrowserLoaded(getBrowserPanel());
         assertApplicationStartingStateIsCorrect();
     }
 
@@ -85,7 +78,7 @@ public abstract class DiveLogSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected DiveLog getInitialData() {
-        return TypicalDiveSessions.getTypicalAddressBook();
+        return TypicalDiveSessions.getTypicalDiveLog();
     }
 
     /**
@@ -103,8 +96,8 @@ public abstract class DiveLogSystemTest {
         return mainWindowHandle.getCommandBox();
     }
 
-    public PersonListPanelHandle getPersonListPanel() {
-        return mainWindowHandle.getPersonListPanel();
+    public DiveListPanelHandle getDiveListPanel() {
+        return mainWindowHandle.getDiveListPanel();
     }
 
     public MainMenuHandle getMainMenu() {
@@ -132,34 +125,31 @@ public abstract class DiveLogSystemTest {
         // Injects a fixed clock before executing a command so that the time stamp shown in the status bar
         // after each command is predictable and also different from the previous command.
         clockRule.setInjectedClockToCurrentTime();
-
         mainWindowHandle.getCommandBox().run(command);
-
-        waitUntilBrowserLoaded(getBrowserPanel());
     }
 
     /**
-     * Displays all persons in the divelog book.
+     * Displays all dive in the divelog book.
      */
-    protected void showAllPersons() {
+    protected void showAllDives() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getDiveLog().getPersonList().size(), getModel().getFilteredDiveList().size());
+        assertEquals(getModel().getDiveLog().getDiveList().size(), getModel().getFilteredDiveList().size());
     }
 
     /**
-     * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
+     * Displays all dive with any parts of their names matching {@code keyword} (case-insensitive).
      */
-    protected void showPersonsWithName(String keyword) {
+    protected void showDivesWithLocation(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredDiveList().size() < getModel().getDiveLog().getPersonList().size());
+        assertTrue(getModel().getFilteredDiveList().size() < getModel().getDiveLog().getDiveList().size());
     }
 
     /**
-     * Selects the person at {@code index} of the displayed list.
+     * Selects the dive at {@code index} of the displayed list.
      */
-    protected void selectPerson(Index index) {
+    protected void selectDive(Index index) {
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
-        assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        assertEquals(index.getZeroBased(), getDiveListPanel().getSelectedCardIndex());
     }
 
     /**
@@ -167,7 +157,7 @@ public abstract class DiveLogSystemTest {
      */
     protected void deleteAllPersons() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getDiveLog().getPersonList().size());
+        assertEquals(0, getModel().getDiveLog().getDiveList().size());
     }
 
     /**
@@ -180,19 +170,19 @@ public abstract class DiveLogSystemTest {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new DiveLog(expectedModel.getDiveLog()), testApp.readStorageAddressBook());
-        assertListMatching(getPersonListPanel(), expectedModel.getFilteredDiveList());
+        assertListMatching(getDiveListPanel(), expectedModel.getFilteredDiveList());
     }
 
     /**
-     * Calls {@code BrowserPanelHandle}, {@code PersonListPanelHandle} and {@code StatusBarFooterHandle} to remember
+     * Calls {@code BrowserPanelHandle}, {@code DiveListPanelHandle} and {@code StatusBarFooterHandle} to remember
      * their current state.
      */
     private void rememberStates() {
         StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
-        getBrowserPanel().rememberUrl();
+        //getBrowserPanel().rememberUrl();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
-        getPersonListPanel().rememberSelectedPersonCard();
+        getDiveListPanel().rememberSelectedDiveCard();
     }
 
     /**
@@ -201,38 +191,33 @@ public abstract class DiveLogSystemTest {
      * @see BrowserPanelHandle#isUrlChanged()
      */
     protected void assertSelectedCardDeselected() {
-        assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getPersonListPanel().isAnyCardSelected());
+        //assertFalse(getBrowserPanel().isUrlChanged());
+        assertFalse(getDiveListPanel().isAnyCardSelected());
     }
 
     /**
      * Asserts that the browser's url is changed to display the details of the person in the person list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      * @see BrowserPanelHandle#isUrlChanged()
-     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
+     * @see DiveListPanelHandle#isSelectedPersonCardChanged()
+     * TODO REIMPLEMENT
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
-        getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
-        String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
-        URL expectedUrl;
-        try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
-        } catch (MalformedURLException mue) {
-            throw new AssertionError("URL expected to be valid.", mue);
-        }
-        assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
+        getDiveListPanel().navigateToCard(getDiveListPanel().getSelectedCardIndex());
+        String selectedCardName = getDiveListPanel().getHandleToSelectedCard().getName();
 
-        assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+
+        assertEquals(expectedSelectedCardIndex.getZeroBased(), getDiveListPanel().getSelectedCardIndex());
     }
 
     /**
      * Asserts that the browser's url and the selected card in the person list panel remain unchanged.
-     * @see BrowserPanelHandle#isUrlChanged()
-     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
+     *
+     * @see DiveListPanelHandle#isSelectedPersonCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
-        assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
+        //assertFalse(getBrowserPanel().isUrlChanged());
+        assertFalse(getDiveListPanel().isSelectedPersonCardChanged());
     }
 
     /**
@@ -276,12 +261,40 @@ public abstract class DiveLogSystemTest {
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        assertListMatching(getPersonListPanel(), getModel().getFilteredDiveList());
-        assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
+        assertListMatching(getDiveListPanel(), getModel().getFilteredDiveList());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
+
+    /**
+     * Asserts the list
+     * @param diveListPanel
+     * @param filteredDiveList
+     */
+    protected void assertListMatching(DiveListPanelHandle diveListPanel, ObservableList<DiveSession> filteredDiveList) {
+        DiveSession dives[] = filteredDiveList.toArray(new DiveSession[0]);
+        assertListMatching(diveListPanel,dives);
+    }
+
+    protected void assertListMatching(DiveListPanelHandle diveListPanel, DiveSession[] dives) {
+
+        for (int i = 0; i < dives.length; i++) {
+            diveListPanel.navigateToCard(i);
+            assertCardDisplays(dives[i], diveListPanel.getDiveCardHandle(i));
+        }
+    }
+
+    /**
+     * Asserts the card and the dive are the same.
+     * @param dive The {@Code DiveSession} has the same data as the divecard
+     * @param diveCardHandle The {@Code DiveSessionCard} in question
+     */
+    private void assertCardDisplays(DiveSession dive, DiveSessionCardHandle diveCardHandle) {
+        assertEquals(diveCardHandle.getName(), dive.getLocation().getLocationName());
+        assertEquals(diveCardHandle.getDepth(), dive.getDepthProfile().getDepth());
+    }
+
 
     /**
      * Returns a defensive copy of the current model.

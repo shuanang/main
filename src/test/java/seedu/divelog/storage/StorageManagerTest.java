@@ -3,7 +3,7 @@ package seedu.divelog.storage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static seedu.divelog.testutil.TypicalDiveSessions.getTypicalAddressBook;
+import static seedu.divelog.testutil.TypicalDiveSessions.getTypicalDiveLog;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -19,7 +19,8 @@ import seedu.divelog.commons.events.storage.DataSavingExceptionEvent;
 import seedu.divelog.model.DiveLog;
 import seedu.divelog.model.ReadOnlyDiveLog;
 import seedu.divelog.model.UserPrefs;
-import seedu.divelog.ui.testutil.EventsCollectorRule;
+import seedu.divelog.testutil.EventsCollectorRule;
+
 
 public class StorageManagerTest {
 
@@ -63,7 +64,7 @@ public class StorageManagerTest {
          * {@link XmlDiveLogStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link XmlDiveLogStorageTest} class.
          */
-        DiveLog original = getTypicalAddressBook();
+        DiveLog original = getTypicalDiveLog();
         storageManager.saveDiveLog(original);
         ReadOnlyDiveLog retrieved = storageManager.readDiveLog().get();
         assertEquals(original, new DiveLog(retrieved));

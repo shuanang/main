@@ -9,7 +9,7 @@ import static seedu.divelog.logic.commands.CommandTestUtil.showDiveAtIndex;
 import static seedu.divelog.testutil.TypicalIndexes.INDEX_FIRST_DIVE;
 import static seedu.divelog.testutil.TypicalIndexes.INDEX_SECOND_DIVE;
 import static seedu.divelog.testutil.TypicalIndexes.INDEX_THIRD_DIVE;
-import static seedu.divelog.testutil.TypicalDiveSessions.getTypicalAddressBook;
+import static seedu.divelog.testutil.TypicalDiveSessions.getTypicalDiveLog;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -21,7 +21,7 @@ import seedu.divelog.logic.CommandHistory;
 import seedu.divelog.model.Model;
 import seedu.divelog.model.ModelManager;
 import seedu.divelog.model.UserPrefs;
-import seedu.divelog.ui.testutil.EventsCollectorRule;
+import seedu.divelog.testutil.EventsCollectorRule;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
@@ -30,23 +30,20 @@ public class SelectCommandTest {
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalDiveLog(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalDiveLog(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Index lastPersonIndex = Index.fromOneBased(model.getFilteredDiveList().size());
-
         assertExecutionSuccess(INDEX_FIRST_DIVE);
-        assertExecutionSuccess(INDEX_THIRD_DIVE);
         assertExecutionSuccess(lastPersonIndex);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredList_failure() {
         Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredDiveList().size() + 1);
-
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
@@ -65,7 +62,7 @@ public class SelectCommandTest {
 
         Index outOfBoundsIndex = INDEX_SECOND_DIVE;
         // ensures that outOfBoundIndex is still in bounds of divelog book list
-        assertTrue(outOfBoundsIndex.getZeroBased() < model.getDiveLog().getPersonList().size());
+        assertTrue(outOfBoundsIndex.getZeroBased() < model.getDiveLog().getDiveList().size());
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }

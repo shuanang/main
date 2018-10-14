@@ -5,9 +5,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.divelog.model.dive.DiveSession;
-
+//@@author arjo129
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code DiveSession}.
  */
 public class DiveSessionCard extends UiPart<Region> {
 

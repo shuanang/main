@@ -1,5 +1,5 @@
 package seedu.divelog.model.dive;
-
+//@@author arjo129
 /**
  * Keeps track of the Depth of a dive.
  * Currently as of v1.1, only simple dives to a fixed depth are supported
@@ -11,6 +11,7 @@ public class DepthProfile {
     private final float depth;
 
     public DepthProfile(float depth) {
+        assert depth > 0;
         this.depth = depth;
     }
 

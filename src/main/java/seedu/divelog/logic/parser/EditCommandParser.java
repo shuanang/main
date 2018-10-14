@@ -7,14 +7,13 @@ import seedu.divelog.commons.core.index.Index;
 import seedu.divelog.logic.commands.EditCommand;
 import seedu.divelog.logic.parser.exceptions.ParseException;
 import seedu.divelog.model.dive.Location;
-import seedu.divelog.model.dive.PressureGroup;
 import seedu.divelog.model.dive.Time;
 
 /**
  * Parses input arguments and creates a new EditCommand object
  */
 public class EditCommandParser implements Parser<EditCommand> {
-
+    //@@author arjo129
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
      * and returns an EditCommand object for execution.
@@ -65,11 +64,11 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         if (argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_START).isPresent()) {
             editPersonDescriptor.setPressureGroupAtBeginning(
-                    new PressureGroup(argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_START).get()));
+                    ParserUtil.parsePressureGroup(argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_START).get()));
         }
         if (argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_END).isPresent()) {
             editPersonDescriptor.setPressureGroupAtEnd(
-                    new PressureGroup(argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_END).get()));
+                    ParserUtil.parsePressureGroup(argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_END).get()));
         }
         if (argMultimap.getValue(CliSyntax.PREFIX_LOCATION).isPresent()) {
             editPersonDescriptor.setLocation(
