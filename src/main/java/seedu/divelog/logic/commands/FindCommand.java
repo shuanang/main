@@ -28,7 +28,7 @@ public class FindCommand extends Command {
         requireNonNull(model);
         model.updateFilteredDiveList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredDiveList().size()));
+                String.format(Messages.MESSAGE_DIVE_LISTED_OVERVIEW, model.getFilteredDiveList().size()));
     }
 
     @Override

@@ -3,9 +3,8 @@ package seedu.divelog.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.divelog.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
+import static seedu.divelog.commons.core.Messages.MESSAGE_DIVE_LISTED_OVERVIEW;
 import static seedu.divelog.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.divelog.testutil.TypicalDiveSessions.KEYWORD_MATCHING_TIOMAN;
 import static seedu.divelog.testutil.TypicalDiveSessions.getTypicalDiveLog;
 
 import java.util.Arrays;
@@ -55,7 +54,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_zeroKeywords_noPersonFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+        String expectedMessage = String.format(MESSAGE_DIVE_LISTED_OVERVIEW, 0);
         LocationContainsKeywordPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredDiveList(predicate);
