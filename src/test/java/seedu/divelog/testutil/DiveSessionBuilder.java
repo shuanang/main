@@ -3,8 +3,10 @@ package seedu.divelog.testutil;
 import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.Location;
+import seedu.divelog.model.dive.OurDate;
 import seedu.divelog.model.dive.PressureGroup;
 import seedu.divelog.model.dive.Time;
+import seedu.divelog.model.dive.TimeZone;
 import seedu.divelog.model.util.SampleDataUtil;
 
 /**
@@ -19,6 +21,9 @@ public class DiveSessionBuilder {
     public static final String DEFAULT_PG_START = "A";
     public static final String DEFAULT_PG_END = "F";
     public static final String DEFAULT_LOCATION = "Bali";
+    public static final String DEFAULT_DATE_START = "01012019";
+    public static final String DEFAULT_DATE_END = "01012019";
+    public static final String DEFAULT_TIMEZONE = "-8";
     public static final float DEFAULT_DEPTH = 5;
 
     private Time start;
@@ -28,8 +33,9 @@ public class DiveSessionBuilder {
     private PressureGroup pressureGroupAtEnd;
     private Location location;
     private DepthProfile depthProfile;
-
-
+    private OurDate dateEnd;
+    private OurDate dateStart;
+    private final TimeZone timezone;
     public DiveSessionBuilder() {
         start = new Time(DEFAULT_START);
         end = new Time(DEFAULT_END);
@@ -38,6 +44,9 @@ public class DiveSessionBuilder {
         pressureGroupAtEnd = new PressureGroup(DEFAULT_PG_END);
         location = new Location(DEFAULT_LOCATION);
         depthProfile = new DepthProfile(DEFAULT_DEPTH);
+        dateEnd = new OurDate(DEFAULT_DATE_START);
+        dateStart = new OurDate(DEFAULT_DATE_END);
+        timezone = new TimeZone(DEFAULT_TIMEZONE);
     }
 
     /**
@@ -51,8 +60,10 @@ public class DiveSessionBuilder {
         pressureGroupAtBeginning = diveToCopy.getPressureGroupAtBeginning();
         location = diveToCopy.getLocation();
         depthProfile = diveToCopy.getDepthProfile();
+        dateEnd = diveToCopy.getDateEnd();
+        dateStart = diveToCopy.getDateStart();
+        timezone = diveToCopy.getTimeZone();
     }
-
     /**
      * Sets the start time of the {@code DiveSession} that we are building.
      */
@@ -114,8 +125,9 @@ public class DiveSessionBuilder {
      * @return DiveSession
      */
     public DiveSession build() {
-        return new DiveSession(start, safetyStop, end,
-                pressureGroupAtBeginning, pressureGroupAtEnd, location, depthProfile);
+        return new DiveSession(dateStart, start, safetyStop, dateEnd, end,
+                pressureGroupAtBeginning, pressureGroupAtEnd, location, depthProfile,
+                timezone);
     }
 
 }

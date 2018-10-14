@@ -76,7 +76,7 @@ public class XmlAdaptedDiveSession {
         this.pressureGroupAtBeginning = source.getPressureGroupAtBeginning().getPressureGroup();
         this.pressureGroupAtEnd = source.getPressureGroupAtEnd().getPressureGroup();
         this.depthProfile = source.getDepthProfile().getDepth();
-        this.timezone = Integer.toString(source.getTimeZone().getTimeZoneString());
+        this.timezone = Integer.toString(source.getTimeZone().getTimeZone());
     }
 
     /**

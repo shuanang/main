@@ -2,7 +2,7 @@ package seedu.divelog.logic.commands;
 
 import static seedu.divelog.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.divelog.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.divelog.testutil.TypicalDiveSessions.getTypicalAddressBook;
+import static seedu.divelog.testutil.TypicalDiveSessions.getTypicalDiveLog;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,26 +24,19 @@ public class AddCommandIntegrationTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalDiveLog(), new UserPrefs());
     }
 
     @Test
-    public void execute_newPerson_success() {
-        DiveSession validPerson = new DiveSessionBuilder().build();
+    public void execute_newDive_success() {
+        DiveSession validDive = new DiveSessionBuilder().build();
 
         Model expectedModel = new ModelManager(model.getDiveLog(), new UserPrefs());
-        expectedModel.addDiveSession(validPerson);
+        expectedModel.addDiveSession(validDive);
         expectedModel.commitDiveLog();
 
-        assertCommandSuccess(new AddCommand(validPerson), model, commandHistory,
-                String.format(AddCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
-    }
-
-    @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        DiveSession personInList = model.getDiveLog().getDiveList().get(0);
-        assertCommandFailure(new AddCommand(personInList), model, commandHistory,
-                AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandSuccess(new AddCommand(validDive), model, commandHistory,
+                String.format(AddCommand.MESSAGE_SUCCESS, validDive), expectedModel);
     }
 
 }

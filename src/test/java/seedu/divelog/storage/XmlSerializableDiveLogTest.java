@@ -28,7 +28,7 @@ public class XmlSerializableDiveLogTest {
         XmlSerializableDiveLog dataFromFile = XmlUtil.getDataFromFile(TYPICAL_PERSONS_FILE,
                 XmlSerializableDiveLog.class);
         DiveLog diveLogFromFile = dataFromFile.toModelType();
-        DiveLog typicalPersonsDiveLog = TypicalDiveSessions.getTypicalAddressBook();
+        DiveLog typicalPersonsDiveLog = TypicalDiveSessions.getTypicalDiveLog();
         assertEquals(diveLogFromFile, typicalPersonsDiveLog);
     }
 

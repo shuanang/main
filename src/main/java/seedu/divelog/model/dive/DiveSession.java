@@ -74,15 +74,6 @@ public class DiveSession {
         return timezone;
     }
 
-    /**
-     *
-     * @param dive
-     * @return
-     */
-    public boolean isSameDiveSession(DiveSession dive) {
-        return dive == this;
-    }
-
     @Override
     public boolean equals(Object obj) {
 

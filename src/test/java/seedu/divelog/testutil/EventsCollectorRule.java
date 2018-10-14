@@ -1,4 +1,4 @@
-package seedu.divelog.ui.testutil;
+package seedu.divelog.testutil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +12,6 @@ import com.google.common.eventbus.Subscribe;
 import seedu.divelog.commons.core.EventsCenter;
 import seedu.divelog.commons.events.BaseEvent;
 
-/**
- * Sets up an {@code EventsCollector} and tears it down after each test.
- */
 public class EventsCollectorRule implements TestRule {
     public final EventsCollector eventsCollector = new EventsCollector();
 

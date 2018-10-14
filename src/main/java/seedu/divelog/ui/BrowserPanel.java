@@ -17,15 +17,15 @@ import seedu.divelog.model.dive.DiveSession;
  */
 public class BrowserPanel extends UiPart<Region> {
 
-    private static final String FORMAT_DIVE_LOCATION = "Dive @ %s";
+    public static final String FORMAT_DIVE_LOCATION = "Dive @ %s";
 
-    private static final String FORMAT_DIVE_DEPTH = "You dove to %.1fm";
+    public static final String FORMAT_DIVE_DEPTH = "You dove to %.1fm";
 
-    private static final String FORMAT_START_TIME = "Started at: %s";
+    public static final String FORMAT_START_TIME = "Started at: %s";
 
-    private static final String FORMAT_END_TIME = "Ended at: %s";
+    public static final String FORMAT_END_TIME = "Ended at: %s";
 
-    private static final String FORMAT_SAFETY_STOP = "Safety stop at: %s";
+    public static final String FORMAT_SAFETY_STOP = "Safety stop at: %s";
 
     private static final String FXML = "BrowserPanel.fxml";
 

@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static seedu.divelog.testutil.TypicalDiveSessions.DIVE_AT_BALI;
 import static seedu.divelog.testutil.TypicalDiveSessions.DIVE_AT_NIGHT;
-import static seedu.divelog.testutil.TypicalDiveSessions.getTypicalAddressBook;
+import static seedu.divelog.testutil.TypicalDiveSessions.getTypicalDiveLog;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -75,7 +75,7 @@ public class XmlDiveLogStorageTest {
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.getRoot().toPath().resolve("TempDiveLog.xml");
-        DiveLog original = getTypicalAddressBook();
+        DiveLog original = getTypicalDiveLog();
         XmlDiveLogStorage xmlAddressBookStorage = new XmlDiveLogStorage(filePath);
 
         //Save in new file and read back

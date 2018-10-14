@@ -20,11 +20,12 @@ public class AddCommand extends Command {
             + CliSyntax.PREFIX_TIME_START + "START_TIME (24Hr Format) "
             + CliSyntax.PREFIX_DATE_END + "DATE_END (DDMMYYYY Format) "
             + CliSyntax.PREFIX_TIME_END + "END_TIME (24Hr Format) "
-            + CliSyntax.PREFIX_SAFETY_STOP + "SAFETY_STOP_TIME (24Hr Format) "
+            + CliSyntax.PREFIX_SAFETY_STOP + "SAFETY_STOP_TIME (24Hr Format) \n\t"
             + CliSyntax.PREFIX_DEPTH + "DEPTH "
             + CliSyntax.PREFIX_PRESSURE_GROUP_START + "PRESSURE_GROUP_START "
             + CliSyntax.PREFIX_PRESSURE_GROUP_END + "PRESSURE_GROUP_END "
-            + CliSyntax.PREFIX_LOCATION + "LOCATION \n"
+            + CliSyntax.PREFIX_LOCATION + "LOCATION"
+            + CliSyntax.PREFIX_TIMEZONE + "TIMEZONE\n"
             + "Example: " + COMMAND_WORD + " "
             + CliSyntax.PREFIX_DATE_START + "04082018 "
             + CliSyntax.PREFIX_TIME_START + "0700 "
@@ -34,10 +35,10 @@ public class AddCommand extends Command {
             + CliSyntax.PREFIX_DEPTH + "15 "
             + CliSyntax.PREFIX_PRESSURE_GROUP_START + "A "
             + CliSyntax.PREFIX_PRESSURE_GROUP_END + "R "
-            + CliSyntax.PREFIX_LOCATION + "Sentosa ";
+            + CliSyntax.PREFIX_LOCATION + "Sentosa "
+            + CliSyntax.PREFIX_TIMEZONE + "+8";
 
     public static final String MESSAGE_SUCCESS = "New dive session added!";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the divelog book";
 
     private final DiveSession toAdd;
 

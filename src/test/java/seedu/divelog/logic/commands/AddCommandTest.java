@@ -20,7 +20,6 @@ import seedu.divelog.model.Model;
 import seedu.divelog.model.ReadOnlyDiveLog;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.exceptions.DiveNotFoundException;
-import seedu.divelog.model.person.Person;
 import seedu.divelog.testutil.DiveSessionBuilder;
 
 public class AddCommandTest {
@@ -40,13 +39,13 @@ public class AddCommandTest {
 
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        DiveSession validPerson = new DiveSessionBuilder().build();
+        ModelStubAcceptingDiveSessionAdded modelStub = new ModelStubAcceptingDiveSessionAdded();
+        DiveSession validDive = new DiveSessionBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddCommand(validDive).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validPerson), modelStub.diveAdded);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validDive), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validDive), modelStub.diveAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
@@ -155,7 +154,7 @@ public class AddCommandTest {
     /**
      * A Model stub that always accept the diveSession being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
+    private class ModelStubAcceptingDiveSessionAdded extends ModelStub {
         final ArrayList<DiveSession> diveAdded = new ArrayList<>();
 
         @Override

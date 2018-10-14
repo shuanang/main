@@ -35,6 +35,8 @@ public class XmlUtilTest {
     private static final String VALID_SAFETY_STOP = "0745";
     private static final String VALID_PRESSURE_GROUP_START = "A";
     private static final String VALID_PRESSURE_GROUP_END = "F";
+    private static final String VALID_DATE = "01012018";
+    private static final String VALID_TIMEZONE = "-8";
     private static final String VALID_LOCATION = "Bali";
     private static final float VALID_DEPTH = 5;
 
@@ -75,9 +77,9 @@ public class XmlUtilTest {
     public void xmlAdaptedPersonFromFile_fileWithMissingPersonField_validResult() throws Exception {
         XmlAdaptedDiveSession actualDive = XmlUtil.getDataFromFile(
                 MISSING_DIVE_FIELD_FILE, XmlAdaptedDiveSessionWithRootElement.class);
-        XmlAdaptedDiveSession expectedDive = new XmlAdaptedDiveSession(
-                null, VALID_SAFETY_STOP, VALID_END, VALID_PRESSURE_GROUP_START,
-                VALID_PRESSURE_GROUP_END, VALID_LOCATION, VALID_DEPTH);
+        XmlAdaptedDiveSession expectedDive = new XmlAdaptedDiveSession(VALID_DATE,
+                null, VALID_SAFETY_STOP, VALID_END, VALID_DATE, VALID_PRESSURE_GROUP_START,
+                VALID_PRESSURE_GROUP_END, VALID_LOCATION, VALID_DEPTH, VALID_TIMEZONE);
         assertEquals(expectedDive, actualDive);
     }
 
@@ -86,8 +88,8 @@ public class XmlUtilTest {
         XmlAdaptedDiveSession actualDive = XmlUtil.getDataFromFile(
                 VALID_DIVE_FILE, XmlAdaptedDiveSessionWithRootElement.class);
         XmlAdaptedDiveSession expectedDive = new XmlAdaptedDiveSession(
-                VALID_START, VALID_SAFETY_STOP, VALID_END, VALID_PRESSURE_GROUP_START,
-                VALID_PRESSURE_GROUP_END, VALID_LOCATION, VALID_DEPTH);
+                VALID_DATE, VALID_START, VALID_SAFETY_STOP, VALID_END, VALID_DATE, VALID_PRESSURE_GROUP_START,
+                VALID_PRESSURE_GROUP_END, VALID_LOCATION, VALID_DEPTH, VALID_TIMEZONE);
         assertEquals(expectedDive, actualDive);
     }
 
