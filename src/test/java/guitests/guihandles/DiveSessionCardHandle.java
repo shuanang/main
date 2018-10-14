@@ -9,7 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.divelog.model.dive.DiveSession;
-
+//@@author arjo129
 /**
  * Provides a handle to a person card in the person list panel.
  */

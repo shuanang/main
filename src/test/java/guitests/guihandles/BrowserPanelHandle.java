@@ -9,7 +9,7 @@ import static seedu.divelog.ui.BrowserPanel.FORMAT_START_TIME;
 import javafx.scene.control.Label;
 import javafx.scene.Node;
 import seedu.divelog.model.dive.DiveSession;
-
+//@@author arjo129
 /**
  * A handler for the {@code BrowserPanel} of the UI.
  */
