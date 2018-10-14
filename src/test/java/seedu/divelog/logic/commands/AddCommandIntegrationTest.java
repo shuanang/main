@@ -39,11 +39,4 @@ public class AddCommandIntegrationTest {
                 String.format(AddCommand.MESSAGE_SUCCESS, validDive), expectedModel);
     }
 
-    @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        DiveSession personInList = model.getDiveLog().getDiveList().get(0);
-        assertCommandFailure(new AddCommand(personInList), model, commandHistory,
-                AddCommand.MESSAGE_DUPLICATE_PERSON);
-    }
-
 }
