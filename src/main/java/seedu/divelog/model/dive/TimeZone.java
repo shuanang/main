@@ -15,8 +15,11 @@ public class TimeZone {
         }
     }
 
-    public int getTimeZoneString() {
+    public int getTimeZone() {
         return timeZoneDifference;
+    }
+    public String getTimeZoneString() {
+        return ""+timeZoneDifference;
     }
     /*
     public TimeZone (String timeZone) {
@@ -31,7 +34,7 @@ public class TimeZone {
         this.timeZoneDifference = temporary;
     }
 
-    public int getTimeZoneString(){
+    public int getTimeZone(){
         return timeZoneDifference;
     }
     */

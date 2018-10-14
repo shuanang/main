@@ -7,7 +7,6 @@ import seedu.divelog.commons.core.index.Index;
 import seedu.divelog.logic.commands.EditCommand;
 import seedu.divelog.logic.parser.exceptions.ParseException;
 import seedu.divelog.model.dive.Location;
-import seedu.divelog.model.dive.PressureGroup;
 import seedu.divelog.model.dive.Time;
 
 /**

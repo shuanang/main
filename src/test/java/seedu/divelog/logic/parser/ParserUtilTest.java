@@ -3,6 +3,7 @@ package seedu.divelog.logic.parser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import static seedu.divelog.logic.parser.ParserUtil.MESSAGE_INVALID_DEPTH;
 import static seedu.divelog.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.divelog.testutil.TypicalIndexes.INDEX_FIRST_DIVE;
 
@@ -14,6 +15,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.divelog.logic.parser.exceptions.ParseException;
+import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.testutil.Assert;
 
 public class ParserUtilTest {
@@ -42,5 +44,22 @@ public class ParserUtilTest {
 
         // Leading and trailing whitespaces
         assertEquals(INDEX_FIRST_DIVE, ParserUtil.parseIndex("  1  "));
+    }
+
+    //@@author arjo129
+    @Test
+    public void parseDepth_validInput_success() throws Exception {
+        //No white spaces
+        assertEquals(new DepthProfile(1.0f), ParserUtil.parseDepth("1.0"));
+        //Trailing whitespaces
+        assertEquals(new DepthProfile(1.0f), ParserUtil.parseDepth(" 1.0  "));
+    }
+
+    //@@author arjo129
+    @Test
+    public void parseDepth_invalidInput_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(MESSAGE_INVALID_DEPTH);
+        ParserUtil.parseDepth("otototo MAMAMAMA");
     }
 }

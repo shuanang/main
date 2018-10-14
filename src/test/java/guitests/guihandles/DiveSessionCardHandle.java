@@ -1,17 +1,11 @@
 package guitests.guihandles;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import com.google.common.collect.ImmutableMultiset;
-
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Region;
 import seedu.divelog.model.dive.DiveSession;
 //@@author arjo129
 /**
- * Provides a handle to a person card in the person list panel.
+ * Provides a handle to a dive card in the dive list panel.
  */
 public class DiveSessionCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
