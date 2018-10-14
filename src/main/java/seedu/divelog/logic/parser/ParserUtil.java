@@ -78,7 +78,7 @@ public class ParserUtil {
     }
 
     /**
-     *  @author Cjunx
+     * @author Cjunx
      * Returns true if string given is TIME FORMATTED
      * {@code ArgumentMultimap}.
      */
