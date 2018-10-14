@@ -65,11 +65,11 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         if (argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_START).isPresent()) {
             editPersonDescriptor.setPressureGroupAtBeginning(
-                    new PressureGroup(argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_START).get()));
+                    ParserUtil.parsePressureGroup(argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_START).get()));
         }
         if (argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_END).isPresent()) {
             editPersonDescriptor.setPressureGroupAtEnd(
-                    new PressureGroup(argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_END).get()));
+                    ParserUtil.parsePressureGroup(argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_END).get()));
         }
         if (argMultimap.getValue(CliSyntax.PREFIX_LOCATION).isPresent()) {
             editPersonDescriptor.setLocation(
