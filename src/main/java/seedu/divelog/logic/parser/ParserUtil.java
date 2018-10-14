@@ -28,7 +28,7 @@ public class ParserUtil {
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
 
-    /** 
+    /**
      * @author arjo
      * Parses depth profile
      * @param depth
