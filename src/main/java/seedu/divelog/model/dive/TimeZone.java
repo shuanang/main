@@ -19,7 +19,7 @@ public class TimeZone {
         return timeZoneDifference;
     }
     public String getTimeZoneString() {
-        return ""+timeZoneDifference;
+        return "" + timeZoneDifference;
     }
     /*
     public TimeZone (String timeZone) {
