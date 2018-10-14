@@ -79,8 +79,8 @@ public class ParserUtil {
 
     /**
      * @author Cjunx
-     * Returns true if string given is TIME FORMATTED
-     * {@code ArgumentMultimap}.
+     * @param argMultimap
+     * @throws ParseException
      */
     public static void checkTimeformat(ArgumentMultimap argMultimap) throws ParseException {
         if (argMultimap.getValue(CliSyntax.PREFIX_TIME_START).get().length() != 4
