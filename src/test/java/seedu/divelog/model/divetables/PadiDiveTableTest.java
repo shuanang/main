@@ -9,11 +9,11 @@ import org.junit.Test;
 import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.dive.PressureGroup;
 
-public class PADIDiveTableTest {
+public class PadiDiveTableTest {
 
     @Test
     public void getSurfaceTable_canRead() throws JSONException {
-        PADIDiveTable padiDiveTable = PADIDiveTable.getInstance();
+        PadiDiveTable padiDiveTable = PadiDiveTable.getInstance();
         JSONArray arr = padiDiveTable.getSurfaceTable(new PressureGroup("A"), new PressureGroup("A"));
         assertEquals(arr.get(0).toString(),"00:00");
         assertEquals(arr.get(1).toString(),"03:00");
@@ -21,14 +21,14 @@ public class PADIDiveTableTest {
 
     @Test
     public void depthToPressuregroup_canRead() {
-        PADIDiveTable padiDiveTable = PADIDiveTable.getInstance();
+        PadiDiveTable padiDiveTable = PadiDiveTable.getInstance();
         PressureGroup pg = padiDiveTable.depthToPG(new DepthProfile(10), 122);
         assertEquals(pg.getPressureGroup(),"T");
     }
 
     @Test
     public void depthToTimes_canRead() throws JSONException {
-        PADIDiveTable padiDiveTable = PADIDiveTable.getInstance();
+        PadiDiveTable padiDiveTable = PadiDiveTable.getInstance();
         JSONArray arr = padiDiveTable.depthToTimes(new DepthProfile(10), new PressureGroup("A"));
         assertEquals(arr.getInt(0), 10);
         assertEquals(arr.getInt(1),209);

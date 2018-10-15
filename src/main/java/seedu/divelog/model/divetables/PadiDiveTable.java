@@ -4,14 +4,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import seedu.divelog.MainApp;
 import seedu.divelog.commons.core.LogsCenter;
 import seedu.divelog.commons.util.DiveTableUtil;
 import seedu.divelog.model.dive.DepthProfile;
@@ -20,23 +18,23 @@ import seedu.divelog.model.dive.PressureGroup;
 /**
  * This class loads dive tables
  */
-public class PADIDiveTable {
+public class PadiDiveTable {
 
-    private static final Logger logger = LogsCenter.getLogger(PADIDiveTable.class);
-    private static PADIDiveTable diveTable = new PADIDiveTable();
+    private static final Logger logger = LogsCenter.getLogger(PadiDiveTable.class);
+    private static PadiDiveTable diveTable = new PadiDiveTable();
 
     private final DiveTableUtil surfaceTable;
     private final DiveTableUtil depthToPressureGroup;
     private final DiveTableUtil diveTableUtil;
 
-    private PADIDiveTable() {
+    private PadiDiveTable() {
         this.surfaceTable = new DiveTableUtil("divetables/surface_table.json");
         this.depthToPressureGroup = new DiveTableUtil("divetables/Dive_table_1.json");
         this.diveTableUtil = new DiveTableUtil("divetables/Dive_table_2.json");
         logger.info("Successfully loaded dive tables");
     }
 
-    public static PADIDiveTable getInstance() {
+    public static PadiDiveTable getInstance() {
         return diveTable;
     }
 
@@ -50,14 +48,14 @@ public class PADIDiveTable {
     public JSONArray getSurfaceTable(PressureGroup pressureGroup1, PressureGroup pressureGroup2) {
         try {
             logger.info("Attempting to read json");
-            JSONObject table = surfaceTable.readJSONFileFromResources();
+            JSONObject table = surfaceTable.readJsonFileFromResources();
             logger.info("attempting to lookup data");
             JSONObject column = table.getJSONObject(pressureGroup1.getPressureGroup());
             return column.getJSONArray(pressureGroup2.getPressureGroup());
         } catch (JSONException json) {
             logger.severe("Malformatted json");
         } catch (IOException e) {
-            logger.severe("Failed to read dive tables due to an IOException\n\t"+e.getMessage());
+            logger.severe("Failed to read dive tables due to an IOException\n\t" + e.getMessage());
         }
         return null;
     }
@@ -70,7 +68,7 @@ public class PADIDiveTable {
     public PressureGroup depthToPG(DepthProfile depth, int duration) {
         try {
             logger.info("Attempting to read json");
-            JSONObject table = depthToPressureGroup.readJSONFileFromResources();
+            JSONObject table = depthToPressureGroup.readJsonFileFromResources();
             logger.info("attempting to lookup data");
             String key = findClosestKey(table, depth.getDepth());
             JSONObject column = table.getJSONObject(key);
@@ -78,7 +76,7 @@ public class PADIDiveTable {
             String pressureGroup = column.getString(key);
             return new PressureGroup(pressureGroup);
         } catch (IOException io) {
-            logger.severe("Failed to read dive tables due to an IOException\n\t"+io.getMessage());
+            logger.severe("Failed to read dive tables due to an IOException\n\t" + io.getMessage());
         } catch (JSONException json) {
             logger.severe("Failed to parse JSON");
         }
@@ -94,12 +92,12 @@ public class PADIDiveTable {
      */
     public JSONArray depthToTimes(DepthProfile depth, PressureGroup pressureGroup) {
         try {
-            JSONObject table = diveTableUtil.readJSONFileFromResources();
+            JSONObject table = diveTableUtil.readJsonFileFromResources();
             String key = findClosestKey(table, depth.getDepth());
             JSONObject column = table.getJSONObject(key);
             return column.getJSONArray(pressureGroup.getPressureGroup());
         } catch (IOException io) {
-            logger.severe("Failed to read dive tables due to an IOException\n\t"+io.getMessage());
+            logger.severe("Failed to read dive tables due to an IOException\n\t" + io.getMessage());
         } catch (JSONException json) {
             logger.severe("Failed to parse JSON");
         }

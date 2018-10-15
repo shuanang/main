@@ -28,7 +28,7 @@ public class DiveTableUtil {
      * @return JSONObject containing the dive tables
      * @throws IOException if file format is wrong.
      */
-    public JSONObject readJSONFileFromResources() throws IOException {
+    public JSONObject readJsonFileFromResources() throws IOException {
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(Objects.requireNonNull(classLoader.getResource(filename)).getFile());
         JSONObject jsonObject = objectMapper.readValue(file, JSONObject.class);
