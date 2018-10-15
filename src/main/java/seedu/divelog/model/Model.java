@@ -3,8 +3,10 @@ package seedu.divelog.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.divelog.commons.util.DiveTableUtil;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.exceptions.DiveNotFoundException;
+import seedu.divelog.model.divetables.PADIDiveTable;
 
 /**
  * The API of the Model component.
