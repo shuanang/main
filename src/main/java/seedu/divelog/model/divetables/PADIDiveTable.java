@@ -32,7 +32,7 @@ public class PADIDiveTable {
     private PADIDiveTable() {
         this.surfaceTable = new DiveTableUtil("divetables/surface_table.json");
         this.depthToPressureGroup = new DiveTableUtil("divetables/Dive_table_1.json");
-        this.diveTableUtil = new DiveTableUtil("divetables/dive_table_2.json");
+        this.diveTableUtil = new DiveTableUtil("divetables/Dive_table_2.json");
         logger.info("Successfully loaded dive tables");
     }
 
@@ -45,7 +45,7 @@ public class PADIDiveTable {
      * Looks up surface interval table
      * @param pressureGroup1 - Pressure group along x axis
      * @param pressureGroup2 - Pressure goup along y axis
-     * @return returns a JSON Array with the dive tables
+     * @return returns a JSON Array with the surface intervals
      */
     public JSONArray getSurfaceTable(PressureGroup pressureGroup1, PressureGroup pressureGroup2) {
         try {
@@ -87,18 +87,36 @@ public class PADIDiveTable {
     }
 
     /**
+     * Reads the depth and pressure group and returns an array containing the minimum time
+     * @param depth - depth dove to
+     * @param pressureGroup - pressure group at time
+     * @return an array containing
+     */
+    public JSONArray depthToTimes(DepthProfile depth, PressureGroup pressureGroup) {
+        try {
+            JSONObject table = diveTableUtil.readJSONFileFromResources();
+            String key = findClosestKey(table, depth.getDepth());
+            JSONObject column = table.getJSONObject(key);
+            return column.getJSONArray(pressureGroup.getPressureGroup());
+        } catch (IOException io) {
+            logger.severe("Failed to read dive tables due to an IOException\n\t"+io.getMessage());
+        } catch (JSONException json) {
+            logger.severe("Failed to parse JSON");
+        }
+        return null;
+
+    }
+
+    /**
      * Looks for the nearest key
      * @param object - JSON Object
      * @param key - The key that is nearest to that value.
      */
     public static String findClosestKey(JSONObject object, float key) {
-        logger.info("got key " + key );
-
         Iterator<String> keys = object.keys();
         ArrayList<Integer> integerKeys = new ArrayList<Integer>();
         while (keys.hasNext()) {
             String curr = keys.next();
-            //logger.info("adding keys " + curr);
             integerKeys.add(Integer.parseInt(curr));
         }
         Collections.sort(integerKeys);
