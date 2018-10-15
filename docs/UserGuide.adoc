@@ -17,13 +17,15 @@ endif::[]
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
-Awesomest Dive Log is a dive log for tracking dives. It provides a simple one stop way for divers to input details of their dive and keep track of their nitrogen levels. This allows divers to plan their next trip safely.
+Awesomest Dive Log is a dive log for tracking dives.
+It provides a simple one stop way for divers to input details of their dive and keep track of their nitrogen levels.
+This allows divers to plan their next trip safely.
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
 .  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Copy the file to the folder you want to use as the home folder for your Dive Log.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -49,14 +51,16 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Format: `help`
 
 === Adding a dive session: `add`
-Adds a dive session to the address book.
+Adds a dive session to the Dive Log.
 
 Format: `add ds/DATE_STAERTED ts/TIME_DIVE_STARTED de/DATE_ENDED te/TIME_DIVE_ENDED ss/SAFETY_STOP  d/DEPTH  l/LOCATION pg/INITIAL_PRESSURE_GROUP pge/FINAL_PRESSURE_GROUP`
 
-Words in UPPER_CASE are the parameters, items in SQUARE_BRACKETS are optional, items with …​ after them can have multiple instances. Order of parameters are fixed.
+TIP: Words in UPPER_CASE are the parameters, items in SQUARE_BRACKETS are optional. Order of parameters are fixed.
+
 Put a `ts/` before the time started(24 hours format - HHMM), te/time ended (24 hours format - HHMM), d/depth (in metres), l/ location (location name), per dive at v1.0) (optional) and pg/initial pressure group, pge/final pressure group.
-Example:
-add ds/04082018 ts/0900 de/04082018  te/1020 ss/1015 d/15 l/Bukit Lagoon pg/C pge/F
+
+_Example:
+add ds/04082018 ts/0900 de/04082018  te/1020 ss/1015 d/15 l/Bukit Lagoon pg/C pge/F tz/+8_
 
 
 .Table of Prefix and Data
@@ -68,6 +72,7 @@ add ds/04082018 ts/0900 de/04082018  te/1020 ss/1015 d/15 l/Bukit Lagoon pg/C pg
 |Location                                       |l              |l/Sentosa
 |Depth (integer value)                          |d              |d/18
 |Initial/Final Pressure Group (Character Value) |pg or pge      |pg/A or pge/D
+|Timezone (in UTC)                              |tz             |tz/+12 or tz/-5
 |=========================================
 
 === Listing all dives : `list`
@@ -77,7 +82,7 @@ Format: `list`
 
 === Editing a dive : `edit`
 
-Edits an existing dive in the address book. +
+Edits an existing dive session in the Dive Log. +
 Format: `edit INDEX [ts/TIME_START] [te/TIME_END] [ss/SAFETY_STOP_TIME] [d/DEPTH] [pg/PG_AT_START][pge/PG_AT_END][l/LOCATION]...`
 
 ****
@@ -106,7 +111,7 @@ Examples:
 Returns `Dive at Bali`
 
 === Deleting a dive : `delete`
-Deletes the specified dive from the address book. +
+Deletes the specified dive from the Dive Log. +
 Format: `delete INDEX`
 
 ****
@@ -139,7 +144,7 @@ Examples:
 
 * `list` +
 `select 2` +
-Selects the 2nd dive in the address book.
+Selects the 2nd dive in the Dive Log.
 * `find Bali` +
 `select 1` +
 Selects the 1st dive in the results of the `find` command.
@@ -157,12 +162,12 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Restores the Dive Log to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the Dive Log's content (`add`, `delete`, `edit` and `clear`).
 ====
 
 Examples:
@@ -206,8 +211,10 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from the Dive Log. +
 Format: `clear`
+
+WARNING: Once you cleared all entries, your data will not be recoverable
 
 === Exiting the program : `exit`
 
@@ -216,7 +223,7 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Luckily for you, your Dive Log data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 
@@ -224,6 +231,6 @@ There is no need to save manually.
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Dive Log folder.
 
 
