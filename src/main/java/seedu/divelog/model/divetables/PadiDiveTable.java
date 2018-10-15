@@ -65,7 +65,7 @@ public class PadiDiveTable {
      * @param depth - The depth
      * @param duration - minutes;
      */
-    public PressureGroup depthToPG(DepthProfile depth, int duration) {
+    public PressureGroup depthToPg(DepthProfile depth, int duration) {
         try {
             logger.info("Attempting to read json");
             JSONObject table = depthToPressureGroup.readJsonFileFromResources();

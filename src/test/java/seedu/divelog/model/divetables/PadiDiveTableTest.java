@@ -22,7 +22,7 @@ public class PadiDiveTableTest {
     @Test
     public void depthToPressuregroup_canRead() {
         PadiDiveTable padiDiveTable = PadiDiveTable.getInstance();
-        PressureGroup pg = padiDiveTable.depthToPG(new DepthProfile(10), 122);
+        PressureGroup pg = padiDiveTable.depthToPg(new DepthProfile(10), 122);
         assertEquals(pg.getPressureGroup(),"T");
     }
 
