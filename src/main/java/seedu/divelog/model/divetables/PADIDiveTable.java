@@ -21,14 +21,14 @@ public class PADIDiveTable {
     private static final Logger logger = LogsCenter.getLogger(PADIDiveTable.class);
     private static PADIDiveTable diveTable = new PADIDiveTable();
 
-    private static DiveTableUtil surfaceTable = new DiveTableUtil("divetables/surface_table.json");
-    private static DiveTableUtil depthToPressureGroup;
-    private static DiveTableUtil diveTableUtil;
+    private final DiveTableUtil surfaceTable;
+    private final DiveTableUtil depthToPressureGroup;
+    private final DiveTableUtil diveTableUtil;
 
     private PADIDiveTable() {
-        //this.surfaceTable = new DiveTableUtil("divetables/surface_table.json");
-        //this.depthToPressureGroup = new DiveTableUtil("divetables/Dive_table_1.json");
-        //this.diveTableUtil = new DiveTableUtil("divetables/dive_table_2.json");
+        this.surfaceTable = new DiveTableUtil("divetables/surface_table.json");
+        this.depthToPressureGroup = new DiveTableUtil("divetables/Dive_table_1.json");
+        this.diveTableUtil = new DiveTableUtil("divetables/dive_table_2.json");
         logger.info("Successfully loaded dive tables");
     }
 
