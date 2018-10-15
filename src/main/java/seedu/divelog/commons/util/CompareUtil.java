@@ -18,12 +18,11 @@ public class CompareUtil {
     /**
      * Tells time difference between 2 timings in MINUTES (long)
      */
-    public long checkTimeDifference(Time startTime, Time endTime, OurDate startDate, OurDate endDate, TimeZone timeZone)
+    public long checkTimeDifference(String startTime, String endTime, String startDate, String endDate)
             throws Exception {
         SimpleDateFormat format = new SimpleDateFormat("DDMMYYYYHHMM");
-        String startTimeDate = startDate.getOurDateString().concat(startTime.getTimeString());
-        String endTimeDate = endDate.getOurDateString().concat(startTime.getTimeString());
-
+        String startTimeDate = startDate.concat(startTime);
+        String endTimeDate = endDate.concat(endTime);
 
         Date time1 = format.parse(startTimeDate);
         Date time2 = format.parse(endTimeDate);
