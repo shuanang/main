@@ -1,6 +1,9 @@
 package seedu.divelog.model.divetables;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -11,6 +14,7 @@ import org.json.JSONObject;
 import seedu.divelog.MainApp;
 import seedu.divelog.commons.core.LogsCenter;
 import seedu.divelog.commons.util.DiveTableUtil;
+import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.dive.PressureGroup;
 
 /**
@@ -58,4 +62,50 @@ public class PADIDiveTable {
         return null;
     }
 
+    /**
+     * Looks up depth to PG
+     * @param depth - The depth
+     * @param duration - minutes;
+     */
+    public PressureGroup depthToPG(DepthProfile depth, int duration) {
+        try {
+            logger.info("Attempting to read json");
+            JSONObject table = depthToPressureGroup.readJSONFileFromResources();
+            logger.info("attempting to lookup data");
+            String key = findClosestKey(table, depth.getDepth());
+            JSONObject column = table.getJSONObject(key);
+            key = findClosestKey(column, duration);
+            String pressureGroup = column.getString(key);
+            return new PressureGroup(pressureGroup);
+        } catch (IOException io) {
+            logger.severe("Failed to read dive tables due to an IOException\n\t"+io.getMessage());
+        } catch (JSONException json) {
+            logger.severe("Failed to parse JSON");
+        }
+
+        return null;
+    }
+
+    /**
+     * Looks for the nearest key
+     * @param object - JSON Object
+     * @param key - The key that is nearest to that value.
+     */
+    public static String findClosestKey(JSONObject object, float key) {
+        logger.info("got key " + key );
+
+        Iterator<String> keys = object.keys();
+        ArrayList<Integer> integerKeys = new ArrayList<Integer>();
+        while (keys.hasNext()) {
+            String curr = keys.next();
+            //logger.info("adding keys " + curr);
+            integerKeys.add(Integer.parseInt(curr));
+        }
+        Collections.sort(integerKeys);
+        int i = 0;
+        while (key > integerKeys.get(i)) {
+            i++;
+        }
+        return integerKeys.get(i).toString();
+    }
 }
