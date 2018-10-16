@@ -17,7 +17,8 @@ endif::[]
 By: `Team CS2113-AY1819S1-W13-2`      Since: `Aug 2018`      Licence: `MIT`
 
 == Context
-When a diver goes on a dive, the pressure underwater causes nitrogen to build up in the blood stream. When the diver returns to the surface, he or she has that level of nitrogen in his or her blood. However, due to the atmospheric pressure being lower than underwater, the partial pressure of nitrogen is different. Having too much nitrogen build up can be dangerous particularly if you are planning a second dive or going on a flight as the nitrogen can form bubbles inside one’s bloodstream. In order to solve this problem, divers manually calculate their “pressure groups”. The pressure groups are on a range from A,B,C all the way to X. Depending on your pressure group you can attempt your next dive. It is generally advised to be below the “B” pressure group before your next dive.
+When a diver goes on a dive, the pressure underwater causes nitrogen to build up in the blood stream. When the diver returns to the surface, he or she has that level of nitrogen in his or her blood. However, due to the atmospheric pressure being lower than underwater, the partial pressure of nitrogen is different. Having too much nitrogen build up can be dangerous particularly if you are planning a second dive or going on a flight as the nitrogen can form bubbles inside one’s bloodstream. In order to solve this problem, divers manually calculate their “pressure groups”. The pressure groups are on a range from A,B,C all the way to Z. Depending on your pressure group you can attempt your next dive. It is generally advised to be below the “B” pressure group before your next dive.
+Before attempting your next dive, you have to plan your dive first! You want to dive to 15 metres for half an hour after your pressure group from your first dive is D. Are you sure it's safe to do so? Use our Divelog to find out!
 
 
 == Setting up
