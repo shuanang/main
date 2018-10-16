@@ -1,10 +1,8 @@
 package seedu.divelog.ui;
 
-import java.time.ZonedDateTime;
-import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-
+import java.util.Date;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -32,7 +30,7 @@ public class BrowserPanel extends UiPart<Region> {
 
     public static final String FORMAT_SAFETY_STOP = "Safety stop at: %s";
 
-    public static final String FORMAT_TIME_NOW = "Date and time now is: %s";
+    public static final String FORMAT_TIME_NOW = "Date: %s";
 
     private static final String FXML = "BrowserPanel.fxml";
 
@@ -75,13 +73,13 @@ public class BrowserPanel extends UiPart<Region> {
         startTime.setText(String.format(FORMAT_START_TIME, dive.getStart().getTimeString()));
         endTime.setText(String.format(FORMAT_END_TIME, dive.getEnd().getTimeString()));
         safetyStop.setText(String.format(FORMAT_SAFETY_STOP, dive.getSafetyStop().getTimeString()));
-        dateTime.setText(String.format(FORMAT_TIME_NOW, dateTimeSend()));
+        dateTime.setText(String.format(FORMAT_TIME_NOW, dive.getDateStart().getOurDateString()));
     }
 
     public void freeResources(){
 
     }
-    private void loadMyTimeNow(){
+    private void loadMyTimeNow() {
         dateTime.setText(String.format(FORMAT_TIME_NOW, dateTimeSend()));
     }
 
@@ -91,7 +89,11 @@ public class BrowserPanel extends UiPart<Region> {
         loadDivePage(event.getNewSelection());
     }
 
-    private String dateTimeSend(){
+    /**
+     * Retrieves the current date time as a string
+     * @return retrieves date as string
+     */
+    private String dateTimeSend() {
         Date d = new Date();
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY hh:mmaa");
         String dateTimeNow = dateFormat.format(d);
