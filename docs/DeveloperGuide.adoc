@@ -35,7 +35,7 @@ Windows developers are highly recommended to use JDK `9`.
 [NOTE]
 IntelliJ by default has Gradle and JavaFx plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
-
+If there is still error after enabling them, you will need to go to `File` > `Settings` > `Build, Execution, Deployment` > `Compiler` > `Java Compiler` > `Javac options` and add the following: `--add-modules=javafx.fxml`.
 
 === Setting up the project in your computer
 
