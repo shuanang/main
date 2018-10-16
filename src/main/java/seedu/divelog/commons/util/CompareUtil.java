@@ -44,30 +44,38 @@ public class CompareUtil {
 
         return newDateTimeLong;
     }
-
-    public Date getCurrentDateTime(){
+    /**
+     * gets current date and time in Date
+     */
+    public Date getCurrentDateTime() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("DDMMYYYYHHMM");
         Date date = new Date();
         return date;
     }
-
-    public long getCurrentDateTimeLong(){
+    /**
+     * gets current date and time in long
+     */
+    public long getCurrentDateTimeLong() {
         Date currentDateTime = getCurrentDateTime();
         String currentDateTimeString = new SimpleDateFormat("DDMMYYYYHHMM").format(currentDateTime);
         long currentDateTimeLong = Integer.parseInt(currentDateTimeString);
 
         return currentDateTimeLong;
     }
-
-    public long readTimeFromLong(long DDMMYYYYHHMM){
+    /**
+     * Converts DDMMYYYYHHMM into DDMMYYYY
+     */
+    public long readTimeFromLong(long date) {
         long time;
-        time = DDMMYYYYHHMM%10000;
+        time = date % 10000;
         return time;
     }
-
-    public long readDateFromLong(long DDMMYYYYHHMM){
+    /**
+     * Converts DDMMYYYYHHMM into HHMM
+     */
+    public long readDateFromLong(long longdate) {
         long date;
-        date = DDMMYYYYHHMM/10000;
+        date = longdate / 10000;
         return date;
     }
 }
