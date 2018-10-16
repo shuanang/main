@@ -7,14 +7,11 @@ import seedu.divelog.model.dive.OurDate;
 import seedu.divelog.model.dive.Time;
 import seedu.divelog.model.dive.TimeZone;
 
-
-
 /**
  * A class with methods to compare Date and Time, with respect to Timezone
  * @@author Cjunx
  */
 public class CompareUtil {
-
     /**
      * Tells time difference between 2 timings in MINUTES (long)
      */
@@ -33,16 +30,52 @@ public class CompareUtil {
 
     /**
      * Converts date and time into LOCAL time
+     * returns first 8 digits of Date in DDMMYYYY, next 4 digits in HHMM
      */
-    public Date convertTimeToLocal(Time time, OurDate date, TimeZone timezone) throws Exception {
+    public Long convertTimeToLocal(Time time, OurDate date, TimeZone timezone) throws Exception {
         String timeNowString = date.getOurDateString().concat(time.getTimeString());
 
         SimpleDateFormat inputFormat = new SimpleDateFormat("DDMMYYYYHHMM");
         Date oldTime = inputFormat.parse(timeNowString);
         Date newtime = new Date(oldTime.getTime() + TimeUnit.HOURS.toMillis(timezone.getTimeZone()));
 
-        return newtime;
+        String newDateTime = new SimpleDateFormat("DDMMYYYYHHMM").format(newtime);
+        long newDateTimeLong = Integer.parseInt(newDateTime);
+
+        return newDateTimeLong;
     }
+    /**
+     * gets current date and time in Date
+     */
+    public Date getCurrentDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("DDMMYYYYHHMM");
+        Date date = new Date();
+        return date;
+    }
+    /**
+     * gets current date and time in long
+     */
+    public long getCurrentDateTimeLong() {
+        Date currentDateTime = getCurrentDateTime();
+        String currentDateTimeString = new SimpleDateFormat("DDMMYYYYHHMM").format(currentDateTime);
+        long currentDateTimeLong = Integer.parseInt(currentDateTimeString);
 
-
+        return currentDateTimeLong;
+    }
+    /**
+     * Converts DDMMYYYYHHMM into DDMMYYYY
+     */
+    public long readTimeFromLong(long date) {
+        long time;
+        time = date % 10000;
+        return time;
+    }
+    /**
+     * Converts DDMMYYYYHHMM into HHMM
+     */
+    public long readDateFromLong(long longdate) {
+        long date;
+        date = longdate / 10000;
+        return date;
+    }
 }
