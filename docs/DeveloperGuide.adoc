@@ -1048,3 +1048,43 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+
+/*
+*below is for later's edit
+*/
+
+=== New Parameters in DiveSession
+==== ourDate (Date Start/ Date End)
+The ourDate Class consist of a String. When using the `add` or `edit` feature, the inputs will be parsed and checked to be a 8 digit String, in the format of _[DDMMYYYY]_ through `ParserUtils`. Only Integers will be accepted.
+
+Date Start and Date End will have prefixes `ds/` and `de/` respectively, and these prefixes will be used when using the `add` or `edit` feature.
+
+
+==== Timezone
+The timeZone class consists of a Integer (ranging from -12 to +12). This interger is dependant on the user input, which is the timezone in the format of UTC. If there are no intergers in this string, there will be an exception thrown.
+
+Timezone will have prefix `tz/` which will be used when using the `add` or `edit` feature.
+
+
+=== Automatic Calculation of Pressue Group
+Takes into account the latest (in terms of time) Dive Session. Subtracting the current time from the latest dive, the method will be able to automatically calculate time until the current Pressure group will fall to the next group, which is the time until it is safe to dive again.
+
+==== Pressure Group
+Pressure group utilises a 3d Array in the form of `hashmap<int, hashmap<string, string>>`.
+Pressure groups range from A to Z. (i anyhow).
+
+==== CompareUtils
+CompareUtils is a helper method class implemented to assist with the automatic calculations of `PressureGroup`
+
+The current methods in this Class include:
+
+* `checkTimeDifference()` -- When 2 ourDate Strings and 2 time Strings parameters are passed, the method will return the time difference in number of minutes. This will be used in calculations
+
+* `convertTimetoLocal()` -- This method uses the new `timeZone` parameter in DiveSession to convert any time to local time, based on the timeZone value (in UTC).
+This method returns a long type of length 12, in the format of _[DDMMYYYYHHMM]_.
+
+* `getCurrentDateTime()` -- This method returns the current time in `Date` format
+* `getCurrentDateTimeLong()` -- This method returns the current time in `long` format, in _[DDMMYYYYHHMM]_
+* `readTimeFromLong` -- This method
+* `readDateFromLong()` -- This method
