@@ -322,9 +322,42 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== CRUD for `DiveSession` objects
+=== Looking Up Dive Tables For Pressure Groups
 
+At the heart of the dielog app is the ability to automatically calculate nitrogen pressure groups.
+To do so we adhere to PADI's dive charts. These charts provide a lookup table for divers through which they can determine
+their current pressure group. The underlying implementation for these charts can be found in the `PadiDiveTable` class.
+A such the dive tales are stored in the `resources` folder as JSON files. They are loaded using the `DiveTableUtil` class
+via the FASTXML Jackson library. The `PadiDiveTable` itself is a singleton class. This choice was made as it makes sense to
+load the Dive Tables only once at the stat into memory (altough in its current form it is not the case). An example
+interaction with `PadiDiveTable` and `DiveTableUtil` can be fond in he sequence diagram below:
+
+image::PadiDiveTableUsage.png[width="800"]
+
+Internally at the moment, `DiveTableUtil#readJsonFileFromResources` has the following interaction:
+
+image::DiveTableUtilInternal.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: Retrieving Dive Tables
+* **Alternative 1 (current choice):** Use JSON files
+** Pros: Easy to change data within tables.
+** Cons: May have performance issues if the tables ar too large as it reads from disk.
+* **Alternative 2:** Hard code the tables
+** Pros: Have mildly smaller impact on performance as ata is loaded into memory at start up.
+** Cons: Very tedious to implement, results in unreadable code.
+
+===== Aspect: Minimising File Reads And Data Duplication
+* **Alternative 1 (current choice)**: Use a singleton class
+** Pros: It is possible to read the fileonly once and the memory used by te objects will only exist in one place.
+This saves both memory and disc writes.
+** Cons: Can be troublesome to implement.
+* **Altenative 2: ** Just use `PADIDiveTable` standard clases
+** Pros: Easy to implement
+** Cons: Wastes memory and performs unnecessary IO.
+
+=== CRUD for `DiveSession` objects
 At its heart, the application is a divelog. The source code for this application was adopted from an addressbook application.
 The main implementation consideration was to minimize the number of changes in the existing addressbook class. At its heart
 the Dive Log uses the Model which is described in (See <<Design-Model>>). The overall flow for command execution is similar
@@ -563,7 +596,7 @@ Each individual exercise in this section is component-based (i.e. you would not 
 
 [discrete]
 ==== `Logic` component
-
+// tag::dataencryption[]
 *Scenario:* You are in charge of `logic`. During dog-fooding, your team realize that it is troublesome for the user to type the whole command in order to execute a command. Your team devise some strategies to help cut down the amount of typing necessary, and one of the suggestions was to implement aliases for the command words. Your job is to implement such aliases.
 
 [TIP]
@@ -842,7 +875,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 [cols="2,2,2,2", options="header"]
 .List of user stories
-|===
+|===// tag::dataencryption[]
 |Priority |As a... |I want to... | So that I can...
 
 |`* * *`

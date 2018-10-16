@@ -8,7 +8,7 @@ import org.json.JSONObject;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsonorg.JsonOrgModule;
-
+//@@author arjo129
 /**
  * Loads dive tables from JSON files
  */
