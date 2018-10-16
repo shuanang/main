@@ -22,6 +22,7 @@ public class TimeZone {
     public String getTimeZoneString() {
         return "" + timeZoneDifference;
     }
+
     /*
     public TimeZone (String timeZone) {
         int temporary;
