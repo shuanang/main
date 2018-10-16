@@ -43,6 +43,7 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_DEPTH);
         }
     }
+
     /**
      *  @author Cjunx
      *  Returns true if string given is DATE FORMATTED
