@@ -1,5 +1,8 @@
 package seedu.divelog.ui;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -27,6 +30,8 @@ public class BrowserPanel extends UiPart<Region> {
 
     public static final String FORMAT_SAFETY_STOP = "Safety stop at: %s";
 
+    public static final String FORMAT_TIME_NOW = "Date: %s";
+
     private static final String FXML = "BrowserPanel.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -45,10 +50,12 @@ public class BrowserPanel extends UiPart<Region> {
     private Label endTime;
     @FXML
     private Label safetyStop;
+    @FXML
+    private Label dateTime;
 
     public BrowserPanel() {
         super(FXML);
-
+        loadMyTimeNow();
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
         registerAsAnEventHandler(this);
@@ -66,15 +73,30 @@ public class BrowserPanel extends UiPart<Region> {
         startTime.setText(String.format(FORMAT_START_TIME, dive.getStart().getTimeString()));
         endTime.setText(String.format(FORMAT_END_TIME, dive.getEnd().getTimeString()));
         safetyStop.setText(String.format(FORMAT_SAFETY_STOP, dive.getSafetyStop().getTimeString()));
+        dateTime.setText(String.format(FORMAT_TIME_NOW, dive.getDateStart().getOurDateString()));
     }
 
     public void freeResources(){
 
+    }
+    private void loadMyTimeNow() {
+        dateTime.setText(String.format(FORMAT_TIME_NOW, dateTimeSend()));
     }
 
     @Subscribe
     private void handlePersonPanelSelectionChangedEvent(DivePanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadDivePage(event.getNewSelection());
+    }
+
+    /**
+     * Retrieves the current date time as a string
+     * @return retrieves date as string
+     */
+    private String dateTimeSend() {
+        Date d = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY hh:mmaa");
+        String dateTimeNow = dateFormat.format(d);
+        return dateTimeNow;
     }
 }
