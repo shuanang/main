@@ -14,7 +14,7 @@ public class PressureGroup {
 
     private static final String PRESSURE_GROUP_VALIDATION_REGEX = "([A-Z||a-z])";
     private final String pressureGroup;
-    private String newPG = " ";
+    private String newPg = " ";
     private int totalBottomTime = 0;
 
     /**
@@ -37,7 +37,7 @@ public class PressureGroup {
         assert minutesRepeatDive <= arr.getInt(1);
         this.totalBottomTime = arr.getInt(0) + minutesRepeatDive;
         PressureGroup pg = padiDiveTable.depthToPg(new DepthProfile(newDepth), this.totalBottomTime);
-        newPG = pg.getPressureGroup();
+        newPg = pg.getPressureGroup();
     }
 
     public String getPressureGroup() {
@@ -45,7 +45,7 @@ public class PressureGroup {
     }
 
     public String getNewPressureGroup() {
-        return newPG;
+        return newPg;
     }
 
     /**
