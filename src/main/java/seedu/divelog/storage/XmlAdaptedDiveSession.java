@@ -1,7 +1,11 @@
 package seedu.divelog.storage;
 
-import javax.xml.bind.annotation.XmlElement;
+import java.util.logging.Logger;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import seedu.divelog.commons.core.LogsCenter;
 import seedu.divelog.commons.exceptions.IllegalValueException;
 import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.dive.DiveSession;
@@ -12,7 +16,7 @@ import seedu.divelog.model.dive.Time;
 import seedu.divelog.model.dive.TimeZone;
 
 /**
- * JAXB-friendly version of the Person.
+ * JAXB-friendly version of the DiveSession.
  */
 public class XmlAdaptedDiveSession {
 
@@ -60,6 +64,16 @@ public class XmlAdaptedDiveSession {
         this.location = location;
         this.depthProfile = depthProfile;
         this.timezone = timezone;
+        Logger logger = LogsCenter.getLogger(XmlAdaptedDiveSession.class);
+        logger.info(this.dateStart+" "
+                +this.dateEnd+" "
+                +this.startTime+" "
+                +this.safetyStop+" "
+                +this.pressureGroupAtBeginning+" "
+                +this.pressureGroupAtEnd+" "
+                +this.location+" "
+        +this.depthProfile+" "
+        +this.timezone);
     }
 
     /**
@@ -77,6 +91,16 @@ public class XmlAdaptedDiveSession {
         this.pressureGroupAtEnd = source.getPressureGroupAtEnd().getPressureGroup();
         this.depthProfile = source.getDepthProfile().getDepth();
         this.timezone = Integer.toString(source.getTimeZone().getTimeZone());
+        Logger logger = LogsCenter.getLogger(XmlAdaptedDiveSession.class);
+        logger.info(this.dateStart+" "
+                +this.dateEnd+" "
+                +this.startTime+" "
+                +this.safetyStop+" "
+                +this.pressureGroupAtBeginning+" "
+                +this.pressureGroupAtEnd+" "
+                +this.location+" "
+                +this.depthProfile+" "
+                +this.timezone);
     }
 
     /**
@@ -110,7 +134,6 @@ public class XmlAdaptedDiveSession {
                 && location.equals(x.location)
                 && pressureGroupAtEnd.equals(x.pressureGroupAtEnd)
                 && pressureGroupAtBeginning.equals(x.pressureGroupAtBeginning)
-                && depthProfile == x.depthProfile
-                && timezone.equals(x.timezone);
+                && depthProfile == x.depthProfile;
     }
 }
