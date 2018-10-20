@@ -16,6 +16,14 @@ public class OurDate {
     public String getOurDateString() {
         return value;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof OurDate)) {
+            return false;
+        }
+        return ((OurDate)obj).getOurDateString().equals(value);
+    }
 }
 
 

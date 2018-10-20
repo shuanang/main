@@ -17,7 +17,7 @@ public class Location {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof PressureGroup)) {
+        if (!(obj instanceof Location)) {
             return false;
         }
         Location other = (Location) obj;

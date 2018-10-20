@@ -80,7 +80,29 @@ public class DiveSession {
         if (!(obj instanceof DiveSession)) {
             return false;
         }
+        DiveSession other = (DiveSession) obj;
+        return other.getLocation().equals(getLocation())
+                && other.getDateStart().equals(getDateStart())
+                && other.getDateEnd().equals(getDateEnd())
+                && other.getStart().equals(getStart())
+                && other.getSafetyStop().equals(getSafetyStop())
+                && other.getPressureGroupAtBeginning().equals(getPressureGroupAtBeginning())
+                && other.getPressureGroupAtEnd().equals(getPressureGroupAtEnd())
+                && other.getEnd().equals(getEnd())
+                && other.getDepthProfile().equals(getDepthProfile())
+                && other.getTimeZone().equals(getTimeZone());
+    }
 
-        return super.equals(obj);
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Dive Location: " + getLocation().getLocationName() + "\n");
+        stringBuilder.append("\tStart: " + getDateStart().getOurDateString() + " " + getStart().getTimeString() + "\n");
+        stringBuilder.append("\tEnd: " + getDateEnd().getOurDateString() + " " + getEnd().getTimeString() + "\n");
+        stringBuilder.append("\tPressureGroup: " + getPressureGroupAtBeginning().getPressureGroup() + "->"
+                + getPressureGroupAtEnd().getPressureGroup() + "\n");
+        stringBuilder.append("\tDepth: " + getDepthProfile().getDepth() + "\n");
+        stringBuilder.append("\tTime Zone:" + getTimeZone());
+        return stringBuilder.toString();
     }
 }
