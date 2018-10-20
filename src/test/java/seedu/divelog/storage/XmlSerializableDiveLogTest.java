@@ -17,15 +17,15 @@ import seedu.divelog.testutil.TypicalDiveSessions;
 public class XmlSerializableDiveLogTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlSerializableDiveLogTest");
-    private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalPersonsAddressBook.xml");
-    private static final Path INVALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("invalidPersonAddressBook.xml");
+    private static final Path TYPICAL_DIVES_FILE = TEST_DATA_FOLDER.resolve("typicalPersonsAddressBook.xml");
+    private static final Path INVALID_DIVES_FILE = TEST_DATA_FOLDER.resolve("invalidPersonAddressBook.xml");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void toModelType_typicalPersonsFile_success() throws Exception {
-        XmlSerializableDiveLog dataFromFile = XmlUtil.getDataFromFile(TYPICAL_PERSONS_FILE,
+        XmlSerializableDiveLog dataFromFile = XmlUtil.getDataFromFile(TYPICAL_DIVES_FILE,
                 XmlSerializableDiveLog.class);
         DiveLog diveLogFromFile = dataFromFile.toModelType();
         DiveLog typicalPersonsDiveLog = TypicalDiveSessions.getTypicalDiveLog();
@@ -34,7 +34,7 @@ public class XmlSerializableDiveLogTest {
 
     @Test
     public void toModelType_invalidPersonFile_throwsIllegalValueException() throws Exception {
-        XmlSerializableDiveLog dataFromFile = XmlUtil.getDataFromFile(INVALID_PERSON_FILE,
+        XmlSerializableDiveLog dataFromFile = XmlUtil.getDataFromFile(INVALID_DIVES_FILE,
                 XmlSerializableDiveLog.class);
         thrown.expect(IllegalValueException.class);
         dataFromFile.toModelType();
