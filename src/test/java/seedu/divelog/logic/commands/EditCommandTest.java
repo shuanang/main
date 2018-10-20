@@ -63,7 +63,7 @@ public class EditCommandTest {
         DiveSessionBuilder diveInList = new DiveSessionBuilder(lastDive);
         DiveSession editedDive = diveInList.withLocation(VALID_LOCATION_BALI).build();
 
-        EditDiveDescriptor descriptor = new EditDiveDescriptorBuilder().withLocation(VALID_LOCATION_TIOMAN).build();
+        EditDiveDescriptor descriptor = new EditDiveDescriptorBuilder().withLocation(VALID_LOCATION_BALI).build();
         EditCommand editCommand = new EditCommand(indexLastDive, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_DIVE_SUCCESS, editedDive);

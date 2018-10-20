@@ -102,7 +102,7 @@ public class DiveSession {
         stringBuilder.append("\tPressureGroup: " + getPressureGroupAtBeginning().getPressureGroup() + "->"
                 + getPressureGroupAtEnd().getPressureGroup() + "\n");
         stringBuilder.append("\tDepth: " + getDepthProfile().getDepth() + "\n");
-        stringBuilder.append("\tTime Zone:" + getTimeZone());
+        stringBuilder.append("\tTime Zone:" + getTimeZone().getTimeZoneString());
         return stringBuilder.toString();
     }
 }

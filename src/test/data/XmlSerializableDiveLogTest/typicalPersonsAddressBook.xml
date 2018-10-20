@@ -18,9 +18,9 @@
         <safetyStop>0745</safetyStop>
         <dateEnd>01012019</dateEnd>
         <endTime>0800</endTime>
-        <pressureGroupAtBeginning>A</pressureGroupAtBeginning>
-        <pressureGroupAtEnd>F</pressureGroupAtEnd>
-        <location>Bali</location>
+        <pressureGroupAtBeginning>F</pressureGroupAtBeginning>
+        <pressureGroupAtEnd>G</pressureGroupAtEnd>
+        <location>Tioman</location>
         <depthProfile>5.0</depthProfile>
         <timezone>-8</timezone>
     </dives>
