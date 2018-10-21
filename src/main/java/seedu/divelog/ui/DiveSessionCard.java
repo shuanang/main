@@ -11,6 +11,8 @@ import seedu.divelog.model.dive.DiveSession;
  */
 public class DiveSessionCard extends UiPart<Region> {
 
+    public static final String DIVE_PREFIX = "Dive at ";
+    public static final String DEPTH_UNITS = "m";
     private static final String FXML = "DiveListCards.fxml";
 
     /**
@@ -20,10 +22,8 @@ public class DiveSessionCard extends UiPart<Region> {
      *
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on DiveLog level 4</a>
      */
-
     public final DiveSession dive;
-    public static String DIVE_PREFIX = "Dive at ";
-    public static String DEPTH_UNITS = "m";
+
     @FXML
     private HBox cardPane;
     @FXML
