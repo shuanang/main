@@ -43,7 +43,7 @@ public class PadiDiveTable {
     /**
      * Looks up surface interval table
      * @param pressureGroup1 - Pressure group along x axis
-     * @param pressureGroup2 - Pressure goup along y axis
+     * @param pressureGroup2 - Pressure group along y axis
      * @return returns a JSON Array with the surface intervals
      */
     public JSONArray getSurfaceTable(PressureGroup pressureGroup1, PressureGroup pressureGroup2) {
