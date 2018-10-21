@@ -91,7 +91,7 @@ public class DiveSessionList implements Iterable<DiveSession> {
         if (!(other instanceof DiveSessionList)) {
             return false;
         }
-        DiveSessionList otherDiveList = (DiveSessionList)other;
+        DiveSessionList otherDiveList = (DiveSessionList) other;
         if (otherDiveList.internalList.size() != internalList.size()) {
             return false;
         }

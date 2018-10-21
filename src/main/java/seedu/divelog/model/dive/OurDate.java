@@ -22,7 +22,7 @@ public class OurDate {
         if (!(obj instanceof OurDate)) {
             return false;
         }
-        return ((OurDate)obj).getOurDateString().equals(value);
+        return ((OurDate) obj).getOurDateString().equals(value);
     }
 }
 

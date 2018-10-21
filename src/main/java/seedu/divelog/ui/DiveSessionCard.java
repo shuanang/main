@@ -22,7 +22,8 @@ public class DiveSessionCard extends UiPart<Region> {
      */
 
     public final DiveSession dive;
-
+    public static String DIVE_PREFIX = "Dive at ";
+    public static String DEPTH_UNITS = "m";
     @FXML
     private HBox cardPane;
     @FXML
@@ -36,8 +37,8 @@ public class DiveSessionCard extends UiPart<Region> {
         super(FXML);
         this.dive = dive;
         id.setText(displayedIndex + ". ");
-        name.setText("Dive at " + dive.getLocation().getLocationName());
-        depth.setText(dive.getDepthProfile().getDepth() + "m");
+        name.setText(DIVE_PREFIX + dive.getLocation().getLocationName());
+        depth.setText(dive.getDepthProfile().getDepth() + DEPTH_UNITS);
     }
 
     @Override

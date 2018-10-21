@@ -1,6 +1,5 @@
 package seedu.divelog.storage;
 
-
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.divelog.commons.exceptions.IllegalValueException;
