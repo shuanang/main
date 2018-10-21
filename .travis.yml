@@ -5,7 +5,7 @@ matrix:
 
 script: >-
     ./config/travis/run-checks.sh &&
-    travis_retry ./gradlew clean checkstyleMain asciidoctor copyDummySearchPage
+    travis_retry ./gradlew clean checkstyleMain allTests asciidoctor copyDummySearchPage
 
 deploy:
   skip_cleanup: true
