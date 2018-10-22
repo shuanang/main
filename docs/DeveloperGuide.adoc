@@ -17,7 +17,8 @@ endif::[]
 By: `Team CS2113-AY1819S1-W13-2`      Since: `Aug 2018`      Licence: `MIT`
 
 == Context
-When a diver goes on a dive, the pressure underwater causes nitrogen to build up in the blood stream. When the diver returns to the surface, he or she has that level of nitrogen in his or her blood. However, due to the atmospheric pressure being lower than underwater, the partial pressure of nitrogen is different. Having too much nitrogen build up can be dangerous particularly if you are planning a second dive or going on a flight as the nitrogen can form bubbles inside one’s bloodstream. In order to solve this problem, divers manually calculate their “pressure groups”. The pressure groups are on a range from A,B,C all the way to X. Depending on your pressure group you can attempt your next dive. It is generally advised to be below the “B” pressure group before your next dive.
+When a diver goes on a dive, the pressure underwater causes nitrogen to build up in the blood stream. When the diver returns to the surface, he or she has that level of nitrogen in his or her blood. However, due to the atmospheric pressure being lower than underwater, the partial pressure of nitrogen is different. Having too much nitrogen build up can be dangerous particularly if you are planning a second dive or going on a flight as the nitrogen can form bubbles inside one’s bloodstream. In order to solve this problem, divers manually calculate their “pressure groups”. The pressure groups are on a range from A,B,C all the way to Z. Depending on your pressure group you can attempt your next dive. It is generally advised to be below the “B” pressure group before your next dive.
+Before attempting your next dive, you have to plan your dive first! You want to dive to 15 metres for half an hour after your pressure group from your first dive is D. Are you sure it's safe to do so? Use our Divelog to find out!
 
 
 == Setting up
@@ -327,13 +328,13 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 === Looking Up Dive Tables For Pressure Groups
 
-At the heart of the dielog app is the ability to automatically calculate nitrogen pressure groups.
-To do so we adhere to PADI's dive charts. These charts provide a lookup table for divers through which they can determine
+At the heart of the divelog app is the ability to automatically calculate nitrogen pressure groups.
+To do so we adhere to PADI's dive charts, available here https://elearning.padi.com/company0/tools/RDP_Table%20Met.pdf. These charts provide a lookup table for divers through which they can determine
 their current pressure group. The underlying implementation for these charts can be found in the `PadiDiveTable` class.
 A such the dive tales are stored in the `resources` folder as JSON files. They are loaded using the `DiveTableUtil` class
 via the FASTXML Jackson library. The `PadiDiveTable` itself is a singleton class. This choice was made as it makes sense to
-load the Dive Tables only once at the stat into memory (altough in its current form it is not the case). An example
-interaction with `PadiDiveTable` and `DiveTableUtil` can be fond in he sequence diagram below:
+load the Dive Tables only once at the stat into memory (although in its current form it is not the case). An example
+interaction with `PadiDiveTable` and `DiveTableUtil` can be found in the sequence diagram below:
 
 image::PadiDiveTableUsage.png[width="800"]
 
@@ -346,17 +347,17 @@ image::DiveTableUtilInternal.png[width="800"]
 ===== Aspect: Retrieving Dive Tables
 * **Alternative 1 (current choice):** Use JSON files
 ** Pros: Easy to change data within tables.
-** Cons: May have performance issues if the tables ar too large as it reads from disk.
+** Cons: May have performance issues if the tables are too large as it reads from disk.
 * **Alternative 2:** Hard code the tables
-** Pros: Have mildly smaller impact on performance as ata is loaded into memory at start up.
+** Pros: Have mildly smaller impact on performance as data is loaded into memory at start up.
 ** Cons: Very tedious to implement, results in unreadable code.
 
 ===== Aspect: Minimising File Reads And Data Duplication
 * **Alternative 1 (current choice)**: Use a singleton class
-** Pros: It is possible to read the fileonly once and the memory used by te objects will only exist in one place.
+** Pros: It is possible to read the file only once and the memory used by the objects will only exist in one place.
 This saves both memory and disc writes.
 ** Cons: Can be troublesome to implement.
-* **Altenative 2: ** Just use `PADIDiveTable` standard clases
+* **Alternative 2: ** Just use `PADIDiveTable` standard classes
 ** Pros: Easy to implement
 ** Cons: Wastes memory and performs unnecessary IO.
 
@@ -364,7 +365,7 @@ This saves both memory and disc writes.
 At its heart, the application is a divelog. The source code for this application was adopted from an addressbook application.
 The main implementation consideration was to minimize the number of changes in the existing addressbook class. At its heart
 the Dive Log uses the Model which is described in (See <<Design-Model>>). The overall flow for command execution is similar
-to the case of undo. For additions, additions are made to the model, which is eventually commited to storage.
+to the case of undo. For additions, additions are made to the model, which is eventually committed to storage.
 An overall sequence diagram is as follows:
 
 
@@ -394,7 +395,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 [[Implementation-Configuration]]
 === Configuration
 
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
+Certain properties of the application can be controlled (e.g. App name, logging level) through the configuration file (default: `config.json`).
 
 == Documentation
 
@@ -951,7 +952,7 @@ Use case resumes at step 3.
 
 . Diver opens system
 . System shows him a list of dive sessions
-. Diver selects dive session to view details of the dive sesion
+. Diver selects dive session to view details of the dive session
 . System returns the dive session details
 
 [discrete]
@@ -969,7 +970,7 @@ Use case resumes at step 3.
 *Extensions*
 
 [none]
-* 5a. The data entered is invalid. (i.e The diver enters text instead of numeric values for depth.)
+* 5a. The data entered is invalid. (i.e. The diver enters text instead of numeric values for depth.)
 +
 [none]
 ** 5a1. System points to the invalid data entered and asks user to clarify data.
@@ -1046,7 +1047,7 @@ image::subsurface_1.png[width="300"]
 Subsurface has a comprehensive interface for entering a lot of details. It allows the user to enter things such as the depth, who the dive master was, dive buddy’s name and equipment. It also has a nice satellite map to show where you are planning the dive. The plot on the right hand side illustrates the depth. This includes the so called “safety stop” where the diver allows some of the nitrogen to be released from his bloodstream before surfacing. The plot also is capable of showing a nitrogen profile and a rough estimate of how much oxygen should be kept in reserve for each part of the dive. All of this make it a very complete product with the exception that its initial learning curve is fairly steep.
 
 image::subsurface_2.png[width="300"]
-When the user first opens the dive log he or she is greeted with this screen, which is not very indicative of what exactly is going on. It takes the user a few attempts to figure out how to add a dive as the add dive is nested very deep inside the menu. It also does not display the pressure group anywhere.This can be confusing for beginner divers as they rely on pressure groups to ensure their own safety.
+When the user first opens the dive log he or she is greeted with this screen, which is not very indicative of what exactly is going on. It takes the user a few attempts to figure out how to add a dive as the add dive is nested very deep inside the menu. It also does not display the pressure group anywhere. This can be confusing for beginner divers as they rely on pressure groups to ensure their own safety.
 
 [appendix]
 == Instructions for Manual Testing
@@ -1107,12 +1108,12 @@ Date Start and Date End will have prefixes `ds/` and `de/` respectively, and the
 
 
 ==== Timezone
-The timeZone class consists of a Integer (ranging from -12 to +12). This interger is dependant on the user input, which is the timezone in the format of UTC. If there are no intergers in this string, there will be an exception thrown.
+The timeZone class consists of a Integer (ranging from -12 to +12). This integer is dependent on the user input, which is the timezone in the format of UTC. If there are no integers in this string, there will be an exception thrown.
 
 Timezone will have prefix `tz/` which will be used when using the `add` or `edit` feature.
 
 
-=== Automatic Calculation of Pressue Group
+=== Automatic Calculation of Pressure Group
 Takes into account the latest (in terms of time) Dive Session. Subtracting the current time from the latest dive, the method will be able to automatically calculate time until the current Pressure group will fall to the next group, which is the time until it is safe to dive again.
 
 ==== Pressure Group
