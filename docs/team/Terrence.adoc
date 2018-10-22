@@ -1,9 +1,9 @@
-= John Doe - Project Portfolio
+= Terrence Tan - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 4
+== PROJECT: DiveLor
 
 ---
 
