@@ -11,7 +11,6 @@ import seedu.divelog.commons.util.CollectionUtil;
 import seedu.divelog.model.dive.exceptions.DiveNotFoundException;
 
 /**
- * @author arjo
  * Stores a list of dives
  */
 public class DiveSessionList implements Iterable<DiveSession> {
