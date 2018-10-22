@@ -329,7 +329,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 === Looking Up Dive Tables For Pressure Groups
 
 At the heart of the divelog app is the ability to automatically calculate nitrogen pressure groups.
-To do so we adhere to PADI's dive charts. These charts provide a lookup table for divers through which they can determine
+To do so we adhere to PADI's dive charts, available here https://elearning.padi.com/company0/tools/RDP_Table%20Met.pdf. These charts provide a lookup table for divers through which they can determine
 their current pressure group. The underlying implementation for these charts can be found in the `PadiDiveTable` class.
 A such the dive tales are stored in the `resources` folder as JSON files. They are loaded using the `DiveTableUtil` class
 via the FASTXML Jackson library. The `PadiDiveTable` itself is a singleton class. This choice was made as it makes sense to
