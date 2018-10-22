@@ -4,11 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.divelog.commons.core.LogsCenter;
 import seedu.divelog.commons.util.CollectionUtil;
 import seedu.divelog.model.dive.exceptions.DiveNotFoundException;
 
@@ -87,7 +85,6 @@ public class DiveSessionList implements Iterable<DiveSession> {
 
     @Override
     public boolean equals(Object other) {
-        Logger logger = LogsCenter.getLogger(DiveSessionList.class);
         if (!(other instanceof DiveSessionList)) {
             return false;
         }
