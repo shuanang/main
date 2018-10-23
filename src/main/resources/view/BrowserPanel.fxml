@@ -41,7 +41,7 @@
       </children>
       <VBox prefHeight="100.0" prefWidth="200.0">
         <children>
-          <Label fx:id="pgEnding" style="-fx-font-size: 52; -fx-fill: red" text="C">
+          <Label fx:id="pgEnding" style="-fx-font-size: 52; -fx-fill: red;" text="C">
             <font>
               <Font size="52.0" />
             </font>

@@ -77,7 +77,8 @@ public class BrowserPanel extends UiPart<Region> {
         diveLocation.setText(String.format(FORMAT_DIVE_LOCATION, dive.getLocation().getLocationName()));
         diveDepth.setText(String.format(FORMAT_DIVE_DEPTH, dive.getDepthProfile().getDepth()));
         pgStart.setText(dive.getPressureGroupAtBeginning().getPressureGroup());
-        pgEnding.setTextFill(Color.web("#ff0000"));
+        //pgEnding.setTextFill(Color.web("#ff0000"));
+        pgEnding.setTextFill(Color.GREEN);
         pgEnding.setText(dive.getPressureGroupAtEnd().getPressureGroup());
         //pgEnding.setAlignment(Pos.CENTER);
         pgEnd.setText(dive.getPressureGroupAtEnd().getPressureGroup());
