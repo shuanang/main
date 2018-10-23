@@ -33,7 +33,7 @@ public class PressureGroupLogicTest {
         assertEquals(pressureGroup.getPressureGroup(), "E");
     }
 
-    @Test
+    /*@Test
     public void computeTimeToNextPg_test() throws InvalidTimeException, JSONException {
         PressureGroup pressureGroup = PressureGroupLogic.computeTimetoNextPg(new DiveSession(new OurDate("04082018"),
                 new Time("0700"),
@@ -45,5 +45,5 @@ public class PressureGroupLogicTest {
                 new Location("Bali"),
                 new DepthProfile(10.0f),
                 new TimeZone("+5")));
-    }
+    } */
 }
