@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <dives>
+    <dateStart>01012018</dateStart>
     <startTime>0700</startTime>
-    <safetyStop>0945</safetyStop>
-    <endTime>1000</endTime>
+    <safetyStop>0745</safetyStop>
+    <dateEnd>01012018</dateEnd>
+    <endTime>0800</endTime>
     <pressureGroupAtBeginning>A</pressureGroupAtBeginning>
-    <pressureGroupAtEnd>R</pressureGroupAtEnd>
+    <pressureGroupAtEnd>F</pressureGroupAtEnd>
     <location>Bali</location>
-    <depthProfile>10.0</depthProfile>
+    <depthProfile>5.0</depthProfile>
+    <timezone>-8</timezone>
 </dives>

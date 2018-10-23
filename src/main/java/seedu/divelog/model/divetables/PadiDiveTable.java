@@ -14,6 +14,7 @@ import seedu.divelog.commons.core.LogsCenter;
 import seedu.divelog.commons.util.DiveTableUtil;
 import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.dive.PressureGroup;
+import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 
 //@@author arjo129
 /**
@@ -22,6 +23,7 @@ import seedu.divelog.model.dive.PressureGroup;
 public class PadiDiveTable {
 
     private static final Logger logger = LogsCenter.getLogger(PadiDiveTable.class);
+    private static final String TIME_VALIDATION_REGEX = "[0-9][0-9][:][0-9][0-9]";
     private static PadiDiveTable diveTable = new PadiDiveTable();
 
     private final DiveTableUtil surfaceTable;
@@ -43,7 +45,7 @@ public class PadiDiveTable {
     /**
      * Looks up surface interval table
      * @param pressureGroup1 - Pressure group along x axis
-     * @param pressureGroup2 - Pressure goup along y axis
+     * @param pressureGroup2 - Pressure group along y axis
      * @return returns a JSON Array with the surface intervals
      */
     public JSONArray getSurfaceTable(PressureGroup pressureGroup1, PressureGroup pressureGroup2) {
@@ -61,6 +63,56 @@ public class PadiDiveTable {
         return null;
     }
 
+    /**
+     * Get data from the surface interval table
+     * @param startingPressureGroup - Initial pressure group
+     * @param minutes - number of minutes
+     * @return - Final pressure group
+     */
+    public PressureGroup fromSurfaceInterval(PressureGroup startingPressureGroup, float minutes) {
+        try {
+            JSONObject table = surfaceTable.readJsonFileFromResources();
+            JSONObject column = table.getJSONObject(startingPressureGroup.getPressureGroup());
+            Iterator<String> keys = column.keys();
+            while (keys.hasNext()) {
+                String pressureGroup = keys.next();
+                JSONArray interval = column.getJSONArray(pressureGroup);
+                try {
+                    String start = interval.getString(0);
+                    String end = interval.getString(1);
+                    float minInterval = timeToMinutes(start);
+                    float maxInterval = timeToMinutes(end);
+                    if (minutes >= minInterval && minutes <= maxInterval) {
+                        return new PressureGroup(pressureGroup);
+                    }
+                } catch (JSONException je) {
+                    logger.severe("Malformatted json: " + je.getMessage());
+                } catch (InvalidTimeException e) {
+                    logger.warning("Could not parse time");
+                }
+            }
+        } catch (JSONException je) {
+            logger.severe("Malformatted json: " + je.getMessage());
+        } catch (IOException e) {
+            logger.severe("Failed to read dive tables due to an IOException\n\t" + e.getMessage());
+        }
+        return new PressureGroup("A");
+    }
+
+    /**
+     * Converts a duration in HH:MM to minutes
+     * @param time
+     * @return
+     * @throws InvalidTimeException
+     */
+    public float timeToMinutes(String time) throws InvalidTimeException {
+        if (time.matches(TIME_VALIDATION_REGEX)) {
+            String[] minutes = time.split(":");
+            return Integer.parseInt(minutes[0]) * 60 + Integer.parseInt(minutes[1]);
+        } else {
+            throw new InvalidTimeException();
+        }
+    }
     /**
      * Looks up depth to PG
      * @param depth - The depth
@@ -105,6 +157,7 @@ public class PadiDiveTable {
         return null;
 
     }
+
 
     /**
      * Looks for the nearest key

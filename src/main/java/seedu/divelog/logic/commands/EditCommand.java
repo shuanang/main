@@ -182,15 +182,15 @@ public class EditCommand extends Command {
             // state check
             EditDiveDescriptor e = (EditDiveDescriptor) other;
 
-            return getDateStart() == e.getDateStart()
-                    && getStart() == e.getStart()
-                    && getDateEnd() == e.getDateEnd()
-                    && getEnd() == e.getEnd()
-                    && getPressureGroupAtBeginning() == e.getPressureGroupAtBeginning()
-                    && getPressureGroupAtEnd() == e.getPressureGroupAtEnd()
-                    && getLocation() == e.getLocation()
-                    && getDepthProfile() == e.getDepthProfile()
-                    && getTimeZone() == e.getTimeZone();
+            return getDateStart().equals(e.getDateStart())
+                    && getStart().equals(e.getStart())
+                    && getDateEnd().equals(e.getDateEnd())
+                    && getEnd().equals(e.getEnd())
+                    && getPressureGroupAtBeginning().equals(e.getPressureGroupAtBeginning())
+                    && getPressureGroupAtEnd().equals(e.getPressureGroupAtEnd())
+                    && getLocation().equals(e.getLocation())
+                    && getDepthProfile().equals(e.getDepthProfile())
+                    && getTimeZone().equals(e.getTimeZone());
         }
 
         public void setDateStart(OurDate dateStart) {

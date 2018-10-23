@@ -3,6 +3,7 @@ package guitests.guihandles;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import seedu.divelog.model.dive.DiveSession;
+import seedu.divelog.ui.DiveSessionCard;
 //@@author arjo129
 /**
  * Provides a handle to a dive card in the dive list panel.
@@ -38,6 +39,6 @@ public class DiveSessionCardHandle extends NodeHandle<Node> {
      * TODO: Check depth also!!
      */
     public boolean equals(DiveSession dive) {
-        return getName().equals(dive.getLocation().getLocationName());
+        return getName().equals(DiveSessionCard.DIVE_PREFIX + dive.getLocation().getLocationName());
     }
 }
