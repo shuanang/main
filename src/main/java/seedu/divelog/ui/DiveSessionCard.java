@@ -11,6 +11,8 @@ import seedu.divelog.model.dive.DiveSession;
  */
 public class DiveSessionCard extends UiPart<Region> {
 
+    public static final String DIVE_PREFIX = "Dive at ";
+    public static final String DEPTH_UNITS = "m";
     private static final String FXML = "DiveListCards.fxml";
 
     /**
@@ -20,7 +22,6 @@ public class DiveSessionCard extends UiPart<Region> {
      *
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on DiveLog level 4</a>
      */
-
     public final DiveSession dive;
 
     @FXML
@@ -36,8 +37,8 @@ public class DiveSessionCard extends UiPart<Region> {
         super(FXML);
         this.dive = dive;
         id.setText(displayedIndex + ". ");
-        name.setText("Dive at " + dive.getLocation().getLocationName());
-        depth.setText(dive.getDepthProfile().getDepth() + "m");
+        name.setText(DIVE_PREFIX + dive.getLocation().getLocationName());
+        depth.setText(dive.getDepthProfile().getDepth() + DEPTH_UNITS);
     }
 
     @Override

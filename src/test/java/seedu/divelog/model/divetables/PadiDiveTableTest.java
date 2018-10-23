@@ -4,13 +4,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.dive.PressureGroup;
+import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 
 //@@author arjo129
 public class PadiDiveTableTest {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void getSurfaceTable_canRead() throws JSONException {
@@ -18,6 +24,13 @@ public class PadiDiveTableTest {
         JSONArray arr = padiDiveTable.getSurfaceTable(new PressureGroup("A"), new PressureGroup("A"));
         assertEquals(arr.get(0).toString(), "00:00");
         assertEquals(arr.get(1).toString(), "03:00");
+    }
+
+    @Test
+    public void getSurfaceTable_canCalculateDivePressure() {
+        PressureGroup pressureGroup = new PressureGroup("c");
+        PadiDiveTable padiDiveTable = PadiDiveTable.getInstance();
+        assertEquals(padiDiveTable.fromSurfaceInterval(pressureGroup, 22.0f), new PressureGroup("b"));
     }
 
     @Test
@@ -33,5 +46,46 @@ public class PadiDiveTableTest {
         JSONArray arr = padiDiveTable.depthToTimes(new DepthProfile(10), new PressureGroup("A"));
         assertEquals(arr.getInt(0), 10);
         assertEquals(arr.getInt(1), 209);
+    }
+
+    @Test
+    public void timeToMinutes_emptyStringThrowsException () throws InvalidTimeException {
+        thrown.expect(InvalidTimeException.class);
+        PadiDiveTable padiDiveTable = PadiDiveTable.getInstance();
+        padiDiveTable.timeToMinutes("");
+    }
+
+    @Test
+    public void timeToMinutes_tooManyDigitsThrowsException () throws InvalidTimeException {
+        thrown.expect(InvalidTimeException.class);
+        PadiDiveTable padiDiveTable = PadiDiveTable.getInstance();
+        padiDiveTable.timeToMinutes("000:09");
+    }
+
+    @Test
+    public void timeToMinutes_tooManyMinutesThrowsException () throws InvalidTimeException {
+        thrown.expect(InvalidTimeException.class);
+        PadiDiveTable padiDiveTable = PadiDiveTable.getInstance();
+        padiDiveTable.timeToMinutes("00:090");
+    }
+
+    @Test
+    public void timeToMinutes_tooManyColonsThrowsException () throws InvalidTimeException {
+        thrown.expect(InvalidTimeException.class);
+        PadiDiveTable padiDiveTable = PadiDiveTable.getInstance();
+        padiDiveTable.timeToMinutes("00:00:00");
+    }
+
+    @Test
+    public void timeToMinutes_lettersThrowsException () throws InvalidTimeException {
+        thrown.expect(InvalidTimeException.class);
+        PadiDiveTable padiDiveTable = PadiDiveTable.getInstance();
+        padiDiveTable.timeToMinutes("AA:00");
+    }
+
+    @Test
+    public void timeToMinutes_correctConversion() throws InvalidTimeException {
+        PadiDiveTable padiDiveTable = PadiDiveTable.getInstance();
+        assertEquals(padiDiveTable.timeToMinutes("12:12"), 732);
     }
 }

@@ -70,26 +70,18 @@ public class XmlUtilTest {
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
         DiveLog dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableDiveLog.class).toModelType();
-        assertEquals(9, dataFromFile.getDiveList().size());
+        assertEquals(1, dataFromFile.getDiveList().size());
     }
 
-    @Test
-    public void xmlAdaptedPersonFromFile_fileWithMissingPersonField_validResult() throws Exception {
-        XmlAdaptedDiveSession actualDive = XmlUtil.getDataFromFile(
-                MISSING_DIVE_FIELD_FILE, XmlAdaptedDiveSessionWithRootElement.class);
-        XmlAdaptedDiveSession expectedDive = new XmlAdaptedDiveSession(VALID_DATE,
-                null, VALID_SAFETY_STOP, VALID_END, VALID_DATE, VALID_PRESSURE_GROUP_START,
-                VALID_PRESSURE_GROUP_END, VALID_LOCATION, VALID_DEPTH, VALID_TIMEZONE);
-        assertEquals(expectedDive, actualDive);
-    }
 
     @Test
-    public void xmlAdaptedPersonFromFile_fileWithValidPerson_validResult() throws Exception {
+    public void xmlAdaptedDiveFromFile_fileWithValidDive_validResult() throws Exception {
         XmlAdaptedDiveSession actualDive = XmlUtil.getDataFromFile(
                 VALID_DIVE_FILE, XmlAdaptedDiveSessionWithRootElement.class);
         XmlAdaptedDiveSession expectedDive = new XmlAdaptedDiveSession(
-                VALID_DATE, VALID_START, VALID_SAFETY_STOP, VALID_END, VALID_DATE, VALID_PRESSURE_GROUP_START,
-                VALID_PRESSURE_GROUP_END, VALID_LOCATION, VALID_DEPTH, VALID_TIMEZONE);
+                VALID_DATE, VALID_START, VALID_SAFETY_STOP, VALID_DATE, VALID_END,
+                VALID_PRESSURE_GROUP_START, VALID_PRESSURE_GROUP_END,
+                VALID_LOCATION, VALID_DEPTH, VALID_TIMEZONE);
         assertEquals(expectedDive, actualDive);
     }
 
@@ -132,6 +124,7 @@ public class XmlUtilTest {
      * Test class annotated with {@code XmlRootElement} to allow unmarshalling of .xml data to {@code XmlAdaptedDiveSession}
      * objects.
      */
-    @XmlRootElement(name = "person")
-    private static class XmlAdaptedDiveSessionWithRootElement extends XmlAdaptedDiveSession {}
+    @XmlRootElement(name = "dives")
+    private static class XmlAdaptedDiveSessionWithRootElement extends XmlAdaptedDiveSession {
+    }
 }

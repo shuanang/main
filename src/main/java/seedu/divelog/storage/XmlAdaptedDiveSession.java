@@ -12,7 +12,7 @@ import seedu.divelog.model.dive.Time;
 import seedu.divelog.model.dive.TimeZone;
 
 /**
- * JAXB-friendly version of the Person.
+ * JAXB-friendly version of the DiveSession.
  */
 public class XmlAdaptedDiveSession {
 
@@ -84,7 +84,14 @@ public class XmlAdaptedDiveSession {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
-    public DiveSession toModelType() {
+    public DiveSession toModelType() throws IllegalValueException {
+        if (!PressureGroup.isValid(pressureGroupAtBeginning)) {
+            throw new IllegalValueException("Invalid pressure group!!");
+        }
+        if (!PressureGroup.isValid(pressureGroupAtEnd)) {
+            throw new IllegalValueException("Invalid pressure group!!");
+        }
+
         return new DiveSession(new OurDate(dateStart), new Time(startTime), new Time(safetyStop),
                 new OurDate(dateEnd), new Time(endTime),
                 new PressureGroup(pressureGroupAtBeginning), new PressureGroup(pressureGroupAtEnd),
@@ -110,7 +117,6 @@ public class XmlAdaptedDiveSession {
                 && location.equals(x.location)
                 && pressureGroupAtEnd.equals(x.pressureGroupAtEnd)
                 && pressureGroupAtBeginning.equals(x.pressureGroupAtBeginning)
-                && depthProfile == x.depthProfile
-                && timezone.equals(x.timezone);
+                && depthProfile == x.depthProfile;
     }
 }
