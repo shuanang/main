@@ -9,8 +9,6 @@ public class PressureGroup {
 
     private static final String PRESSURE_GROUP_VALIDATION_REGEX = "([A-Z||a-z])";
     private final String pressureGroup;
-    private String newPg = " ";
-    private int totalBottomTime = 0;
 
     /**
      * Constructs a pressure group object.

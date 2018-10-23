@@ -1,8 +1,13 @@
 package seedu.divelog.logic.parser;
 
+import static seedu.divelog.logic.pressuregroup.PressureGroupLogic.computePressureGroup;
+
 import java.util.stream.Stream;
 
+import org.json.JSONException;
+
 import seedu.divelog.commons.core.Messages;
+import seedu.divelog.commons.util.CompareUtil;
 import seedu.divelog.logic.commands.AddCommand;
 import seedu.divelog.logic.parser.exceptions.ParseException;
 import seedu.divelog.model.dive.DepthProfile;
@@ -12,6 +17,8 @@ import seedu.divelog.model.dive.OurDate;
 import seedu.divelog.model.dive.PressureGroup;
 import seedu.divelog.model.dive.Time;
 import seedu.divelog.model.dive.TimeZone;
+
+
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -33,7 +40,6 @@ public class AddCommandParser implements Parser<AddCommand> {
                         CliSyntax.PREFIX_SAFETY_STOP,
                         CliSyntax.PREFIX_DEPTH,
                         CliSyntax.PREFIX_PRESSURE_GROUP_START,
-                        CliSyntax.PREFIX_PRESSURE_GROUP_END,
                         CliSyntax.PREFIX_LOCATION,
                         CliSyntax.PREFIX_TIMEZONE);
 
@@ -45,7 +51,6 @@ public class AddCommandParser implements Parser<AddCommand> {
                 CliSyntax.PREFIX_SAFETY_STOP,
                 CliSyntax.PREFIX_DEPTH,
                 CliSyntax.PREFIX_PRESSURE_GROUP_START,
-                CliSyntax.PREFIX_PRESSURE_GROUP_END,
                 CliSyntax.PREFIX_LOCATION)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -63,12 +68,29 @@ public class AddCommandParser implements Parser<AddCommand> {
         Time safetyStop = new Time(argMultimap.getValue(CliSyntax.PREFIX_SAFETY_STOP).get());
         PressureGroup pressureGroupAtBegining =
                 new PressureGroup(argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_START).get());
-        PressureGroup pressureGroupAtEnd =
-                new PressureGroup(argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_END).get());
         Location location =
                 new Location(argMultimap.getValue(CliSyntax.PREFIX_LOCATION).get());
         DepthProfile depthProfile = ParserUtil.parseDepth(argMultimap.getValue(CliSyntax.PREFIX_DEPTH).get());
         TimeZone timezone = new TimeZone(argMultimap.getValue(CliSyntax.PREFIX_TIMEZONE).get());
+
+
+        CompareUtil compareUtil = new CompareUtil();
+        long duration = 0;
+        try {
+            duration = compareUtil.checkTimeDifference(startTime.getTimeString(), dateStart.getOurDateString(),
+                    endTime.getTimeString(), dateEnd.getOurDateString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        PressureGroup pressureGroupAtEnd = null;
+        try {
+            pressureGroupAtEnd = computePressureGroup(depthProfile, duration, pressureGroupAtBegining);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
         DiveSession dive =
                 new DiveSession(dateStart, startTime, safetyStop, dateEnd, endTime, pressureGroupAtBegining,
                         pressureGroupAtEnd, location, depthProfile, timezone);
