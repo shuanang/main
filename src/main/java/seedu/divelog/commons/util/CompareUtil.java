@@ -44,6 +44,7 @@ public class CompareUtil {
 
         return newDateTimeLong;
     }
+
     /**
      * gets current date and time in Date
      */
@@ -52,6 +53,7 @@ public class CompareUtil {
         Date date = new Date();
         return date;
     }
+
     /**
      * gets current date and time in long
      */
@@ -62,6 +64,7 @@ public class CompareUtil {
 
         return currentDateTimeLong;
     }
+
     /**
      * Converts DDMMYYYYHHMM into DDMMYYYY
      */
@@ -70,6 +73,7 @@ public class CompareUtil {
         time = date % 10000;
         return time;
     }
+    
     /**
      * Converts DDMMYYYYHHMM into HHMM
      */
