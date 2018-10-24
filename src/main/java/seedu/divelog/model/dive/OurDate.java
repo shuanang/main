@@ -2,7 +2,6 @@ package seedu.divelog.model.dive;
 
 /**
  * This is the date class:
- * TODO: Implement parsing of date etc.
  * @@author Cjunx
  */
 

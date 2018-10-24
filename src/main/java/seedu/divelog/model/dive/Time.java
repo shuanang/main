@@ -3,7 +3,6 @@ package seedu.divelog.model.dive;
 /**
  * This is the time class:
  * @author Cjunx
- * TODO: Implement parsing of time, locales etc.
  */
 public class Time {
     private final String value;

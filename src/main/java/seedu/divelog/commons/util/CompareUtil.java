@@ -1,4 +1,5 @@
 package seedu.divelog.commons.util;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -15,32 +16,31 @@ public class CompareUtil {
     /**
      * Tells time difference between 2 timings in MINUTES (long)
      */
-    public long checkTimeDifference(String startTime, String endTime, String startDate, String endDate)
+    public static long checkTimeDifference(String startTime, String endTime, String startDate, String endDate)
             throws Exception {
-        SimpleDateFormat format = new SimpleDateFormat("DDMMYYYYHHMM");
-        String startTimeDate = startDate.concat(startTime);
-        String endTimeDate = endDate.concat(endTime);
+        SimpleDateFormat format = new SimpleDateFormat("HHmmddMMyyyy");
+        String startTimeDate = startTime.concat(startDate);
+        String endTimeDate = endTime.concat(endDate);
 
-        Date time1 = format.parse(startTimeDate);
-        Date time2 = format.parse(endTimeDate);
+        Date date1 = format.parse(startTimeDate);
+        Date date2 = format.parse(endTimeDate);
+        long diff = Math.abs((date1.getTime()-date2.getTime()))/60000;
 
-        long difference = (time2.getTime() - time1.getTime());
-        return (difference / 1000);
+        return (diff);
     }
 
     /**
      * Converts date and time into LOCAL time
      * returns first 8 digits of Date in DDMMYYYY, next 4 digits in HHMM
      */
-    public Long convertTimeToLocal(Time time, OurDate date, TimeZone timezone) throws Exception {
-        String timeNowString = date.getOurDateString().concat(time.getTimeString());
-
-        SimpleDateFormat inputFormat = new SimpleDateFormat("DDMMYYYYHHMM");
+    public static Long convertTimeToLocal(String time, String date, int timezone) throws Exception {
+        String timeNowString = date.concat(time);
+        SimpleDateFormat inputFormat = new SimpleDateFormat("ddMMyyyyHHmm");
         Date oldTime = inputFormat.parse(timeNowString);
-        Date newtime = new Date(oldTime.getTime() + TimeUnit.HOURS.toMillis(timezone.getTimeZone()));
+        Date newTime = new Date(oldTime.getTime() + TimeUnit.HOURS.toMillis(timezone));
 
-        String newDateTime = new SimpleDateFormat("DDMMYYYYHHMM").format(newtime);
-        long newDateTimeLong = Integer.parseInt(newDateTime);
+        String newDateTime = new SimpleDateFormat("ddMMyyyyHHmm").format(newTime);
+        long newDateTimeLong = Long.parseLong(newDateTime);
 
         return newDateTimeLong;
     }
@@ -48,9 +48,11 @@ public class CompareUtil {
     /**
      * gets current date and time in Date
      */
-    public Date getCurrentDateTime() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("DDMMYYYYHHMM");
+    public static Date getCurrentDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyyHHmm");
         Date date = new Date();
+//        String newDateTime = new SimpleDateFormat("ddMMyyyyHHmm").format(date);
+//        long newDateTimeLong = Long.parseLong(newDateTime);
         return date;
     }
 
@@ -59,7 +61,7 @@ public class CompareUtil {
      */
     public long getCurrentDateTimeLong() {
         Date currentDateTime = getCurrentDateTime();
-        String currentDateTimeString = new SimpleDateFormat("DDMMYYYYHHMM").format(currentDateTime);
+        String currentDateTimeString = new SimpleDateFormat("ddMMyyyyHHmm").format(currentDateTime);
         long currentDateTimeLong = Integer.parseInt(currentDateTimeString);
 
         return currentDateTimeLong;
@@ -68,18 +70,29 @@ public class CompareUtil {
     /**
      * Converts DDMMYYYYHHMM into DDMMYYYY
      */
-    public long readTimeFromLong(long date) {
+    public static String readTimeFromLong(long date) {
         long time;
         time = date % 10000;
-        return time;
+        String timeString = Long.toString(time);
+        if (time < 1000){
+            timeString = "0" + timeString;
+        }
+        return timeString;
     }
-    
+
     /**
      * Converts DDMMYYYYHHMM into HHMM
      */
-    public long readDateFromLong(long longdate) {
+    public static String readDateFromLong(long longdate) {
         long date;
         date = longdate / 10000;
-        return date;
+        String dateString = Long.toString(date);
+        if (date < 10000000){
+            dateString = "0" + dateString;
+        }
+        return dateString;
     }
+
+
+
 }
