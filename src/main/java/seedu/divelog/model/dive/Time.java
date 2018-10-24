@@ -19,7 +19,7 @@ public class Time {
     * Given HHMM, returns in long
      */
     public long getTimeLong() {
-        String arr[] = value.split("");
+        String[] arr = value.split("");
         long timeLong = Long.parseLong(arr[0]) * 1000
                 + Long.parseLong(arr[1]) * 100
                 + Long.parseLong(arr[2]) * 10

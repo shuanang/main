@@ -4,10 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-import seedu.divelog.model.dive.OurDate;
-import seedu.divelog.model.dive.Time;
-import seedu.divelog.model.dive.TimeZone;
-
 /**
  * A class with methods to compare Date and Time, with respect to Timezone
  * @@author Cjunx
@@ -24,7 +20,7 @@ public class CompareUtil {
 
         Date date1 = format.parse(startTimeDate);
         Date date2 = format.parse(endTimeDate);
-        long diff = Math.abs((date1.getTime()-date2.getTime()))/60000;
+        long diff = Math.abs((date1.getTime() - date2.getTime())) / 60000;
 
         return (diff);
     }
@@ -51,8 +47,8 @@ public class CompareUtil {
     public static Date getCurrentDateTime() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyyHHmm");
         Date date = new Date();
-//        String newDateTime = new SimpleDateFormat("ddMMyyyyHHmm").format(date);
-//        long newDateTimeLong = Long.parseLong(newDateTime);
+        //        String newDateTime = new SimpleDateFormat("ddMMyyyyHHmm").format(date);
+        //        long newDateTimeLong = Long.parseLong(newDateTime);
         return date;
     }
 
@@ -74,7 +70,7 @@ public class CompareUtil {
         long time;
         time = date % 10000;
         String timeString = Long.toString(time);
-        if (time < 1000){
+        if (time < 1000) {
             timeString = "0" + timeString;
         }
         return timeString;
@@ -87,7 +83,7 @@ public class CompareUtil {
         long date;
         date = longdate / 10000;
         String dateString = Long.toString(date);
-        if (date < 10000000){
+        if (date < 10000000) {
             dateString = "0" + dateString;
         }
         return dateString;
