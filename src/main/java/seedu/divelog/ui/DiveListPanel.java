@@ -23,8 +23,9 @@ import seedu.divelog.model.dive.DiveSession;
  * Panel containing the list of persons.
  */
 public class DiveListPanel extends UiPart<Region> {
-    private static final String FXML = "DiveListPanel.fxml";
     public static final String FORMAT_TIME_NOW = "Date: %s";
+
+    private static final String FXML = "DiveListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(DiveListPanel.class);
 
     @FXML
@@ -89,6 +90,10 @@ public class DiveListPanel extends UiPart<Region> {
             }
         }
     }
+    /**
+     * Retrieves the current date time as a string
+     * @return retrieves date as string
+     */
     private String dateTimeSend() {
         Date d = new Date();
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY hh:mmaa");
