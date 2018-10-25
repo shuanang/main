@@ -28,6 +28,7 @@ public class OurDate {
                 + Long.parseLong(arr[4]) * 10
                 + Long.parseLong(arr[5]);
         return dateLong;
+    }
 
 
     @Override
