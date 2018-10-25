@@ -2,10 +2,6 @@ package seedu.divelog.commons.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import seedu.divelog.model.dive.OurDate;
-import seedu.divelog.model.dive.Time;
-import seedu.divelog.model.dive.TimeZone;
-
 import org.junit.Test;
 
 public class CompareUtilTest {
@@ -42,6 +38,12 @@ public class CompareUtilTest {
     public void convertTimeToLocal_DiffDay_Test() throws Exception {
         long answer = CompareUtil.convertTimeToLocal("2359", "25102018",5);
         long l = Long.parseLong("261020180459");
+        assertEquals(answer, l);
+    }
+    @Test
+    public void convertTimeToLocal_Negative_Test() throws Exception {
+        long answer = CompareUtil.convertTimeToLocal("2359", "25102018",-10);
+        long l = Long.parseLong("251020181359");
         assertEquals(answer, l);
     }
 

@@ -45,7 +45,6 @@ public class CompareUtil {
      * gets current date and time in Date
      */
     public static Date getCurrentDateTime() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyyHHmm");
         Date date = new Date();
         //        String newDateTime = new SimpleDateFormat("ddMMyyyyHHmm").format(date);
         //        long newDateTimeLong = Long.parseLong(newDateTime);
