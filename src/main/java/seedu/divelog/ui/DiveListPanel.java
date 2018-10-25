@@ -1,5 +1,8 @@
 package seedu.divelog.ui;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -7,6 +10,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -20,13 +24,19 @@ import seedu.divelog.model.dive.DiveSession;
  */
 public class DiveListPanel extends UiPart<Region> {
     private static final String FXML = "DiveListPanel.fxml";
+    public static final String FORMAT_TIME_NOW = "Date: %s";
     private final Logger logger = LogsCenter.getLogger(DiveListPanel.class);
 
     @FXML
     private ListView<DiveSession> diveListView;
+    @FXML
+    private Label dateID;
+
 
     public DiveListPanel(ObservableList<DiveSession> personList) {
         super(FXML);
+        //dateID.setText(String.format(FORMAT_TIME_NOW, dive.getDateStart().getOurDateString()));
+        loadMyTimeNow();
         setConnections(personList);
         registerAsAnEventHandler(this);
     }
@@ -78,6 +88,15 @@ public class DiveListPanel extends UiPart<Region> {
                 setGraphic(new DiveSessionCard(dive, getIndex() + 1).getRoot());
             }
         }
+    }
+    private String dateTimeSend() {
+        Date d = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY hh:mmaa");
+        String dateTimeNow = dateFormat.format(d);
+        return dateTimeNow;
+    }
+    private void loadMyTimeNow() {
+        dateID.setText(String.format(FORMAT_TIME_NOW, dateTimeSend()));
     }
 
 }

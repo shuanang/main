@@ -27,6 +27,7 @@
         <Label fx:id="name" styleClass="cell_big_label"/>
       </HBox>
       <Label fx:id="depth" styleClass="cell_small_label"  />
+      <Label fx:id="date" alignment="BASELINE_LEFT" />
     </VBox>
   </GridPane>
 </HBox>
