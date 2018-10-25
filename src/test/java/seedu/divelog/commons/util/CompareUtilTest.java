@@ -7,7 +7,7 @@ import org.junit.Test;
 public class CompareUtilTest {
 
     @Test
-    public void checkTimeDifference_SameDay_CalculationTest() throws Exception {
+    public void checkTimeDifference_sameDay_calculationTest() throws Exception {
         long normalTime = CompareUtil.checkTimeDifference("1900","2010","25102018","25102018");
         long date2 = 70;
         assertEquals(normalTime, date2);
@@ -18,7 +18,7 @@ public class CompareUtilTest {
 
     }
     @Test
-    public void checkTimeDifference_DiffDay_CalculationTest1() throws Exception {
+    public void checkTimeDifference_diffDay_calculationTest1() throws Exception {
         long normalTime = CompareUtil.checkTimeDifference("2359","0030","25102018","26102018");
         long date2 = 31 ;
         assertEquals(normalTime, date2);
@@ -29,19 +29,19 @@ public class CompareUtilTest {
     }
 
     @Test
-    public void convertTimeToLocal_Test() throws Exception {
+    public void convertTimeToLocal_test() throws Exception {
         long answer = CompareUtil.convertTimeToLocal("0500", "25102018",5);
         long l = Long.parseLong("251020181000");
         assertEquals(answer, l);
     }
     @Test
-    public void convertTimeToLocal_DiffDay_Test() throws Exception {
+    public void convertTimeToLocal_diffDay_Test() throws Exception {
         long answer = CompareUtil.convertTimeToLocal("2359", "25102018",5);
         long l = Long.parseLong("261020180459");
         assertEquals(answer, l);
     }
     @Test
-    public void convertTimeToLocal_Negative_Test() throws Exception {
+    public void convertTimeToLocal_negative_Test() throws Exception {
         long answer = CompareUtil.convertTimeToLocal("2359", "25102018",-10);
         long l = Long.parseLong("251020181359");
         assertEquals(answer, l);
@@ -62,7 +62,7 @@ public class CompareUtilTest {
 //    }
 
     @Test
-    public void readTimeFromLong_Test(){
+    public void readTimeFromLong_test(){
         long datetime = Long.parseLong("251020180510");
         String time1 = CompareUtil.readTimeFromLong(datetime);
         assertEquals(time1, "0510");
@@ -70,7 +70,7 @@ public class CompareUtilTest {
 
 
     @Test
-    public void readDateFromLong_Test(){
+    public void readDateFromLong_test(){
         long datetime = Long.parseLong("051020180510");
         String time1 = CompareUtil.readDateFromLong(datetime);
         assertEquals(time1, "05102018");
