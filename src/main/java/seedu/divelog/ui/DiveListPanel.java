@@ -30,7 +30,7 @@ public class DiveListPanel extends UiPart<Region> {
     @FXML
     private ListView<DiveSession> diveListView;
     @FXML
-    private Label dateID;
+    private Label dateId;
 
 
     public DiveListPanel(ObservableList<DiveSession> personList) {
@@ -96,7 +96,7 @@ public class DiveListPanel extends UiPart<Region> {
         return dateTimeNow;
     }
     private void loadMyTimeNow() {
-        dateID.setText(String.format(FORMAT_TIME_NOW, dateTimeSend()));
+        dateId.setText(String.format(FORMAT_TIME_NOW, dateTimeSend()));
     }
 
 }

@@ -6,9 +6,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.divelog.model.dive.DiveSession;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 //@@author arjo129
 /**
  * An UI component that displays information of a {@code DiveSession}.

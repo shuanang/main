@@ -1,13 +1,10 @@
 package seedu.divelog.ui;
 
-import java.awt.*;
+//import java.awt.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Logger;
-
-//import javafx.scene.paint.Color;
-//import javafx.scene.text.Font;
 
 import com.google.common.eventbus.Subscribe;
 
@@ -15,7 +12,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import org.w3c.dom.Text;
+
 import seedu.divelog.commons.core.LogsCenter;
 import seedu.divelog.commons.events.ui.DivePanelSelectionChangedEvent;
 import seedu.divelog.model.dive.DiveSession;
