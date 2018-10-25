@@ -21,4 +21,12 @@ public class TimeZone {
     public String getTimeZoneString() {
         return "" + timeZoneDifference;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof TimeZone)) {
+            return false;
+        }
+        return ((TimeZone) obj).timeZoneDifference == timeZoneDifference;
+    }
 }

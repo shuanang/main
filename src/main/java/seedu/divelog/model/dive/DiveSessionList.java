@@ -11,7 +11,6 @@ import seedu.divelog.commons.util.CollectionUtil;
 import seedu.divelog.model.dive.exceptions.DiveNotFoundException;
 
 /**
- * @author arjo
  * Stores a list of dives
  */
 public class DiveSessionList implements Iterable<DiveSession> {
@@ -85,9 +84,19 @@ public class DiveSessionList implements Iterable<DiveSession> {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof DiveSessionList // instanceof handles nulls
-                && internalList.equals(((DiveSessionList) other).internalList));
+        if (!(other instanceof DiveSessionList)) {
+            return false;
+        }
+        DiveSessionList otherDiveList = (DiveSessionList) other;
+        if (otherDiveList.internalList.size() != internalList.size()) {
+            return false;
+        }
+        for (int i = 0; i < internalList.size(); i++) {
+            if (!internalList.get(i).equals(otherDiveList.internalList.get(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

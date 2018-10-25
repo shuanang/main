@@ -61,19 +61,19 @@ public class XmlDiveLogStorageTest {
     }
 
     @Test
-    public void readDiveLog_invalidPersonAddressBook_throwDataConversionException() throws Exception {
+    public void readDiveLog_invalidDiveLog_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
         readDiveLog("invalidPersonAddressBook.xml");
     }
 
     @Test
-    public void readDiveLog_invalidAndValidPersonAddressBook_throwDataConversionException() throws Exception {
+    public void readDiveLog_invalidAndValidDiveLog_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
         readDiveLog("invalidAndValidPersonAddressBook.xml");
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
+    public void readAndSaveDiveLog_allInOrder_success() throws Exception {
         Path filePath = testFolder.getRoot().toPath().resolve("TempDiveLog.xml");
         DiveLog original = getTypicalDiveLog();
         XmlDiveLogStorage xmlAddressBookStorage = new XmlDiveLogStorage(filePath);

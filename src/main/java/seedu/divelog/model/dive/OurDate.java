@@ -15,6 +15,7 @@ public class OurDate {
     public String getOurDateString() {
         return value;
     }
+
     /*
     * Given Date in DDMMYYYY String, returns in long
      */
@@ -27,6 +28,15 @@ public class OurDate {
                 + Long.parseLong(arr[4]) * 10
                 + Long.parseLong(arr[5]);
         return dateLong;
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof OurDate)) {
+            return false;
+        }
+        return ((OurDate) obj).getOurDateString().equals(value);
+
     }
 }
 

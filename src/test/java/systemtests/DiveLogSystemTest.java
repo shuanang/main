@@ -38,6 +38,7 @@ import seedu.divelog.model.Model;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.testutil.TypicalDiveSessions;
 import seedu.divelog.ui.CommandBox;
+import seedu.divelog.ui.DiveSessionCard;
 
 /**
  * A system test class for DiveLog, which provides access to handles of GUI components and helper methods
@@ -291,8 +292,8 @@ public abstract class DiveLogSystemTest {
      * @param diveCardHandle The {@Code DiveSessionCard} in question
      */
     private void assertCardDisplays(DiveSession dive, DiveSessionCardHandle diveCardHandle) {
-        assertEquals(diveCardHandle.getName(), dive.getLocation().getLocationName());
-        assertEquals(diveCardHandle.getDepth(), dive.getDepthProfile().getDepth());
+        assertEquals(diveCardHandle.getName(), DiveSessionCard.DIVE_PREFIX+dive.getLocation().getLocationName());
+        assertEquals(diveCardHandle.getDepth(), dive.getDepthProfile().getDepth()+DiveSessionCard.DEPTH_UNITS);
     }
 
 

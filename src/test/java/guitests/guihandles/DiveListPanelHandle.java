@@ -12,7 +12,7 @@ import seedu.divelog.model.dive.DiveSession;
  * Provides a handle for {@code DiveListPanel} containing the list of {@code DiveSessionCard}.
  */
 public class DiveListPanelHandle extends NodeHandle<ListView<DiveSession>> {
-    public static final String PERSON_LIST_VIEW_ID = "#personListView";
+    public static final String PERSON_LIST_VIEW_ID = "#diveListView";
 
     private static final String CARD_PANE_ID = "#cardPane";
 
