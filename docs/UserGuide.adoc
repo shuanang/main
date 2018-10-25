@@ -53,7 +53,7 @@ Format: `help`
 === Adding a dive session: `add`
 Adds a dive session to the Dive Log.
 
-Format: `add ds/DATE_STAERTED ts/TIME_DIVE_STARTED de/DATE_ENDED te/TIME_DIVE_ENDED ss/SAFETY_STOP  d/DEPTH  l/LOCATION pg/INITIAL_PRESSURE_GROUP pge/FINAL_PRESSURE_GROUP`
+Format: `add ds/DATE_STARTED ts/TIME_DIVE_STARTED de/DATE_ENDED te/TIME_DIVE_ENDED ss/SAFETY_STOP  d/DEPTH  l/LOCATION pg/INITIAL_PRESSURE_GROUP pge/FINAL_PRESSURE_GROUP`
 
 TIP: Words in UPPER_CASE are the parameters, items in SQUARE_BRACKETS are optional. Order of parameters are fixed.
 
