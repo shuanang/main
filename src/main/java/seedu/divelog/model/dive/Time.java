@@ -2,7 +2,7 @@ package seedu.divelog.model.dive;
 
 /**
  * This is the time class:
- * TODO: Implement parsing of time, locales etc.
+ * @author Cjunx
  */
 public class Time {
     private final String value;
@@ -13,6 +13,19 @@ public class Time {
 
     public String getTimeString() {
         return value;
+    }
+
+    /*
+    * Given HHMM, returns in long
+     */
+    public long getTimeLong() {
+        String[] arr = value.split("");
+        long timeLong = Long.parseLong(arr[0]) * 1000
+                + Long.parseLong(arr[1]) * 100
+                + Long.parseLong(arr[2]) * 10
+                + Long.parseLong(arr[3]);
+
+        return timeLong;
     }
 
     @Override
