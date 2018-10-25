@@ -14,7 +14,8 @@ public class DiveSessionCard extends UiPart<Region> {
 
     public static final String DIVE_PREFIX = "Dive at ";
     public static final String DEPTH_UNITS = "m";
-    public static final String FORMAT_THE_TIME = "Date: %s";
+    public static final String FORMAT_THE_TIME = "Date Started: %s";
+    public static final String FORMAT_THE_ETIME = "Date Ended: %s";
     private static final String FXML = "DiveListCards.fxml";
 
     /**
@@ -35,7 +36,9 @@ public class DiveSessionCard extends UiPart<Region> {
     @FXML
     private Label depth;
     @FXML
-    private Label date;
+    private Label dateStart;
+    @FXML
+    private Label dateEnd;
 
     public DiveSessionCard(DiveSession dive, int displayedIndex) {
         super(FXML);
@@ -43,7 +46,8 @@ public class DiveSessionCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(DIVE_PREFIX + dive.getLocation().getLocationName());
         depth.setText(dive.getDepthProfile().getDepth() + DEPTH_UNITS);
-        date.setText(String.format(FORMAT_THE_TIME, dive.getDateStart().getOurDateString()));
+        dateStart.setText(String.format(FORMAT_THE_TIME, dive.getDateStart().getOurDateString()));
+        dateEnd.setText(String.format(FORMAT_THE_ETIME, dive.getDateEnd().getOurDateString()));
     }
 
     @Override
@@ -63,10 +67,5 @@ public class DiveSessionCard extends UiPart<Region> {
         return id.getText().equals(card.id.getText())
                 && dive.equals(card.dive);
     }
-
-    /**
-     * Retrieves the current date time as a string
-     * @return retrieves date as string
-     */
 
 }
