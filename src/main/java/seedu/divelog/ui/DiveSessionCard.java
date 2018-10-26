@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.divelog.model.dive.DiveSession;
+
 //@@author arjo129
 /**
  * An UI component that displays information of a {@code DiveSession}.
@@ -13,6 +14,8 @@ public class DiveSessionCard extends UiPart<Region> {
 
     public static final String DIVE_PREFIX = "Dive at ";
     public static final String DEPTH_UNITS = "m";
+    public static final String FORMAT_THE_START_TIME = "Date Started: %s";
+    public static final String FORMAT_THE_END_TIME = "Date Ended: %s";
     private static final String FXML = "DiveListCards.fxml";
 
     /**
@@ -32,6 +35,10 @@ public class DiveSessionCard extends UiPart<Region> {
     private Label id;
     @FXML
     private Label depth;
+    @FXML
+    private Label dateStart;
+    @FXML
+    private Label dateEnd;
 
     public DiveSessionCard(DiveSession dive, int displayedIndex) {
         super(FXML);
@@ -39,6 +46,8 @@ public class DiveSessionCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(DIVE_PREFIX + dive.getLocation().getLocationName());
         depth.setText(dive.getDepthProfile().getDepth() + DEPTH_UNITS);
+        dateStart.setText(String.format(FORMAT_THE_START_TIME, dive.getDateStart().getOurDateString()));
+        dateEnd.setText(String.format(FORMAT_THE_END_TIME, dive.getDateEnd().getOurDateString()));
     }
 
     @Override
@@ -58,4 +67,5 @@ public class DiveSessionCard extends UiPart<Region> {
         return id.getText().equals(card.id.getText())
                 && dive.equals(card.dive);
     }
+
 }
