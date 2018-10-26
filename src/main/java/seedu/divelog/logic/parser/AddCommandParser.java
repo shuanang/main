@@ -70,8 +70,10 @@ public class AddCommandParser implements Parser<AddCommand> {
         DepthProfile depthProfile = ParserUtil.parseDepth(argMultimap.getValue(CliSyntax.PREFIX_DEPTH).get());
         TimeZone timezone = new TimeZone(argMultimap.getValue(CliSyntax.PREFIX_TIMEZONE).get());
         DiveSession dive =
-                new DiveSession(dateStart, startTime, safetyStop, dateEnd, endTime, pressureGroupAtBegining,
-                        pressureGroupAtEnd, location, depthProfile, timezone);
+                null;
+        dive = new DiveSession(dateStart, startTime, safetyStop, dateEnd, endTime, pressureGroupAtBegining,
+                pressureGroupAtEnd, location, depthProfile, timezone);
+
 
 
         return new AddCommand(dive);

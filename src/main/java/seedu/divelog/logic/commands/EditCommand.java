@@ -2,6 +2,7 @@ package seedu.divelog.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,7 +75,8 @@ public class EditCommand extends Command {
         }
 
         DiveSession diveToEdit = lastShownList.get(index.getZeroBased());
-        DiveSession editedDive = createEditedDive(diveToEdit, editPersonDescriptor);
+        DiveSession editedDive = null;
+        editedDive = createEditedDive(diveToEdit, editPersonDescriptor);
 
         try {
             model.updateDiveSession(diveToEdit, editedDive);

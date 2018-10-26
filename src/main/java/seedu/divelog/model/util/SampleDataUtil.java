@@ -10,6 +10,8 @@ import seedu.divelog.model.dive.PressureGroup;
 import seedu.divelog.model.dive.Time;
 import seedu.divelog.model.dive.TimeZone;
 
+import java.text.ParseException;
+
 
 /**
  * Contains utility methods for populating {@code DiveLog} with sample data.

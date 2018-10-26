@@ -11,6 +11,8 @@ import seedu.divelog.model.dive.PressureGroup;
 import seedu.divelog.model.dive.Time;
 import seedu.divelog.model.dive.TimeZone;
 
+import java.text.ParseException;
+
 /**
  * JAXB-friendly version of the DiveSession.
  */

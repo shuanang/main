@@ -2,6 +2,8 @@ package seedu.divelog.model.dive;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -24,12 +26,33 @@ public class DiveSessionList implements Iterable<DiveSession> {
     }
 
     /**
+     * Sorts the InternalList based on Time
+     * Can be scaled to sort based on other things
+     * @@author Cjunx
+     */
+    private void sortDiveSession(int sortByCategory) {
+        Comparator<DiveSession> dateTimeComparator = (one, two) -> {
+            Date dateTime1 = one.getDateTime();
+            Date datetime2 = two.getDateTime();
+            return dateTime1.compareTo(datetime2);
+        };
+
+        switch(sortByCategory) {
+            default:
+            FXCollections.sort(internalList, dateTimeComparator);
+        }
+    }
+
+
+
+    /**
      * Adds a Dive Session to the list.
      * The person must not already exist in the list.
      */
     public void add(DiveSession toAdd) {
         requireNonNull(toAdd);
         internalList.add(toAdd);
+        sortDiveSession(1);
     }
 
     /**
@@ -43,6 +66,7 @@ public class DiveSessionList implements Iterable<DiveSession> {
         if (index == -1) {
             throw new DiveNotFoundException();
         }
+        sortDiveSession(1);
         internalList.set(index, editedDiveSession);
     }
 
@@ -63,6 +87,7 @@ public class DiveSessionList implements Iterable<DiveSession> {
      */
     public void setDives(DiveSessionList replacement) {
         requireNonNull(replacement);
+        sortDiveSession(1);
         internalList.setAll(replacement.internalList);
     }
 
