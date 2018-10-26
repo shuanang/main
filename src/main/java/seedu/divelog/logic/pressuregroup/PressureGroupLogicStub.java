@@ -21,9 +21,7 @@ public class PressureGroupLogicStub extends PressureGroupLogic {
     public float computeTimeToNextPg(DiveSession lastDive) throws Exception {
         long currentDateTime = 201020181200L; //ddMMyyyyHHmm
         String timeNow = readTimeFromLong(currentDateTime);
-        System.out.println(timeNow);
         String dateNow = readDateFromLong(currentDateTime);
-        System.out.println(dateNow);
         String endOfLastDiveTime = lastDive.getEnd().getTimeString();
         String endOfLastDiveDate = lastDive.getDateEnd().getOurDateString();
         long surfaceDuration = CompareUtil.checkTimeDifference(endOfLastDiveTime, timeNow, endOfLastDiveDate, dateNow);

@@ -43,6 +43,7 @@ public class PressureGroupLogicTest {
         thrown.expect(LimitExceededException.class);
         PressureGroup pressureGroup = PressureGroupLogic.computePressureGroup(new DepthProfile(10),
                 210, new PressureGroup("a"));
+        assertEquals(pressureGroup.getPressureGroup(), null);
     }
 
     @Test
