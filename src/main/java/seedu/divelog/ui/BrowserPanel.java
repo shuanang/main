@@ -1,5 +1,6 @@
 package seedu.divelog.ui;
 
+//import java.awt.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,6 +12,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
+
 import seedu.divelog.commons.core.LogsCenter;
 import seedu.divelog.commons.events.ui.DivePanelSelectionChangedEvent;
 import seedu.divelog.model.dive.DiveSession;
@@ -52,6 +54,8 @@ public class BrowserPanel extends UiPart<Region> {
     private Label safetyStop;
     @FXML
     private Label dateTime;
+    @FXML
+    private Label pgEnding;
 
     public BrowserPanel() {
         super(FXML);
@@ -69,7 +73,14 @@ public class BrowserPanel extends UiPart<Region> {
         diveLocation.setText(String.format(FORMAT_DIVE_LOCATION, dive.getLocation().getLocationName()));
         diveDepth.setText(String.format(FORMAT_DIVE_DEPTH, dive.getDepthProfile().getDepth()));
         pgStart.setText(dive.getPressureGroupAtBeginning().getPressureGroup());
+        //pgEnding.setTextFill(Color.web("#ff0000"));
+        //pgEnding.setTextFill(Color.GREEN);
+        pgEnding.setText(dive.getPressureGroupAtEnd().getPressureGroup());
+        //pgEnding.setAlignment(Pos.CENTER);
         pgEnd.setText(dive.getPressureGroupAtEnd().getPressureGroup());
+        //pgEnd.setTextFill(Color.web("#0076a3"));
+        //pgEnd.setForeground(Color.web("#0076a3"));
+        //pgEnd.setStyle("-fx-background-color: #0076a3;");
         startTime.setText(String.format(FORMAT_START_TIME, dive.getStart().getTimeString()));
         endTime.setText(String.format(FORMAT_END_TIME, dive.getEnd().getTimeString()));
         safetyStop.setText(String.format(FORMAT_SAFETY_STOP, dive.getSafetyStop().getTimeString()));
