@@ -2,7 +2,6 @@ package seedu.divelog.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 
