@@ -17,8 +17,8 @@ endif::[]
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
-Awesomest Dive Log is a dive log for tracking dives.
-It provides a simple one stop way for divers to input details of their dive and keep track of their nitrogen levels.
+Divelog is a dive log for tracking dives.
+Divelog provides a simple way for underwater divers to input details of their dives such as the time they spent at a particular depth, and the application will keep track of their nitrogen levels.
 This allows divers to plan their next trip safely.
 
 == Quick Start

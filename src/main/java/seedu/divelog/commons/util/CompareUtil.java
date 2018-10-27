@@ -14,10 +14,9 @@ public class CompareUtil {
      */
     public static long checkTimeDifference(String startTime, String endTime, String startDate, String endDate)
             throws Exception {
-        SimpleDateFormat format = new SimpleDateFormat("HHmmddMMyyyy");
-        String startTimeDate = startTime.concat(startDate);
-        String endTimeDate = endTime.concat(endDate);
-
+        SimpleDateFormat format = new SimpleDateFormat("ddMMyyyyHHmm");
+        String startTimeDate = startDate.concat(startTime);
+        String endTimeDate = endDate.concat(endTime);
         Date date1 = format.parse(startTimeDate);
         Date date2 = format.parse(endTimeDate);
         long diff = Math.abs((date1.getTime() - date2.getTime())) / 60000;
@@ -54,10 +53,10 @@ public class CompareUtil {
     /**
      * gets current date and time in long
      */
-    public long getCurrentDateTimeLong() {
+    public static long getCurrentDateTimeLong() {
         Date currentDateTime = getCurrentDateTime();
         String currentDateTimeString = new SimpleDateFormat("ddMMyyyyHHmm").format(currentDateTime);
-        long currentDateTimeLong = Integer.parseInt(currentDateTimeString);
+        long currentDateTimeLong = Long.parseLong(currentDateTimeString);
 
         return currentDateTimeLong;
     }
