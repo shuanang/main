@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 import static seedu.divelog.logic.commands.CommandTestUtil.DESC_DAY_BALI;
 import static seedu.divelog.logic.commands.CommandTestUtil.DESC_DAY_TIOMAN;
 import static seedu.divelog.logic.commands.CommandTestUtil.VALID_LOCATION_BALI;
-import static seedu.divelog.logic.commands.CommandTestUtil.VALID_LOCATION_TIOMAN;
 import static seedu.divelog.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.divelog.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.divelog.logic.commands.CommandTestUtil.showDiveAtIndex;
@@ -121,7 +120,7 @@ public class EditCommandTest {
         EditDiveDescriptor descriptor = new EditDiveDescriptorBuilder().withLocation(VALID_LOCATION_BALI).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
-        assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_DIVE_DISPLAYED_INDEX);
     }
 
     /**
@@ -138,7 +137,7 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditDiveDescriptorBuilder().withLocation(VALID_LOCATION_BALI).build());
 
-        assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_DIVE_DISPLAYED_INDEX);
     }
 
     @Test
@@ -170,7 +169,7 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         // execution failed -> divelog book state not added into model
-        assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_DIVE_DISPLAYED_INDEX);
 
         // single divelog book state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
