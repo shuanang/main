@@ -39,16 +39,6 @@
           </children>
         </VBox>
       </children>
-      <VBox prefHeight="100.0" prefWidth="200.0">
-        <children>
-          <Label fx:id="pgEnding" style="-fx-font-size: 52; -fx-fill: red;" text="C">
-            <font>
-              <Font size="52.0" />
-            </font>
-          </Label>
-          <Label text="Ended Pressure Group" />
-        </children>
-      </VBox>
     </HBox>
     <Label fx:id="startTime" text="Dive Started:" />
     <Label fx:id="endTime" text="Dive Ended:" />

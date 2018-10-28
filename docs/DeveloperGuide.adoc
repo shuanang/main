@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2113-AY1819S1-W13-2/main/tree/master
 
 By: `Team CS2113-AY1819S1-W13-2`      Since: `Aug 2018`      Licence: `MIT`
 
@@ -242,6 +242,12 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
+==== Application State
+As of now certain things that are planned in the future require global data.
+For instance, the units or the `plan` command. These are stored in the `ApplicationState` singleton.
+Any other temporary information that is global and stored within the run
+should be added as a property to {repoURL}/src/main/java/seedu/divelog/commons/core/ApplicationState.java[`ApplicationState.java`]
+
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
@@ -376,6 +382,14 @@ Currently, this is still unimplemented. However, the plan would be to modify the
 In doing so it allows for the whole model to be traversed in a linear fashion. At the same time, this allows for insertion of
 new dives at the right locations efficiently through Binary Search. The sorting is achieved by time and date.
 
+
+=== Localized Units
+
+As of `v1.3`, a `set_units` command was added. This allows the user to switch between meters and feet.
+The implementation of this command involves altering the `ApplicationState`. Once the `ApplicationState`
+is updated a `UnitsChangedEvent` is posted to the `EventsCenter`. The `EventsCenter` issues a
+call to the UI. The relevant parts of the UI will be forced to re-render themselves to match
+the new units.
 
 === Logging
 

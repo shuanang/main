@@ -3,10 +3,12 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
+import static seedu.divelog.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.divelog.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import org.junit.Test;
 
+import seedu.divelog.commons.core.Messages;
 import seedu.divelog.commons.core.index.Index;
 import seedu.divelog.logic.commands.EditCommand;
 import seedu.divelog.model.Model;
@@ -14,6 +16,8 @@ import seedu.divelog.model.dive.DiveSession;
 
 public class EditCommandSystemTest extends DiveLogSystemTest {
 
+    private static final String MESSAGE_INVALID_FORMAT =
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
     @Test
     public void edit() {
         Model model = getModel();
@@ -24,8 +28,8 @@ public class EditCommandSystemTest extends DiveLogSystemTest {
          * -> edited
          */
 
-        /* Case: undo editing the last person in the list -> last person restored */
 
+        /* Case: undo editing the last person in the list -> last person restored */
 
         /* Case: redo editing the last person in the list -> last person edited again */
 
@@ -65,49 +69,26 @@ public class EditCommandSystemTest extends DiveLogSystemTest {
 
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
 
-        /* Case: invalid index (0) -> rejected */
 
+        /* Check that no index is */
+        /* Case: invalid index (0) -> rejected */
+        /*String command = "0 ds/081219 ts/ de/DATE_END te/091219 ss/SAFETY_STOP_TIME" +
+                " d/DEPTH pg/PG_AT_START pge/PG_AT_END l/LOCATION"*/
+        assertCommandFailure("edit 0 ts/1210", MESSAGE_INVALID_FORMAT);
 
         /* Case: invalid index (-1) -> rejected */
-
+        assertCommandFailure("edit -1 ts/1210", MESSAGE_INVALID_FORMAT);
 
         /* Case: invalid index (size + 1) -> rejected */
-
+        int index = model.getFilteredDiveList().size() + 1;
+        assertCommandFailure("edit " + index + " ts/1210", Messages.MESSAGE_INVALID_DIVE_DISPLAYED_INDEX);
 
         /* Case: missing index -> rejected */
-
+        assertCommandFailure("edit ts/1210", MESSAGE_INVALID_FORMAT);
 
         /* Case: missing all fields -> rejected */
+        assertCommandFailure("edit", MESSAGE_INVALID_FORMAT);
 
-
-        /* Case: invalid name -> rejected */
-
-
-        /* Case: invalid phone -> rejected */
-
-
-        /* Case: invalid email -> rejected */
-
-
-        /* Case: invalid divelog -> rejected */
-
-
-        /* Case: invalid tag -> rejected */
-
-
-        /* Case: edit a person with new values same as another person's values -> rejected */
-
-
-        /* Case: edit a person with new values same as another person's values but with different tags -> rejected */
-
-
-        /* Case: edit a person with new values same as another person's values but with different divelog -> rejected */
-
-
-        /* Case: edit a person with new values same as another person's values but with different phone -> rejected */
-
-
-        /* Case: edit a person with new values same as another person's values but with different email -> rejected */
 
     }
 

@@ -8,13 +8,13 @@ import seedu.divelog.model.Model;
 import seedu.divelog.model.dive.DiveSession;
 
 /**
- * Adds a person to the divelog book.
+ * Adds a dive to the divelog book.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the divelog book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a dive to the divelog book. "
             + "Parameters: "
             + CliSyntax.PREFIX_DATE_START + "DATE_START (DDMMYYYY Format) "
             + CliSyntax.PREFIX_TIME_START + "START_TIME (24Hr Format) "
@@ -23,7 +23,6 @@ public class AddCommand extends Command {
             + CliSyntax.PREFIX_SAFETY_STOP + "SAFETY_STOP_TIME (24Hr Format) \n\t"
             + CliSyntax.PREFIX_DEPTH + "DEPTH "
             + CliSyntax.PREFIX_PRESSURE_GROUP_START + "PRESSURE_GROUP_START "
-            + CliSyntax.PREFIX_PRESSURE_GROUP_END + "PRESSURE_GROUP_END "
             + CliSyntax.PREFIX_LOCATION + "LOCATION"
             + CliSyntax.PREFIX_TIMEZONE + "TIMEZONE\n"
             + "Example: " + COMMAND_WORD + " "
