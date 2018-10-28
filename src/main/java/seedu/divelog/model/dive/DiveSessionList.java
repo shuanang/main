@@ -58,8 +58,8 @@ public class DiveSessionList implements Iterable<DiveSession> {
         };
 
         switch(sortByCategory) {
-            default:
-                FXCollections.sort(planningInternalList, dateTimeComparator);
+        default:
+            FXCollections.sort(planningInternalList, dateTimeComparator);
         }
     }
     /**
@@ -67,7 +67,7 @@ public class DiveSessionList implements Iterable<DiveSession> {
      * TODO: read from UI instead of returning false all the time.
      * @@author Cjunx
      */
-    public boolean readPlanningMode(){
+    public boolean readPlanningMode() {
         return false;
     }
 
@@ -76,7 +76,7 @@ public class DiveSessionList implements Iterable<DiveSession> {
      * TODO: read from UI, when there is a state change
      * @@author Cjunx
      */
-    public void copyCurrentToPlan(){
+    public void copyCurrentToPlan() {
         planningInternalList.clear();
         copy(planningInternalList, internalList);
     }
@@ -120,7 +120,7 @@ public class DiveSessionList implements Iterable<DiveSession> {
      * The person must exist in the list.
      */
     public void remove(DiveSession toRemove) throws DiveNotFoundException {
-        if (readPlanningMode()){
+        if (readPlanningMode()) {
             requireNonNull(toRemove);
             if (!internalList.remove(toRemove)) {
                 throw new DiveNotFoundException();
@@ -139,7 +139,7 @@ public class DiveSessionList implements Iterable<DiveSession> {
      * @param replacement
      */
     public void setDives(DiveSessionList replacement) {
-        if (readPlanningMode()){
+        if (readPlanningMode()) {
             requireNonNull(replacement);
             sortDiveSession(1);
             internalList.setAll(replacement.internalList);
@@ -156,7 +156,7 @@ public class DiveSessionList implements Iterable<DiveSession> {
      *
      */
     public void setDives(List<DiveSession> diveSessions) {
-        if (readPlanningMode()){
+        if (readPlanningMode()) {
             CollectionUtil.requireAllNonNull(diveSessions);
             internalList.setAll(diveSessions);
         } else {
@@ -170,7 +170,7 @@ public class DiveSessionList implements Iterable<DiveSession> {
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<DiveSession> asUnmodifiableObservableList() {
-        if (readPlanningMode()){
+        if (readPlanningMode()) {
             return FXCollections.unmodifiableObservableList(internalList);
         } else {
             return FXCollections.unmodifiableObservableList(planningInternalList);
@@ -180,7 +180,7 @@ public class DiveSessionList implements Iterable<DiveSession> {
 
     @Override
     public boolean equals(Object other) {
-        if (readPlanningMode()){
+        if (readPlanningMode()) {
             if (!(other instanceof DiveSessionList)) {
                 return false;
             }
