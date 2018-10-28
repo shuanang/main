@@ -1,6 +1,5 @@
 package seedu.divelog.logic.parser;
 
-import seedu.divelog.commons.core.ApplicationState;
 import seedu.divelog.commons.core.Messages;
 import seedu.divelog.commons.enums.Units;
 import seedu.divelog.logic.commands.SetUnitsCommand;
@@ -19,7 +18,6 @@ public class SetUnitsCommandParser implements Parser<SetUnitsCommand> {
     @Override
     public SetUnitsCommand parse(String userInput) throws ParseException {
         String trimmedArgs = userInput.trim();
-        ApplicationState applicationState = ApplicationState.getInstance();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
                     String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, SetUnitsCommand.MESSAGE_USAGE));
