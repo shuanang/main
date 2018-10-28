@@ -32,7 +32,6 @@ public class EditCommandParser implements Parser<EditCommand> {
                         CliSyntax.PREFIX_SAFETY_STOP,
                         CliSyntax.PREFIX_DEPTH,
                         CliSyntax.PREFIX_PRESSURE_GROUP_START,
-                        CliSyntax.PREFIX_PRESSURE_GROUP_END,
                         CliSyntax.PREFIX_LOCATION,
                         CliSyntax.PREFIX_TIMEZONE);
 
@@ -67,10 +66,6 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_START).isPresent()) {
             editPersonDescriptor.setPressureGroupAtBeginning(
                     ParserUtil.parsePressureGroup(argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_START).get()));
-        }
-        if (argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_END).isPresent()) {
-            editPersonDescriptor.setPressureGroupAtEnd(
-                    ParserUtil.parsePressureGroup(argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_END).get()));
         }
         if (argMultimap.getValue(CliSyntax.PREFIX_LOCATION).isPresent()) {
             editPersonDescriptor.setLocation(

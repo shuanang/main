@@ -19,11 +19,11 @@ public class DiveSessionBuilder {
     public static final String DEFAULT_END = "0800";
     public static final String DEFAULT_SAFETY_STOP = "0745";
     public static final String DEFAULT_PG_START = "A";
-    public static final String DEFAULT_PG_END = "F";
+    public static final String DEFAULT_PG_END = "M";
     public static final String DEFAULT_LOCATION = "Bali";
     public static final String DEFAULT_DATE_START = "01012019";
     public static final String DEFAULT_DATE_END = "01012019";
-    public static final String DEFAULT_TIMEZONE = "-8";
+    public static final String DEFAULT_TIMEZONE = " +8";
     public static final float DEFAULT_DEPTH = 5;
 
     private Time start;

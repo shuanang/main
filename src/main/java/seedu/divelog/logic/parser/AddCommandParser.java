@@ -54,7 +54,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         ParserUtil.checkTimeformat(argMultimap);
         ParserUtil.checkDateformat(argMultimap);
-        ParserUtil.checkTimeZoneformat(argMultimap);
+        //ParserUtil.checkTimeZoneformat(argMultimap);
 
         OurDate dateStart = new OurDate(argMultimap.getValue(CliSyntax.PREFIX_DATE_START).get());
         Time startTime = new Time(argMultimap.getValue(CliSyntax.PREFIX_TIME_START).get());

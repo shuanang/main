@@ -84,10 +84,10 @@ public class EditCommandSystemTest extends DiveLogSystemTest {
         assertCommandFailure("edit " + index + " ts/1210", Messages.MESSAGE_INVALID_DIVE_DISPLAYED_INDEX);
 
         /* Case: missing index -> rejected */
-        assertCommandFailure("edit ts/1210", Messages.MESSAGE_INVALID_DIVE_DISPLAYED_INDEX);
+        assertCommandFailure("edit ts/1210", MESSAGE_INVALID_FORMAT);
 
         /* Case: missing all fields -> rejected */
-        assertCommandFailure("edit", Messages.MESSAGE_INVALID_DIVE_DISPLAYED_INDEX);
+        assertCommandFailure("edit", MESSAGE_INVALID_FORMAT);
 
 
     }
