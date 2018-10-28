@@ -2,7 +2,6 @@ package seedu.divelog.model.dive;
 
 import static java.util.Collections.copy;
 import static java.util.Objects.requireNonNull;
-import static javafx.collections.FXCollections.emptyObservableList;
 
 import java.util.Comparator;
 import java.util.Date;
