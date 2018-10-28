@@ -293,7 +293,7 @@ public abstract class DiveLogSystemTest {
      */
     private void assertCardDisplays(DiveSession dive, DiveSessionCardHandle diveCardHandle) {
         assertEquals(diveCardHandle.getName(), DiveSessionCard.DIVE_PREFIX+dive.getLocation().getLocationName());
-        assertEquals(diveCardHandle.getDepth(), dive.getDepthProfile().getDepth()+DiveSessionCard.DEPTH_UNITS);
+        assertEquals(diveCardHandle.getDepth(), dive.getDepthProfile().getFormattedString());
     }
 
 
