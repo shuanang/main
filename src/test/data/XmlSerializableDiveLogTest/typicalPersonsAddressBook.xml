@@ -10,7 +10,7 @@
         <pressureGroupAtEnd>M</pressureGroupAtEnd>
         <location>Bali</location>
         <depthProfile>5.0</depthProfile>
-        <timezone>-8</timezone>
+        <timezone>+8</timezone>
     </dives>
     <dives>
         <dateStart>01012019</dateStart>
@@ -22,6 +22,6 @@
         <pressureGroupAtEnd>G</pressureGroupAtEnd>
         <location>Tioman</location>
         <depthProfile>5.0</depthProfile>
-        <timezone>-8</timezone>
+        <timezone>+8</timezone>
     </dives>
 </divelog>

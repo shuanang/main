@@ -23,7 +23,7 @@ public class DiveSessionBuilder {
     public static final String DEFAULT_LOCATION = "Bali";
     public static final String DEFAULT_DATE_START = "01012019";
     public static final String DEFAULT_DATE_END = "01012019";
-    public static final String DEFAULT_TIMEZONE = " +8";
+    public static final String DEFAULT_TIMEZONE = "+8";
     public static final float DEFAULT_DEPTH = 5;
 
     private Time start;
