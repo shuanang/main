@@ -2,8 +2,8 @@ package seedu.divelog.model.dive;
 //@@author arjo129
 
 import seedu.divelog.commons.core.ApplicationState;
-import seedu.divelog.commons.util.UnitsUtil;
 import seedu.divelog.commons.enums.Units;
+import seedu.divelog.commons.util.UnitsUtil;
 
 /**
  * Keeps track of the Depth of a dive.
@@ -55,12 +55,12 @@ public class DepthProfile {
         ApplicationState applicationState = ApplicationState.getInstance();
         Units currentUnit = applicationState.getUnit();
         switch(currentUnit) {
-            case FEET:
-                return String.format("%.1fft",UnitsUtil.metersToFeet(this.depth));
-            case METERS:
-                return String.format("%.1fm",this.depth);
+        case FEET:
+            return String.format("%.1fft", UnitsUtil.metersToFeet(this.depth));
+        case METERS:
+        default:
+            return String.format("%.1fm", this.depth);
         }
-        return "";
     }
 
     @Override

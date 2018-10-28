@@ -25,13 +25,13 @@ public class SetUnitsCommandParser implements Parser<SetUnitsCommand> {
                     String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, SetUnitsCommand.MESSAGE_USAGE));
         }
         switch (trimmedArgs) {
-            case "meters":
-                return new SetUnitsCommand(Units.METERS);
-            case "feet":
-                return new SetUnitsCommand(Units.FEET);
-            default:
-                throw new ParseException(
-                        String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, SetUnitsCommand.MESSAGE_USAGE));
+        case "meters":
+            return new SetUnitsCommand(Units.METERS);
+        case "feet":
+            return new SetUnitsCommand(Units.FEET);
+        default:
+            throw new ParseException(
+                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, SetUnitsCommand.MESSAGE_USAGE));
         }
     }
 }

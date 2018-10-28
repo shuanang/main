@@ -25,7 +25,7 @@ public class ApplicationState {
      * @param unit
      */
     public void setUnits(Units unit) {
-        if(unit != this.commonUnits) {
+        if (unit != this.commonUnits) {
             EventsCenter ev = EventsCenter.getInstance();
             ev.post(new UnitsChangedEvent(unit));
             commonUnits = unit;

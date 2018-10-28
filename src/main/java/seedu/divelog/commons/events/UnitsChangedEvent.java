@@ -14,6 +14,6 @@ public class UnitsChangedEvent extends BaseEvent {
 
     @Override
     public String toString() {
-        return "UnitsChangedEvent fired. Units set to: "+unit;
+        return "UnitsChangedEvent fired. Units set to: " + unit;
     }
 }
