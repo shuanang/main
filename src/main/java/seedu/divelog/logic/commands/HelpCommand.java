@@ -19,6 +19,9 @@ public class HelpCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
+        if (model.getPlanningMode()) {
+            model.plannerCountPlus();
+        }
         EventsCenter.getInstance().post(new ShowHelpRequestEvent());
         return new CommandResult(SHOWING_HELP_MESSAGE);
     }

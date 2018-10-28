@@ -77,4 +77,24 @@ public interface Model {
      * Saves the current divelog book state for undo/redo.
      */
     void commitDiveLog();
+    /**
+     * Returns true if model is in planning mode
+     */
+    boolean getPlanningMode();
+    /**
+     * Toggles Planning Mode
+     */
+    void setPlanningMode();
+    /**
+     * Adds one to planner count
+     */
+    void plannerCountPlus();
+    /**
+     * Removes one from planner count
+     */
+    void plannerCountMinus();
+    /**
+     * Returns Planner Count to be undone
+     */
+    int getPlannerCount();
 }

@@ -23,6 +23,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedDiveLog versionedDiveLog;
     private final FilteredList<DiveSession> filteredDives;
+    public boolean planningMode = false;
+    public int plannerCount = 0;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -39,6 +41,42 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager() {
         this(new DiveLog(), new UserPrefs());
+    }
+
+    /**
+     * @author Cjunx
+     */
+    @Override
+    public void setPlanningMode(){
+        this.planningMode=!this.planningMode;
+    }
+    /**
+     * @author Cjunx
+     */
+    @Override
+    public boolean getPlanningMode(){
+        return this.planningMode;
+    }
+    /**
+     * @author Cjunx
+     */
+    @Override
+    public void plannerCountPlus() {
+        this.plannerCount++;
+    }
+    /**
+     * @author Cjunx
+     */
+    @Override
+    public int getPlannerCount() {
+        return this.plannerCount;
+    }
+    /**
+     * @author Cjunx
+     */
+    @Override
+    public void plannerCountMinus(){
+        this.plannerCount--;
     }
 
     @Override

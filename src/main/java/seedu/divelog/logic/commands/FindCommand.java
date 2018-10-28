@@ -27,6 +27,9 @@ public class FindCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredDiveList(predicate);
+        if (model.getPlanningMode()) {
+            model.plannerCountPlus();
+        }
         return new CommandResult(
                 String.format(Messages.MESSAGE_DIVE_LISTED_OVERVIEW, model.getFilteredDiveList().size()));
     }

@@ -18,7 +18,6 @@ import seedu.divelog.model.dive.exceptions.DiveNotFoundException;
  */
 public class DiveSessionList implements Iterable<DiveSession> {
     private final ObservableList<DiveSession> internalList = FXCollections.observableArrayList();
-    private final ObservableList<DiveSession> planningInternalList = FXCollections.observableArrayList();
     /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
@@ -59,7 +58,7 @@ public class DiveSessionList implements Iterable<DiveSession> {
 
         switch(sortByCategory) {
         default:
-            FXCollections.sort(planningInternalList, dateTimeComparator);
+            FXCollections.sort(internalList, dateTimeComparator);
         }
     }
     /**
@@ -71,15 +70,7 @@ public class DiveSessionList implements Iterable<DiveSession> {
         return false;
     }
 
-    /**
-     * Copies the whole data to "planning data"
-     * TODO: read from UI, when there is a state change
-     * @@author Cjunx
-     */
-    public void copyCurrentToPlan() {
-        planningInternalList.clear();
-        copy(planningInternalList, internalList);
-    }
+
 
     /**
      * Adds a Dive Session to the list.
@@ -87,17 +78,9 @@ public class DiveSessionList implements Iterable<DiveSession> {
      * If planning mode, adds to planningInternalList;
      */
     public void add(DiveSession toAdd) {
-        //readPlanningMode();
-        if (readPlanningMode()) {
-            requireNonNull(toAdd);
-            internalList.add(toAdd);
-            sortDiveSession(1);
-        } else {
-            requireNonNull(toAdd);
-            planningInternalList.add(toAdd);
-            sortPlanningDiveSession(1);
-        }
-
+        requireNonNull(toAdd);
+        internalList.add(toAdd);
+        sortDiveSession(1);
     }
 
     /**
@@ -120,18 +103,10 @@ public class DiveSessionList implements Iterable<DiveSession> {
      * The person must exist in the list.
      */
     public void remove(DiveSession toRemove) throws DiveNotFoundException {
-        if (readPlanningMode()) {
-            requireNonNull(toRemove);
-            if (!internalList.remove(toRemove)) {
-                throw new DiveNotFoundException();
-            }
-        } else {
-            requireNonNull(toRemove);
-            if (!planningInternalList.remove(toRemove)) {
-                throw new DiveNotFoundException();
-            }
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new DiveNotFoundException();
         }
-
     }
 
     /**
@@ -139,16 +114,9 @@ public class DiveSessionList implements Iterable<DiveSession> {
      * @param replacement
      */
     public void setDives(DiveSessionList replacement) {
-        if (readPlanningMode()) {
-            requireNonNull(replacement);
-            sortDiveSession(1);
-            internalList.setAll(replacement.internalList);
-        } else {
-            requireNonNull(replacement);
-            sortDiveSession(1);
-            planningInternalList.setAll(replacement.planningInternalList);
-        }
-
+        requireNonNull(replacement);
+        sortDiveSession(1);
+        internalList.setAll(replacement.internalList);
     }
 
     /**
@@ -156,70 +124,37 @@ public class DiveSessionList implements Iterable<DiveSession> {
      *
      */
     public void setDives(List<DiveSession> diveSessions) {
-        if (readPlanningMode()) {
-            CollectionUtil.requireAllNonNull(diveSessions);
-            internalList.setAll(diveSessions);
-        } else {
-            CollectionUtil.requireAllNonNull(diveSessions);
-            planningInternalList.setAll(diveSessions);
-        }
-
+        CollectionUtil.requireAllNonNull(diveSessions);
+        internalList.setAll(diveSessions);
     }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<DiveSession> asUnmodifiableObservableList() {
-        if (readPlanningMode()) {
-            return FXCollections.unmodifiableObservableList(internalList);
-        } else {
-            return FXCollections.unmodifiableObservableList(planningInternalList);
-        }
-
+        return FXCollections.unmodifiableObservableList(internalList);
     }
 
     @Override
     public boolean equals(Object other) {
-        if (readPlanningMode()) {
-            if (!(other instanceof DiveSessionList)) {
-                return false;
-            }
-            DiveSessionList otherDiveList = (DiveSessionList) other;
-            if (otherDiveList.internalList.size() != internalList.size()) {
-                return false;
-            }
-            for (int i = 0; i < internalList.size(); i++) {
-                if (!internalList.get(i).equals(otherDiveList.internalList.get(i))) {
-                    return false;
-                }
-            }
-            return true;
-        } else {
-            if (!(other instanceof DiveSessionList)) {
-                return false;
-            }
-            DiveSessionList otherDiveList = (DiveSessionList) other;
-            if (otherDiveList.planningInternalList.size() != planningInternalList.size()) {
-                return false;
-            }
-            for (int i = 0; i < planningInternalList.size(); i++) {
-                if (!planningInternalList.get(i).equals(otherDiveList.planningInternalList.get(i))) {
-                    return false;
-                }
-            }
-            return true;
+        if (!(other instanceof DiveSessionList)) {
+            return false;
         }
-
+        DiveSessionList otherDiveList = (DiveSessionList) other;
+        if (otherDiveList.internalList.size() != internalList.size()) {
+            return false;
+        }
+        for (int i = 0; i < internalList.size(); i++) {
+            if (!internalList.get(i).equals(otherDiveList.internalList.get(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
     public int hashCode() {
-        if (readPlanningMode()) {
-            return internalList.hashCode();
-        } else {
-            return planningInternalList.hashCode();
-        }
-
+        return internalList.hashCode();
     }
 
     @Override

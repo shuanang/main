@@ -11,6 +11,7 @@ public class VersionedDiveLog extends DiveLog {
     private final List<ReadOnlyDiveLog> diveLogStateList;
     private int currentStatePointer;
 
+
     public VersionedDiveLog(ReadOnlyDiveLog initialState) {
         super(initialState);
 

@@ -84,6 +84,9 @@ public class EditCommand extends Command {
         }
         model.updateFilteredDiveList(Model.PREDICATE_SHOW_ALL_PERSONS);
         model.commitDiveLog();
+        if (model.getPlanningMode()) {
+            model.plannerCountPlus();
+        }
         return new CommandResult(String.format(MESSAGE_EDIT_DIVE_SUCCESS, editedDive));
     }
 

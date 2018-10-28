@@ -22,7 +22,9 @@ public class UndoCommand extends Command {
         if (!model.canUndoDiveLog()) {
             throw new CommandException(MESSAGE_FAILURE);
         }
-
+        if (model.getPlanningMode()) {
+            model.plannerCountPlus();
+        }
         model.undoDiveLog();
         model.updateFilteredDiveList(Model.PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(MESSAGE_SUCCESS);

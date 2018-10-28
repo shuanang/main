@@ -21,12 +21,15 @@ public class HistoryCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(history);
         List<String> previousCommands = history.getHistory();
-
+        if (model.getPlanningMode()) {
+            model.plannerCountPlus();
+        }
         if (previousCommands.isEmpty()) {
             return new CommandResult(MESSAGE_NO_HISTORY);
         }
 
         Collections.reverse(previousCommands);
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, String.join("\n", previousCommands)));
     }
 

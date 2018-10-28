@@ -52,6 +52,9 @@ public class AddCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
+        if (model.getPlanningMode()) {
+            model.plannerCountPlus();
+        }
         requireNonNull(model);
         model.addDiveSession(toAdd);
         model.commitDiveLog();

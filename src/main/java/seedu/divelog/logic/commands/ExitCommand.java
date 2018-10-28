@@ -17,6 +17,9 @@ public class ExitCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         EventsCenter.getInstance().post(new ExitAppRequestEvent());
+        if (model.getPlanningMode()) {
+            model.plannerCountPlus();
+        }
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }
 
