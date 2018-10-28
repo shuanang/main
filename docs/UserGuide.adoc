@@ -115,8 +115,11 @@ Examples:
 === Setting display units `set_units`
 Switches between meters and feet. (App defaults to meters) +
 Format: `set_units meters|feet` +
-Example usage: +
-`set feet`
+****
+* As of v1.3 it only updates the DISPLAY units, not the actual entered units.
+* The settings are not saved upon application restart.
+****
+Example usage: `set feet`
 
 === Locating dives by location: `find`
 
