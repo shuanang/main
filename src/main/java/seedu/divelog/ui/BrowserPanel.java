@@ -54,8 +54,6 @@ public class BrowserPanel extends UiPart<Region> {
     private Label safetyStop;
     @FXML
     private Label dateTime;
-    @FXML
-    private Label pgEnding;
 
     public BrowserPanel() {
         super(FXML);
@@ -82,6 +80,7 @@ public class BrowserPanel extends UiPart<Region> {
         endTime.setText(String.format(FORMAT_END_TIME, dive.getEnd().getTimeString()));
         safetyStop.setText(String.format(FORMAT_SAFETY_STOP, dive.getSafetyStop().getTimeString()));
         dateTime.setText(String.format(FORMAT_TIME_NOW, dive.getDateStart().getOurDateString()));
+        checkPressureGrp(dive.getPressureGroupAtBeginning().getPressureGroup());
     }
 
     public void freeResources(){
