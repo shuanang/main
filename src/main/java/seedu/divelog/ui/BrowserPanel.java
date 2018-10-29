@@ -25,7 +25,7 @@ public class BrowserPanel extends UiPart<Region> {
 
     public static final String FORMAT_DIVE_LOCATION = "Dive @ %s";
 
-    public static final String FORMAT_DIVE_DEPTH = "You dove to %.1fm";
+    public static final String FORMAT_DIVE_DEPTH = "You dove to %s";
 
     public static final String FORMAT_START_TIME = "Started at: %s";
 
@@ -71,8 +71,9 @@ public class BrowserPanel extends UiPart<Region> {
      * @param dive
      */
     private void loadDivePage(DiveSession dive) {
+        logger.info("REDRAWING");
         diveLocation.setText(String.format(FORMAT_DIVE_LOCATION, dive.getLocation().getLocationName()));
-        diveDepth.setText(String.format(FORMAT_DIVE_DEPTH, dive.getDepthProfile().getDepth()));
+        diveDepth.setText(String.format(FORMAT_DIVE_DEPTH, dive.getDepthProfile().getFormattedString()));
         pgStart.setText(dive.getPressureGroupAtBeginning().getPressureGroup());
         pgEnd.setText(dive.getPressureGroupAtEnd().getPressureGroup());
         //pgEnd.setTextFill(Color.web("#0076a3"));
@@ -100,6 +101,16 @@ public class BrowserPanel extends UiPart<Region> {
         loadDivePage(event.getNewSelection());
     }
     
+    @Subscribe
+    private void handleUnitsChangedEvent(UnitsChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        if (currentDive != null) {
+            Platform.runLater(() -> {
+                diveDepth.setText(String.format(FORMAT_DIVE_DEPTH, currentDive.getDepthProfile().getFormattedString()));
+            });
+        }
+    }
+
     @Subscribe
     private void handleUnitsChangedEvent(UnitsChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));

@@ -15,6 +15,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.divelog.commons.core.LogsCenter;
+import seedu.divelog.commons.events.UnitsChangedEvent;
 import seedu.divelog.commons.events.ui.DivePanelSelectionChangedEvent;
 import seedu.divelog.commons.events.ui.JumpToListRequestEvent;
 import seedu.divelog.model.dive.DiveSession;
@@ -74,6 +75,13 @@ public class DiveListPanel extends UiPart<Region> {
         scrollTo(event.targetIndex);
     }
 
+    @Subscribe
+    private void handleUnitsChangedEvent(UnitsChangedEvent event) {
+        Platform.runLater(() -> {
+            diveListView.refresh();
+        });
+    }
+
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code DiveSessionCard}.
      */
@@ -90,6 +98,8 @@ public class DiveListPanel extends UiPart<Region> {
             }
         }
     }
+
+
     /**
      * Retrieves the current date time as a string
      * @return retrieves date as string

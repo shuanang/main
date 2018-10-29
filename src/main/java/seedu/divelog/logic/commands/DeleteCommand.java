@@ -37,7 +37,7 @@ public class DeleteCommand extends Command {
         List<DiveSession> lastShownList = model.getFilteredDiveList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_DIVE_DISPLAYED_INDEX);
         }
 
         DiveSession diveToDelete = lastShownList.get(targetIndex.getZeroBased());

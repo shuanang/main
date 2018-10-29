@@ -9,16 +9,18 @@ import seedu.divelog.commons.events.BaseEvent;
  */
 public abstract class ComponentManager {
     protected EventsCenter eventsCenter;
+    protected ApplicationState applicationState;
 
     /**
      * Uses default {@link EventsCenter}
      */
     public ComponentManager() {
-        this(EventsCenter.getInstance());
+        this(EventsCenter.getInstance(), ApplicationState.getInstance());
     }
 
-    public ComponentManager(EventsCenter eventsCenter) {
+    public ComponentManager(EventsCenter eventsCenter, ApplicationState applicationState) {
         this.eventsCenter = eventsCenter;
+        this.applicationState = applicationState;
         eventsCenter.registerHandler(this);
     }
 
