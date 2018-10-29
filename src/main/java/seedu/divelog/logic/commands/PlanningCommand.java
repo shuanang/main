@@ -5,10 +5,9 @@ import seedu.divelog.logic.CommandHistory;
 import seedu.divelog.logic.commands.exceptions.CommandException;
 import seedu.divelog.model.Model;
 
-
+//author @Cjunx
 /**
  * Enters or exit the Planning Mode
- * @@author Cjunx
  */
 public class PlanningCommand extends Command {
 

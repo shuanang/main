@@ -1,8 +1,8 @@
 package seedu.divelog.model.dive;
 
+//@@author Cjunx
 /**
  * This is the time class:
- * @author Cjunx
  */
 public class Time {
     private final String value;

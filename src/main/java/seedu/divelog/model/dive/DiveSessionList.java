@@ -25,10 +25,10 @@ public class DiveSessionList implements Iterable<DiveSession> {
         return internalList.stream().anyMatch(toCheck::equals);
     }
 
+    //@@author Cjunx
     /**
      * Sorts the InternalList based on Time
      * Can be scaled to sort based on other things
-     * @@author Cjunx
      */
     private void sortDiveSession(int sortByCategory) {
         Comparator<DiveSession> dateTimeComparator = (one, two) -> {
@@ -42,34 +42,6 @@ public class DiveSessionList implements Iterable<DiveSession> {
             FXCollections.sort(internalList, dateTimeComparator);
         }
     }
-
-    /**
-     * Sorts the planningInternalList based on Time
-     * Can be scaled to sort based on other things
-     * @@author Cjunx
-     */
-    private void sortPlanningDiveSession(int sortByCategory) {
-        Comparator<DiveSession> dateTimeComparator = (one, two) -> {
-            Date dateTime1 = one.getDateTime();
-            Date datetime2 = two.getDateTime();
-            return dateTime1.compareTo(datetime2);
-        };
-
-        switch(sortByCategory) {
-        default:
-            FXCollections.sort(internalList, dateTimeComparator);
-        }
-    }
-    /**
-     * Returns True IF is in planning mode
-     * TODO: read from UI instead of returning false all the time.
-     * @@author Cjunx
-     */
-    public boolean readPlanningMode() {
-        return false;
-    }
-
-
 
     /**
      * Adds a Dive Session to the list.

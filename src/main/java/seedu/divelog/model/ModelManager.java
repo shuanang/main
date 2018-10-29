@@ -44,41 +44,32 @@ public class ModelManager extends ComponentManager implements Model {
         this(new DiveLog(), new UserPrefs());
     }
 
-    /**
-     * @author Cjunx
-     */
+    //@@author Cjunx
     @Override
     public void setPlanningMode() {
         this.planningMode = !this.planningMode;
     }
-    /**
-     * @author Cjunx
-     */
+
     @Override
     public boolean getPlanningMode() {
         return this.planningMode;
     }
-    /**
-     * @author Cjunx
-     */
+
     @Override
     public void plannerCountPlus() {
         this.plannerCount++;
     }
-    /**
-     * @author Cjunx
-     */
+
     @Override
     public int getPlannerCount() {
         return this.plannerCount;
     }
-    /**
-     * @author Cjunx
-     */
+
     @Override
     public void plannerCountMinus() {
         this.plannerCount--;
     }
+    //@@author
 
     @Override
     public void resetData(ReadOnlyDiveLog newData) {
