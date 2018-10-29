@@ -136,6 +136,31 @@ public class AddCommandTest {
         public void commitDiveLog() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean getPlanningMode() {
+            throw new AssertionError("Planning mode error.");
+        }
+
+        @Override
+        public void setPlanningMode() {
+            throw new AssertionError("Planning mode error.");
+        }
+
+        @Override
+        public void plannerCountPlus() {
+            throw new AssertionError("Planning mode error.");
+        }
+
+        @Override
+        public void plannerCountMinus() {
+            throw new AssertionError("Planning mode error.");
+        }
+
+        @Override
+        public int getPlannerCount() {
+            throw new AssertionError("Planning mode error.");
+        }
     }
 
     /**

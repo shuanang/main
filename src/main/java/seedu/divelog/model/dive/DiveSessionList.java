@@ -1,6 +1,5 @@
 package seedu.divelog.model.dive;
 
-import static java.util.Collections.copy;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Comparator;
