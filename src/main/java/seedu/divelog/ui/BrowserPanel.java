@@ -1,6 +1,5 @@
 package seedu.divelog.ui;
 
-//import java.awt.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -8,12 +7,14 @@ import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 
 import seedu.divelog.commons.core.LogsCenter;
+import seedu.divelog.commons.events.UnitsChangedEvent;
 import seedu.divelog.commons.events.ui.DivePanelSelectionChangedEvent;
 import seedu.divelog.model.dive.DiveSession;
 
@@ -24,7 +25,7 @@ public class BrowserPanel extends UiPart<Region> {
 
     public static final String FORMAT_DIVE_LOCATION = "Dive @ %s";
 
-    public static final String FORMAT_DIVE_DEPTH = "You dove to %.1fm";
+    public static final String FORMAT_DIVE_DEPTH = "You dove to %s";
 
     public static final String FORMAT_START_TIME = "Started at: %s";
 
@@ -57,6 +58,8 @@ public class BrowserPanel extends UiPart<Region> {
     @FXML
     private Label pgEnding;
 
+    private DiveSession currentDive;
+
     public BrowserPanel() {
         super(FXML);
         loadMyTimeNow();
@@ -70,8 +73,9 @@ public class BrowserPanel extends UiPart<Region> {
      * @param dive
      */
     private void loadDivePage(DiveSession dive) {
+        logger.info("REDRAWING");
         diveLocation.setText(String.format(FORMAT_DIVE_LOCATION, dive.getLocation().getLocationName()));
-        diveDepth.setText(String.format(FORMAT_DIVE_DEPTH, dive.getDepthProfile().getDepth()));
+        diveDepth.setText(String.format(FORMAT_DIVE_DEPTH, dive.getDepthProfile().getFormattedString()));
         pgStart.setText(dive.getPressureGroupAtBeginning().getPressureGroup());
         //pgEnding.setTextFill(Color.web("#ff0000"));
         //pgEnding.setTextFill(Color.GREEN);
@@ -85,6 +89,7 @@ public class BrowserPanel extends UiPart<Region> {
         endTime.setText(String.format(FORMAT_END_TIME, dive.getEnd().getTimeString()));
         safetyStop.setText(String.format(FORMAT_SAFETY_STOP, dive.getSafetyStop().getTimeString()));
         dateTime.setText(String.format(FORMAT_TIME_NOW, dive.getDateStart().getOurDateString()));
+        currentDive = dive;
     }
 
     public void freeResources(){
@@ -98,6 +103,16 @@ public class BrowserPanel extends UiPart<Region> {
     private void handlePersonPanelSelectionChangedEvent(DivePanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadDivePage(event.getNewSelection());
+    }
+
+    @Subscribe
+    private void handleUnitsChangedEvent(UnitsChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        if (currentDive != null) {
+            Platform.runLater(() -> {
+                diveDepth.setText(String.format(FORMAT_DIVE_DEPTH, currentDive.getDepthProfile().getFormattedString()));
+            });
+        }
     }
 
     /**
