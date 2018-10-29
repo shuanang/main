@@ -139,28 +139,27 @@ public class AddCommandTest {
 
         @Override
         public boolean getPlanningMode() {
-            throw new AssertionError("Planning mode error.");
+            return false;
         }
 
         @Override
         public void setPlanningMode() {
-            throw new AssertionError("Planning mode error.");
         }
 
         @Override
         public void plannerCountPlus() {
-            throw new AssertionError("Planning mode error.");
         }
 
         @Override
         public void plannerCountMinus() {
-            throw new AssertionError("Planning mode error.");
         }
 
         @Override
         public int getPlannerCount() {
-            throw new AssertionError("Planning mode error.");
+            return 0;
         }
+
+
     }
 
     /**
