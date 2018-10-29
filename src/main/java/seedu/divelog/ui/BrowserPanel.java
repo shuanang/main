@@ -111,16 +111,6 @@ public class BrowserPanel extends UiPart<Region> {
         }
     }
 
-    @Subscribe
-    private void handleUnitsChangedEvent(UnitsChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        if (currentDive != null) {
-            Platform.runLater(() -> {
-                diveDepth.setText(String.format(FORMAT_DIVE_DEPTH, currentDive.getDepthProfile().getFormattedString()));
-            });
-        }
-    }
-
     /**
      * Retrieves the current date time as a string
      * @return retrieves date as string
