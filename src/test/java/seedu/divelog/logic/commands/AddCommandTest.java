@@ -144,17 +144,14 @@ public class AddCommandTest {
 
         @Override
         public void setPlanningMode() {
-            return;
         }
 
         @Override
         public void plannerCountPlus() {
-            return;
         }
 
         @Override
         public void plannerCountMinus() {
-            return;
         }
 
         @Override
