@@ -49,7 +49,7 @@ public class ModelManager extends ComponentManager implements Model {
      */
     @Override
     public void setPlanningMode() {
-        this.planningMode =! this.planningMode;
+        this.planningMode = !this.planningMode;
     }
     /**
      * @author Cjunx

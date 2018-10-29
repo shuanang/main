@@ -1,6 +1,5 @@
 package seedu.divelog.logic.commands;
 
-
 import seedu.divelog.logic.CommandHistory;
 
 import seedu.divelog.logic.commands.exceptions.CommandException;
