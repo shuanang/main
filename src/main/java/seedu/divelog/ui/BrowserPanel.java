@@ -100,7 +100,6 @@ public class BrowserPanel extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadDivePage(event.getNewSelection());
     }
-    
     @Subscribe
     private void handleUnitsChangedEvent(UnitsChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
