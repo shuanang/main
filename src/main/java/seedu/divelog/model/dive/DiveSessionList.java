@@ -40,6 +40,7 @@ public class DiveSessionList implements Iterable<DiveSession> {
         switch(sortByCategory) {
         default:
             FXCollections.sort(internalList, dateTimeComparator);
+            break;
         }
     }
 
