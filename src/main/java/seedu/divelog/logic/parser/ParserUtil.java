@@ -69,7 +69,7 @@ public class ParserUtil {
      */
     public static void checkTimeZoneformat(ArgumentMultimap argMultimap) throws ParseException {
         if (argMultimap.getValue(CliSyntax.PREFIX_TIMEZONE).get().length() != 2
-                && argMultimap.getValue(CliSyntax.PREFIX_TIMEZONE).get().length() != 3) {
+                || argMultimap.getValue(CliSyntax.PREFIX_TIMEZONE).get().length() != 3) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_TIMEZONE_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         if (!argMultimap.getValue(CliSyntax.PREFIX_TIMEZONE).get().startsWith("+")

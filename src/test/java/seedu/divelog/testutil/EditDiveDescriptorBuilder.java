@@ -38,7 +38,7 @@ public class EditDiveDescriptorBuilder {
         descriptor.setLocation(dive.getLocation());
         descriptor.setDepthProfile(dive.getDepthProfile());
         descriptor.setPressureGroupAtBeginning(dive.getPressureGroupAtBeginning());
-        descriptor.setPressureGroupAtEnd(dive.getPressureGroupAtEnd());
+        //descriptor.setPressureGroupAtEnd(dive.getPressureGroupAtEnd());
     }
 
     /**

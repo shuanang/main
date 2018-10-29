@@ -38,8 +38,8 @@ public class EditCommand extends Command {
             + "[" + CliSyntax.PREFIX_TIME_END + "TIME_END] "
             + "[" + CliSyntax.PREFIX_SAFETY_STOP + "SAFETY_STOP_TIME] "
             + "[" + CliSyntax.PREFIX_DEPTH + "DEPTH] "
-            + "[" + CliSyntax.PREFIX_PRESSURE_GROUP_START + "PG_AT_START]"
-            + "[" + CliSyntax.PREFIX_PRESSURE_GROUP_END + "PG_AT_END]"
+            + "[" + CliSyntax.PREFIX_PRESSURE_GROUP_START + "PG_AT_START] "
+            + "[" + CliSyntax.PREFIX_PRESSURE_GROUP_END + "PG_AT_END] "
             + "[" + CliSyntax.PREFIX_LOCATION + "LOCATION]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + CliSyntax.PREFIX_PRESSURE_GROUP_END + "F "
@@ -70,7 +70,7 @@ public class EditCommand extends Command {
         List<DiveSession> lastShownList = model.getFilteredDiveList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_DIVE_DISPLAYED_INDEX);
         }
 
         DiveSession diveToEdit = lastShownList.get(index.getZeroBased());

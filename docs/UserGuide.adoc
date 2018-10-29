@@ -12,19 +12,25 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2113-AY1819S1-W13-2/main
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
-Awesomest Dive Log is a dive log for tracking dives.
-It provides a simple one stop way for divers to input details of their dive and keep track of their nitrogen levels.
-This allows divers to plan their next trip safely.
+Divelog is a dive log for tracking dives.
+Divelog provides a simple way for underwater divers to input details of their dives such as the time they spent at a particular depth, and the application will keep track of their nitrogen levels.
+This allows divers to plan their next trip safely. +
+
+We use the PADI dive tables to calculate pressure groups for individual dives.
+Pressure groups are a letter between A to Z which mark the nitrogen
+concentration within a diver ("A" corresponds to a scenario where the diver is almost free of nitrogen).
+As of v1.3, the pressure group is automatically calculated within a dive, all one needs to enter is their
+current pressure group and the ending pressure group is automatically updated. We are working
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `divelog.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Dive Log.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -41,9 +47,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add l/LOCATION`, `LOCATION` is a parameter which can be used as `add l/Sentosa`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Items in square brackets are optional e.g `l/LOCATION [tz/TIMEZONE]` can be used as `l/Bali tz/+8` or as `l/Bali`.
+* Parameters can be in any order e.g. if the command specifies `pg/A d/10`, `d/10 pg/A` is also acceptable.
+* A vertical bar `a|b` means either `a` or `b` will work as inputs.
 ====
 
 === Viewing help : `help`
@@ -68,10 +74,10 @@ add ds/04082018 ts/0900 de/04082018  te/1020 ss/1015 d/15 l/Bukit Lagoon pg/C pg
 |=========================================
 |Data                                           |Prefix         |Example
 |Date started / Ended (DDMMYYYY)                |ds or de       |ds/04082018 or de/05082018
-|Time Started / Ended (DDMMYYYY)                |ts or de       |ts/0800 or te/0900
+|Time Started / Ended (HHMM)                    |ts or te       |ts/0800 or te/0900
 |Location                                       |l              |l/Sentosa
 |Depth (integer value)                          |d              |d/18
-|Initial/Final Pressure Group (Character Value) |pg or pge      |pg/A or pge/D
+|Initial/Final Pressure Group (Character Value) |pg             |pg/A
 |Timezone (in UTC)                              |tz             |tz/+12 or tz/-5
 |=========================================
 
@@ -93,6 +99,27 @@ Format: `edit INDEX [ts/TIME_START] [te/TIME_END] [ss/SAFETY_STOP_TIME] [d/DEPTH
 
 Examples:
 `edit 1 pge/F l/Tioman`
+
+.Table of Prefix and Data
+[options="header"]
+|=========================================
+|Data                                           |Prefix         |Example
+|Date started / Ended (DDMMYYYY)                |ds or de       |ds/04082018 or de/05082018
+|Time Started / Ended (HHMM)                    |ts or te       |ts/0800 or te/0900
+|Location                                       |l              |l/Sentosa
+|Depth (integer value)                          |d              |d/18
+|Initial Pressure Group (Character Value) |pg             |pg/A
+|Timezone (in UTC)                              |tz             |tz/+12 or tz/-5
+|=========================================
+
+=== Setting display units `set_units`
+Switches between meters and feet. (App defaults to meters) +
+Format: `set_units meters|feet` +
+****
+* As of v1.3 it only updates the DISPLAY units, not the actual entered units.
+* The settings are not saved upon application restart.
+****
+Example usage: `set feet`
 
 === Locating dives by location: `find`
 
