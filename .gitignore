@@ -19,3 +19,5 @@ src/main/resources/docs/
 out/
 
 _reposense/config\.json
+
+config\.json
