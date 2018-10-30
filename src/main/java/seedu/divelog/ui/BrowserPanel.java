@@ -86,6 +86,8 @@ public class BrowserPanel extends UiPart<Region> {
         dateTime.setText(String.format(FORMAT_TIME_NOW, dive.getDateStart().getOurDateString()));
         checkPressureGrp(dive.getPressureGroupAtBeginning().getPressureGroup());
         currentDive = dive;
+        pgStart.getStyleClass().add(checkPressureGrp(dive.getPressureGroupAtBeginning().getPressureGroup()));
+        pgEnd.getStyleClass().add(checkPressureGrp(dive.getPressureGroupAtEnd().getPressureGroup()));
     }
 
     public void freeResources(){
@@ -124,64 +126,65 @@ public class BrowserPanel extends UiPart<Region> {
      * Receives the pressure group that needs to be parsed
      * sets the attribute on the screen depending on the Pressure group.
      */
-    private void checkPressureGrp(String pgGrp) {
+    private String checkPressureGrp(String pgGrp) {
         switch(pgGrp) {
         case "A":
             //to return it as #008000 or GREEN or rgb(0,128,0)
             // break;
+            return "thisIsGreenA";
         case "B":
-            break;
+            return "thisIsGreen";
         case "C":
-            break;
+            return "thisIsGreen";
         case "D":
-            break;
+            return "thisIsGreen";
         case "E":
-            break;
+            return "thisIsGreen";
         case "F":
-            break;
+            return "thisIsGreen";
         case "G":
-            break;
+            return "thisIsGreen";
         case "H":
-            break;
+            return "thisIsGreen";
         case "I":
-            break;
+            return "thisIsGreen";
         case "J":
-            break;
+            return "thisIsGreen";
         case "L":
-            break;
+            return "thisIsGreen";
         case "M":
-            break;
+            return "thisIsGreen";
         case "N":
-            break;
+            return "thisIsGreen";
         case "O":
-            break;
+            return "thisIsGreen";
         case "P":
             //return #ff6600 or ORANGE or rgb(255, 102, 0)
-            break;
+            return "thisIsOrangeP";
         case "Q":
-            break;
+            return "thisIsOrangeP";
         case "R":
-            break;
+            return "thisIsOrange";
         case "S":
-            break;
+            return "thisIsOrange";
         case "T":
-            break;
+            return "thisIsOrange";
         case "U":
-            break;
+            return "thisIsOrange";
         case "V":
-            break;
+            return "thisIsOrange";
         case "W":
-            break;
+            return "thisIsOrange";
         case "X":
-            break;
+            return "thisIsOrange";
         case "Y":
-            break;
+            return "thisIsOrange";
         case "Z":
             //to return as RED or #ff0000 or (255,0,0)
-            break;
+            return "thisIsRed";
         default:
             //return black
-            break;
+            return "label";
         }
     }
 }
