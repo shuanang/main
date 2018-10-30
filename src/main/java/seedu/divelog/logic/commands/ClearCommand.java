@@ -20,6 +20,9 @@ public class ClearCommand extends Command {
         requireNonNull(model);
         model.resetData(new DiveLog());
         model.commitDiveLog();
+        if (model.getPlanningMode()) {
+            model.plannerCountPlus();
+        }
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

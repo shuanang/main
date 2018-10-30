@@ -74,7 +74,8 @@ public class EditCommand extends Command {
         }
 
         DiveSession diveToEdit = lastShownList.get(index.getZeroBased());
-        DiveSession editedDive = createEditedDive(diveToEdit, editPersonDescriptor);
+        DiveSession editedDive = null;
+        editedDive = createEditedDive(diveToEdit, editPersonDescriptor);
 
         try {
             model.updateDiveSession(diveToEdit, editedDive);
@@ -83,6 +84,9 @@ public class EditCommand extends Command {
         }
         model.updateFilteredDiveList(Model.PREDICATE_SHOW_ALL_PERSONS);
         model.commitDiveLog();
+        if (model.getPlanningMode()) {
+            model.plannerCountPlus();
+        }
         return new CommandResult(String.format(MESSAGE_EDIT_DIVE_SUCCESS, editedDive));
     }
 

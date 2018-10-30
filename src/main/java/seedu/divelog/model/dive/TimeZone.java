@@ -1,8 +1,8 @@
 package seedu.divelog.model.dive;
 
+//@@author Cjunx
 /**
  * This is the timeZone class: assumes UTC +8 default
- * @@author Cjunx
  */
 public class TimeZone {
     private int timeZoneDifference;

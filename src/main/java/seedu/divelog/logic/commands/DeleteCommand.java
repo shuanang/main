@@ -47,6 +47,9 @@ public class DeleteCommand extends Command {
             e.printStackTrace();
         }
         model.commitDiveLog();
+        if (model.getPlanningMode()) {
+            model.plannerCountPlus();
+        }
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, diveToDelete));
     }
 

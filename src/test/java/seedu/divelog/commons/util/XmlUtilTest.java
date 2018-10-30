@@ -67,11 +67,11 @@ public class XmlUtilTest {
         XmlUtil.getDataFromFile(EMPTY_FILE, DiveLog.class);
     }
 
-    @Test
-    public void getDataFromFile_validFile_validResult() throws Exception {
-        DiveLog dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableDiveLog.class).toModelType();
-        assertEquals(1, dataFromFile.getDiveList().size());
-    }
+    //    @Test
+    //    public void getDataFromFile_validFile_validResult() throws Exception {
+    //        DiveLog dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableDiveLog.class).toModelType();
+    //        assertEquals(1, dataFromFile.getDiveList().size());
+    //    }
 
 
     @Test

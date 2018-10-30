@@ -1,5 +1,9 @@
 package seedu.divelog.model.dive;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * @author arjo
  * This class represents a single dive session
@@ -15,6 +19,8 @@ public class DiveSession {
     private final Location location;
     private final DepthProfile depthProfile;
     private final TimeZone timezone;
+    private Date dateTime;
+
 
     public DiveSession(
             OurDate dateStart, Time start, Time safetyStop,
@@ -32,6 +38,12 @@ public class DiveSession {
         this.location = location;
         this.depthProfile = depthProfile;
         this.timezone = timezone;
+        String dateTimeString = this.getDateStart().getOurDateString().concat(this.getStart().getTimeString());
+        try {
+            this.dateTime = new SimpleDateFormat("ddMMyyyyHHmm").parse(dateTimeString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     public OurDate getDateStart() {
@@ -72,6 +84,10 @@ public class DiveSession {
 
     public TimeZone getTimeZone() {
         return timezone;
+    }
+
+    public Date getDateTime() {
+        return dateTime;
     }
 
     @Override

@@ -57,7 +57,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Format: `help`
 
 === Adding a dive session: `add`
-Adds a dive session to the Dive Log.
+Use this command to adds your new dive session to the Dive Log.
 
 Format: `add ds/DATE_STARTED ts/TIME_DIVE_STARTED de/DATE_ENDED te/TIME_DIVE_ENDED ss/SAFETY_STOP  d/DEPTH  l/LOCATION pg/INITIAL_PRESSURE_GROUP pge/FINAL_PRESSURE_GROUP`
 
@@ -83,12 +83,19 @@ add ds/04082018 ts/0900 de/04082018  te/1020 ss/1015 d/15 l/Bukit Lagoon pg/C pg
 
 === Listing all dives : `list`
 
-Shows a list of all dives in the dive log. +
+To display all the dives that you have previously recorded, `list` shows a list of all dives in the dive log. +
+To change the manner in which your dives are ordered, view `<<sortby>>`
+
 Format: `list`
+
+//insert SCREENSHOT
 
 === Editing a dive : `edit`
 
-Edits an existing dive session in the Dive Log. +
+If you made a mistake while adding a new dive, `edit` will come in handy.
+`edits` edits an existing dive session in the Dive Log. +
+The only parameters you have to input are the data of that specific dive session at `INDEX`
+
 Format: `edit INDEX [ts/TIME_START] [te/TIME_END] [ss/SAFETY_STOP_TIME] [d/DEPTH] [pg/PG_AT_START][pge/PG_AT_END][l/LOCATION]...`
 
 ****
@@ -157,7 +164,7 @@ Deletes the 2nd dive in the Dive Log.
 Deletes the 1st dive in the results of the `find` command.
 
 === Selecting a diveSession : `select`
-
+//is this needed LOLOl
 Selects the dive identified by the index number used in the displayed dive list. +
 Format: `select INDEX`
 
@@ -178,7 +185,9 @@ Selects the 1st dive in the results of the `find` command.
 
 === Listing entered commands : `history`
 
-Lists all the commands that you have entered in reverse chronological order. +
+Forgot what command you did just now and corrupted your data? Find our what command exactly did you execute
+ before you correct your data! +
+
 Format: `history`
 
 [NOTE]
@@ -187,7 +196,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 ====
 
 // tag::undoredo[]
-=== Undoing previous command : `undo`
+=== Undoing previous command : `undo` [[undo]]
 
 Restores the Dive Log to the state before the previous _undoable_ command was executed. +
 Format: `undo`
@@ -238,20 +247,57 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 === Clearing all entries : `clear`
 
-Clears all entries from the Dive Log. +
+This command, as the name suggests, clears Dive Log of *all* your previous dive logs and
+gives you a clean start to use Dive Log again! +
+
 Format: `clear`
 
-WARNING: Once you cleared all entries, your data will not be recoverable
+TIP: use `undo` to, _you've guessed it_, undo your mistaken `clear`  and restore all your deleted dive sessions.
+    +
+     <<undo>>
+
+
+=== Setting parameters to sort dives : `sortby` [[sortby]]
+
+Want to view your dives in ranked order by different options? Simply type `sortby` followed by a `KEYWORD`,
+ your following `list`, `find` commands will return you all your dive sessions in that particular order. +
+
+Format: `sortby KEYWORD`
+
+
+WARNING: You can only use the specific keywords below.
+
+.Table of parameters available to sort by
+[options="header"]
+|=========================================
+|Parameter Type                                 |Keyword
+|Time                                           |time
+|Location (lexicographical)                     |location
+|Duration of Dive                               |duration
+
+|=========================================
+
+
+=== Planning Mode : `newplan` or `normalmode`
+
+The planning mode is a temporary space for you to plan trips and to simulate dives. This is especially important if you
+ are planning on a multiple day diving trip! +
+ When you enter the planning mode, simply enter simulation dives as per how you would use the other commands normally.
+
+Format: `newplan` to enter Planning Mode, `normalmode` to exit planning mode.
+
+TIP: When you exit the planning mode, you will return to the state before you entered.
 
 === Exiting the program : `exit`
 
-Exits the program. +
+Finished using Dive Log? This command shuts down Dive Log, and saves your new dive session data for your next use. +
 Format: `exit`
 
 === Saving the data
 
-Luckily for you, your Dive Log data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Worry not! Dive Log  saves all your data in the hard disk *automatically* after any command that changes the data. +
+
+There is absolutely no need to save manually.
 
 
 

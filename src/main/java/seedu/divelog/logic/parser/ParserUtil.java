@@ -43,9 +43,8 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_DEPTH);
         }
     }
-
+    //@@author Cjunx
     /**
-     *  @author Cjunx
      *  Returns true if string given is DATE FORMATTED
      * {@code ArgumentMultimap}.
      */
@@ -63,7 +62,6 @@ public class ParserUtil {
     }
 
     /**
-     *  @author Cjunx
      *  Returns true if string given is TIMEZONE FORMATTED
      * {@code ArgumentMultimap}.
      */
@@ -79,7 +77,6 @@ public class ParserUtil {
     }
 
     /**
-     * @author Cjunx
      * @param argMultimap
      * @throws ParseException
      */
@@ -98,6 +95,7 @@ public class ParserUtil {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_TIME_FORMAT, AddCommand.MESSAGE_USAGE));
         }
     }
+    //@@author
 
     //@@author arjo129
     /**

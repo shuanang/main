@@ -68,6 +68,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 new Location(argMultimap.getValue(CliSyntax.PREFIX_LOCATION).get());
         DepthProfile depthProfile = ParserUtil.parseDepth(argMultimap.getValue(CliSyntax.PREFIX_DEPTH).get());
         TimeZone timezone = new TimeZone(argMultimap.getValue(CliSyntax.PREFIX_TIMEZONE).get());
+
         try {
             long duration = CompareUtil.checkTimeDifference(startTime.getTimeString(), endTime.getTimeString(),
                     dateStart.getOurDateString(), dateEnd.getOurDateString());
@@ -80,6 +81,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         } catch (Exception e) {
             throw new ParseException(Messages.MESSAGE_INVALID_TIME_FORMAT);
         }
+
     }
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given

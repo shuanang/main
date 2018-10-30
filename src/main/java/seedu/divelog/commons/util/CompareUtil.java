@@ -4,9 +4,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+//@@author Cjunx
 /**
  * A class with methods to compare Date and Time, with respect to Timezone
- * @@author Cjunx
  */
 public class CompareUtil {
     /**
