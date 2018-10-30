@@ -26,6 +26,7 @@
               </font>
             </Label>
             <Label text="Starting Pressure Group" />
+            <Label fx:id="startTime" text="Dive Started:" />
           </children>
         </VBox>
         <VBox prefHeight="100.0" prefWidth="200.0">
@@ -36,12 +37,12 @@
               </font>
             </Label>
             <Label text="Ending Pressure Group" />
+            <Label fx:id="endTime" text="Dive Ended:" />
           </children>
         </VBox>
       </children>
     </HBox>
-    <Label fx:id="startTime" text="Dive Started:" />
-    <Label fx:id="endTime" text="Dive Ended:" />
+    <Label text=" "/>
     <Label fx:id="safetyStop" text="Safety Stop:" />
   </children>
 </VBox>
