@@ -11,8 +11,8 @@ import seedu.divelog.model.Model;
  */
 public class PlanningCommand extends Command {
 
-    public static final String COMMAND_WORD_PLAN = "Newplan";
-    public static final String COMMAND_WORD_NORMAL = "Normalmode";
+    public static final String COMMAND_WORD_PLAN = "newplan";
+    public static final String COMMAND_WORD_NORMAL = "normalmode";
 
     public static final String MESSAGE_ENTRY = "You're now in Planning Mode";
     public static final String MESSAGE_EXIT = "You're now in Normal Mode";
