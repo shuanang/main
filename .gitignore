@@ -16,8 +16,5 @@ classes/
 /data/
 /bin/
 src/main/resources/docs/
-out/
+/config.json
 
-_reposense/config\.json
-
-config\.json

@@ -13,7 +13,7 @@ import seedu.divelog.model.dive.DiveSession;
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
-
+    public static final String MESSAGE_ERROR = "Dive is too deep and too long!!";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a dive to the divelog book. "
             + "Parameters: "
             + CliSyntax.PREFIX_DATE_START + "DATE_START (DDMMYYYY Format) "
