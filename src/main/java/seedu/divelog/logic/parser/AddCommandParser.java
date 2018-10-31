@@ -1,11 +1,9 @@
 package seedu.divelog.logic.parser;
 
-import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 import org.json.JSONException;
 
-import seedu.divelog.commons.core.LogsCenter;
 import seedu.divelog.commons.core.Messages;
 import seedu.divelog.commons.util.CompareUtil;
 import seedu.divelog.logic.commands.AddCommand;
