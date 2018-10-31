@@ -63,7 +63,7 @@ public class XmlDiveLogStorageTest {
     @Test
     public void readDiveLog_invalidDiveLog_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readDiveLog("invalidPersonAddressBook.xml");
+        readDiveLog("invalidDiveDiveLogBook.xml");
     }
 
     @Test
