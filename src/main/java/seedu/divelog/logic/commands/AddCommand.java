@@ -29,9 +29,9 @@ public class AddCommand extends Command {
             + CliSyntax.PREFIX_DATE_START + "04082018 "
             + CliSyntax.PREFIX_TIME_START + "0700 "
             + CliSyntax.PREFIX_DATE_END + "04082018 "
-            + CliSyntax.PREFIX_TIME_END + "0945 "
-            + CliSyntax.PREFIX_SAFETY_STOP + "0930 "
-            + CliSyntax.PREFIX_DEPTH + "5 "
+            + CliSyntax.PREFIX_TIME_END + "0800 "
+            + CliSyntax.PREFIX_SAFETY_STOP + "0745 "
+            + CliSyntax.PREFIX_DEPTH + "16 "
             + CliSyntax.PREFIX_PRESSURE_GROUP_START + "A "
             + CliSyntax.PREFIX_LOCATION + "Sentosa "
             + CliSyntax.PREFIX_TIMEZONE + "+8";
