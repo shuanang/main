@@ -29,6 +29,7 @@ import seedu.divelog.logic.commands.UndoCommand;
 import seedu.divelog.logic.parser.exceptions.ParseException;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.LocationContainsKeywordPredicate;
+import seedu.divelog.model.dive.PressureGroup;
 import seedu.divelog.testutil.EditDiveDescriptorBuilder;
 import seedu.divelog.testutil.DiveSessionBuilder;
 import seedu.divelog.testutil.DiveUtil;
@@ -41,7 +42,7 @@ public class DiveLogParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        DiveSession diveSession = new DiveSessionBuilder().build();
+        DiveSession diveSession = new DiveSessionBuilder().withPressureGroupAtEnd("m").build();
         AddCommand command = (AddCommand) parser.parseCommand(DiveUtil.getAddCommand(diveSession));
         assertEquals(new AddCommand(diveSession), command);
     }

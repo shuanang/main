@@ -42,7 +42,7 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New dive session added!";
 
-    private final DiveSession toAdd;
+    private DiveSession toAdd;
 
     /**
      * Creates an AddCommand to add the specified {@code Person}
@@ -84,15 +84,11 @@ public class AddCommand extends Command {
                 long actualBottomTime = CompareUtil.checkTimeDifference(toAdd.getStart().getTimeString(),
                         toAdd.getEnd().getTimeString(), toAdd.getDateStart().getOurDateString(),
                         toAdd.getDateEnd().getOurDateString());
-                DiveSession firstDiveOfDay = new DiveSession(toAdd.getDateStart(), toAdd.getStart(),
+                toAdd = new DiveSession(toAdd.getDateStart(), toAdd.getStart(),
                         toAdd.getSafetyStop(), toAdd.getDateEnd(), toAdd.getEnd(),
                         toAdd.getPressureGroupAtBeginning(),
                         PressureGroupLogic.computePressureGroupFirstDive(toAdd.getDepthProfile(), actualBottomTime),
                         toAdd.getLocation(), toAdd.getDepthProfile(), toAdd.getTimeZone());
-                requireNonNull(firstDiveOfDay);
-                model.addDiveSession(firstDiveOfDay);
-                model.commitDiveLog();
-                return new CommandResult(MESSAGE_SUCCESS);
             } catch (Exception e) {
                 e.printStackTrace();
             }
