@@ -16,5 +16,6 @@ classes/
 /data/
 /bin/
 src/main/resources/docs/
+out/
 /config.json
 
