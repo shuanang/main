@@ -2,8 +2,12 @@ package seedu.divelog.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
+import seedu.divelog.commons.util.CompareUtil;
 import seedu.divelog.logic.CommandHistory;
 import seedu.divelog.logic.parser.CliSyntax;
+import seedu.divelog.logic.pressuregroup.PressureGroupLogic;
 import seedu.divelog.model.Model;
 import seedu.divelog.model.dive.DiveSession;
 
@@ -48,17 +52,56 @@ public class AddCommand extends Command {
         toAdd = dive;
     }
 
+    //@@author shuanang
+
+    /**
+     *Checks if the dive to be added is a first dive or a repeat dive to calculate the correct pressure group,
+     * then adds accordingly
+     */
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         if (model.getPlanningMode()) {
             model.plannerCountPlus();
         }
         requireNonNull(model);
+        List<DiveSession> lastShownList = model.getFilteredDiveList();
+        //match the dive session
+        int count = 0;
+        for (DiveSession diveSessions : lastShownList) {
+            if (toAdd.getDateStart().getOurDateString().equals(diveSessions.getDateStart().getOurDateString()
+                    .intern())) {
+                count = count + 1;
+            }
+        }
+        if (count >= 1) {
+            //NOT the first dive of the day
+            model.addDiveSession(toAdd);
+            model.commitDiveLog();
+            return new CommandResult(MESSAGE_SUCCESS);
+        } else if (count == 0) {
+            //first dive of day
+            try {
+                long actualBottomTime = CompareUtil.checkTimeDifference(toAdd.getStart().getTimeString(),
+                        toAdd.getEnd().getTimeString(), toAdd.getDateStart().getOurDateString(),
+                        toAdd.getDateEnd().getOurDateString());
+                DiveSession firstDiveOfDay = new DiveSession(toAdd.getDateStart(), toAdd.getStart(),
+                        toAdd.getSafetyStop(), toAdd.getDateEnd(), toAdd.getEnd(),
+                        toAdd.getPressureGroupAtBeginning(),
+                        PressureGroupLogic.computePressureGroupFirstDive(toAdd.getDepthProfile(), actualBottomTime),
+                        toAdd.getLocation(), toAdd.getDepthProfile(), toAdd.getTimeZone());
+                requireNonNull(firstDiveOfDay);
+                model.addDiveSession(firstDiveOfDay);
+                model.commitDiveLog();
+                return new CommandResult(MESSAGE_SUCCESS);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         model.addDiveSession(toAdd);
         model.commitDiveLog();
         return new CommandResult(MESSAGE_SUCCESS);
     }
-
+    //@@author
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

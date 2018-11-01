@@ -19,22 +19,33 @@ import seedu.divelog.model.divetables.PadiDiveTable;
  */
 public class PressureGroupLogic {
     PressureGroupLogic(){}
+
     /**
-     * Calculates the pressure group given depth and minutes spent at depth for single/repeat dives.
+     * For first dive of the day, calculates pressure group given depth and minutes spent at depth
+     * @param depth {@code DepthProfile} in metres, the deepest point which the diver descends for the dive
+     * @param actualBottomTime in minutes which the diver spent underwater
+     * @return new PressureGroup object containing the new pressure group after repeat dive
+     */
+    public static PressureGroup computePressureGroupFirstDive(DepthProfile depth, float actualBottomTime) {
+        PadiDiveTable padiDiveTable = PadiDiveTable.getInstance();
+        PressureGroup newPg;
+        newPg = padiDiveTable.depthToPg(depth, (int) actualBottomTime);
+        return newPg;
+    }
+    /**
+     * Calculates the pressure group given depth and minutes spent at depth for repeat dives on that day.
      *
      * @param depth {@code DepthProfile} in metres, the deepest point which the diver descends for the dive
      * @param actualBottomTime in minutes which the diver spent underwater
      * @param pg {@code PressureGroup} current PressureGroup object, in consideration for repeat dives.
-     *         For single (first) dives, this is not taken in consideration.
      * @return new PressureGroup object containing the new pressure group after repeat dive
      * @throws JSONException If an error occurs during reading of the PADI dive table.
+     * @throws LimitExceededException For repeat dives, if actual bottom time exceeds no decompression limits
      */
     public static PressureGroup computePressureGroup(DepthProfile depth, float actualBottomTime, PressureGroup pg)
             throws JSONException, LimitExceededException {
         PadiDiveTable padiDiveTable = PadiDiveTable.getInstance();
         JSONArray arr = padiDiveTable.depthToTimes(depth, pg);
-        //if a dive does not exist on the same day (means first dive) -> run algo without pg
-        //if a dive exists on the same day -> run through original algo with pg
         int adjustedNoDecompressionLimits = arr.getInt(1);
         if ((int) actualBottomTime > adjustedNoDecompressionLimits) {
             throw new LimitExceededException();
