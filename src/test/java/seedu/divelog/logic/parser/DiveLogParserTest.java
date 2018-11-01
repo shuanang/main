@@ -29,7 +29,6 @@ import seedu.divelog.logic.commands.UndoCommand;
 import seedu.divelog.logic.parser.exceptions.ParseException;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.LocationContainsKeywordPredicate;
-import seedu.divelog.model.dive.PressureGroup;
 import seedu.divelog.testutil.EditDiveDescriptorBuilder;
 import seedu.divelog.testutil.DiveSessionBuilder;
 import seedu.divelog.testutil.DiveUtil;
