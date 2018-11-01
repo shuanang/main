@@ -17,4 +17,4 @@ classes/
 /bin/
 src/main/resources/docs/
 /config.json
-
+out/
