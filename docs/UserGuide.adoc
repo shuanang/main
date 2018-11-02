@@ -70,7 +70,32 @@ Diagram 2: Command Box location
 
 === Viewing help : `help`
 
+Use this command to help window to see the user guide. Upon entering the command, a separate window with the user guide will open.
+
 Format: `help`
+
++++ <details><summary> +++
+View the flow for the help guide
++++ </summary><div> +++
+
+image::./UGScreenshots/help1.png[width="800"]
+Diagram 3: Enter the help command in the command box
+
+image::./UGScreenshots/help2.png[width="800"]
+Diagram 4: The help guide will open up
+
++++ </div></details> +++
+
+TIP: You can close the guide by closing it. This can be done by clicking on the X on the top right corner.
+
++++ <details><summary> +++
+View the screenshot for hwo to close the help guide.
++++ </summary><div> +++
+
+image::./UGScreenshots/help3.png[width="800"]
+Diagram 5: Click the X to close
+
++++ </div></details> +++
 
 === Adding a dive session: `add`
 Use this command to adds your new dive session to the Dive Log.
@@ -110,7 +135,7 @@ View Screenshot for list
 +++ </summary><div> +++
 
 image::./UGScreenshots/list.png[width="800"]
-Diagram 3: List command
+Diagram 6: List command
 
 +++ </div></details> +++
 
@@ -173,7 +198,7 @@ View Screenshot for example of a successful find
 +++ </summary><div> +++
 
 image::./UGScreenshots/find.png[width="800"]
-Diagram 4: Find command
+Diagram 7: Find command
 +++ </div></details> +++
 
 === Deleting a dive : `delete`
@@ -223,7 +248,7 @@ View Screenshot for a successful select
 +++ </summary><div> +++
 
 image::./UGScreenshots/select.png[width="800"]
-Diagram 5: Select command
+Diagram 8: Select command
 
 +++ </div></details> +++
 
@@ -244,7 +269,7 @@ View Screenshot for a successful history command
 +++ </summary><div> +++
 
 image::./UGScreenshots/history.png[width="800"]
-Diagram 6: History command
+Diagram 9: History command
 
 +++ </div></details> +++
 
@@ -360,14 +385,14 @@ There is absolutely no need to save manually.
 
 == About Pressure Groups in recreational diving [[pressure_groups]]
 image::PADI_TableOneAndTwo.png[width="790"]
-Diagram 7: PADI Recreational Dive Planner, Table 1 (No Decompression Limits and Group Designation Table)
+Diagram 10: PADI Recreational Dive Planner, Table 1 (No Decompression Limits and Group Designation Table)
 and Table 2 (Surface Interval Credit Table) +
 
 
 image::PADI_TableThree.png[width="790"]
-Diagram 8: PADI Recreational Dive Planner, Table 3 (Repetitive Dive Timetable)
+Diagram 11: PADI Recreational Dive Planner, Table 3 (Repetitive Dive Timetable)
 
-The three PADI tables as shown in the above two diagrams (Diagram 7 and 8) are normally carried along by recreational divers for them to calculate their pressure group manually.
+The three PADI tables as shown in the above two diagrams (Diagram 10 and 11) are normally carried along by recreational divers for them to calculate their pressure group manually.
 
 Workflow of a recreational diver who wants to check out his/her pressure group:
 
@@ -388,5 +413,4 @@ Total Bottom Time (TBT). Going back to Table 1, for a depth of 10 metres and 25 
 
 *Q*: Where can I find out more about PADI dive tables? +
 *A*: The 36-page long Instructions for Use official document can be found https://elearning.padi.com/company0/tools/RDP%20InsforUseMet.pdf
-
 
