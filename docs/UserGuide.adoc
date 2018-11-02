@@ -402,7 +402,7 @@ or the closest rounded up value which is 30 minutes. The diver will then draw hi
 The diver has already surfaced for three hours, which is the minimum time for any pressure group to reach the minimum "A" pressure group, as per Table 2 in <<Diagram_10>> (Surface Interval Credit Table).
 Finding his current pressure group "A" on the top row of Table 3, he would match the depth he wants to dive to (10m), and get the values 10 at the top and 209 at the bottom.
 10 minutes refer the Residual Nitrogen Time (RNT) and 209 minutes refer to the adjusted no decompression limits. The diver has to add the RNT value (10) to his intended/actual diving time (15 minutes), giving a total of 25 minutes
-Total Bottom Time (TBT). Going back to Table 1, for a depth of 10 metres and 25 minutes TBT, his new pressure group would be "C".
+Total Bottom Time (TBT). Going back to Table 1 in <<Diagram_10>>, for a depth of 10 metres and 25 minutes TBT, his new pressure group would be "C".
 
 
 == FAQ [[FAQ]]
