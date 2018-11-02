@@ -41,7 +41,7 @@ public class DiveLogParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        DiveSession diveSession = new DiveSessionBuilder().build();
+        DiveSession diveSession = new DiveSessionBuilder().withPressureGroupAtEnd("m").build();
         AddCommand command = (AddCommand) parser.parseCommand(DiveUtil.getAddCommand(diveSession));
         assertEquals(new AddCommand(diveSession), command);
     }

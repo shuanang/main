@@ -13,6 +13,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.divelog.logic.CommandHistory;
 import seedu.divelog.model.DiveLog;
@@ -51,8 +52,10 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        DiveSession nightDive = new DiveSessionBuilder().withStart("2100").withEnd("2200").withSafetyStop("2145").build();
-        DiveSession morningDive = new DiveSessionBuilder().withStart("0800").withEnd("0900").withSafetyStop("0845").build();
+        DiveSession nightDive = new DiveSessionBuilder().withStart("2100").withEnd("2200").withSafetyStop("2145")
+                .build();
+        DiveSession morningDive = new DiveSessionBuilder().withStart("0800").withEnd("0900").withSafetyStop("0845")
+                .build();
         AddCommand addNightDiveCommand = new AddCommand(nightDive);
         AddCommand addMorningDiveCommand = new AddCommand(morningDive);
 
@@ -198,6 +201,10 @@ public class AddCommandTest {
         @Override
         public ReadOnlyDiveLog getDiveLog() {
             return new DiveLog();
+        }
+        @Override
+        public ObservableList<DiveSession> getFilteredDiveList() {
+            return FXCollections.observableArrayList(diveAdded);
         }
     }
 

@@ -24,6 +24,19 @@ public class PressureGroupLogicTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
+    public void computePressureGroupFirstDive_test() {
+        PressureGroup pressureGroup = PressureGroupLogic.computePressureGroupFirstDive(new DepthProfile(14),
+                50);
+        assertEquals(pressureGroup.getPressureGroup(), "N");
+        pressureGroup = PressureGroupLogic.computePressureGroupFirstDive(new DepthProfile(1),
+                219);
+        assertEquals(pressureGroup.getPressureGroup(), "Z");
+        pressureGroup = PressureGroupLogic.computePressureGroupFirstDive(new DepthProfile(21),
+                10);
+        assertEquals(pressureGroup.getPressureGroup(), "C");
+    }
+
+    @Test
     public void computePressureGroup_test() throws JSONException, LimitExceededException {
 
         PressureGroup pressureGroup = PressureGroupLogic.computePressureGroup(new DepthProfile(14),
