@@ -385,22 +385,21 @@ There is absolutely no need to save manually.
 
 == About Pressure Groups in recreational diving [[pressure_groups]]
 image::PADI_TableOneAndTwo.png[width="790"]
-Diagram 10: PADI Recreational Dive Planner, Table 1 (No Decompression Limits and Group Designation Table)
+[[Diagram_10]]Diagram 10: PADI Recreational Dive Planner, Table 1 (No Decompression Limits and Group Designation Table)
 and Table 2 (Surface Interval Credit Table) +
 
-
 image::PADI_TableThree.png[width="790"]
-Diagram 11: PADI Recreational Dive Planner, Table 3 (Repetitive Dive Timetable)
+[[Diagram_11]]Diagram 11: PADI Recreational Dive Planner, Table 3 (Repetitive Dive Timetable)
 
-The three PADI tables as shown in the above two diagrams (Diagram 10 and 11) are normally carried along by recreational divers for them to calculate their pressure group manually.
+The three PADI tables as shown in the above two diagrams (<<Diagram_10>> and <<Diagram_11>>) are normally physically carried along by recreational divers for them to calculate their pressure group manually.
 
 Workflow of a recreational diver who wants to check out his/her pressure group:
 
-.  For the diver's first dive of the day, the diver dives to a depth of 19 metres for 29 minutes. Referring to Diagram 7, Table 1 (No Decompression Limits and Group Designation Table),
+.  For the diver's first dive of the day, the diver dives to a depth of 19 metres for 29 minutes. Referring to <<Diagram_10>>, Table 1 (No Decompression Limits and Group Designation Table),
 the diver would find the depth (19) at the top row. There is no 19 metres in the table, so the closest rounded-up value is 20 metres. He would then go down that 20m column until he finds 29 minutes,
 or the closest rounded up value which is 30 minutes. The diver will then draw his finger along the row to the left to match a character, which is "M". His new pressure group is now "M".
-.  For the diver's second and subsequent dives of the day, he would have to refer to table 3 in diagram 8 (Repetitive Dive Timetable). The diver wants to dive to 10 metres for 15 minutes for his second dive.
-The diver has already surfaced for three hours, which is the minimum time for any pressure group to reach the minimum "A" pressure group, as per Table 2 in Diagram 7 (Surface Interval Credit Table).
+.  For the diver's second and subsequent dives of the day, he would have to refer to table 3 in <<Diagram_11>> (Repetitive Dive Timetable). The diver wants to dive to 10 metres for 15 minutes for his second dive.
+The diver has already surfaced for three hours, which is the minimum time for any pressure group to reach the minimum "A" pressure group, as per Table 2 in <<Diagram_10>> (Surface Interval Credit Table).
 Finding his current pressure group "A" on the top row of Table 3, he would match the depth he wants to dive to (10m), and get the values 10 at the top and 209 at the bottom.
 10 minutes refer the Residual Nitrogen Time (RNT) and 209 minutes refer to the adjusted no decompression limits. The diver has to add the RNT value (10) to his intended/actual diving time (15 minutes), giving a total of 25 minutes
 Total Bottom Time (TBT). Going back to Table 1, for a depth of 10 metres and 25 minutes TBT, his new pressure group would be "C".
@@ -410,6 +409,10 @@ Total Bottom Time (TBT). Going back to Table 1, for a depth of 10 metres and 25 
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Dive Log folder.
+
+*Q*: What is the purpose of having a recreational dive planner in the first place? Can't I just dive to whatever depth for as long as I want? +
+*A*: The purpose of the Recreational Dive Planner is to make all dives no decompression dives. Proper planning assures that all dives, single or repetitive, are within the no decompression limits by controlling the length of the dive, the depth of the dive, and the sur- face interval between dives.
+The Recreational Dive Planner Table is actually three tables linked together. Each of the three tables provides information for planning dives within accepted nitrogen levels.
 
 *Q*: Where can I find out more about PADI dive tables? +
 *A*: The 36-page long Instructions for Use official document can be found https://elearning.padi.com/company0/tools/RDP%20InsforUseMet.pdf
