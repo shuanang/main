@@ -337,8 +337,9 @@ WARNING: You can only use the specific keywords below.
 The planning mode is a temporary space for you to plan trips and to simulate dives. This is especially important if you
  are planning on a multiple day diving trip! +
  When you enter the planning mode, simply enter simulation dives as per how you would use the other commands normally.
- When you exit, all your simulation files will be deleted automatically. In the Current V1.3,
- planning mode only supports `add`, `delete` and `edit` commands
+
+When you exit, all your simulation files will be deleted automatically. In the Current V1.3,
+planning mode only supports `add`, `delete` and `edit` commands +
 
 [Coming in V1.4] To convert your simulation files to the actual mode, type `convert`
 
