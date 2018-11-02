@@ -304,7 +304,7 @@ TIP: use `undo` to, _you've guessed it_, undo your mistaken `clear`  and restore
      <<undo>>
 
 
-=== Setting parameters to sort dives : `sortby` [[sortby]]
+=== Setting parameters to sort dives : `sortby` [[sortby]] (Unimplemented... Aiming for v1.4)
 
 Want to view your dives in ranked order by different options? Simply type `sortby` followed by a `KEYWORD`,
  your following `list`, `find` commands will return you all your dive sessions in that particular order. +
