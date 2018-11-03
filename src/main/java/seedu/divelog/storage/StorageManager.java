@@ -68,20 +68,20 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public void saveDiveLog(ReadOnlyDiveLog addressBook) throws IOException {
-        saveDiveLog(addressBook, diveLogStorage.getDiveLogFilePath());
+    public void saveDiveLog(ReadOnlyDiveLog diveLog) throws IOException {
+        saveDiveLog(diveLog, diveLogStorage.getDiveLogFilePath());
     }
 
     @Override
-    public void saveDiveLog(ReadOnlyDiveLog addressBook, Path filePath) throws IOException {
+    public void saveDiveLog(ReadOnlyDiveLog diveLog, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        diveLogStorage.saveDiveLog(addressBook, filePath);
+        diveLogStorage.saveDiveLog(diveLog, filePath);
     }
 
 
     @Override
     @Subscribe
-    public void handleAddressBookChangedEvent(DiveLogChangedEvent event) {
+    public void handleDiveLogChangedEvent(DiveLogChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
             saveDiveLog(event.data);

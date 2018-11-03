@@ -95,8 +95,8 @@ public class EditCommandTest {
     public void execute_filteredList_success() {
         showDiveAtIndex(model, INDEX_FIRST_DIVE);
 
-        DiveSession personInFilteredList = model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased());
-        DiveSession editedDive = new DiveSessionBuilder(personInFilteredList).withLocation(VALID_LOCATION_BALI).build();
+        DiveSession diveSessionInFilteredList = model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased());
+        DiveSession editedDive = new DiveSessionBuilder(diveSessionInFilteredList).withLocation(VALID_LOCATION_BALI).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_DIVE,
                 new EditDiveDescriptorBuilder().withLocation(VALID_LOCATION_BALI).build());
 
@@ -128,7 +128,7 @@ public class EditCommandTest {
      * but smaller than size of divelog book
      */
     @Test
-    public void execute_invalidPersonIndexFilteredList_failure() {
+    public void execute_invalidDiveSessionIndexFilteredList_failure() {
         showDiveAtIndex(model, INDEX_FIRST_DIVE);
         Index outOfBoundIndex = INDEX_SECOND_DIVE;
         // ensures that outOfBoundIndex is still in bounds of divelog book list
@@ -150,14 +150,14 @@ public class EditCommandTest {
         expectedModel.updateDiveSession(diveToEdit, editedDive);
         expectedModel.commitDiveLog();
 
-        // edit -> first person edited
+        // edit -> first dive session edited
         editCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered person list to show all persons
+        // undo -> reverts divelog back to previous state and filtered dive session list to show all dive sessions
         expectedModel.undoDiveLog();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        // redo -> same first person edited again
+        // redo -> same first dive session edited again
         expectedModel.redoDiveLog();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
@@ -181,7 +181,7 @@ public class EditCommandTest {
      * 2. Undo the edit.
      * 3. The unfiltered list should be shown now. Verify that the index of the previously edited dive in the
      * unfiltered list is different from the index at the filtered list.
-     * 4. Redo the edit. This ensures {@code RedoCommand} edits the person object regardless of indexing.
+     * 4. Redo the edit. This ensures {@code RedoCommand} edits the dive session object regardless of indexing.
      * TODO: This test is problematic! FIX IT!
      */
     @Test
@@ -196,15 +196,15 @@ public class EditCommandTest {
         expectedModel.updateDiveSession(diveToEdit, editedDive);
         expectedModel.commitDiveLog();
 
-        // edit -> edits second person in unfiltered person list / first person in filtered person list
+        // edit -> edits second dive session in unfiltered dive session list / first dive in filtered divesession list
         editCommand.execute(model, commandHistory);
 
-        // undo -> reverts divelog back to previous state and filtered person list to show all persons
+        // undo -> reverts divelog back to previous state and filtered dive session list to show all dive sessions
         expectedModel.undoDiveLog();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         assertNotEquals(model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased()), diveToEdit);
-        // redo -> edits same second person in unfiltered person list
+        // redo -> edits same second dive session in unfiltered dive session list
         expectedModel.redoDiveLog();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);*/
     }

@@ -9,16 +9,16 @@ import seedu.divelog.commons.exceptions.DataConversionException;
 import seedu.divelog.commons.util.XmlUtil;
 
 /**
- * Stores addressbook data in an XML file
+ * Stores divelog data in an XML file
  */
 public class XmlFileStorage {
     /**
-     * Saves the given addressbook data to the specified file.
+     * Saves the given divelog data to the specified file.
      */
-    public static void saveDataToFile(Path file, XmlSerializableDiveLog addressBook)
+    public static void saveDataToFile(Path file, XmlSerializableDiveLog diveLog)
             throws FileNotFoundException {
         try {
-            XmlUtil.saveDataToFile(file, addressBook);
+            XmlUtil.saveDataToFile(file, diveLog);
         } catch (JAXBException e) {
             throw new AssertionError("Unexpected exception " + e.getMessage(), e);
         }

@@ -30,7 +30,7 @@ public class TypicalDiveSessions {
     private TypicalDiveSessions() {} // prevents instantiation
 
     /**
-     * Returns an {@code DiveLog} with all the typical persons.
+     * Returns an {@code DiveLog} with all the typical dive sessions.
      */
     public static DiveLog getTypicalDiveLog() {
         DiveLog ab = new DiveLog();
@@ -41,6 +41,6 @@ public class TypicalDiveSessions {
     }
 
     public static List<DiveSession> getTypicalDives() {
-        return new ArrayList<>(Arrays.asList(DIVE_AT_BALI,DIVE_AT_TIOMAN));
+        return new ArrayList<>(Arrays.asList(DIVE_AT_BALI, DIVE_AT_TIOMAN));
     }
 }

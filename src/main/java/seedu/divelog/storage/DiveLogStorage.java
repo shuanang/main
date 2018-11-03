@@ -33,14 +33,14 @@ public interface DiveLogStorage {
 
     /**
      * Saves the given {@link ReadOnlyDiveLog} to the storage.
-     * @param addressBook cannot be null.
+     * @param diveLog cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveDiveLog(ReadOnlyDiveLog addressBook) throws IOException;
+    void saveDiveLog(ReadOnlyDiveLog diveLog) throws IOException;
 
     /**
      * @see #saveDiveLog(ReadOnlyDiveLog)
      */
-    void saveDiveLog(ReadOnlyDiveLog addressBook, Path filePath) throws IOException;
+    void saveDiveLog(ReadOnlyDiveLog diveLog, Path filePath) throws IOException;
 
 }

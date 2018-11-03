@@ -28,7 +28,7 @@ public class EditDiveDescriptorBuilder {
     }
 
     /**
-     * Returns an {@code EditDiveDescriptor} with fields containing {@code person}'s details
+     * Returns an {@code EditDiveDescriptor} with fields containing {@code diveSession}'s details
      */
     public EditDiveDescriptorBuilder(DiveSession dive) {
         descriptor = new EditDiveDescriptor();

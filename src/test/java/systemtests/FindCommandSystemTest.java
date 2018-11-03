@@ -12,30 +12,30 @@ public class FindCommandSystemTest extends DiveLogSystemTest {
 
     @Test
     public void find() {
-        /* Case: find multiple persons in divelog book, command with leading spaces and trailing spaces
-         * -> 2 persons found
+        /* Case: find multiple dive sessions in divelog book, command with leading spaces and trailing spaces
+         * -> 2 dive sessions found
          */
 
 
-        /* Case: repeat previous find command where person list is displaying the persons we are finding
-         * -> 2 persons found
+        /* Case: repeat previous find command where dive session list is displaying the dive sessions we are finding
+         * -> 2 dive sessions found
          */
 
 
-        /* Case: find person where person list is not displaying the person we are finding -> 1 person found */
+        /* Case: find dive session where dive list is not displaying the dive we are finding -> 1 dive found */
 
 
-        /* Case: find multiple persons in divelog book, 2 keywords -> 2 persons found */
+        /* Case: find multiple dive session in divelog book, 2 keywords -> 2 dives found */
 
 
-        /* Case: find multiple persons in divelog book, 2 keywords in reversed order -> 2 persons found */
+        /* Case: find multiple dive session in divelog book, 2 keywords in reversed order -> 2 dives found */
 
 
-        /* Case: find multiple persons in divelog book, 2 keywords with 1 repeat -> 2 persons found */
+        /* Case: find multiple dive sessions in divelog book, 2 keywords with 1 repeat -> 2 dives found */
 
 
-        /* Case: find multiple persons in divelog book, 2 matching keywords and 1 non-matching keyword
-         * -> 2 persons found
+        /* Case: find multiple dive sessions in divelog book, 2 matching keywords and 1 non-matching keyword
+         * -> 2 dives found
          */
 
 
@@ -45,37 +45,37 @@ public class FindCommandSystemTest extends DiveLogSystemTest {
         /* Case: redo previous find command -> rejected */
 
 
-        /* Case: find same persons in divelog book after deleting 1 of them -> 1 person found */
+        /* Case: find same dive sessions in divelog book after deleting 1 of them -> 1 dive session found */
 
 
-        /* Case: find person in divelog book, keyword is same as name but of different case -> 1 person found */
+        /* Case: find dive session in divelog book, keyword is same as name but of different case -> 1 dive found */
 
 
-        /* Case: find person in divelog book, keyword is substring of name -> 0 persons found */
+        /* Case: find dive session in divelog book, keyword is substring of name -> 0 dive sessions found */
 
 
-        /* Case: find person in divelog book, name is substring of keyword -> 0 persons found */
+        /* Case: find dive session in divelog book, name is substring of keyword -> 0 dive sessions found */
 
 
-        /* Case: find person not in divelog book -> 0 persons found */
+        /* Case: find dive session not in divelog book -> 0 dive sessions found */
 
 
-        /* Case: find phone number of person in divelog book -> 0 persons found */
+        /* Case: find phone number of dive session in divelog book -> 0 dive sessions found */
 
 
-        /* Case: find divelog of person in divelog book -> 0 persons found */
+        /* Case: find divelog of dive session in divelog book -> 0 dive sessions found */
 
 
-        /* Case: find email of person in divelog book -> 0 persons found */
+        /* Case: find email of dive session in divelog book -> 0 dive sessions found */
 
 
-        /* Case: find tags of person in divelog book -> 0 persons found */
+        /* Case: find tags of dive session in divelog book -> 0 dive sessions found */
 
 
-        /* Case: find while a person is selected -> selected card deselected */
+        /* Case: find while a dive session is selected -> selected card deselected */
 
 
-        /* Case: find person in empty divelog book -> 0 persons found */
+        /* Case: find dive session in empty divelog book -> 0 dive sessions found */
 
 
         /* Case: mixed case command word -> rejected */

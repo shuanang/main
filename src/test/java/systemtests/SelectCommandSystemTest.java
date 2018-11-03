@@ -4,7 +4,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.divelog.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.divelog.commons.core.Messages.MESSAGE_INVALID_DIVE_DISPLAYED_INDEX;
 import static seedu.divelog.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.divelog.logic.commands.SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS;
+import static seedu.divelog.logic.commands.SelectCommand.MESSAGE_SELECT_DIVE_SESSION_SUCCESS;
 import static seedu.divelog.testutil.TestUtil.getLastIndex;
 import static seedu.divelog.testutil.TestUtil.getMidIndex;
 import static seedu.divelog.testutil.TypicalDiveSessions.KEYWORD_MATCHING_TIOMAN;
@@ -23,16 +23,16 @@ public class SelectCommandSystemTest extends DiveLogSystemTest {
     public void select() {
         /* ------------------------ Perform select operations on the shown unfiltered list -------------------------- */
 
-        /* Case: select the first card in the person list, command with leading spaces and trailing spaces
+        /* Case: select the first card in the dive session list, command with leading spaces and trailing spaces
          * -> selected
          */
         String command = "   " + SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_DIVE.getOneBased() + "   ";
         assertCommandSuccess(command, INDEX_FIRST_DIVE);
 
-        /* Case: select the last card in the person list -> selected */
-        Index personCount = getLastIndex(getModel());
-        command = SelectCommand.COMMAND_WORD + " " + personCount.getOneBased();
-        assertCommandSuccess(command, personCount);
+        /* Case: select the last card in the dive session list -> selected */
+        Index diveSessionCount = getLastIndex(getModel());
+        command = SelectCommand.COMMAND_WORD + " " + diveSessionCount.getOneBased();
+        assertCommandSuccess(command, diveSessionCount);
 
         /* Case: undo previous selection -> rejected */
         command = UndoCommand.COMMAND_WORD;
@@ -44,7 +44,7 @@ public class SelectCommandSystemTest extends DiveLogSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
 
-        /* Case: select the middle card in the person list -> selected */
+        /* Case: select the middle card in the dive session list -> selected */
         Index middleIndex = getMidIndex(getModel());
         command = SelectCommand.COMMAND_WORD + " " + middleIndex.getOneBased();
         assertCommandSuccess(command, middleIndex);
@@ -54,14 +54,14 @@ public class SelectCommandSystemTest extends DiveLogSystemTest {
 
         /* ------------------------ Perform select operations on the shown filtered list ---------------------------- */
 
-        /* Case: filtered person list, select index within bounds of divelog book but out of bounds of person list
+        /* Case: filtered dive session list, select index within bounds of divelog book but out of bounds of dive list
          * -> rejected
          */
         showDivesWithLocation(KEYWORD_MATCHING_TIOMAN);
         int invalidIndex = getModel().getDiveLog().getDiveList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_DIVE_DISPLAYED_INDEX);
 
-        /* Case: filtered person list, select index within bounds of divelog book and person list -> selected */
+        /* Case: filtered dive session list, select index within bounds of divelog book and dive list -> selected */
         Index validIndex = Index.fromOneBased(1);
         assertTrue(validIndex.getZeroBased() < getModel().getFilteredDiveList().size());
         command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();
@@ -93,7 +93,7 @@ public class SelectCommandSystemTest extends DiveLogSystemTest {
         assertCommandFailure("SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: select from empty divelog book -> rejected */
-        deleteAllPersons();
+        deleteAllDiveSessions();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_DIVE.getOneBased(),
                 MESSAGE_INVALID_DIVE_DISPLAYED_INDEX);
     }
@@ -103,7 +103,7 @@ public class SelectCommandSystemTest extends DiveLogSystemTest {
      * 1. Command box displays an empty string.<br>
      * 2. Command box has the default style class.<br>
      * 3. Result display box displays the success message of executing select command with the
-     * {@code expectedSelectedCardIndex} of the selected person.<br>
+     * {@code expectedSelectedCardIndex} of the selected dive session.<br>
      * 4. {@code Storage} and {@code DiveListPanel} remain unchanged.<br>
      * 5. Selected card is at {@code expectedSelectedCardIndex} and the browser url is updated accordingly.<br>
      * 6. Status bar remains unchanged.<br>
@@ -115,7 +115,7 @@ public class SelectCommandSystemTest extends DiveLogSystemTest {
     private void assertCommandSuccess(String command, Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
         String expectedResultMessage = String.format(
-                MESSAGE_SELECT_PERSON_SUCCESS, expectedSelectedCardIndex.getOneBased());
+                MESSAGE_SELECT_DIVE_SESSION_SUCCESS, expectedSelectedCardIndex.getOneBased());
         int preExecutionSelectedCardIndex = getDiveListPanel().getSelectedCardIndex();
 
         executeCommand(command);

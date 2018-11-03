@@ -51,9 +51,9 @@ public class XmlDiveLogStorage implements DiveLogStorage {
             return Optional.empty();
         }
 
-        XmlSerializableDiveLog xmlAddressBook = XmlFileStorage.loadDataFromSaveFile(filePath);
+        XmlSerializableDiveLog xmlDiveLog = XmlFileStorage.loadDataFromSaveFile(filePath);
         try {
-            return Optional.of(xmlAddressBook.toModelType());
+            return Optional.of(xmlDiveLog.toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -61,20 +61,20 @@ public class XmlDiveLogStorage implements DiveLogStorage {
     }
 
     @Override
-    public void saveDiveLog(ReadOnlyDiveLog addressBook) throws IOException {
-        saveDiveLog(addressBook, filePath);
+    public void saveDiveLog(ReadOnlyDiveLog diveLog) throws IOException {
+        saveDiveLog(diveLog, filePath);
     }
 
     /**
      * Similar to {@link #saveDiveLog(ReadOnlyDiveLog)}
      * @param filePath location of the data. Cannot be null
      */
-    public void saveDiveLog(ReadOnlyDiveLog addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveDiveLog(ReadOnlyDiveLog diveLog, Path filePath) throws IOException {
+        requireNonNull(diveLog);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        XmlFileStorage.saveDataToFile(filePath, new XmlSerializableDiveLog(addressBook));
+        XmlFileStorage.saveDataToFile(filePath, new XmlSerializableDiveLog(diveLog));
     }
 
 }

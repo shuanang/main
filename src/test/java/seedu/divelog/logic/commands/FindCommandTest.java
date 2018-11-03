@@ -48,12 +48,12 @@ public class FindCommandTest {
         // null -> returns false
         assertFalse(findFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different dive session -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
     }
 
     @Test
-    public void execute_zeroKeywords_noPersonFound() {
+    public void execute_zeroKeywords_noDiveSessionFound() {
         String expectedMessage = String.format(MESSAGE_DIVE_LISTED_OVERVIEW, 0);
         LocationContainsKeywordPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
@@ -63,7 +63,7 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
+    public void execute_multipleKeywords_multipleDiveSessionsFound() {
         //TODO: REWRITE
     }
 

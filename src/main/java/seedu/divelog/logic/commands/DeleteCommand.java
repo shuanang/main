@@ -12,18 +12,18 @@ import seedu.divelog.model.Model;
 import seedu.divelog.model.dive.DiveSession;
 
 /**
- * Deletes a person identified using it's displayed index from the divelog book.
+ * Deletes a dive session identified using it's displayed index from the divelog book.
  */
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the person identified by the index number used in the displayed person list.\n"
+            + ": Deletes the dive session identified by the index number used in the displayed dive list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_DELETE_DIVE_SESSION_SUCCESS = "Deleted dive session: %1$s";
 
     private final Index targetIndex;
 
@@ -50,7 +50,7 @@ public class DeleteCommand extends Command {
         if (model.getPlanningMode()) {
             model.plannerCountPlus();
         }
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, diveToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_DIVE_SESSION_SUCCESS, diveToDelete));
     }
 
     @Override

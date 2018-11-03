@@ -155,23 +155,23 @@ public abstract class DiveLogSystemTest {
 
     /**
      *
-     * Deletes all persons in the divelog book.
+     * Deletes all dive sessions in the divelog book.
      */
-    protected void deleteAllPersons() {
+    protected void deleteAllDiveSessions() {
         executeCommand(ClearCommand.COMMAND_WORD);
         assertEquals(0, getModel().getDiveLog().getDiveList().size());
     }
 
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
-     * {@code expectedResultMessage}, the storage contains the same person objects as {@code expectedModel}
-     * and the person list panel displays the persons in the model correctly.
+     * {@code expectedResultMessage}, the storage contains the same dive session objects as {@code expectedModel}
+     * and the dive list panel displays the dive sessions in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new DiveLog(expectedModel.getDiveLog()), testApp.readStorageAddressBook());
+        assertEquals(new DiveLog(expectedModel.getDiveLog()), testApp.readStorageDiveLog());
         assertListMatching(getDiveListPanel(), expectedModel.getFilteredDiveList());
     }
 
@@ -189,7 +189,7 @@ public abstract class DiveLogSystemTest {
 
     /**
      * Asserts that the previously selected card is now deselected and the browser's url remains displaying the details
-     * of the previously selected person.
+     * of the previously selected dive session.
      * @see BrowserPanelHandle#isUrlChanged()
      */
     protected void assertSelectedCardDeselected() {
@@ -198,10 +198,10 @@ public abstract class DiveLogSystemTest {
     }
 
     /**
-     * Asserts that the browser's url is changed to display the details of the person in the person list panel at
+     * Asserts that the browser's url is changed to display the details of the dive session in the dive list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      * @see BrowserPanelHandle#isUrlChanged()
-     * @see DiveListPanelHandle#isSelectedPersonCardChanged()
+     * @see DiveListPanelHandle#isSelectedDiveSessionCardChanged()
      * TODO REIMPLEMENT
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
@@ -213,13 +213,13 @@ public abstract class DiveLogSystemTest {
     }
 
     /**
-     * Asserts that the browser's url and the selected card in the person list panel remain unchanged.
+     * Asserts that the browser's url and the selected card in the dive session list panel remain unchanged.
      *
-     * @see DiveListPanelHandle#isSelectedPersonCardChanged()
+     * @see DiveListPanelHandle#isSelectedDiveSessionCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
         //assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getDiveListPanel().isSelectedPersonCardChanged());
+        assertFalse(getDiveListPanel().isSelectedDiveSessionCardChanged());
     }
 
     /**
@@ -274,12 +274,16 @@ public abstract class DiveLogSystemTest {
      * @param diveListPanel
      * @param filteredDiveList
      */
-    protected void assertListMatching(DiveListPanelHandle diveListPanel, ObservableList<DiveSession> filteredDiveList) {
-        DiveSession dives[] = filteredDiveList.toArray(new DiveSession[0]);
-        assertListMatching(diveListPanel,dives);
+    public static void assertListMatching(DiveListPanelHandle diveListPanel, ObservableList<DiveSession> filteredDiveList) {
+        DiveSession []dives = filteredDiveList.toArray(new DiveSession[0]);
+        assertListMatching(diveListPanel, dives);
     }
 
-    protected void assertListMatching(DiveListPanelHandle diveListPanel, DiveSession[] dives) {
+    /**
+     * Asserts that the list in {@code DiveListPanelHandle} displays the details of {@code dives} correctly and
+     * in the correct order.
+     */
+    public static void assertListMatching(DiveListPanelHandle diveListPanel, DiveSession[] dives) {
 
         for (int i = 0; i < dives.length; i++) {
             diveListPanel.navigateToCard(i);
@@ -292,8 +296,8 @@ public abstract class DiveLogSystemTest {
      * @param dive The {@Code DiveSession} has the same data as the divecard
      * @param diveCardHandle The {@Code DiveSessionCard} in question
      */
-    private void assertCardDisplays(DiveSession dive, DiveSessionCardHandle diveCardHandle) {
-        assertEquals(diveCardHandle.getName(), DiveSessionCard.DIVE_PREFIX+dive.getLocation().getLocationName());
+    public static void assertCardDisplays(DiveSession dive, DiveSessionCardHandle diveCardHandle) {
+        assertEquals(diveCardHandle.getName(), DiveSessionCard.DIVE_PREFIX + dive.getLocation().getLocationName());
         assertEquals(diveCardHandle.getDepth(), dive.getDepthProfile().getFormattedString());
     }
 
