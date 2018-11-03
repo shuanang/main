@@ -19,14 +19,14 @@ public class SampleDataUtil {
         return new DiveSession[] {
             new DiveSession(new OurDate("04082018"),
                     new Time("0700"),
-                    new Time("0945"),
+                    new Time("0745"),
                     new OurDate("04082018"),
-                    new Time("1000"),
+                    new Time("0800"),
                     new PressureGroup("A"),
-                    new PressureGroup("R"),
+                    new PressureGroup("T"),
                     new Location("Bali"),
-                    new DepthProfile(10.0f),
-                    new TimeZone("+5"))
+                    new DepthProfile(16.0f),
+                    new TimeZone("+8"))
         };
     }
 
