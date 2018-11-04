@@ -34,11 +34,12 @@ public class DiveSessionCardHandle extends NodeHandle<Node> {
 
     public String getDepth() { return depth.getText(); }
 
+    //@@author shuanang
     /**
      * Returns true if this handle contains {@code dive}.
-     * TODO: Check depth also!!
      */
     public boolean equals(DiveSession dive) {
-        return getName().equals(DiveSessionCard.DIVE_PREFIX + dive.getLocation().getLocationName());
+        return (getName().equals(DiveSessionCard.DIVE_PREFIX + dive.getLocation().getLocationName()))
+                && (getDepth().equals(dive.getDepthProfile().getFormattedString()));
     }
 }

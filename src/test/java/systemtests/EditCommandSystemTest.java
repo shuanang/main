@@ -1,8 +1,5 @@
 package systemtests;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
 import static seedu.divelog.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.divelog.model.Model.PREDICATE_SHOW_ALL_DIVES;
 
@@ -29,18 +26,18 @@ public class EditCommandSystemTest extends DiveLogSystemTest {
          */
 
 
-        /* Case: undo editing the last person in the list -> last person restored */
+        /* Case: undo editing the last dive session in the list -> last dive session restored */
 
-        /* Case: redo editing the last person in the list -> last person edited again */
-
-
-        /* Case: edit a person with new values same as existing values -> edited */
+        /* Case: redo editing the last dive session in the list -> last dive session edited again */
 
 
-        /* Case: edit a person with new values same as another person's values but with different name -> edited */
+        /* Case: edit a dive session with new values same as existing values -> edited */
 
 
-        /* Case: edit a person with new values same as another person's values but with different phone and email
+        /* Case: edit a dive with new values same as another dive's values but with different name -> edited */
+
+
+        /* Case: edit a dive with new values same as another dive's values but with different values
          * -> edited
          */
 
@@ -49,22 +46,22 @@ public class EditCommandSystemTest extends DiveLogSystemTest {
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
-        /* Case: filtered person list, edit index within bounds of divelog book and person list -> edited */
+        /* Case: filtered dive session list, edit index within bounds of divelog book and dive session list -> edited */
 
 
-        /* Case: filtered person list, edit index within bounds of divelog book but out of bounds of person list
+        /* Case: filtered dive session list, edit index within bounds of divelog book but out of bounds of dive list
          * -> rejected
          */
 
 
-        /* --------------------- Performing edit operation while a person card is selected -------------------------- */
+        /* --------------------- Performing edit operation while a dive session card is selected -------------------- */
 
-        /* Case: selects first card in the person list, edit a person -> edited, card selection remains unchanged but
-         * browser url changes
+        /* Case: selects first card in the dive session list, edit a dive session -> edited, card selection remains
+         * unchanged but browser url changes
          */
 
         // this can be misleading: card selection actually remains unchanged but the
-        // browser's url is updated to reflect the new person's name
+        // browser's url is updated to reflect the new dive session's name
 
 
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
@@ -93,7 +90,7 @@ public class EditCommandSystemTest extends DiveLogSystemTest {
     }
 
     /**
-     * Performs the same verification as {@code assertCommandSuccess(String, Index, Person, Index)} except that
+     * Performs the same verification as {@code assertCommandSuccess(String, Index, dive session, Index)} except that
      * the browser url and selected card remain unchanged.
      * @param toEdit the index of the current model's filtered list
      * @see EditCommandSystemTest#assertCommandSuccess(String, Index, DiveSession, Index)
@@ -105,8 +102,8 @@ public class EditCommandSystemTest extends DiveLogSystemTest {
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} and in addition,<br>
      * 1. Asserts that result display box displays the success message of executing {@code EditCommand}.<br>
-     * 2. Asserts that the model related components are updated to reflect the person at index {@code toEdit} being
-     * updated to values specified {@code editedPerson}.<br>
+     * 2. Asserts that the model related components are updated to reflect the dive session at index {@code toEdit}
+     * being updated to values specified {@code editedDiveSession}.<br>
      * @param toEdit the index of the current model's filtered list.
      * @param editedDive
      * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)

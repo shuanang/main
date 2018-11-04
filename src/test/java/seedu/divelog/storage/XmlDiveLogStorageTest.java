@@ -76,49 +76,49 @@ public class XmlDiveLogStorageTest {
     public void readAndSaveDiveLog_allInOrder_success() throws Exception {
         Path filePath = testFolder.getRoot().toPath().resolve("TempDiveLog.xml");
         DiveLog original = getTypicalDiveLog();
-        XmlDiveLogStorage xmlAddressBookStorage = new XmlDiveLogStorage(filePath);
+        XmlDiveLogStorage xmlDiveLogStorage = new XmlDiveLogStorage(filePath);
 
         //Save in new file and read back
-        xmlAddressBookStorage.saveDiveLog(original, filePath);
-        ReadOnlyDiveLog readBack = xmlAddressBookStorage.readDiveLog(filePath).get();
+        xmlDiveLogStorage.saveDiveLog(original, filePath);
+        ReadOnlyDiveLog readBack = xmlDiveLogStorage.readDiveLog(filePath).get();
         assertEquals(original, new DiveLog(readBack));
 
         //Modify data, overwrite exiting file, and read back
         original.addDive(DIVE_AT_BALI);
-        xmlAddressBookStorage.saveDiveLog(original, filePath);
-        readBack = xmlAddressBookStorage.readDiveLog(filePath).get();
+        xmlDiveLogStorage.saveDiveLog(original, filePath);
+        readBack = xmlDiveLogStorage.readDiveLog(filePath).get();
         assertEquals(original, new DiveLog(readBack));
 
         //Save and read without specifying file path
         original.addDive(DIVE_AT_NIGHT);
-        xmlAddressBookStorage.saveDiveLog(original); //file path not specified
-        readBack = xmlAddressBookStorage.readDiveLog().get(); //file path not specified
+        xmlDiveLogStorage.saveDiveLog(original); //file path not specified
+        readBack = xmlDiveLogStorage.readDiveLog().get(); //file path not specified
         assertEquals(original, new DiveLog(readBack));
 
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
+    public void saveDiveLog_nullDiveLog_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(null, "SomeFile.xml");
+        saveDiveLog(null, "SomeFile.xml");
     }
 
     /**
-     * Saves {@code addressBook} at the specified {@code filePath}.
+     * Saves {@code diveLog} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyDiveLog addressBook, String filePath) {
+    private void saveDiveLog(ReadOnlyDiveLog diveLog, String filePath) {
         try {
             new XmlDiveLogStorage(Paths.get(filePath))
-                    .saveDiveLog(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveDiveLog(diveLog, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_throwsNullPointerException() {
+    public void saveDiveLog_nullFilePath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(new DiveLog(), null);
+        saveDiveLog(new DiveLog(), null);
     }
 
 

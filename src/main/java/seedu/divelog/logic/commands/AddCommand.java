@@ -45,7 +45,7 @@ public class AddCommand extends Command {
     private DiveSession toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code DiveSession}
      */
     public AddCommand(DiveSession dive) {
         requireNonNull(dive);

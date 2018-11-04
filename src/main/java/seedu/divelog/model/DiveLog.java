@@ -12,7 +12,7 @@ import seedu.divelog.model.dive.exceptions.DiveNotFoundException;
 
 /**
  * Wraps all data at the divelog-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSameDiveSession comparison)
  */
 public class DiveLog implements ReadOnlyDiveLog {
 
@@ -59,10 +59,10 @@ public class DiveLog implements ReadOnlyDiveLog {
         setDives(newData.getDiveList());
     }
 
-    //// person-level operations
+    //// DiveSession-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the divelog book.
+     * Returns true if a dive session with the same identity as {@code DiveSession} exists in the divelog book.
      * @param diveSession
      */
     public boolean hasDive(DiveSession diveSession) {
@@ -72,7 +72,7 @@ public class DiveLog implements ReadOnlyDiveLog {
 
     /**
      * Adds a dive session to the dive log.
-     * The person must not already exist in the dive log.
+     * The dive session must not already exist in the dive log.
      */
     public void addDive(DiveSession p) {
         diveSessions.add(p);
@@ -81,7 +81,7 @@ public class DiveLog implements ReadOnlyDiveLog {
     /**
      * Replaces the given dive {@code target} in the list with {@code editedDive}.
      * {@code target} must exist in the divelog book.
-     * The person identity of {@code editedDive} must not be the same as another existing person in the divelog book.
+     * The dive of {@code editedDive} must not be the same as another existing dive session in the divelog book.
      * @param target
      * @param editedDive
      */

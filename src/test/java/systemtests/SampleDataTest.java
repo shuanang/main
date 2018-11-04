@@ -42,7 +42,7 @@ public class SampleDataTest extends DiveLogSystemTest {
     }
 
     @Test
-    public void addressBook_dataFileDoesNotExist_loadSampleData() {
+    public void diveLog_dataFileDoesNotExist_loadSampleData() {
         DiveSession[] expectedList = SampleDataUtil.getSampleDives();
         assertListMatching(getDiveListPanel(), expectedList);
     }

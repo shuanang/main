@@ -46,7 +46,7 @@ public class AddCommandSystemTest extends DiveLogSystemTest {
     }
 
     /**
-     * Performs the same verification as {@code assertCommandSuccess(Person)}. Executes {@code command}
+     * Performs the same verification as {@code assertCommandSuccess(DiveSession)}. Executes {@code command}
      * instead.
      * @see AddCommandSystemTest#assertCommandSuccess(DiveSession)
      */
@@ -59,7 +59,7 @@ public class AddCommandSystemTest extends DiveLogSystemTest {
     }
 
     /**
-     * Performs the same verification as {@code assertCommandSuccess(String, Person)} except asserts that
+     * Performs the same verification as {@code assertCommandSuccess(String, DiveSession)} except asserts that
      * the,<br>
      * 1. Result display box displays {@code expectedResultMessage}.<br>
      * 2. {@code Storage} and {@code DiveListPanel} equal to the corresponding components in

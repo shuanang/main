@@ -71,7 +71,7 @@ public class TestApp extends MainApp {
     /**
      * Returns a defensive copy of the divelog book data stored inside the storage file.
      */
-    public DiveLog readStorageAddressBook() {
+    public DiveLog readStorageDiveLog() {
         try {
             return new DiveLog(storage.readDiveLog().get());
         } catch (DataConversionException dce) {

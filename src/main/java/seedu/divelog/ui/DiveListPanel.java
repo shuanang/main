@@ -21,7 +21,7 @@ import seedu.divelog.commons.events.ui.JumpToListRequestEvent;
 import seedu.divelog.model.dive.DiveSession;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of dives.
  */
 public class DiveListPanel extends UiPart<Region> {
     public static final String FORMAT_TIME_NOW = "Date: %s";
@@ -35,16 +35,16 @@ public class DiveListPanel extends UiPart<Region> {
     private Label dateId;
 
 
-    public DiveListPanel(ObservableList<DiveSession> personList) {
+    public DiveListPanel(ObservableList<DiveSession> diveList) {
         super(FXML);
         //dateID.setText(String.format(FORMAT_TIME_NOW, dive.getDateStart().getOurDateString()));
         loadMyTimeNow();
-        setConnections(personList);
+        setConnections(diveList);
         registerAsAnEventHandler(this);
     }
 
-    private void setConnections(ObservableList<DiveSession> personList) {
-        diveListView.setItems(personList);
+    private void setConnections(ObservableList<DiveSession> diveList) {
+        diveListView.setItems(diveList);
         diveListView.setCellFactory(listView -> new DiveListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
@@ -53,7 +53,7 @@ public class DiveListPanel extends UiPart<Region> {
         diveListView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
-                        logger.fine("Selection in person list panel changed to : '" + newValue + "'");
+                        logger.fine("Selection in dive list panel changed to : '" + newValue + "'");
                         raise(new DivePanelSelectionChangedEvent(newValue));
                     }
                 });
@@ -83,7 +83,7 @@ public class DiveListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code DiveSessionCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code DiveSession} using a {@code DiveSessionCard}.
      */
     class DiveListViewCell extends ListCell<DiveSession> {
         @Override

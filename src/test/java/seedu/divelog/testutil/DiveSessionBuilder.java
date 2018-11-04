@@ -11,7 +11,7 @@ import seedu.divelog.model.util.SampleDataUtil;
 
 /**
  * @author arjo129
- * A utility class to help with building Person objects.
+ * A utility class to help with building DiveSession objects.
  */
 public class DiveSessionBuilder {
 

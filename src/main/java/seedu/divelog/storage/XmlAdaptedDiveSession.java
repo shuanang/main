@@ -44,7 +44,7 @@ public class XmlAdaptedDiveSession {
     public XmlAdaptedDiveSession() {}
 
     /**
-     * Constructs an {@code XmlAdaptedDiveSession} with the given person details.
+     * Constructs an {@code XmlAdaptedDiveSession} with the given dive session details.
      */
     public XmlAdaptedDiveSession(
             String dateStart, String startTime, String safetyStop, String dateEnd,
@@ -82,7 +82,7 @@ public class XmlAdaptedDiveSession {
     /**
      * Converts this jaxb-friendly adapted dive session object into the model's DiveSession object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person
+     * @throws IllegalValueException if there were any data constraints violated in the adapted dive session
      */
     public DiveSession toModelType() throws IllegalValueException {
         if (!PressureGroup.isValid(pressureGroupAtBeginning)) {

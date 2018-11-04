@@ -34,7 +34,7 @@ public class DeleteCommandTest {
         DiveSession diveToDelete = model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_DIVE);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, diveToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_DIVE_SESSION_SUCCESS, diveToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getDiveLog(), new UserPrefs());
         try {
@@ -59,19 +59,19 @@ public class DeleteCommandTest {
     public void execute_validIndexFilteredList_success() {
         showDiveAtIndex(model, INDEX_FIRST_DIVE);
 
-        DiveSession personToDelete = model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased());
+        DiveSession diveSessionToDelete = model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_DIVE);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_DIVE_SESSION_SUCCESS, diveSessionToDelete);
 
         Model expectedModel = new ModelManager(model.getDiveLog(), new UserPrefs());
         try {
-            expectedModel.deleteDiveSession(personToDelete);
+            expectedModel.deleteDiveSession(diveSessionToDelete);
         } catch (seedu.divelog.model.dive.exceptions.DiveNotFoundException e) {
             e.printStackTrace();
         }
         expectedModel.commitDiveLog();
-        showNoPerson(expectedModel);
+        showNoDiveSession(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -91,20 +91,20 @@ public class DeleteCommandTest {
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
-        DiveSession personToDelete = model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased());
+        DiveSession diveSessionToDelete = model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_DIVE);
         Model expectedModel = new ModelManager(model.getDiveLog(), new UserPrefs());
-        expectedModel.deleteDiveSession(personToDelete);
+        expectedModel.deleteDiveSession(diveSessionToDelete);
         expectedModel.commitDiveLog();
 
-        // delete -> first person deleted
+        // delete -> first dive session deleted
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered person list to show all persons
+        // undo -> reverts divelog back to previous state and filtered dive session list to show all dive sessions
         expectedModel.undoDiveLog();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        // redo -> same first person deleted again
+        // redo -> same first dive session deleted again
         expectedModel.redoDiveLog();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
@@ -123,31 +123,31 @@ public class DeleteCommandTest {
     }
 
     /**
-     * 1. Deletes a {@code Person} from a filtered list.
+     * 1. Deletes a {@code DiveSession} from a filtered list.
      * 2. Undo the deletion.
-     * 3. The unfiltered list should be shown now. Verify that the index of the previously deleted person in the
+     * 3. The unfiltered list should be shown now. Verify that the index of the previously deleted dive session in the
      * unfiltered list is different from the index at the filtered list.
-     * 4. Redo the deletion. This ensures {@code RedoCommand} deletes the person object regardless of indexing.
+     * 4. Redo the deletion. This ensures {@code RedoCommand} deletes the dive session object regardless of indexing.
      */
     @Test
-    public void executeUndoRedo_validIndexFilteredList_samePersonDeleted() throws Exception {
+    public void executeUndoRedo_validIndexFilteredList_sameDiveSessionDeleted() throws Exception {
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_DIVE);
         Model expectedModel = new ModelManager(model.getDiveLog(), new UserPrefs());
 
         showDiveAtIndex(model, INDEX_SECOND_DIVE);
-        DiveSession personToDelete = model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased());
-        expectedModel.deleteDiveSession(personToDelete);
+        DiveSession diveSessionToDelete = model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased());
+        expectedModel.deleteDiveSession(diveSessionToDelete);
         expectedModel.commitDiveLog();
 
-        // delete -> deletes second person in unfiltered person list / first person in filtered person list
+        // delete -> deletes second dive session in unfiltered dive session list / first dive in filtered dive list
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered person list to show all persons
+        // undo -> reverts divelog back to previous state and filtered dive session list to show all dive sessions
         expectedModel.undoDiveLog();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        assertNotEquals(personToDelete, model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased()));
-        // redo -> deletes same second person in unfiltered person list
+        assertNotEquals(diveSessionToDelete, model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased()));
+        // redo -> deletes same second dive session in unfiltered dive session list
         expectedModel.redoDiveLog();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
@@ -170,14 +170,14 @@ public class DeleteCommandTest {
         // null -> returns false
         assertFalse(deleteFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different dive session -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
     }
 
     /**
      * Updates {@code model}'s filtered list to show no one.
      */
-    private void showNoPerson(Model model) {
+    private void showNoDiveSession(Model model) {
         model.updateFilteredDiveList(p -> false);
 
         assertTrue(model.getFilteredDiveList().isEmpty());

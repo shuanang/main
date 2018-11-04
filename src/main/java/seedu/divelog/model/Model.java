@@ -22,14 +22,14 @@ public interface Model {
 
     /**
      * Deletes the given dive.
-     * The person must exist in the divelog book.
+     * The dive session must exist in the divelog book.
      * @param target
      */
     void deleteDiveSession(DiveSession target) throws DiveNotFoundException;
 
     /**
      * Adds the given dive.
-     * {@code person} must not already exist in the divelog book.
+     * {@code DiveSession} must not already exist in the divelog book.
      * @param diveSession
      */
     void addDiveSession(DiveSession diveSession);
@@ -37,17 +37,17 @@ public interface Model {
     /**
      * Replaces the given dive {@code target} with {@code editedDiveSession}.
      * {@code target} must exist in the divelog book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the divelog book.
+     * The dive of {@code DiveSession} must not be the same as another existing dive session in the divelog book.
      * @param target
      * @param editedDiveSession
      */
     void updateDiveSession(DiveSession target, DiveSession editedDiveSession) throws DiveNotFoundException;
 
-    /** Returns an unmodifiable view of the filtered person list */
+    /** Returns an unmodifiable view of the filtered dive session list */
     ObservableList<DiveSession> getFilteredDiveList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered dive session list to filter by the given {@code predicate}.
      * @param predicate
      * @throws NullPointerException if {@code predicate} is null.
      */

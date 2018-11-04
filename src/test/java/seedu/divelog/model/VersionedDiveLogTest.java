@@ -24,7 +24,7 @@ public class VersionedDiveLogTest {
     private final ReadOnlyDiveLog diveLogWithTioman = new DiveLogBuilder()
             .withDive(DIVE_AT_TIOMAN)
             .build();
-    private final ReadOnlyDiveLog addressBookWithCarl = new DiveLogBuilder()
+    private final ReadOnlyDiveLog diveLogWithCarl = new DiveLogBuilder()
             .withDive(DIVE_AT_NIGHT)
             .build();
     private final ReadOnlyDiveLog emptyDiveLog = new DiveLogBuilder().build();
@@ -231,8 +231,8 @@ public class VersionedDiveLogTest {
         assertFalse(versionedDiveLog.equals(1));
 
         // different state list -> returns false
-        VersionedDiveLog differentAddressBookList = prepareDiveLogList(diveLogWithTioman, addressBookWithCarl);
-        assertFalse(versionedDiveLog.equals(differentAddressBookList));
+        VersionedDiveLog differentDiveLogList = prepareDiveLogList(diveLogWithTioman, diveLogWithCarl);
+        assertFalse(versionedDiveLog.equals(differentDiveLogList));
 
         // different current pointer index -> returns false
         VersionedDiveLog differentCurrentStatePointer = prepareDiveLogList(
@@ -259,15 +259,15 @@ public class VersionedDiveLogTest {
         }
 
         // check states before pointer are correct
-        for (ReadOnlyDiveLog expectedAddressBook : expectedStatesBeforePointer) {
-            assertEquals(expectedAddressBook, new DiveLog(versionedDiveLog));
+        for (ReadOnlyDiveLog expectedDiveLog : expectedStatesBeforePointer) {
+            assertEquals(expectedDiveLog, new DiveLog(versionedDiveLog));
             versionedDiveLog.redo();
         }
 
         // check states after pointer are correct
-        for (ReadOnlyDiveLog expectedAddressBook : expectedStatesAfterPointer) {
+        for (ReadOnlyDiveLog expectedDiveLog : expectedStatesAfterPointer) {
             versionedDiveLog.redo();
-            assertEquals(expectedAddressBook, new DiveLog(versionedDiveLog));
+            assertEquals(expectedDiveLog, new DiveLog(versionedDiveLog));
         }
 
         // check that there are no more states after pointer
@@ -278,7 +278,7 @@ public class VersionedDiveLogTest {
     }
 
     /**
-     * Creates and returns a {@code VersionedDiveLog} with the {@code addressBookStates} added into it, and the
+     * Creates and returns a {@code VersionedDiveLog} with the {@code diveLogStates} added into it, and the
      * {@code VersionedDiveLog#currentStatePointer} at the end of list.
      * @param diveLogStates
      */

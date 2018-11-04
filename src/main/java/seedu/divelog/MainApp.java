@@ -82,14 +82,14 @@ public class MainApp extends Application {
      * or an empty divelog book will be used instead if errors occur when reading {@code storage}'s divelog book.
      */
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyDiveLog> DiveLogBookOptional;
+        Optional<ReadOnlyDiveLog> diveLogBookOptional;
         ReadOnlyDiveLog initialData;
         try {
-            DiveLogBookOptional = storage.readDiveLog();
-            if (!DiveLogBookOptional.isPresent()) {
+            diveLogBookOptional = storage.readDiveLog();
+            if (!diveLogBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample DiveLog");
             }
-            initialData = DiveLogBookOptional.orElseGet(SampleDataUtil::getSampleDiveLog);
+            initialData = diveLogBookOptional.orElseGet(SampleDataUtil::getSampleDiveLog);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty DiveLog");
             initialData = new DiveLog();

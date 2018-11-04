@@ -1,6 +1,6 @@
 package systemtests;
 
-import static seedu.divelog.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
+import static seedu.divelog.logic.commands.DeleteCommand.MESSAGE_DELETE_DIVE_SESSION_SUCCESS;
 import static seedu.divelog.testutil.TestUtil.getDive;
 
 import org.junit.Test;
@@ -20,32 +20,32 @@ public class DeleteCommandSystemTest extends DiveLogSystemTest {
     public void delete() {
         /* ----------------- Performing delete operation while an unfiltered list is being shown -------------------- */
 
-        /* Case: delete the first person in the list, command with leading spaces and trailing spaces -> deleted */
+        /* Case: delete the first dive session in the list, command with leading spaces and trailing spaces ->deleted */
 
-        /* Case: delete the last person in the list -> deleted */
-
-
-        /* Case: undo deleting the last person in the list -> last person restored */
+        /* Case: delete the last dive session in the list -> deleted */
 
 
-        /* Case: redo deleting the last person in the list -> last person deleted again */
+        /* Case: undo deleting the last dive session in the list -> last dive session restored */
 
 
-        /* Case: delete the middle person in the list -> deleted */
+        /* Case: redo deleting the last dive session in the list -> last dive session deleted again */
+
+
+        /* Case: delete the middle dive session in the list -> deleted */
 
 
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
-        /* Case: filtered person list, delete index within bounds of divelog book and person list -> deleted */
+        /* Case: filtered dive session list, delete index within bounds of divelog book and dive list -> deleted */
 
 
-        /* Case: filtered person list, delete index within bounds of divelog book but out of bounds of person list
+        /* Case: filtered dive session list, delete index within bounds of divelog book but out of bounds of dive list
          * -> rejected
          */
 
-        /* --------------------- Performing delete operation while a person card is selected ------------------------ */
+        /* --------------------- Performing delete operation while a dive session card is selected ------------------ */
 
-        /* Case: delete the selected person -> person list panel selects the person before the deleted person */
+        /* Case: delete the selected dive session -> dive list panel selects the dive before the deleted dive */
 
 
         /* --------------------------------- Performing invalid delete operation ------------------------------------ */
@@ -70,17 +70,17 @@ public class DeleteCommandSystemTest extends DiveLogSystemTest {
     }
 
     /**
-     * Removes the {@code Person} at the specified {@code index} in {@code model}'s divelog book.
-     * @return the removed person
+     * Removes the {@code DiveSession} at the specified {@code index} in {@code model}'s divelog book.
+     * @return the removed dive session
      */
     private DiveSession removeDive(Model model, Index index) {
-        DiveSession targetPerson = getDive(model, index);
+        DiveSession targetDiveSession = getDive(model, index);
         try {
-            model.deleteDiveSession(targetPerson);
+            model.deleteDiveSession(targetDiveSession);
         } catch (seedu.divelog.model.dive.exceptions.DiveNotFoundException e) {
             e.printStackTrace();
         }
-        return targetPerson;
+        return targetDiveSession;
     }
 
     /**
@@ -91,7 +91,7 @@ public class DeleteCommandSystemTest extends DiveLogSystemTest {
     private void assertCommandSuccess(Index toDelete) {
         Model expectedModel = getModel();
         DiveSession deletedDiveSession = removeDive(expectedModel, toDelete);
-        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedDiveSession);
+        String expectedResultMessage = String.format(MESSAGE_DELETE_DIVE_SESSION_SUCCESS, deletedDiveSession);
 
         assertCommandSuccess(
                 DeleteCommand.COMMAND_WORD + " " + toDelete.getOneBased(), expectedModel, expectedResultMessage);

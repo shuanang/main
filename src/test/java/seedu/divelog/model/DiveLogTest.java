@@ -30,21 +30,21 @@ public class DiveLogTest {
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
+    public void resetData_withValidReadOnlyDiveLog_replacesData() {
         DiveLog newData = getTypicalDiveLog();
         diveLog.resetData(newData);
         assertEquals(newData, diveLog);
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasDiveSession_nullDiveSession_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         diveLog.hasDive(null);
     }
 
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getDiveSessionList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         diveLog.getDiveList().remove(0);
     }

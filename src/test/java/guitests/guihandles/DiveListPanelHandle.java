@@ -12,14 +12,14 @@ import seedu.divelog.model.dive.DiveSession;
  * Provides a handle for {@code DiveListPanel} containing the list of {@code DiveSessionCard}.
  */
 public class DiveListPanelHandle extends NodeHandle<ListView<DiveSession>> {
-    public static final String PERSON_LIST_VIEW_ID = "#diveListView";
+    public static final String DIVE_SESSION_LIST_VIEW_ID = "#diveListView";
 
     private static final String CARD_PANE_ID = "#cardPane";
 
     private Optional<DiveSession> lastRememberedSelectedDiveCard;
 
-    public DiveListPanelHandle(ListView<DiveSession> personListPanelNode) {
-        super(personListPanelNode);
+    public DiveListPanelHandle(ListView<DiveSession> diveSessionListPanelNode) {
+        super(diveSessionListPanelNode);
     }
 
     /**
@@ -32,7 +32,7 @@ public class DiveListPanelHandle extends NodeHandle<ListView<DiveSession>> {
         List<DiveSession> selectedDiveSessionList = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedDiveSessionList.size() != 1) {
-            throw new AssertionError("Person list size expected 1.");
+            throw new AssertionError("Dive session list size expected 1.");
         }
 
         return getAllCardNodes().stream()
@@ -63,15 +63,15 @@ public class DiveListPanelHandle extends NodeHandle<ListView<DiveSession>> {
     }
 
     /**
-     * Navigates the listview to display {@code person}.
+     * Navigates the listview to display {@code DiveSession}.
      */
-    public void navigateToCard(DiveSession person) {
-        if (!getRootNode().getItems().contains(person)) {
-            throw new IllegalArgumentException("Person does not exist.");
+    public void navigateToCard(DiveSession diveSession) {
+        if (!getRootNode().getItems().contains(diveSession)) {
+            throw new IllegalArgumentException("Dive session does not exist.");
         }
 
         guiRobot.interact(() -> {
-            getRootNode().scrollTo(person);
+            getRootNode().scrollTo(diveSession);
         });
         guiRobot.pauseForHuman();
     }
@@ -139,7 +139,7 @@ public class DiveListPanelHandle extends NodeHandle<ListView<DiveSession>> {
      * Returns true if the selected {@code DiveSessionCard} is different from the value remembered by the most recent
      * {@code rememberSelectedDiveCard()} call.
      */
-    public boolean isSelectedPersonCardChanged() {
+    public boolean isSelectedDiveSessionCardChanged() {
         List<DiveSession> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {

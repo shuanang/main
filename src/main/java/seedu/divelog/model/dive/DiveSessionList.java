@@ -18,7 +18,7 @@ import seedu.divelog.model.dive.exceptions.DiveNotFoundException;
 public class DiveSessionList implements Iterable<DiveSession> {
     private final ObservableList<DiveSession> internalList = FXCollections.observableArrayList();
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent dive session as the given argument.
      */
     public boolean contains(DiveSession toCheck) {
         requireNonNull(toCheck);
@@ -46,7 +46,7 @@ public class DiveSessionList implements Iterable<DiveSession> {
 
     /**
      * Adds a Dive Session to the list.
-     * The person must not already exist in the list.
+     * The dive session must not already exist in the list.
      * If planning mode, adds to planningInternalList;
      */
     public void add(DiveSession toAdd) {
@@ -58,7 +58,7 @@ public class DiveSessionList implements Iterable<DiveSession> {
     /**
      * Replaces the dive session {@code target} in the list with {@code editedDiveSession}.
      * {@code target} must exist in the list.
-     * The person identity of {@code editedDiveSession} must not be the same as another existing person in the list.
+     * The dive of {@code editedDiveSession} must not be the same as another existing dive session in the list.
      */
     public void setDiveSession(DiveSession target, DiveSession editedDiveSession) throws DiveNotFoundException {
         CollectionUtil.requireAllNonNull(target, editedDiveSession);
@@ -72,7 +72,7 @@ public class DiveSessionList implements Iterable<DiveSession> {
 
     /**
      * Removes the equivalent dive from the list.
-     * The person must exist in the list.
+     * The dive session must exist in the list.
      */
     public void remove(DiveSession toRemove) throws DiveNotFoundException {
         requireNonNull(toRemove);

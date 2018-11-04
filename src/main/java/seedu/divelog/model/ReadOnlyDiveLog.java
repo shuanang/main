@@ -9,8 +9,8 @@ import seedu.divelog.model.dive.DiveSession;
 public interface ReadOnlyDiveLog {
 
     /**
-     * Returns an unmodifiable view of the persons list.
-     * This list will not contain any duplicate persons.
+     * Returns an unmodifiable view of the dive session list.
+     * This list will not contain any duplicate dive sessions.
      */
     ObservableList<DiveSession> getDiveList();
 

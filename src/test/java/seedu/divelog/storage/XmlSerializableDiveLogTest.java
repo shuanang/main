@@ -24,16 +24,16 @@ public class XmlSerializableDiveLogTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void toModelType_typicalPersonsFile_success() throws Exception {
+    public void toModelType_typicalDiveSessionsFile_success() throws Exception {
         XmlSerializableDiveLog dataFromFile = XmlUtil.getDataFromFile(TYPICAL_DIVES_FILE,
                 XmlSerializableDiveLog.class);
         DiveLog diveLogFromFile = dataFromFile.toModelType();
-        DiveLog typicalPersonsDiveLog = TypicalDiveSessions.getTypicalDiveLog();
-        assertEquals(diveLogFromFile, typicalPersonsDiveLog);
+        DiveLog typicalDiveSessionsDiveLog = TypicalDiveSessions.getTypicalDiveLog();
+        assertEquals(diveLogFromFile, typicalDiveSessionsDiveLog);
     }
 
     @Test
-    public void toModelType_invalidPersonFile_throwsIllegalValueException() throws Exception {
+    public void toModelType_invalidDiveSessionFile_throwsIllegalValueException() throws Exception {
         XmlSerializableDiveLog dataFromFile = XmlUtil.getDataFromFile(INVALID_DIVES_FILE,
                 XmlSerializableDiveLog.class);
         thrown.expect(IllegalValueException.class);
