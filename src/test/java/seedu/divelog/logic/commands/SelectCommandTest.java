@@ -35,9 +35,9 @@ public class SelectCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Index lastPersonIndex = Index.fromOneBased(model.getFilteredDiveList().size());
+        Index lastDiveSessionIndex = Index.fromOneBased(model.getFilteredDiveList().size());
         assertExecutionSuccess(INDEX_FIRST_DIVE);
-        assertExecutionSuccess(lastPersonIndex);
+        assertExecutionSuccess(lastDiveSessionIndex);
     }
 
     @Test
@@ -84,7 +84,7 @@ public class SelectCommandTest {
         // null -> returns false
         assertFalse(selectFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different dive session -> returns false
         assertFalse(selectFirstCommand.equals(selectSecondCommand));
     }
 
@@ -94,7 +94,7 @@ public class SelectCommandTest {
      */
     private void assertExecutionSuccess(Index index) {
         SelectCommand selectCommand = new SelectCommand(index);
-        String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, index.getOneBased());
+        String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_DIVE_SESSION_SUCCESS, index.getOneBased());
 
         assertCommandSuccess(selectCommand, model, commandHistory, expectedMessage, expectedModel);
 

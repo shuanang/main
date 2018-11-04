@@ -28,12 +28,12 @@ public interface Storage extends DiveLogStorage, UserPrefsStorage {
     Optional<ReadOnlyDiveLog> readDiveLog() throws DataConversionException, IOException;
 
     @Override
-    void saveDiveLog(ReadOnlyDiveLog addressBook) throws IOException;
+    void saveDiveLog(ReadOnlyDiveLog diveLog) throws IOException;
 
     /**
      * Saves the current version of the Address Book to the hard disk.
      *   Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    void handleAddressBookChangedEvent(DiveLogChangedEvent abce);
+    void handleDiveLogChangedEvent(DiveLogChangedEvent abce);
 }

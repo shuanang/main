@@ -1,8 +1,8 @@
 package seedu.divelog.commons.util;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import org.json.JSONObject;
 
@@ -23,15 +23,15 @@ public class DiveTableUtil {
         this.filename = filename;
     }
 
+    //@@author shuanang
     /**
      * Retrieves a JSONObject file from resources
      * @return JSONObject containing the dive tables
      * @throws IOException if file format is wrong.
      */
     public JSONObject readJsonFileFromResources() throws IOException {
-        ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(Objects.requireNonNull(classLoader.getResource(filename)).getFile());
-        JSONObject jsonObject = objectMapper.readValue(file, JSONObject.class);
+        InputStream file = getClass().getResourceAsStream(filename);
+        JSONObject jsonObject = objectMapper.readValue(new InputStreamReader(file), JSONObject.class);
         return jsonObject;
     }
 }

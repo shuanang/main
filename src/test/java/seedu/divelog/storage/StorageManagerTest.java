@@ -33,9 +33,9 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        XmlDiveLogStorage addressBookStorage = new XmlDiveLogStorage(getTempFilePath("ab"));
+        XmlDiveLogStorage diveLogStorage = new XmlDiveLogStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(diveLogStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -58,7 +58,7 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void diveLogReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link XmlDiveLogStorage} class.
@@ -71,16 +71,16 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void getAddressBookFilePath() {
+    public void getDiveLogFilePath() {
         assertNotNull(storageManager.getDiveLogFilePath());
     }
 
     @Test
-    public void handleAddressBookChangedEvent_exceptionThrown_eventRaised() {
+    public void handleDiveLogChangedEvent_exceptionThrown_eventRaised() {
         // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
         Storage storage = new StorageManager(new XmlDiveLogStorageExceptionThrowingStub(Paths.get("dummy")),
                                              new JsonUserPrefsStorage(Paths.get("dummy")));
-        storage.handleAddressBookChangedEvent(new DiveLogChangedEvent(new DiveLog()));
+        storage.handleDiveLogChangedEvent(new DiveLogChangedEvent(new DiveLog()));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }
 
@@ -95,7 +95,7 @@ public class StorageManagerTest {
         }
 
         @Override
-        public void saveDiveLog(ReadOnlyDiveLog addressBook, Path filePath) throws IOException {
+        public void saveDiveLog(ReadOnlyDiveLog diveLog, Path filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }

@@ -82,12 +82,12 @@ public class VersionedDiveLog extends DiveLog {
             return false;
         }
 
-        VersionedDiveLog otherVersionedAddressBook = (VersionedDiveLog) other;
+        VersionedDiveLog otherVersionedDiveLog = (VersionedDiveLog) other;
 
         // state check
-        return super.equals(otherVersionedAddressBook)
-                && diveLogStateList.equals(otherVersionedAddressBook.diveLogStateList)
-                && currentStatePointer == otherVersionedAddressBook.currentStatePointer;
+        return super.equals(otherVersionedDiveLog)
+                && diveLogStateList.equals(otherVersionedDiveLog.diveLogStateList)
+                && currentStatePointer == otherVersionedDiveLog.currentStatePointer;
     }
 
     /**
@@ -95,7 +95,7 @@ public class VersionedDiveLog extends DiveLog {
      */
     public static class NoUndoableStateException extends RuntimeException {
         private NoUndoableStateException() {
-            super("Current state pointer at start of addressBookState list, unable to undo.");
+            super("Current state pointer at start of diveLogState list, unable to undo.");
         }
     }
 
@@ -104,7 +104,7 @@ public class VersionedDiveLog extends DiveLog {
      */
     public static class NoRedoableStateException extends RuntimeException {
         private NoRedoableStateException() {
-            super("Current state pointer at end of addressBookState list, unable to redo.");
+            super("Current state pointer at end of diveLogState list, unable to redo.");
         }
     }
 }

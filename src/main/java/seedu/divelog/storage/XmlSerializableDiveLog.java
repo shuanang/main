@@ -39,7 +39,7 @@ public class XmlSerializableDiveLog {
     }
 
     /**
-     * Converts this addressbook into the model's {@code DiveLog} object.
+     * Converts this divelog into the model's {@code DiveLog} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
      * {@code XmlAdaptedDiveSession}.

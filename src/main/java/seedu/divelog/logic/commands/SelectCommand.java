@@ -14,18 +14,18 @@ import seedu.divelog.model.Model;
 import seedu.divelog.model.dive.DiveSession;
 
 /**
- * Selects a person identified using it's displayed index from the divelog book.
+ * Selects a dive session identified using it's displayed index from the divelog book.
  */
 public class SelectCommand extends Command {
 
     public static final String COMMAND_WORD = "select";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Selects the person identified by the index number used in the displayed person list.\n"
+            + ": Selects the dive session identified by the index number used in the displayed dive list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Person: %1$s";
+    public static final String MESSAGE_SELECT_DIVE_SESSION_SUCCESS = "Selected Dive session: %1$s";
 
     private final Index targetIndex;
 
@@ -37,16 +37,16 @@ public class SelectCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        List<DiveSession> filteredPersonList = model.getFilteredDiveList();
+        List<DiveSession> filteredDiveSessionList = model.getFilteredDiveList();
 
-        if (targetIndex.getZeroBased() >= filteredPersonList.size()) {
+        if (targetIndex.getZeroBased() >= filteredDiveSessionList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_DIVE_DISPLAYED_INDEX);
         }
         if (model.getPlanningMode()) {
             model.plannerCountPlus();
         }
         EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
-        return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));
+        return new CommandResult(String.format(MESSAGE_SELECT_DIVE_SESSION_SUCCESS, targetIndex.getOneBased()));
 
     }
 

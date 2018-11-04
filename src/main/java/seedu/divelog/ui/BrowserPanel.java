@@ -98,7 +98,7 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(DivePanelSelectionChangedEvent event) {
+    private void handleDivePanelSelectionChangedEvent(DivePanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadDivePage(event.getNewSelection());
     }

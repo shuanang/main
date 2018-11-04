@@ -4,7 +4,7 @@ import seedu.divelog.commons.events.BaseEvent;
 import seedu.divelog.model.dive.DiveSession;
 
 /**
- * Represents a selection change in the Person List Panel
+ * Represents a selection change in the Dive Session List Panel
  */
 public class DivePanelSelectionChangedEvent extends BaseEvent {
 

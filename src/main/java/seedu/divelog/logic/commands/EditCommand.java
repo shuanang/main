@@ -22,7 +22,7 @@ import seedu.divelog.model.dive.TimeZone;
 
 
 /**
- * Edits the details of an existing person in the divelog book.
+ * Edits the details of an existing dive session in the divelog book.
  */
 public class EditCommand extends Command {
 
@@ -49,18 +49,18 @@ public class EditCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
 
     private final Index index;
-    private final EditDiveDescriptor editPersonDescriptor;
+    private final EditDiveDescriptor editDiveDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
-     * @param editPersonDescriptor details to edit the person with
+     * @param index of the dive session in the filtered dive list to edit
+     * @param editDiveDescriptor details to edit the dive session with
      */
-    public EditCommand(Index index, EditDiveDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditDiveDescriptor editDiveDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(editDiveDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditDiveDescriptor(editPersonDescriptor);
+        this.editDiveDescriptor = new EditDiveDescriptor(editDiveDescriptor);
     }
 
     @Override
@@ -74,7 +74,7 @@ public class EditCommand extends Command {
 
         DiveSession diveToEdit = lastShownList.get(index.getZeroBased());
         DiveSession editedDive = null;
-        editedDive = createEditedDive(diveToEdit, editPersonDescriptor);
+        editedDive = createEditedDive(diveToEdit, editDiveDescriptor);
 
         try {
             model.updateDiveSession(diveToEdit, editedDive);
@@ -90,23 +90,23 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code DiveSession} with the details of {@code diveSessionToEdit}
+     * edited with {@code editDiveDescriptor}.
      */
-    private static DiveSession createEditedDive(DiveSession diveToEdit, EditDiveDescriptor editPersonDescriptor) {
+    private static DiveSession createEditedDive(DiveSession diveToEdit, EditDiveDescriptor editDiveSessionDescriptor) {
         assert diveToEdit != null;
-        OurDate dateStart = editPersonDescriptor.getDateStart().orElse(diveToEdit.getDateStart());
-        Time start = editPersonDescriptor.getStart().orElse(diveToEdit.getStart());
-        OurDate dateEnd = editPersonDescriptor.getDateEnd().orElse(diveToEdit.getDateEnd());
-        Time end = editPersonDescriptor.getEnd().orElse(diveToEdit.getEnd());
-        Time safetyStop = editPersonDescriptor.getSafetyStop().orElse(diveToEdit.getSafetyStop());
-        PressureGroup pressureGroupAtBeginning = editPersonDescriptor.getPressureGroupAtBeginning()
+        OurDate dateStart = editDiveSessionDescriptor.getDateStart().orElse(diveToEdit.getDateStart());
+        Time start = editDiveSessionDescriptor.getStart().orElse(diveToEdit.getStart());
+        OurDate dateEnd = editDiveSessionDescriptor.getDateEnd().orElse(diveToEdit.getDateEnd());
+        Time end = editDiveSessionDescriptor.getEnd().orElse(diveToEdit.getEnd());
+        Time safetyStop = editDiveSessionDescriptor.getSafetyStop().orElse(diveToEdit.getSafetyStop());
+        PressureGroup pressureGroupAtBeginning = editDiveSessionDescriptor.getPressureGroupAtBeginning()
                 .orElse(diveToEdit.getPressureGroupAtBeginning());
-        PressureGroup pressureGroupAtEnd = editPersonDescriptor.getPressureGroupAtEnd()
+        PressureGroup pressureGroupAtEnd = editDiveSessionDescriptor.getPressureGroupAtEnd()
                 .orElse(diveToEdit.getPressureGroupAtEnd());
-        Location location = editPersonDescriptor.getLocation().orElse(diveToEdit.getLocation());
-        DepthProfile depth = editPersonDescriptor.getDepthProfile().orElse(diveToEdit.getDepthProfile());
-        TimeZone timezone = editPersonDescriptor.getTimeZone().orElse(diveToEdit.getTimeZone());
+        Location location = editDiveSessionDescriptor.getLocation().orElse(diveToEdit.getLocation());
+        DepthProfile depth = editDiveSessionDescriptor.getDepthProfile().orElse(diveToEdit.getDepthProfile());
+        TimeZone timezone = editDiveSessionDescriptor.getTimeZone().orElse(diveToEdit.getTimeZone());
         return new DiveSession(dateStart, start, safetyStop, dateEnd, end, pressureGroupAtBeginning, pressureGroupAtEnd,
                 location, depth, timezone);
     }
@@ -126,12 +126,12 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+                && editDiveDescriptor.equals(e.editDiveDescriptor);
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Stores the details to edit the dive session with. Each non-empty field value will replace the
+     * corresponding field value of the dive session.
      */
     public static class EditDiveDescriptor {
         private OurDate dateStart;

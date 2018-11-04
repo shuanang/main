@@ -17,7 +17,7 @@ public class MainWindowHandle extends StageHandle {
     public MainWindowHandle(Stage stage) {
         super(stage);
 
-        diveListPanel = new DiveListPanelHandle(getChildNode(DiveListPanelHandle.PERSON_LIST_VIEW_ID));
+        diveListPanel = new DiveListPanelHandle(getChildNode(DiveListPanelHandle.DIVE_SESSION_LIST_VIEW_ID));
         resultDisplay = new ResultDisplayHandle(getChildNode(ResultDisplayHandle.RESULT_DISPLAY_ID));
         commandBox = new CommandBoxHandle(getChildNode(CommandBoxHandle.COMMAND_INPUT_FIELD_ID));
         statusBarFooter = new StatusBarFooterHandle(getChildNode(StatusBarFooterHandle.STATUS_BAR_PLACEHOLDER));

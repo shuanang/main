@@ -43,43 +43,44 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
 
-        EditCommand.EditDiveDescriptor editPersonDescriptor = new EditCommand.EditDiveDescriptor();
+        EditCommand.EditDiveDescriptor editDiveSessionDescriptor = new EditCommand.EditDiveDescriptor();
         if (argMultimap.getValue(CliSyntax.PREFIX_DATE_START).isPresent()) {
-            editPersonDescriptor.setDateStart(new OurDate(argMultimap.getValue(CliSyntax.PREFIX_DATE_START).get()));
+            editDiveSessionDescriptor.setDateStart(new OurDate(argMultimap.getValue(CliSyntax.PREFIX_DATE_START)
+                    .get()));
         }
         if (argMultimap.getValue(CliSyntax.PREFIX_TIME_START).isPresent()) {
-            editPersonDescriptor.setStart(new Time(argMultimap.getValue(CliSyntax.PREFIX_TIME_START).get()));
+            editDiveSessionDescriptor.setStart(new Time(argMultimap.getValue(CliSyntax.PREFIX_TIME_START).get()));
         }
         if (argMultimap.getValue(CliSyntax.PREFIX_SAFETY_STOP).isPresent()) {
-            editPersonDescriptor.setSafetyStop(new Time(argMultimap.getValue(CliSyntax.PREFIX_SAFETY_STOP).get()));
+            editDiveSessionDescriptor.setSafetyStop(new Time(argMultimap.getValue(CliSyntax.PREFIX_SAFETY_STOP).get()));
         }
         if (argMultimap.getValue(CliSyntax.PREFIX_DATE_END).isPresent()) {
-            editPersonDescriptor.setDateEnd(new OurDate(argMultimap.getValue(CliSyntax.PREFIX_DATE_END).get()));
+            editDiveSessionDescriptor.setDateEnd(new OurDate(argMultimap.getValue(CliSyntax.PREFIX_DATE_END).get()));
         }
         if (argMultimap.getValue(CliSyntax.PREFIX_TIME_END).isPresent()) {
-            editPersonDescriptor.setEnd(new Time(argMultimap.getValue(CliSyntax.PREFIX_TIME_END).get()));
+            editDiveSessionDescriptor.setEnd(new Time(argMultimap.getValue(CliSyntax.PREFIX_TIME_END).get()));
         }
         if (argMultimap.getValue(CliSyntax.PREFIX_DEPTH).isPresent()) {
-            editPersonDescriptor.setDepthProfile(
+            editDiveSessionDescriptor.setDepthProfile(
                     ParserUtil.parseDepth(argMultimap.getValue(CliSyntax.PREFIX_DEPTH).get()));
         }
         if (argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_START).isPresent()) {
-            editPersonDescriptor.setPressureGroupAtBeginning(
+            editDiveSessionDescriptor.setPressureGroupAtBeginning(
                     ParserUtil.parsePressureGroup(argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_START).get()));
         }
         if (argMultimap.getValue(CliSyntax.PREFIX_LOCATION).isPresent()) {
-            editPersonDescriptor.setLocation(
+            editDiveSessionDescriptor.setLocation(
                     new Location(argMultimap.getValue(CliSyntax.PREFIX_LOCATION).get()));
         }
         if (argMultimap.getValue(CliSyntax.PREFIX_TIMEZONE).isPresent()) {
-            editPersonDescriptor.setTimeZone(
+            editDiveSessionDescriptor.setTimeZone(
                    new TimeZone(argMultimap.getValue(CliSyntax.PREFIX_TIMEZONE).get()));
         }
-        if (!editPersonDescriptor.isAnyFieldEdited()) {
+        if (!editDiveSessionDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditCommand(index, editPersonDescriptor);
+        return new EditCommand(index, editDiveSessionDescriptor);
     }
 
 }

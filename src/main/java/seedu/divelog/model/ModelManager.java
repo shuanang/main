@@ -28,15 +28,15 @@ public class ModelManager extends ComponentManager implements Model {
     private int plannerCount = 0;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given diveLog and userPrefs.
      */
-    public ModelManager(ReadOnlyDiveLog addressBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyDiveLog diveLog, UserPrefs userPrefs) {
         super();
-        CollectionUtil.requireAllNonNull(addressBook, userPrefs);
+        CollectionUtil.requireAllNonNull(diveLog, userPrefs);
 
-        logger.fine("Initializing with divelog book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with divelog book: " + diveLog + " and user prefs " + userPrefs);
 
-        versionedDiveLog = new VersionedDiveLog(addressBook);
+        versionedDiveLog = new VersionedDiveLog(diveLog);
         filteredDives = new FilteredList<>(versionedDiveLog.getDiveList());
     }
 
@@ -74,7 +74,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void resetData(ReadOnlyDiveLog newData) {
         versionedDiveLog.resetData(newData);
-        indicateAddressBookChanged();
+        indicateDiveLogChanged();
     }
 
     @Override
@@ -83,7 +83,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
+    private void indicateDiveLogChanged() {
         raise(new DiveLogChangedEvent(versionedDiveLog));
     }
 
@@ -91,21 +91,21 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void deleteDiveSession(DiveSession target) throws DiveNotFoundException {
         versionedDiveLog.removeDive(target);
-        indicateAddressBookChanged();
+        indicateDiveLogChanged();
     }
 
     @Override
     public void addDiveSession(DiveSession diveSession) {
         versionedDiveLog.addDive(diveSession);
         updateFilteredDiveList(PREDICATE_SHOW_ALL_DIVES);
-        indicateAddressBookChanged();
+        indicateDiveLogChanged();
     }
 
     @Override
     public void updateDiveSession(DiveSession target, DiveSession editedDiveSession) throws DiveNotFoundException {
         CollectionUtil.requireAllNonNull(target, editedDiveSession);
         versionedDiveLog.updateDive(target, editedDiveSession);
-        indicateAddressBookChanged();
+        indicateDiveLogChanged();
     }
 
     //=========== Filtered DiveSession List Accessors =============================================================
@@ -140,13 +140,13 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void undoDiveLog() {
         versionedDiveLog.undo();
-        indicateAddressBookChanged();
+        indicateDiveLogChanged();
     }
 
     @Override
     public void redoDiveLog() {
         versionedDiveLog.redo();
-        indicateAddressBookChanged();
+        indicateDiveLogChanged();
     }
 
     @Override

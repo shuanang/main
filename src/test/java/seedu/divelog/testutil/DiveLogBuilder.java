@@ -6,7 +6,7 @@ import seedu.divelog.model.dive.DiveSession;
 /**
  * A utility class to help with building DiveLog objects.
  * Example usage: <br>
- *     {@code DiveLog ab = new DiveLogBuilder().withPerson("John", "Doe").build();}
+ *     {@code DiveLog ab = new DiveLogBuilder().withDiveSession("John", "Doe").build();}
  */
 public class DiveLogBuilder {
 
@@ -21,7 +21,7 @@ public class DiveLogBuilder {
     }
 
     /**
-     * Adds a new {@code Person} to the {@code DiveLog} that we are building.
+     * Adds a new {@code DiveSession} to the {@code DiveLog} that we are building.
      * @param dive
      */
     public DiveLogBuilder withDive(DiveSession dive) {

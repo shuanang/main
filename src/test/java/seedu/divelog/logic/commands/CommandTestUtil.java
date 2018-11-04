@@ -82,7 +82,7 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the divelog book and the filtered person list in the {@code actualModel} remain unchanged <br>
+     * - the divelog book and the filtered dive session list in the {@code actualModel} remain unchanged <br>
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
@@ -112,8 +112,8 @@ public class CommandTestUtil {
     public static void showDiveAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredDiveList().size());
 
-        DiveSession person = model.getFilteredDiveList().get(targetIndex.getZeroBased());
-        final String[] splitName = person.getLocation().getLocationName().split("\\s+");
+        DiveSession diveSession = model.getFilteredDiveList().get(targetIndex.getZeroBased());
+        final String[] splitName = diveSession.getLocation().getLocationName().split("\\s+");
         model.updateFilteredDiveList(new LocationContainsKeywordPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredDiveList().size());
