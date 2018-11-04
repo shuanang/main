@@ -3,8 +3,13 @@ package seedu.divelog.model.dive;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Logger;
 
+import seedu.divelog.commons.core.LogsCenter;
 import seedu.divelog.commons.util.CompareUtil;
+import seedu.divelog.logic.pressuregroup.PressureGroupLogic;
+import seedu.divelog.logic.pressuregroup.exceptions.LimitExceededException;
+import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 
 /**
  * This class represents a single dive session
@@ -15,12 +20,13 @@ public class DiveSession implements Comparable {
     private final Time safetyStop;
     private final OurDate dateEnd;
     private final Time end;
-    private final PressureGroup pressureGroupAtBeginning;
-    private final PressureGroup pressureGroupAtEnd;
     private final Location location;
     private final DepthProfile depthProfile;
     private final TimeZone timezone;
     private Date dateTime;
+    //These are recomputed later
+    private PressureGroup pressureGroupAtBeginning;
+    private PressureGroup pressureGroupAtEnd;
 
 
     public DiveSession(
@@ -71,6 +77,10 @@ public class DiveSession implements Comparable {
         return pressureGroupAtEnd;
     }
 
+    public void setPressureGroupAtBeginning(PressureGroup pressureGroup) {
+        pressureGroupAtBeginning = pressureGroup;
+    }
+
     public Time getSafetyStop() {
         return safetyStop;
     }
@@ -109,7 +119,9 @@ public class DiveSession implements Comparable {
         if (!(obj instanceof DiveSession)) {
             return false;
         }
+
         DiveSession other = (DiveSession) obj;
+
         return other.getLocation().equals(getLocation())
                 && other.getDateStart().equals(getDateStart())
                 && other.getDateEnd().equals(getDateEnd())
@@ -122,6 +134,61 @@ public class DiveSession implements Comparable {
                 && other.getTimeZone().equals(getTimeZone());
     }
 
+    /**
+     * Recomputes the end pressure group given Non-Repeated Dive
+     * @throws LimitExceededException when dives exceed threshold
+     * @throws InvalidTimeException when time given is in invalid format. This should never happen.
+     */
+    public void computePressureGroupNonRepeated() throws LimitExceededException, InvalidTimeException {
+        try {
+            float actualBottomTime = CompareUtil.checkTimeDifference(start.getTimeString(), end.getTimeString(),
+                dateStart.getOurDateString(), dateEnd.getOurDateString());
+            pressureGroupAtEnd = PressureGroupLogic.computePressureGroupFirstDive(depthProfile, actualBottomTime);
+        } catch (LimitExceededException l) {
+            throw l;
+        } catch (Exception e) {
+            //Shouldn't ever be reached
+            Logger log = LogsCenter.getLogger(DiveSession.class);
+            log.severe("Something went wrong with the time format");
+            throw new InvalidTimeException();
+        }
+    }
+
+    /**
+     * Recomputes the end pressure group given Repeated Dive
+     * @throws LimitExceededException when it exceeds the thresholds
+     * @throws InvalidTimeException when time given is in invalid format. This should never happen.
+     */
+    public void computePressureGroupComputeRepeated() throws LimitExceededException, InvalidTimeException {
+        try {
+            float actualBottomTime = CompareUtil.checkTimeDifference(start.getTimeString(), end.getTimeString(),
+                    dateStart.getOurDateString(), dateEnd.getOurDateString());
+            pressureGroupAtEnd = PressureGroupLogic.computePressureGroup(depthProfile, actualBottomTime, pressureGroupAtBeginning);
+        } catch (LimitExceededException l) {
+            throw l;
+        } catch (Exception e) {
+            //Shouldn't ever be reached
+            Logger log = LogsCenter.getLogger(DiveSession.class);
+            log.severe("Something went wrong with the time format");
+            throw new InvalidTimeException();
+        }
+    }
+
+    /**
+     * Measures the time between different DiveSessions.
+     * @return time in minutes between dive sessions
+     * @throws InvalidTimeException When time format is incorrect. Should never reach this stage.
+     */
+    public float getTimeBetweenDiveSession(DiveSession other) throws InvalidTimeException {
+        try {
+            return CompareUtil.checkTimeDifference(end.getTimeString(), other.start.getTimeString(),
+                    dateEnd.getOurDateString(), other.dateStart.getOurDateString());
+        } catch (Exception e) {
+            Logger log = LogsCenter.getLogger(DiveSession.class);
+            log.severe("Something went wrong with the time format");
+            throw new InvalidTimeException();
+        }
+    }
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -137,9 +204,11 @@ public class DiveSession implements Comparable {
 
     @Override
     public int compareTo(Object o) {
+
         if (!(o instanceof DiveSession)) {
             throw new ClassCastException();
         }
+
         DiveSession other = (DiveSession) o;
         try {
             Date otherDate = other.getDiveLocalDate();

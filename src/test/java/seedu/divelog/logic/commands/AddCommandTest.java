@@ -82,9 +82,15 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public DiveSession mostRecent() {
+        public DiveSession getMostRecent() {
             throw new AssertionError("This method should not be called");
         }
+
+        @Override
+        public void recalculatePressureGroups() {
+            throw new AssertionError("This method should not be called");
+        }
+
         @Override
         public void addDiveSession(DiveSession diveSession) {
             throw new AssertionError("This method should not be called.");

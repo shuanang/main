@@ -63,7 +63,13 @@ public interface Model {
     /**
      * Gets the most recent dive
      */
-    DiveSession mostRecent();
+    DiveSession getMostRecent();
+
+    /**
+     * Recalculate all pressure groups
+     */
+
+    void recalculatePressureGroups();
 
     /**
      * Returns true if the model has previous divelog book states to restore.

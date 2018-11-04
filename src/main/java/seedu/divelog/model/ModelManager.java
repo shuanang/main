@@ -132,8 +132,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public DiveSession mostRecent() {
+    public DiveSession getMostRecent() {
         return versionedDiveLog.getMostRecentDive();
+    }
+
+    @Override
+    public void recalculatePressureGroups() {
+
     }
 
     //=========== Undo/Redo =================================================================================

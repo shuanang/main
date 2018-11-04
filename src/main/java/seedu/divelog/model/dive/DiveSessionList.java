@@ -2,6 +2,8 @@ package seedu.divelog.model.dive;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
@@ -14,13 +16,17 @@ import seedu.divelog.commons.core.LogsCenter;
 import seedu.divelog.commons.enums.SortingMethod;
 import seedu.divelog.commons.util.CollectionUtil;
 import seedu.divelog.commons.util.CompareUtil;
+import seedu.divelog.logic.pressuregroup.PressureGroupLogic;
+import seedu.divelog.logic.pressuregroup.exceptions.LimitExceededException;
 import seedu.divelog.model.dive.exceptions.DiveNotFoundException;
+import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 
 /**
  * Stores a list of dives
  */
 public class DiveSessionList implements Iterable<DiveSession> {
     private final ObservableList<DiveSession> internalList = FXCollections.observableArrayList();
+    private final float ONE_DAY_IN_MINUTES = 24*60;
     /**
      * Returns true if the list contains an equivalent dive session as the given argument.
      */
@@ -37,8 +43,8 @@ public class DiveSessionList implements Iterable<DiveSession> {
     public void sortDiveSession(SortingMethod sortByCategory) {
         Comparator<DiveSession> dateTimeComparator = (one, two) -> {
             Date dateTime1 = one.getDateTime();
-            Date datetime2 = two.getDateTime();
-            return dateTime1.compareTo(datetime2);
+            Date dateTime2 = two.getDateTime();
+            return dateTime2.compareTo(dateTime1);
         };
 
         switch(sortByCategory) {
@@ -75,6 +81,29 @@ public class DiveSessionList implements Iterable<DiveSession> {
         return mostRecent;
     }
 
+    /**
+     * Recalculate pressure groups for all dives. Assumes oldest dive is the correct starting point.
+     *
+     */
+    public void recalculatePressureGroup() throws LimitExceededException, InvalidTimeException {
+        //sort dives
+        sortDiveSession(SortingMethod.TIME);
+
+        //iterate through list and solve dives
+        internalList.get(internalList.size()-1).computePressureGroupNonRepeated();
+        DiveSession prevDive = internalList.get(internalList.size()-1);
+        for (int i = internalList.size()-2; i > 0; i--) {
+            float surfaceInterval = prevDive.getTimeBetweenDiveSession(internalList.get(i));
+            if (surfaceInterval > ONE_DAY_IN_MINUTES) {
+                internalList.get(i).computePressureGroupNonRepeated();
+            } else {
+                PressureGroup newPg = PressureGroupLogic.computePressureGroupAfterSurfaceInterval(prevDive.getPressureGroupAtEnd(),
+                                surfaceInterval);
+                internalList.get(i).setPressureGroupAtBeginning(newPg);
+                internalList.get(i).computePressureGroupComputeRepeated();
+            }
+        }
+    }
     /**
      * Adds a Dive Session to the list.
      * The dive session must not already exist in the list.
@@ -141,19 +170,36 @@ public class DiveSessionList implements Iterable<DiveSession> {
 
     @Override
     public boolean equals(Object other) {
+
         if (!(other instanceof DiveSessionList)) {
             return false;
         }
+
         DiveSessionList otherDiveList = (DiveSessionList) other;
+
+        otherDiveList.sortDiveSession(SortingMethod.TIME);
+        sortDiveSession(SortingMethod.TIME);
+
         if (otherDiveList.internalList.size() != internalList.size()) {
             return false;
         }
+
         for (int i = 0; i < internalList.size(); i++) {
             if (!internalList.get(i).equals(otherDiveList.internalList.get(i))) {
                 return false;
             }
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for(DiveSession diveSession: internalList) {
+            stringBuilder.append(diveSession);
+            stringBuilder.append("\n");
+        }
+        return stringBuilder.toString();
     }
 
     @Override

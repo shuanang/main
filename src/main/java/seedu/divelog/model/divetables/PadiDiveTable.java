@@ -75,6 +75,7 @@ public class PadiDiveTable {
             JSONObject table = surfaceTable.readJsonFileFromResources();
             JSONObject column = table.getJSONObject(startingPressureGroup.getPressureGroup());
             Iterator<String> keys = column.keys();
+
             while (keys.hasNext()) {
                 String pressureGroup = keys.next();
                 JSONArray interval = column.getJSONArray(pressureGroup);
@@ -168,15 +169,19 @@ public class PadiDiveTable {
     public static String findClosestKey(JSONObject object, float key) {
         Iterator<String> keys = object.keys();
         ArrayList<Integer> integerKeys = new ArrayList<Integer>();
+
         while (keys.hasNext()) {
             String curr = keys.next();
             integerKeys.add(Integer.parseInt(curr));
         }
+
         Collections.sort(integerKeys);
+
         int i = 0;
         while (key > integerKeys.get(i)) {
             i++;
         }
+
         return integerKeys.get(i).toString();
     }
 }

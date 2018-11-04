@@ -13,8 +13,8 @@ import seedu.divelog.model.dive.DiveSession;
 public class DiveSessionCard extends UiPart<Region> {
 
     public static final String DIVE_PREFIX = "Dive at ";
-    public static final String FORMAT_THE_START_TIME = "Date Started: %s";
-    public static final String FORMAT_THE_END_TIME = "Date Ended: %s";
+    public static final String FORMAT_START_TIME = "Date Started: %s";
+    public static final String FORMAT_END_TIME = "Date Ended: %s";
     private static final String FXML = "DiveListCards.fxml";
 
     /**
@@ -45,8 +45,8 @@ public class DiveSessionCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(DIVE_PREFIX + dive.getLocation().getLocationName());
         depth.setText(dive.getDepthProfile().getFormattedString());
-        dateStart.setText(String.format(FORMAT_THE_START_TIME, dive.getDateStart().getOurDateString()));
-        dateEnd.setText(String.format(FORMAT_THE_END_TIME, dive.getDateEnd().getOurDateString()));
+        dateStart.setText(String.format(FORMAT_START_TIME, dive.getDateStart().getOurDateString()));
+        dateEnd.setText(String.format(FORMAT_END_TIME, dive.getDateEnd().getOurDateString()));
     }
 
     @Override

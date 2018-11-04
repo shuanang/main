@@ -67,12 +67,14 @@ public class AddCommand extends Command {
         List<DiveSession> lastShownList = model.getFilteredDiveList();
         //match the dive session
         int count = 0;
+
         for (DiveSession diveSessions : lastShownList) {
             if (toAdd.getDateStart().getOurDateString().equals(diveSessions.getDateStart().getOurDateString()
                     .intern())) {
                 count = count + 1;
             }
         }
+
         if (count >= 1) {
             //NOT the first dive of the day
             model.addDiveSession(toAdd);
