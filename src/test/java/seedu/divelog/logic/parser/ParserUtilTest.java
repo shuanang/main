@@ -65,6 +65,22 @@ public class ParserUtilTest {
         thrown.expectMessage(MESSAGE_INVALID_DEPTH);
         ParserUtil.parseDepth("otototo MAMAMAMA");
     }
+
+    //@@author arjo129
+    @Test
+    public void parseDepth_negativeInput_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(MESSAGE_INVALID_DEPTH);
+        ParserUtil.parseDepth("-1");
+    }
+
+    //@@author arjo129
+    @Test
+    public void parseDepth_zeroInput_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(MESSAGE_INVALID_DEPTH);
+        ParserUtil.parseDepth("0");
+    }
 //    /*
 //    * Not yet completed
 //    * @author Cjunx
