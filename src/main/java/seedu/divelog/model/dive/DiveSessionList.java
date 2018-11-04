@@ -63,7 +63,8 @@ public class DiveSessionList implements Iterable<DiveSession> {
         for (DiveSession diveSession: internalList) {
 
             try {
-                if (mostRecent == null && CompareUtil.getCurrentDateTime().compareTo(diveSession.getDiveLocalDate()) > 0) {
+                if (mostRecent == null
+                        && CompareUtil.getCurrentDateTime().compareTo(diveSession.getDiveLocalDate()) > 0) {
                     mostRecent = diveSession;
                     continue;
                 }
