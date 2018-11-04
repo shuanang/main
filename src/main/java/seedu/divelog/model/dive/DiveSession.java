@@ -4,11 +4,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import seedu.divelog.commons.util.CompareUtil;
+
 /**
- * @author arjo
  * This class represents a single dive session
  */
-public class DiveSession {
+public class DiveSession implements Comparable {
     private final OurDate dateStart;
     private final Time start;
     private final Time safetyStop;
@@ -90,6 +91,18 @@ public class DiveSession {
         return dateTime;
     }
 
+    /**
+     * Gets the dive start time as a java Date object
+     * @return The date as the system's locale percieves it.
+     */
+    public Date getDiveLocalDate() throws Exception {
+        String date = getDateStart().getOurDateString();
+        String time = getStart().getTimeString();
+        int timeZone = getTimeZone().getTimeZone();
+        return CompareUtil.getLocalDate(time, date, timeZone);
+    }
+
+
     @Override
     public boolean equals(Object obj) {
 
@@ -120,5 +133,20 @@ public class DiveSession {
         stringBuilder.append("\tDepth: " + getDepthProfile().getDepth() + "\n");
         stringBuilder.append("\tTime Zone:" + getTimeZone().getTimeZoneString());
         return stringBuilder.toString();
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        if (!(o instanceof DiveSession)) {
+            throw new ClassCastException();
+        }
+        DiveSession other = (DiveSession) o;
+        try {
+            Date otherDate = other.getDiveLocalDate();
+            Date myDate = getDiveLocalDate();
+            return myDate.compareTo(otherDate);
+        } catch (Exception e) {
+            throw new ClassCastException();
+        }
     }
 }

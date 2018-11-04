@@ -26,6 +26,18 @@ public class CompareUtil {
 
     /**
      * Converts date and time into LOCAL time
+     * returns a java date object
+     */
+    public static Date getLocalDate(String time, String date, int timezone) throws Exception {
+        String timeNowString = date.concat(time);
+        SimpleDateFormat inputFormat = new SimpleDateFormat("ddMMyyyyHHmm");
+        Date oldTime = inputFormat.parse(timeNowString);
+        Date newTime = new Date(oldTime.getTime() + TimeUnit.HOURS.toMillis(timezone));
+        return newTime;
+    }
+
+    /**
+     * Converts date and time into LOCAL time
      * returns first 8 digits of Date in DDMMYYYY, next 4 digits in HHMM
      */
     public static Long convertTimeToLocal(String time, String date, int timezone) throws Exception {

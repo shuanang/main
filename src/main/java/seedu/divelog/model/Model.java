@@ -3,6 +3,7 @@ package seedu.divelog.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.divelog.commons.enums.SortingMethod;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.exceptions.DiveNotFoundException;
 
@@ -52,6 +53,17 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredDiveList(Predicate<DiveSession> predicate);
+
+    /**
+     * Sorts the InternalList based on Time
+     * Can be scaled to sort based on other things
+     */
+    void sortDiveSession(SortingMethod sortByCategory);
+
+    /**
+     * Gets the most recent dive
+     */
+    DiveSession mostRecent();
 
     /**
      * Returns true if the model has previous divelog book states to restore.

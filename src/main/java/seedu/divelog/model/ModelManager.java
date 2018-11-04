@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.divelog.commons.core.ComponentManager;
 import seedu.divelog.commons.core.LogsCenter;
+import seedu.divelog.commons.enums.SortingMethod;
 import seedu.divelog.commons.events.model.DiveLogChangedEvent;
 import seedu.divelog.commons.util.CollectionUtil;
 import seedu.divelog.model.dive.DiveSession;
@@ -123,6 +124,16 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredDiveList(Predicate<DiveSession> predicate) {
         requireNonNull(predicate);
         filteredDives.setPredicate(predicate);
+    }
+
+    @Override
+    public void sortDiveSession(SortingMethod sortByCategory) {
+        versionedDiveLog.sortDiveSession(sortByCategory);
+    }
+
+    @Override
+    public DiveSession mostRecent() {
+        return versionedDiveLog.getMostRecentDive();
     }
 
     //=========== Undo/Redo =================================================================================

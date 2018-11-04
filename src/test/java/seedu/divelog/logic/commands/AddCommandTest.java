@@ -15,6 +15,7 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.divelog.commons.enums.SortingMethod;
 import seedu.divelog.logic.CommandHistory;
 import seedu.divelog.model.DiveLog;
 import seedu.divelog.model.Model;
@@ -81,6 +82,10 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
+        public DiveSession mostRecent() {
+            throw new AssertionError("This method should not be called");
+        }
+        @Override
         public void addDiveSession(DiveSession diveSession) {
             throw new AssertionError("This method should not be called.");
         }
@@ -112,6 +117,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredDiveList(Predicate<DiveSession> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortDiveSession(SortingMethod sortByCategory) {
             throw new AssertionError("This method should not be called.");
         }
 

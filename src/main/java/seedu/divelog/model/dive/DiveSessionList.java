@@ -6,10 +6,14 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.divelog.commons.core.LogsCenter;
+import seedu.divelog.commons.enums.SortingMethod;
 import seedu.divelog.commons.util.CollectionUtil;
+import seedu.divelog.commons.util.CompareUtil;
 import seedu.divelog.model.dive.exceptions.DiveNotFoundException;
 
 /**
@@ -30,7 +34,7 @@ public class DiveSessionList implements Iterable<DiveSession> {
      * Sorts the InternalList based on Time
      * Can be scaled to sort based on other things
      */
-    private void sortDiveSession(int sortByCategory) {
+    public void sortDiveSession(SortingMethod sortByCategory) {
         Comparator<DiveSession> dateTimeComparator = (one, two) -> {
             Date dateTime1 = one.getDateTime();
             Date datetime2 = two.getDateTime();
@@ -45,6 +49,32 @@ public class DiveSessionList implements Iterable<DiveSession> {
     }
 
     /**
+     * Gets the most recent dive.
+     * @return a handle to the DiveSession
+     */
+    public DiveSession getMostRecentDive() {
+        DiveSession mostRecent = null;
+        for(DiveSession diveSession: internalList) {
+            if (mostRecent == null) {
+                mostRecent = diveSession;
+                continue;
+            }
+            try {
+                if (mostRecent.compareTo(diveSession) < 0 &&
+                        CompareUtil.getCurrentDateTime().compareTo(diveSession.getDiveLocalDate()) > 0) {
+                    mostRecent = diveSession;
+                }
+            } catch(Exception e) {
+                //This will technically never occur due to input checking
+                Logger log  = LogsCenter.getLogger(DiveSessionList.class);
+                log.severe("Something went wrong decoding the divelist time: " + e.toString());
+                continue;
+            }
+        }
+        return mostRecent;
+    }
+
+    /**
      * Adds a Dive Session to the list.
      * The dive session must not already exist in the list.
      * If planning mode, adds to planningInternalList;
@@ -52,7 +82,7 @@ public class DiveSessionList implements Iterable<DiveSession> {
     public void add(DiveSession toAdd) {
         requireNonNull(toAdd);
         internalList.add(toAdd);
-        sortDiveSession(1);
+        sortDiveSession(SortingMethod.TIME);
     }
 
     /**
@@ -66,7 +96,7 @@ public class DiveSessionList implements Iterable<DiveSession> {
         if (index == -1) {
             throw new DiveNotFoundException();
         }
-        sortDiveSession(1);
+        sortDiveSession(SortingMethod.TIME);
         internalList.set(index, editedDiveSession);
     }
 
@@ -81,13 +111,14 @@ public class DiveSessionList implements Iterable<DiveSession> {
         }
     }
 
+
     /**
      * Sets all the dives in a dive session list.
      * @param replacement
      */
     public void setDives(DiveSessionList replacement) {
         requireNonNull(replacement);
-        sortDiveSession(1);
+        sortDiveSession(SortingMethod.TIME);
         internalList.setAll(replacement.internalList);
     }
 

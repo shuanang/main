@@ -48,7 +48,6 @@ public class AddCommandParser implements Parser<AddCommand> {
                 CliSyntax.PREFIX_TIME_END,
                 CliSyntax.PREFIX_SAFETY_STOP,
                 CliSyntax.PREFIX_DEPTH,
-                CliSyntax.PREFIX_PRESSURE_GROUP_START,
                 CliSyntax.PREFIX_LOCATION)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));

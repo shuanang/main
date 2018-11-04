@@ -121,6 +121,22 @@ public class DiveSessionBuilder {
     }
 
     /**
+     * Sets the dive session builder start date
+     */
+    public DiveSessionBuilder withStartDate(String date) {
+        this.dateStart = new OurDate(date);
+        return this;
+    }
+
+    /**
+     * Sets the dive session builder end date
+     */
+    public DiveSessionBuilder withEndDate(String date) {
+        this.dateEnd = new OurDate(date);
+        return this;
+    }
+
+    /**
      * Builds the DiveSession object
      * @return DiveSession
      */
