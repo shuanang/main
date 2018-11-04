@@ -42,7 +42,6 @@ public class EditCommand extends Command {
             //+ "[" + CliSyntax.PREFIX_PRESSURE_GROUP_END + "PG_AT_END] "
             + "[" + CliSyntax.PREFIX_LOCATION + "LOCATION]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + CliSyntax.PREFIX_PRESSURE_GROUP_END + "F "
             + CliSyntax.PREFIX_LOCATION + "Tioman "
             + CliSyntax.PREFIX_TIMEZONE + "+7 ";
 
