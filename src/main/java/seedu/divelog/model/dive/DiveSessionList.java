@@ -2,8 +2,6 @@ package seedu.divelog.model.dive;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
@@ -85,7 +83,8 @@ public class DiveSessionList implements Iterable<DiveSession> {
 
     /**
      * Recalculate pressure groups for all dives. Assumes oldest dive is the correct starting point.
-     *
+     * @throws LimitExceededException if the new dive cannot be accomodated within the system.
+     * @throws InvalidTimeException if the dive data is malformed
      */
     public void recalculatePressureGroup() throws LimitExceededException, InvalidTimeException {
         //sort dives
@@ -106,6 +105,8 @@ public class DiveSessionList implements Iterable<DiveSession> {
             }
         }
     }
+    //@@author
+
     /**
      * Adds a Dive Session to the list.
      * The dive session must not already exist in the list.
