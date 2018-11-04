@@ -163,7 +163,8 @@ public class DiveSession implements Comparable {
         try {
             float actualBottomTime = CompareUtil.checkTimeDifference(start.getTimeString(), end.getTimeString(),
                     dateStart.getOurDateString(), dateEnd.getOurDateString());
-            pressureGroupAtEnd = PressureGroupLogic.computePressureGroup(depthProfile, actualBottomTime, pressureGroupAtBeginning);
+            pressureGroupAtEnd = PressureGroupLogic.computePressureGroup(depthProfile, actualBottomTime,
+                    pressureGroupAtBeginning);
         } catch (LimitExceededException l) {
             throw l;
         } catch (Exception e) {

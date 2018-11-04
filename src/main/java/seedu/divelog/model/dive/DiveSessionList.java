@@ -25,8 +25,9 @@ import seedu.divelog.model.dive.exceptions.InvalidTimeException;
  * Stores a list of dives
  */
 public class DiveSessionList implements Iterable<DiveSession> {
+    private static final float ONE_DAY_IN_MINUTES = 24 * 60;
+
     private final ObservableList<DiveSession> internalList = FXCollections.observableArrayList();
-    private final float ONE_DAY_IN_MINUTES = 24*60;
     /**
      * Returns true if the list contains an equivalent dive session as the given argument.
      */
@@ -54,6 +55,7 @@ public class DiveSessionList implements Iterable<DiveSession> {
         }
     }
 
+    //@@author arjo129
     /**
      * Gets the most recent dive.
      * @return a handle to the DiveSession
@@ -90,15 +92,15 @@ public class DiveSessionList implements Iterable<DiveSession> {
         sortDiveSession(SortingMethod.TIME);
 
         //iterate through list and solve dives
-        internalList.get(internalList.size()-1).computePressureGroupNonRepeated();
-        DiveSession prevDive = internalList.get(internalList.size()-1);
-        for (int i = internalList.size()-2; i > 0; i--) {
+        internalList.get(internalList.size() - 1).computePressureGroupNonRepeated();
+        DiveSession prevDive = internalList.get(internalList.size() - 1);
+        for (int i = internalList.size() - 2; i > 0; i--) {
             float surfaceInterval = prevDive.getTimeBetweenDiveSession(internalList.get(i));
             if (surfaceInterval > ONE_DAY_IN_MINUTES) {
                 internalList.get(i).computePressureGroupNonRepeated();
             } else {
-                PressureGroup newPg = PressureGroupLogic.computePressureGroupAfterSurfaceInterval(prevDive.getPressureGroupAtEnd(),
-                                surfaceInterval);
+                PressureGroup newPg = PressureGroupLogic.computePressureGroupAfterSurfaceInterval(
+                        prevDive.getPressureGroupAtEnd(), surfaceInterval);
                 internalList.get(i).setPressureGroupAtBeginning(newPg);
                 internalList.get(i).computePressureGroupComputeRepeated();
             }
@@ -195,7 +197,7 @@ public class DiveSessionList implements Iterable<DiveSession> {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        for(DiveSession diveSession: internalList) {
+        for (DiveSession diveSession: internalList) {
             stringBuilder.append(diveSession);
             stringBuilder.append("\n");
         }
