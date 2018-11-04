@@ -62,9 +62,14 @@ public class DiveSessionList implements Iterable<DiveSession> {
         DiveSession mostRecent = null;
         for (DiveSession diveSession: internalList) {
 
-            if (mostRecent == null) {
-                mostRecent = diveSession;
-                continue;
+            try {
+                if (mostRecent == null && CompareUtil.getCurrentDateTime().compareTo(diveSession.getDiveLocalDate()) > 0) {
+                    mostRecent = diveSession;
+                    continue;
+                }
+            } catch (Exception e) {
+                Logger log = LogsCenter.getLogger(DiveSessionList.class);
+                log.severe("Something went wrong decoding the divelist time: " + e.toString());
             }
 
             try {

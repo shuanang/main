@@ -81,8 +81,9 @@ public class DiveLogTest {
                 .withEnd("1200")
                 .withEndDate("01012118").build();
         diveLog.addDive(diveSession4);
+        DiveSession actual = diveLog.getMostRecentDive();
         //Check most recent dive. Should still be dive session 3 if system clock is correctly set
-        assertEquals(diveLog.getMostRecentDive(), diveSession3);
+        assertEquals(diveSession3, actual);
     }
 
 }

@@ -6,9 +6,11 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.divelog.commons.enums.SortingMethod;
+import seedu.divelog.logic.pressuregroup.exceptions.LimitExceededException;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.DiveSessionList;
 import seedu.divelog.model.dive.exceptions.DiveNotFoundException;
+import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 
 
 /**
@@ -109,10 +111,18 @@ public class DiveLog implements ReadOnlyDiveLog {
 
     /**
      * Returns the most recent dive session
-     * @return
+     * @return a DiveSession object
      */
     public DiveSession getMostRecentDive() {
         return diveSessions.getMostRecentDive();
+    }
+
+    /**
+     * This method recalculates dive pressure groups. It assumes the oldest dive has the correct starting pressure.
+     *
+     */
+    public void recalculatePressureGroups() throws LimitExceededException, InvalidTimeException {
+        diveSessions.recalculatePressureGroup();
     }
     //// util methods
 
