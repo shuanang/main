@@ -25,18 +25,19 @@ public class PadiDiveTable {
     private static final Logger logger = LogsCenter.getLogger(PadiDiveTable.class);
     private static final String TIME_VALIDATION_REGEX = "[0-9][0-9][:][0-9][0-9]";
     private static PadiDiveTable diveTable = new PadiDiveTable();
-
     private final DiveTableUtil surfaceTable;
     private final DiveTableUtil depthToPressureGroup;
     private final DiveTableUtil diveTableUtil;
 
+    //@@author shuanang
     private PadiDiveTable() {
-        this.surfaceTable = new DiveTableUtil("divetables/surface_table.json");
-        this.depthToPressureGroup = new DiveTableUtil("divetables/Dive_table_1.json");
-        this.diveTableUtil = new DiveTableUtil("divetables/Dive_table_2.json");
+        this.surfaceTable = new DiveTableUtil("/divetables/surface_table.json");
+        this.depthToPressureGroup = new DiveTableUtil("/divetables/Dive_table_1.json");
+        this.diveTableUtil = new DiveTableUtil("/divetables/Dive_table_2.json");
         logger.info("Successfully loaded dive tables");
     }
 
+    //@@author arjo129
     public static PadiDiveTable getInstance() {
         return diveTable;
     }
