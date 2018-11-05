@@ -10,10 +10,13 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.divelog.commons.core.ComponentManager;
 import seedu.divelog.commons.core.LogsCenter;
+import seedu.divelog.commons.enums.SortingMethod;
 import seedu.divelog.commons.events.model.DiveLogChangedEvent;
 import seedu.divelog.commons.util.CollectionUtil;
+import seedu.divelog.logic.pressuregroup.exceptions.LimitExceededException;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.exceptions.DiveNotFoundException;
+import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 
 /**
  * Represents the in-memory model of the divelog book data.
@@ -123,6 +126,39 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredDiveList(Predicate<DiveSession> predicate) {
         requireNonNull(predicate);
         filteredDives.setPredicate(predicate);
+    }
+
+    //============ Sorting and Data integrity related dive session =========================================
+
+    /**
+     * Sorts the model by said category
+     * @param sortByCategory
+     */
+    @Override
+    public void sortDiveSession(SortingMethod sortByCategory) {
+        versionedDiveLog.sortDiveSession(sortByCategory);
+    }
+
+    /**
+     * Gets the most recent dive session, provided it is before current system time
+     * @return the most recent divesession
+     */
+    @Override
+    public DiveSession getMostRecent() {
+        return versionedDiveLog.getMostRecentDive();
+    }
+
+    /**
+     * Recalculates pressuregroups for all dives in model.
+     */
+    @Override
+    public void recalculatePressureGroups() throws LimitExceededException {
+        try {
+            versionedDiveLog.recalculatePressureGroups();
+        } catch (InvalidTimeException e) {
+            Logger logs = LogsCenter.getLogger(ModelManager.class);
+            logs.severe("Invalid time format found. " + e.toString());
+        }
     }
 
     //=========== Undo/Redo =================================================================================

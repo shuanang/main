@@ -42,7 +42,6 @@ public class EditCommand extends Command {
             //+ "[" + CliSyntax.PREFIX_PRESSURE_GROUP_END + "PG_AT_END] "
             + "[" + CliSyntax.PREFIX_LOCATION + "LOCATION]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + CliSyntax.PREFIX_PRESSURE_GROUP_END + "F "
             + CliSyntax.PREFIX_LOCATION + "Tioman "
             + CliSyntax.PREFIX_TIMEZONE + "+7 ";
 
@@ -83,9 +82,11 @@ public class EditCommand extends Command {
             e.printStackTrace();
         }
         model.updateFilteredDiveList(Model.PREDICATE_SHOW_ALL_DIVES);
-        model.commitDiveLog();
+
         if (model.getPlanningMode()) {
             model.plannerCountPlus();
+        } else {
+            model.commitDiveLog();
         }
         return new CommandResult(String.format(MESSAGE_EDIT_DIVE_SUCCESS, editedDive));
     }

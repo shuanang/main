@@ -6,16 +6,25 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.divelog.commons.core.LogsCenter;
+import seedu.divelog.commons.enums.SortingMethod;
 import seedu.divelog.commons.util.CollectionUtil;
+import seedu.divelog.commons.util.CompareUtil;
+import seedu.divelog.logic.pressuregroup.PressureGroupLogic;
+import seedu.divelog.logic.pressuregroup.exceptions.LimitExceededException;
 import seedu.divelog.model.dive.exceptions.DiveNotFoundException;
+import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 
 /**
  * Stores a list of dives
  */
 public class DiveSessionList implements Iterable<DiveSession> {
+    private static final float ONE_DAY_IN_MINUTES = 24 * 60;
+
     private final ObservableList<DiveSession> internalList = FXCollections.observableArrayList();
     /**
      * Returns true if the list contains an equivalent dive session as the given argument.
@@ -30,11 +39,11 @@ public class DiveSessionList implements Iterable<DiveSession> {
      * Sorts the InternalList based on Time
      * Can be scaled to sort based on other things
      */
-    private void sortDiveSession(int sortByCategory) {
+    public void sortDiveSession(SortingMethod sortByCategory) {
         Comparator<DiveSession> dateTimeComparator = (one, two) -> {
             Date dateTime1 = one.getDateTime();
-            Date datetime2 = two.getDateTime();
-            return dateTime1.compareTo(datetime2);
+            Date dateTime2 = two.getDateTime();
+            return dateTime2.compareTo(dateTime1);
         };
 
         switch(sortByCategory) {
@@ -44,6 +53,66 @@ public class DiveSessionList implements Iterable<DiveSession> {
         }
     }
 
+    //@@author arjo129
+    /**
+     * Gets the most recent dive.
+     * @return a handle to the DiveSession
+     */
+    public DiveSession getMostRecentDive() {
+        DiveSession mostRecent = null;
+        for (DiveSession diveSession: internalList) {
+
+            try {
+                if (mostRecent == null
+                        && CompareUtil.getCurrentDateTime().compareTo(diveSession.getDiveLocalDate()) > 0) {
+                    mostRecent = diveSession;
+                    continue;
+                }
+            } catch (Exception e) {
+                Logger log = LogsCenter.getLogger(DiveSessionList.class);
+                log.severe("Something went wrong decoding the divelist time: " + e.toString());
+            }
+
+            try {
+                if (mostRecent.compareTo(diveSession) < 0
+                        && CompareUtil.getCurrentDateTime().compareTo(diveSession.getDiveLocalDate()) > 0) {
+                    mostRecent = diveSession;
+                }
+            } catch (Exception e) {
+                //This will technically never occur due to input checking
+                Logger log = LogsCenter.getLogger(DiveSessionList.class);
+                log.severe("Something went wrong decoding the divelist time: " + e.toString());
+            }
+        }
+        return mostRecent;
+    }
+
+    /**
+     * Recalculate pressure groups for all dives. Assumes oldest dive is the correct starting point.
+     * @throws LimitExceededException if the new dive cannot be accomodated within the system.
+     * @throws InvalidTimeException if the dive data is malformed
+     */
+    public void recalculatePressureGroup() throws LimitExceededException, InvalidTimeException {
+        //sort dives
+        sortDiveSession(SortingMethod.TIME);
+
+        //iterate through list and solve dives
+        internalList.get(internalList.size() - 1).computePressureGroupNonRepeated();
+        DiveSession prevDive = internalList.get(internalList.size() - 1);
+        for (int i = internalList.size() - 2; i > 0; i--) {
+            float surfaceInterval = prevDive.getTimeBetweenDiveSession(internalList.get(i));
+            if (surfaceInterval > ONE_DAY_IN_MINUTES) {
+                internalList.get(i).computePressureGroupNonRepeated();
+            } else {
+                PressureGroup newPg = PressureGroupLogic.computePressureGroupAfterSurfaceInterval(
+                        prevDive.getPressureGroupAtEnd(), surfaceInterval);
+                internalList.get(i).setPressureGroupAtBeginning(newPg);
+                internalList.get(i).computePressureGroupComputeRepeated();
+            }
+        }
+    }
+    //@@author
+
     /**
      * Adds a Dive Session to the list.
      * The dive session must not already exist in the list.
@@ -52,7 +121,7 @@ public class DiveSessionList implements Iterable<DiveSession> {
     public void add(DiveSession toAdd) {
         requireNonNull(toAdd);
         internalList.add(toAdd);
-        sortDiveSession(1);
+        sortDiveSession(SortingMethod.TIME);
     }
 
     /**
@@ -66,7 +135,7 @@ public class DiveSessionList implements Iterable<DiveSession> {
         if (index == -1) {
             throw new DiveNotFoundException();
         }
-        sortDiveSession(1);
+        sortDiveSession(SortingMethod.TIME);
         internalList.set(index, editedDiveSession);
     }
 
@@ -81,13 +150,14 @@ public class DiveSessionList implements Iterable<DiveSession> {
         }
     }
 
+
     /**
      * Sets all the dives in a dive session list.
      * @param replacement
      */
     public void setDives(DiveSessionList replacement) {
         requireNonNull(replacement);
-        sortDiveSession(1);
+        sortDiveSession(SortingMethod.TIME);
         internalList.setAll(replacement.internalList);
     }
 
@@ -109,19 +179,36 @@ public class DiveSessionList implements Iterable<DiveSession> {
 
     @Override
     public boolean equals(Object other) {
+
         if (!(other instanceof DiveSessionList)) {
             return false;
         }
+
         DiveSessionList otherDiveList = (DiveSessionList) other;
+
+        otherDiveList.sortDiveSession(SortingMethod.TIME);
+        sortDiveSession(SortingMethod.TIME);
+
         if (otherDiveList.internalList.size() != internalList.size()) {
             return false;
         }
+
         for (int i = 0; i < internalList.size(); i++) {
             if (!internalList.get(i).equals(otherDiveList.internalList.get(i))) {
                 return false;
             }
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (DiveSession diveSession: internalList) {
+            stringBuilder.append(diveSession);
+            stringBuilder.append("\n");
+        }
+        return stringBuilder.toString();
     }
 
     @Override

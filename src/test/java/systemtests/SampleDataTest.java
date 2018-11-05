@@ -3,6 +3,8 @@ package systemtests;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.Collections;
 
 import org.junit.Test;
 
@@ -44,6 +46,15 @@ public class SampleDataTest extends DiveLogSystemTest {
     @Test
     public void diveLog_dataFileDoesNotExist_loadSampleData() {
         DiveSession[] expectedList = SampleDataUtil.getSampleDives();
+
+        Arrays.sort(expectedList);
+
+        for (int i = 0 ; i < expectedList.length / 2 ; i++) {
+            DiveSession tmp = expectedList[i];
+            expectedList[i] = expectedList[expectedList.length - 1 - i];
+            expectedList[expectedList.length - 1 - i] = tmp;
+        }
+
         assertListMatching(getDiveListPanel(), expectedList);
     }
 }

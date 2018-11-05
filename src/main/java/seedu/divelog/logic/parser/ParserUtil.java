@@ -15,7 +15,7 @@ import seedu.divelog.model.dive.PressureGroup;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_DEPTH = "Depth must be a number.";
+    public static final String MESSAGE_INVALID_DEPTH = "Depth must be a positive number.";
     public static final String MESSAGE_INVALID_PRESSURE_GROUP = "Pressure group must be a single alphabet from A-Z";
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -38,7 +38,11 @@ public class ParserUtil {
      */
     public static DepthProfile parseDepth(String depth) throws ParseException {
         try {
-            return new DepthProfile(Float.valueOf(depth));
+            float value = Float.valueOf(depth);
+            if (value <= 0) {
+                throw new ParseException(MESSAGE_INVALID_DEPTH);
+            }
+            return new DepthProfile(value);
         } catch (NumberFormatException n) {
             throw new ParseException(MESSAGE_INVALID_DEPTH);
         }
