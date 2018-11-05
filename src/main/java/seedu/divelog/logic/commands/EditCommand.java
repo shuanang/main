@@ -8,9 +8,11 @@ import java.util.Optional;
 import seedu.divelog.commons.core.Messages;
 import seedu.divelog.commons.core.index.Index;
 import seedu.divelog.commons.util.CollectionUtil;
+import seedu.divelog.commons.util.CompareUtil;
 import seedu.divelog.logic.CommandHistory;
 import seedu.divelog.logic.commands.exceptions.CommandException;
 import seedu.divelog.logic.parser.CliSyntax;
+import seedu.divelog.logic.pressuregroup.PressureGroupLogic;
 import seedu.divelog.model.Model;
 import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.dive.DiveSession;
@@ -39,15 +41,27 @@ public class EditCommand extends Command {
             + "[" + CliSyntax.PREFIX_SAFETY_STOP + "SAFETY_STOP_TIME] "
             + "[" + CliSyntax.PREFIX_DEPTH + "DEPTH] "
             + "[" + CliSyntax.PREFIX_PRESSURE_GROUP_START + "PG_AT_START] "
-            //+ "[" + CliSyntax.PREFIX_PRESSURE_GROUP_END + "PG_AT_END] "
             + "[" + CliSyntax.PREFIX_LOCATION + "LOCATION]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + CliSyntax.PREFIX_PRESSURE_GROUP_END + "F "
+            + CliSyntax.PREFIX_PRESSURE_GROUP_START + "B "
             + CliSyntax.PREFIX_LOCATION + "Tioman "
-            + CliSyntax.PREFIX_TIMEZONE + "+7 ";
+            + CliSyntax.PREFIX_TIMEZONE + "+8 ";
 
     public static final String MESSAGE_EDIT_DIVE_SUCCESS = "Edited Dive: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided. "
+            + "Parameters: INDEX (must be a positive integer) "
+            + "[" + CliSyntax.PREFIX_DATE_START + "DATE_START] "
+            + "[" + CliSyntax.PREFIX_TIME_START + "TIME_START] "
+            + "[" + CliSyntax.PREFIX_DATE_END + "DATE_END] "
+            + "[" + CliSyntax.PREFIX_TIME_END + "TIME_END] "
+            + "[" + CliSyntax.PREFIX_SAFETY_STOP + "SAFETY_STOP_TIME] "
+            + "[" + CliSyntax.PREFIX_DEPTH + "DEPTH] "
+            + "[" + CliSyntax.PREFIX_PRESSURE_GROUP_START + "PG_AT_START] "
+            + "[" + CliSyntax.PREFIX_LOCATION + "LOCATION]\n"
+            + "Example: " + COMMAND_WORD + " 1 "
+            + CliSyntax.PREFIX_PRESSURE_GROUP_START + "B "
+            + CliSyntax.PREFIX_LOCATION + "Tioman "
+            + CliSyntax.PREFIX_TIMEZONE + "+8 ";
 
     private final Index index;
     private final EditDiveDescriptor editDiveDescriptor;
@@ -101,13 +115,44 @@ public class EditCommand extends Command {
         OurDate dateEnd = editDiveSessionDescriptor.getDateEnd().orElse(diveToEdit.getDateEnd());
         Time end = editDiveSessionDescriptor.getEnd().orElse(diveToEdit.getEnd());
         Time safetyStop = editDiveSessionDescriptor.getSafetyStop().orElse(diveToEdit.getSafetyStop());
-        PressureGroup pressureGroupAtBeginning = editDiveSessionDescriptor.getPressureGroupAtBeginning()
-                .orElse(diveToEdit.getPressureGroupAtBeginning());
-        PressureGroup pressureGroupAtEnd = editDiveSessionDescriptor.getPressureGroupAtEnd()
-                .orElse(diveToEdit.getPressureGroupAtEnd());
         Location location = editDiveSessionDescriptor.getLocation().orElse(diveToEdit.getLocation());
         DepthProfile depth = editDiveSessionDescriptor.getDepthProfile().orElse(diveToEdit.getDepthProfile());
         TimeZone timezone = editDiveSessionDescriptor.getTimeZone().orElse(diveToEdit.getTimeZone());
+        PressureGroup pressureGroupAtBeginning = editDiveSessionDescriptor.getPressureGroupAtBeginning()
+                .orElse(diveToEdit.getPressureGroupAtBeginning());
+        //if diveToEdit end pressure group matches calculation for first dive -> editDive run through first dive calc
+        //else (diveToEdit is a repeat dive) -> editDive run through repeat dive calc
+        try {
+            long actualBottomTimeOfDiveToEdit = CompareUtil.checkTimeDifference(diveToEdit.getStart().getTimeString(),
+                    diveToEdit.getEnd().getTimeString(), diveToEdit.getDateStart().getOurDateString(),
+                    diveToEdit.getDateEnd().getOurDateString());
+            PressureGroup diveToEditEndPg = PressureGroupLogic.computePressureGroupFirstDive(diveToEdit
+                    .getDepthProfile(), actualBottomTimeOfDiveToEdit);
+            if (diveToEdit.getPressureGroupAtEnd().getPressureGroup().equals(diveToEditEndPg.getPressureGroup())) {
+                //diveToEdit is a first dive, run through first dive calculation
+                //what is user edits the first dive pg? Then it wouldnt be a first dive anymore...
+                //should throw error if cannot calc end pg (due to too long dive etc) -> Cancel edit
+                //bug: add 40m cannot go beyond ..minutes, but can edit to further
+                System.out.println("editing dive that is first dive");
+                long actualBottomTimeOfEditedDive = CompareUtil.checkTimeDifference(start.getTimeString(),
+                        end.getTimeString(), dateStart.getOurDateString(), dateEnd.getOurDateString());
+                editDiveSessionDescriptor.pressureGroupAtEnd = PressureGroupLogic.computePressureGroupFirstDive(depth,
+                        actualBottomTimeOfEditedDive);
+            } else {
+                //diveToEdit is a repeat dive, run through repeat dive calculation
+                long actualBottomTimeOfEditedDive = CompareUtil.checkTimeDifference(start.getTimeString(),
+                        end.getTimeString(), dateStart.getOurDateString(), dateEnd.getOurDateString());
+                editDiveSessionDescriptor.pressureGroupAtEnd = PressureGroupLogic.computePressureGroup(depth,
+                        actualBottomTimeOfEditedDive, pressureGroupAtBeginning);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        PressureGroup pressureGroupAtEnd = editDiveSessionDescriptor.getPressureGroupAtEnd()
+                .orElse(diveToEdit.getPressureGroupAtEnd());
+        System.out.println("Pg at end: " + editDiveSessionDescriptor.getPressureGroupAtEnd());
+
         return new DiveSession(dateStart, start, safetyStop, dateEnd, end, pressureGroupAtBeginning, pressureGroupAtEnd,
                 location, depth, timezone);
     }

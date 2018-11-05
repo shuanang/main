@@ -145,7 +145,7 @@ If you made a mistake while adding a new dive, `edit` will come in handy.
 `edits` edits an existing dive session in the Dive Log. +
 The only parameters you have to input are the data of that specific dive session at `INDEX`
 
-Format: `edit INDEX [ts/TIME_START] [te/TIME_END] [ss/SAFETY_STOP_TIME] [d/DEPTH] [pg/PG_AT_START][pge/PG_AT_END][l/LOCATION]...`
+Format: `edit INDEX [ts/TIME_START] [te/TIME_END] [ss/SAFETY_STOP_TIME] [d/DEPTH] [pg/PG_AT_START][l/LOCATION]...`
 
 ****
 * Edits the dive at the specified `INDEX`. The index refers to the index number shown in the displayed dive list. The index *must be a positive integer* 1, 2, 3, ...
@@ -154,7 +154,7 @@ Format: `edit INDEX [ts/TIME_START] [te/TIME_END] [ss/SAFETY_STOP_TIME] [d/DEPTH
 ****
 
 Examples:
-`edit 1 pge/F l/Tioman`
+`edit 1 pg/B l/Tioman tz/+8`
 
 .Table of Prefix and Data
 [options="header"]

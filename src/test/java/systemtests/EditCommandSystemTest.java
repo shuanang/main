@@ -70,7 +70,7 @@ public class EditCommandSystemTest extends DiveLogSystemTest {
         /* Check that no index is */
         /* Case: invalid index (0) -> rejected */
         /*String command = "0 ds/081219 ts/ de/DATE_END te/091219 ss/SAFETY_STOP_TIME" +
-                " d/DEPTH pg/PG_AT_START pge/PG_AT_END l/LOCATION"*/
+                " d/DEPTH pg/PG_AT_START l/LOCATION"*/
         assertCommandFailure("edit 0 ts/1210", MESSAGE_INVALID_FORMAT);
 
         /* Case: invalid index (-1) -> rejected */
