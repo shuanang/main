@@ -82,7 +82,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         } catch (JSONException e) {
             throw new ParseException(Messages.MESSAGE_INTERNAL_ERROR);
         } catch (LimitExceededException l) {
-            throw new ParseException(AddCommand.MESSAGE_ERROR);
+            throw new ParseException(Messages.MESSAGE_ERROR_LIMIT_EXCEED);
         } catch (Exception e) {
             throw new ParseException(Messages.MESSAGE_INTERNAL_ERROR);
         }

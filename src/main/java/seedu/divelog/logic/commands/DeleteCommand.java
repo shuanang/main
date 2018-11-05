@@ -1,6 +1,7 @@
 package seedu.divelog.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.divelog.commons.core.Messages.MESSAGE_ERROR_LIMIT_EXCEED;
 
 import java.util.List;
 
@@ -8,6 +9,7 @@ import seedu.divelog.commons.core.Messages;
 import seedu.divelog.commons.core.index.Index;
 import seedu.divelog.logic.CommandHistory;
 import seedu.divelog.logic.commands.exceptions.CommandException;
+import seedu.divelog.logic.pressuregroup.exceptions.LimitExceededException;
 import seedu.divelog.model.Model;
 import seedu.divelog.model.dive.DiveSession;
 
@@ -33,7 +35,9 @@ public class DeleteCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+
         requireNonNull(model);
+
         List<DiveSession> lastShownList = model.getFilteredDiveList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -41,16 +45,25 @@ public class DeleteCommand extends Command {
         }
 
         DiveSession diveToDelete = lastShownList.get(targetIndex.getZeroBased());
+
         try {
             model.deleteDiveSession(diveToDelete);
         } catch (seedu.divelog.model.dive.exceptions.DiveNotFoundException e) {
             e.printStackTrace();
+            //TODO: Add error message
         }
-        model.commitDiveLog();
-        if (model.getPlanningMode()) {
-            model.plannerCountPlus();
+
+        try {
+            model.recalculatePressureGroups();
+            if (model.getPlanningMode()) {
+                model.plannerCountPlus();
+            } else {
+                model.commitDiveLog();
+            }
+            return new CommandResult(String.format(MESSAGE_DELETE_DIVE_SESSION_SUCCESS, diveToDelete));
+        } catch (LimitExceededException le) {
+            return new CommandResult(MESSAGE_ERROR_LIMIT_EXCEED);
         }
-        return new CommandResult(String.format(MESSAGE_DELETE_DIVE_SESSION_SUCCESS, diveToDelete));
     }
 
     @Override

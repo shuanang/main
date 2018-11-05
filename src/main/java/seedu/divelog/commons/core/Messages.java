@@ -14,4 +14,5 @@ public class Messages {
     public static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date format! (Not DDMMYYYY) ";
     public static final String MESSAGE_INVALID_TIMEZONE_FORMAT = "Invalid timezone format! (UTC format)";
     public static final String MESSAGE_INTERNAL_ERROR = "An internal error occured";
+    public static final String MESSAGE_ERROR_LIMIT_EXCEED = "Dive is too deep and too long!!";
 }

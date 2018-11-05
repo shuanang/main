@@ -4,6 +4,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.divelog.commons.enums.SortingMethod;
+import seedu.divelog.logic.pressuregroup.exceptions.LimitExceededException;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.exceptions.DiveNotFoundException;
 
@@ -69,7 +70,7 @@ public interface Model {
      * Recalculate all pressure groups
      */
 
-    void recalculatePressureGroups();
+    void recalculatePressureGroups() throws LimitExceededException;
 
     /**
      * Returns true if the model has previous divelog book states to restore.

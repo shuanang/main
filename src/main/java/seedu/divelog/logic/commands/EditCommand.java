@@ -82,9 +82,11 @@ public class EditCommand extends Command {
             e.printStackTrace();
         }
         model.updateFilteredDiveList(Model.PREDICATE_SHOW_ALL_DIVES);
-        model.commitDiveLog();
+
         if (model.getPlanningMode()) {
             model.plannerCountPlus();
+        } else {
+            model.commitDiveLog();
         }
         return new CommandResult(String.format(MESSAGE_EDIT_DIVE_SUCCESS, editedDive));
     }

@@ -88,7 +88,7 @@ public class AddCommandTest {
 
         @Override
         public void recalculatePressureGroups() {
-            throw new AssertionError("This method should not be called");
+            //Do nothing
         }
 
         @Override

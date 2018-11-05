@@ -1,13 +1,11 @@
 package seedu.divelog.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.divelog.commons.core.Messages.MESSAGE_ERROR_LIMIT_EXCEED;
 
-import java.util.List;
-
-import seedu.divelog.commons.util.CompareUtil;
 import seedu.divelog.logic.CommandHistory;
 import seedu.divelog.logic.parser.CliSyntax;
-import seedu.divelog.logic.pressuregroup.PressureGroupLogic;
+import seedu.divelog.logic.pressuregroup.exceptions.LimitExceededException;
 import seedu.divelog.model.Model;
 import seedu.divelog.model.dive.DiveSession;
 
@@ -17,7 +15,7 @@ import seedu.divelog.model.dive.DiveSession;
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
-    public static final String MESSAGE_ERROR = "Dive is too deep and too long!!";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a dive to the divelog book. "
             + "Parameters: "
             + CliSyntax.PREFIX_DATE_START + "DATE_START (DDMMYYYY Format) "
@@ -60,43 +58,20 @@ public class AddCommand extends Command {
      */
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
-        if (model.getPlanningMode()) {
-            model.plannerCountPlus();
-        }
-        requireNonNull(model);
-        List<DiveSession> lastShownList = model.getFilteredDiveList();
-        //match the dive session
-        int count = 0;
-
-        for (DiveSession diveSessions : lastShownList) {
-            if (toAdd.getDateStart().getOurDateString().equals(diveSessions.getDateStart().getOurDateString()
-                    .intern())) {
-                count = count + 1;
-            }
-        }
-
-        if (count >= 1) {
-            //NOT the first dive of the day
-            model.addDiveSession(toAdd);
-            model.commitDiveLog();
-            return new CommandResult(MESSAGE_SUCCESS);
-        } else if (count == 0) {
-            //first dive of day
-            try {
-                long actualBottomTime = CompareUtil.checkTimeDifference(toAdd.getStart().getTimeString(),
-                        toAdd.getEnd().getTimeString(), toAdd.getDateStart().getOurDateString(),
-                        toAdd.getDateEnd().getOurDateString());
-                toAdd = new DiveSession(toAdd.getDateStart(), toAdd.getStart(),
-                        toAdd.getSafetyStop(), toAdd.getDateEnd(), toAdd.getEnd(),
-                        toAdd.getPressureGroupAtBeginning(),
-                        PressureGroupLogic.computePressureGroupFirstDive(toAdd.getDepthProfile(), actualBottomTime),
-                        toAdd.getLocation(), toAdd.getDepthProfile(), toAdd.getTimeZone());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
         model.addDiveSession(toAdd);
-        model.commitDiveLog();
+
+        try {
+            model.recalculatePressureGroups();
+
+            if (model.getPlanningMode()) {
+                model.plannerCountPlus();
+            } else {
+                model.commitDiveLog();
+            }
+
+        } catch (LimitExceededException le) {
+            return new CommandResult(MESSAGE_ERROR_LIMIT_EXCEED);
+        }
         return new CommandResult(MESSAGE_SUCCESS);
     }
     //@@author
