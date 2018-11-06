@@ -46,27 +46,19 @@ public class EditCommandParser implements Parser<EditCommand> {
         EditCommand.EditDiveDescriptor editDiveSessionDescriptor = new EditCommand.EditDiveDescriptor();
 
         if (argMultimap.getValue(CliSyntax.PREFIX_DATE_START).isPresent()) {
-//            ParserUtil.checkDateLimit(argMultimap);
-//            ParserUtil.checkDateformat(argMultimap);
             editDiveSessionDescriptor.setDateStart(new OurDate(argMultimap.getValue(CliSyntax.PREFIX_DATE_START)
                     .get()));
         }
         if (argMultimap.getValue(CliSyntax.PREFIX_TIME_START).isPresent()) {
-//            ParserUtil.checkTimeformat(argMultimap);
-//            ParserUtil.checkTimeLimit(argMultimap);
             editDiveSessionDescriptor.setStart(new Time(argMultimap.getValue(CliSyntax.PREFIX_TIME_START).get()));
         }
         if (argMultimap.getValue(CliSyntax.PREFIX_SAFETY_STOP).isPresent()) {
             editDiveSessionDescriptor.setSafetyStop(new Time(argMultimap.getValue(CliSyntax.PREFIX_SAFETY_STOP).get()));
         }
         if (argMultimap.getValue(CliSyntax.PREFIX_DATE_END).isPresent()) {
-//            ParserUtil.checkDateLimit(argMultimap);
-//            ParserUtil.checkDateformat(argMultimap);
             editDiveSessionDescriptor.setDateEnd(new OurDate(argMultimap.getValue(CliSyntax.PREFIX_DATE_END).get()));
         }
         if (argMultimap.getValue(CliSyntax.PREFIX_TIME_END).isPresent()) {
-//            ParserUtil.checkTimeformat(argMultimap);
-//            ParserUtil.checkTimeLimit(argMultimap);
             editDiveSessionDescriptor.setEnd(new Time(argMultimap.getValue(CliSyntax.PREFIX_TIME_END).get()));
         }
         if (argMultimap.getValue(CliSyntax.PREFIX_DEPTH).isPresent()) {

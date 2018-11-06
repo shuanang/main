@@ -73,7 +73,8 @@ public class ParserUtil {
      *  throws exception if Time inputs are not in chronological order
      * {@code ArgumentMultimap}.
      */
-    public static void checkTimeDateLimit(ArgumentMultimap argMultimap) throws java.text.ParseException, ParseException {
+    public static void checkTimeDateLimit(ArgumentMultimap argMultimap)
+            throws java.text.ParseException, ParseException {
         String startDateString = argMultimap.getValue(CliSyntax.PREFIX_DATE_START).get();
         String endDateString = argMultimap.getValue(CliSyntax.PREFIX_DATE_END).get();
         String startTimeString = argMultimap.getValue(CliSyntax.PREFIX_TIME_START).get();
@@ -93,6 +94,34 @@ public class ParserUtil {
 
         if ((endSafeDiff > 0 && startSafeDiff < 0)
             || (endSafeDiff < 0 && startSafeDiff > 0)) {
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_SAFETYSTOPTIME_LIMITS,
+                    AddCommand.MESSAGE_USAGE));
+        }
+
+        if (startTimeDateDate.getTime() - endTimeDateDate.getTime() > 0) {
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_DATE_LIMITS, AddCommand.MESSAGE_USAGE));
+        }
+    }
+    /**
+     * Throws an exception IF edit is now not legit.
+     */
+    public static void checkEditTimeDateLimit(String startDateString, String startTimeString,
+                                              String endDateString, String endTimeString,
+                                              String safetyStopTimeString)
+            throws java.text.ParseException, ParseException {
+
+        SimpleDateFormat inputFormat = new SimpleDateFormat("ddMMyyyyHHmm");
+        Date startTimeDateDate = inputFormat.parse(startDateString + startTimeString);
+        Date endTimeDateDate = inputFormat.parse(endDateString + endTimeString);
+        Date safetyStopEarlyDateTime = inputFormat.parse(startDateString + safetyStopTimeString);
+        Date safetyStopLateDateTime = inputFormat.parse(endDateString + safetyStopTimeString);
+
+        long startSafeDiff = safetyStopEarlyDateTime.getTime() - startTimeDateDate.getTime();
+        long endSafeDiff = safetyStopLateDateTime.getTime() - endTimeDateDate.getTime();
+
+
+        if ((endSafeDiff > 0 && startSafeDiff < 0)
+                || (endSafeDiff < 0 && startSafeDiff > 0)) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_SAFETYSTOPTIME_LIMITS,
                     AddCommand.MESSAGE_USAGE));
         }

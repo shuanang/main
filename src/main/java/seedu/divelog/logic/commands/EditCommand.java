@@ -2,6 +2,7 @@ package seedu.divelog.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -13,6 +14,7 @@ import seedu.divelog.commons.util.CollectionUtil;
 import seedu.divelog.logic.CommandHistory;
 import seedu.divelog.logic.commands.exceptions.CommandException;
 import seedu.divelog.logic.parser.CliSyntax;
+import seedu.divelog.logic.parser.ParserUtil;
 import seedu.divelog.logic.pressuregroup.exceptions.LimitExceededException;
 import seedu.divelog.model.Model;
 import seedu.divelog.model.dive.DepthProfile;
@@ -77,7 +79,9 @@ public class EditCommand extends Command {
 
         DiveSession diveToEdit = lastShownList.get(index.getZeroBased());
         DiveSession editedDive = null;
+
         editedDive = createEditedDive(diveToEdit, editDiveDescriptor);
+
 
         try {
             model.updateDiveSession(diveToEdit, editedDive);
@@ -107,7 +111,8 @@ public class EditCommand extends Command {
      * Creates and returns a {@code DiveSession} with the details of {@code diveSessionToEdit}
      * edited with {@code editDiveDescriptor}.
      */
-    private static DiveSession createEditedDive(DiveSession diveToEdit, EditDiveDescriptor editDiveSessionDescriptor) {
+    private static DiveSession createEditedDive(DiveSession diveToEdit, EditDiveDescriptor editDiveSessionDescriptor)
+            {
         assert diveToEdit != null;
         OurDate dateStart = editDiveSessionDescriptor.getDateStart().orElse(diveToEdit.getDateStart());
         Time start = editDiveSessionDescriptor.getStart().orElse(diveToEdit.getStart());
@@ -121,8 +126,19 @@ public class EditCommand extends Command {
         Location location = editDiveSessionDescriptor.getLocation().orElse(diveToEdit.getLocation());
         DepthProfile depth = editDiveSessionDescriptor.getDepthProfile().orElse(diveToEdit.getDepthProfile());
         TimeZone timezone = editDiveSessionDescriptor.getTimeZone().orElse(diveToEdit.getTimeZone());
+
+        try {
+            ParserUtil.checkEditTimeDateLimit(dateStart.getOurDateString(), start.getTimeString(),
+                    dateEnd.getOurDateString(), end.getTimeString(),
+                    safetyStop.getTimeString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (seedu.divelog.logic.parser.exceptions.ParseException e) {
+            e.printStackTrace();
+        }
+
         return new DiveSession(dateStart, start, safetyStop, dateEnd, end, pressureGroupAtBeginning, pressureGroupAtEnd,
-                location, depth, timezone);
+        location, depth, timezone);
     }
 
     @Override
