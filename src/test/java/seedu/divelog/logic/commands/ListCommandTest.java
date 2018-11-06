@@ -2,8 +2,8 @@ package seedu.divelog.logic.commands;
 
 import static seedu.divelog.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.divelog.logic.commands.CommandTestUtil.showDiveAtIndex;
-import static seedu.divelog.testutil.TypicalIndexes.INDEX_FIRST_DIVE;
 import static seedu.divelog.testutil.TypicalDiveSessions.getTypicalDiveLog;
+import static seedu.divelog.testutil.TypicalIndexes.INDEX_FIRST_DIVE;
 
 import org.junit.Before;
 import org.junit.Test;

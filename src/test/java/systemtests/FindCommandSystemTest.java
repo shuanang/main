@@ -1,6 +1,5 @@
 package systemtests;
 
-import static org.junit.Assert.assertFalse;
 import static seedu.divelog.commons.core.Messages.MESSAGE_DIVE_LISTED_OVERVIEW;
 
 import org.junit.Test;

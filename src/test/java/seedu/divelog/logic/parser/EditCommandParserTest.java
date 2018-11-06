@@ -2,9 +2,7 @@ package seedu.divelog.logic.parser;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.divelog.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.divelog.commons.core.Messages.MESSAGE_INVALID_DIVE_DISPLAYED_INDEX;
 import static seedu.divelog.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.divelog.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.divelog.testutil.TypicalIndexes.INDEX_FIRST_DIVE;
 
 import org.junit.Test;

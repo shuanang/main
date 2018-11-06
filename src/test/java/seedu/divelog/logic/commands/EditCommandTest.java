@@ -1,7 +1,6 @@
 package seedu.divelog.logic.commands;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.divelog.logic.commands.CommandTestUtil.DESC_DAY_BALI;
 import static seedu.divelog.logic.commands.CommandTestUtil.DESC_DAY_TIOMAN;
@@ -9,9 +8,9 @@ import static seedu.divelog.logic.commands.CommandTestUtil.VALID_LOCATION_BALI;
 import static seedu.divelog.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.divelog.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.divelog.logic.commands.CommandTestUtil.showDiveAtIndex;
+import static seedu.divelog.testutil.TypicalDiveSessions.getTypicalDiveLog;
 import static seedu.divelog.testutil.TypicalIndexes.INDEX_FIRST_DIVE;
 import static seedu.divelog.testutil.TypicalIndexes.INDEX_SECOND_DIVE;
-import static seedu.divelog.testutil.TypicalDiveSessions.getTypicalDiveLog;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,8 +27,9 @@ import seedu.divelog.model.UserPrefs;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.PressureGroup;
 import seedu.divelog.model.dive.exceptions.InvalidTimeException;
-import seedu.divelog.testutil.EditDiveDescriptorBuilder;
 import seedu.divelog.testutil.DiveSessionBuilder;
+import seedu.divelog.testutil.EditDiveDescriptorBuilder;
+
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
@@ -118,7 +118,8 @@ public class EditCommandTest {
         showDiveAtIndex(model, INDEX_FIRST_DIVE);
 
         DiveSession diveSessionInFilteredList = model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased());
-        DiveSession editedDive = new DiveSessionBuilder(diveSessionInFilteredList).withLocation(VALID_LOCATION_BALI).build();
+        DiveSession editedDive = new DiveSessionBuilder(diveSessionInFilteredList)
+                .withLocation(VALID_LOCATION_BALI).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_DIVE,
                 new EditDiveDescriptorBuilder().withLocation(VALID_LOCATION_BALI).build());
 

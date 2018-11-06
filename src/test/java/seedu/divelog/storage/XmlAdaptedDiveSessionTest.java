@@ -1,16 +1,10 @@
 package seedu.divelog.storage;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.divelog.storage.XmlAdaptedDiveSession.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.divelog.testutil.TypicalDiveSessions.DIVE_AT_BALI;
-
-import java.util.ArrayList;
-
 
 import org.junit.Test;
 
-import seedu.divelog.commons.exceptions.IllegalValueException;
-import seedu.divelog.testutil.Assert;
 
 public class XmlAdaptedDiveSessionTest {
 

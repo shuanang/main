@@ -274,7 +274,8 @@ public abstract class DiveLogSystemTest {
      * @param diveListPanel
      * @param filteredDiveList
      */
-    public static void assertListMatching(DiveListPanelHandle diveListPanel, ObservableList<DiveSession> filteredDiveList) {
+    public static void assertListMatching(DiveListPanelHandle diveListPanel,
+                                          ObservableList<DiveSession> filteredDiveList) {
         DiveSession []dives = filteredDiveList.toArray(new DiveSession[0]);
         assertListMatching(diveListPanel, dives);
     }

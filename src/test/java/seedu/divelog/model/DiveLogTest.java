@@ -1,8 +1,6 @@
 package seedu.divelog.model;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static seedu.divelog.testutil.TypicalDiveSessions.getTypicalDiveLog;
 
 import java.util.Collections;
