@@ -128,8 +128,10 @@ public class DiveLog implements ReadOnlyDiveLog {
 
     @Override
     public String toString() {
-        return diveSessions.asUnmodifiableObservableList().size() + " diveSessions";
-        // TODO: refine later
+        StringBuilder sb = new StringBuilder();
+        sb.append(diveSessions.asUnmodifiableObservableList().size() + " diveSessions:\n");
+        sb.append(diveSessions.toString());
+        return sb.toString();
     }
 
     @Override

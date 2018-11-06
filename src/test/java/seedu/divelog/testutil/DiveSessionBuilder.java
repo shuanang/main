@@ -140,7 +140,6 @@ public class DiveSessionBuilder {
      * @param date A string containing the date of the object
      */
     public DiveSessionBuilder withEndDate(String date) {
-        assert()
         this.dateEnd = new OurDate(date);
         return this;
     }

@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.divelog.logic.pressuregroup.exceptions.LimitExceededException;
 import seedu.divelog.model.DiveLog;
 import seedu.divelog.model.dive.DiveSession;
+import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 
 /**
  * A utility class containing a list of {@code DiveSession} objects to be used in tests.
@@ -36,6 +38,11 @@ public class TypicalDiveSessions {
         DiveLog ab = new DiveLog();
         for (DiveSession dive : getTypicalDives()) {
             ab.addDive(dive);
+        }
+        try {
+            ab.recalculatePressureGroups();
+        } catch (LimitExceededException | InvalidTimeException e) {
+            e.printStackTrace();
         }
         return ab;
     }
