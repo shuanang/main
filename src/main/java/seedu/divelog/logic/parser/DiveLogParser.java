@@ -51,6 +51,7 @@ public class DiveLogParser {
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
         case CurrentPgCommand.COMMAND_WORD:
+            //Fallthrough
         case CurrentPgCommand.COMMAND_ALIAS:
             return new CurrentPgCommand();
 
