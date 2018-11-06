@@ -37,16 +37,16 @@ For more information on pressure groups (whether you are a recreational diver or
 .  Ensure you have Java version `9` or later installed in your Computer.
 .  Download the latest `divelog.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Dive Log.
-.  Double-click the file to start the app. The GUI (as seen in Diagram 1 below) should appear in a few seconds.
+.  Double-click the file to start the app. The Graphical User Interface (GUI), as seen in Diagram 1 below, should appear in a few seconds.
 +
-image::Ui.png[width="790"]
-Diagram 1: Screenshot of GUI
+image::UGSS_gui.png[width="790"]
+Diagram 1: screenshot of GUI
 +
 .  Type the command in the command box (as seen in Diagram 2 below) and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 +++ <details><summary> +++
-View Screenshot for location of command box
+View screenshot for location of command box
 +++ </summary><div> +++
 
 image::UGSS_Ui_command.png[width="800"]
@@ -89,7 +89,7 @@ Diagram 4: The help guide will open up
 TIP: You can close the guide by closing it. This can be done by clicking on the X on the top right corner.
 
 +++ <details><summary> +++
-View the screenshot for hwo to close the help guide.
+View the screenshot for how to close the help guide.
 +++ </summary><div> +++
 
 image::UGSS_help3.png[width="800"]
@@ -131,7 +131,7 @@ To change the manner in which your dives are ordered, view `<<sortby>>`
 Format: `list`
 
 +++ <details><summary> +++
-View Screenshot for list
+View screenshot for list
 +++ </summary><div> +++
 
 image::UGSS_list.png[width="800"]
@@ -194,7 +194,7 @@ Examples:
 Returns `Dive at Bali`
 
 +++ <details><summary> +++
-View Screenshot for example of a successful find
+View screenshot for example of a successful find
 +++ </summary><div> +++
 
 image::UGSS_find.png[width="800"]
@@ -244,7 +244,7 @@ Selects the 2nd dive in the Dive Log.
 Selects the 1st dive in the results of the `find` command.
 
 +++ <details><summary> +++
-View Screenshot for a successful select
+View screenshot for a successful select
 +++ </summary><div> +++
 
 image::UGSS_select.png[width="800"]
@@ -265,7 +265,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 ====
 
 +++ <details><summary> +++
-View Screenshot for a successful history command
+View screenshot for a successful history command
 +++ </summary><div> +++
 
 image::UGSS_history.png[width="800"]
