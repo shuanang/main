@@ -1,9 +1,5 @@
 package seedu.divelog.testutil;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import seedu.divelog.logic.commands.EditCommand;
 import seedu.divelog.logic.commands.EditCommand.EditDiveDescriptor;
 import seedu.divelog.model.dive.DepthProfile;

@@ -4,13 +4,16 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
+import seedu.divelog.commons.core.LogsCenter;
 import seedu.divelog.commons.core.Messages;
 import seedu.divelog.commons.core.index.Index;
 import seedu.divelog.commons.util.CollectionUtil;
 import seedu.divelog.logic.CommandHistory;
 import seedu.divelog.logic.commands.exceptions.CommandException;
 import seedu.divelog.logic.parser.CliSyntax;
+import seedu.divelog.logic.pressuregroup.exceptions.LimitExceededException;
 import seedu.divelog.model.Model;
 import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.dive.DiveSession;
@@ -79,14 +82,23 @@ public class EditCommand extends Command {
         try {
             model.updateDiveSession(diveToEdit, editedDive);
         } catch (seedu.divelog.model.dive.exceptions.DiveNotFoundException e) {
-            e.printStackTrace();
+            return new CommandResult(Messages.MESSAGE_INVALID_DIVE_DISPLAYED_INDEX);
         }
+
+        try {
+            Logger logs = LogsCenter.getLogger(EditCommand.class);
+            logs.info("Recalculating pressure groups");
+            model.recalculatePressureGroups();
+            model.commitDiveLog();
+        } catch (LimitExceededException e) {
+            model.undoDiveLog();
+            return new CommandResult(Messages.MESSAGE_ERROR_LIMIT_EXCEED);
+        }
+
         model.updateFilteredDiveList(Model.PREDICATE_SHOW_ALL_DIVES);
 
         if (model.getPlanningMode()) {
             model.plannerCountPlus();
-        } else {
-            model.commitDiveLog();
         }
         return new CommandResult(String.format(MESSAGE_EDIT_DIVE_SUCCESS, editedDive));
     }

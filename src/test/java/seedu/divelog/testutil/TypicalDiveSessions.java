@@ -15,8 +15,8 @@ public class TypicalDiveSessions {
     public static final DiveSession DIVE_AT_BALI = new DiveSessionBuilder().build();
     public static final DiveSession DIVE_AT_TIOMAN = new DiveSessionBuilder()
             .withLocation("Tioman")
-            .withPressureGroupAtBeginning("F")
-            .withPressureGroupAtEnd("G")
+            .withStart("1000")
+            .withEnd("1030")
             .build();
     public static final DiveSession DIVE_AT_NIGHT = new DiveSessionBuilder()
             .withLocation("Tioman")

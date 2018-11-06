@@ -155,6 +155,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void recalculatePressureGroups() throws LimitExceededException {
         try {
             versionedDiveLog.recalculatePressureGroups();
+            indicateDiveLogChanged();
         } catch (InvalidTimeException e) {
             Logger logs = LogsCenter.getLogger(ModelManager.class);
             logs.severe("Invalid time format found. " + e.toString());

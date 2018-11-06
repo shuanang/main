@@ -50,7 +50,6 @@ public class AddCommand extends Command {
         toAdd = dive;
     }
 
-    //@@author shuanang
 
     /**
      *Checks if the dive to be added is a first dive or a repeat dive to calculate the correct pressure group,
@@ -62,19 +61,17 @@ public class AddCommand extends Command {
 
         try {
             model.recalculatePressureGroups();
-
+            model.commitDiveLog();
             if (model.getPlanningMode()) {
                 model.plannerCountPlus();
-            } else {
-                model.commitDiveLog();
             }
-
         } catch (LimitExceededException le) {
             return new CommandResult(MESSAGE_ERROR_LIMIT_EXCEED);
         }
+
         return new CommandResult(MESSAGE_SUCCESS);
     }
-    //@@author
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
