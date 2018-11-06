@@ -7,6 +7,7 @@ import seedu.divelog.commons.core.Messages;
 import seedu.divelog.logic.commands.AddCommand;
 import seedu.divelog.logic.commands.ClearCommand;
 import seedu.divelog.logic.commands.Command;
+import seedu.divelog.logic.commands.CurrentPgCommand;
 import seedu.divelog.logic.commands.DeleteCommand;
 import seedu.divelog.logic.commands.EditCommand;
 import seedu.divelog.logic.commands.ExitCommand;
@@ -47,9 +48,11 @@ public class DiveLogParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
+        case CurrentPgCommand.COMMAND_WORD:
+        case CurrentPgCommand.COMMAND_ALIAS:
+            return new CurrentPgCommand();
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
