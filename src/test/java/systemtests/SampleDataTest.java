@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
-import java.util.Collections;
 
 import org.junit.Test;
 
@@ -49,7 +48,7 @@ public class SampleDataTest extends DiveLogSystemTest {
 
         Arrays.sort(expectedList);
 
-        for (int i = 0 ; i < expectedList.length / 2 ; i++) {
+        for (int i = 0; i < expectedList.length / 2; i++) {
             DiveSession tmp = expectedList[i];
             expectedList[i] = expectedList[expectedList.length - 1 - i];
             expectedList[expectedList.length - 1 - i] = tmp;

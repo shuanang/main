@@ -1,6 +1,5 @@
 package seedu.divelog.logic.commands;
 
-import static seedu.divelog.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.divelog.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.divelog.testutil.TypicalDiveSessions.getTypicalDiveLog;
 

@@ -2,8 +2,8 @@ package seedu.divelog.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.divelog.testutil.TypicalDiveSessions.DIVE_AT_BALI;
 import static seedu.divelog.testutil.TypicalDiveSessions.DIVE_AT_NIGHT;
+import static seedu.divelog.testutil.TypicalDiveSessions.DIVE_AT_NOON;
 import static seedu.divelog.testutil.TypicalDiveSessions.getTypicalDiveLog;
 
 import java.io.IOException;
@@ -84,13 +84,15 @@ public class XmlDiveLogStorageTest {
         assertEquals(original, new DiveLog(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addDive(DIVE_AT_BALI);
+        original.addDive(DIVE_AT_NIGHT);
+        original.recalculatePressureGroups();
         xmlDiveLogStorage.saveDiveLog(original, filePath);
         readBack = xmlDiveLogStorage.readDiveLog(filePath).get();
         assertEquals(original, new DiveLog(readBack));
 
         //Save and read without specifying file path
-        original.addDive(DIVE_AT_NIGHT);
+        original.addDive(DIVE_AT_NOON);
+        original.recalculatePressureGroups();
         xmlDiveLogStorage.saveDiveLog(original); //file path not specified
         readBack = xmlDiveLogStorage.readDiveLog().get(); //file path not specified
         assertEquals(original, new DiveLog(readBack));

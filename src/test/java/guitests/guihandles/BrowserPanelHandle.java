@@ -6,8 +6,8 @@ import static seedu.divelog.ui.BrowserPanel.FORMAT_END_TIME;
 import static seedu.divelog.ui.BrowserPanel.FORMAT_SAFETY_STOP;
 import static seedu.divelog.ui.BrowserPanel.FORMAT_START_TIME;
 
-import javafx.scene.control.Label;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import seedu.divelog.model.dive.DiveSession;
 //@@author arjo129
 /**
@@ -43,38 +43,55 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
 
     @Override
     public boolean equals(Object obj) {
+
         if (!(obj instanceof DiveSession)) {
             return false;
         }
+
+
         DiveSession dive = (DiveSession) obj;
+
         String location = String.format(FORMAT_DIVE_LOCATION, dive.getLocation().getLocationName());
         if (!location.equals(diveLocation.getText())) {
             return false;
         }
+
+
         String depth = String.format(FORMAT_DIVE_DEPTH, dive.getDepthProfile().getDepth());
         if (!depth.equals(diveDepth.getText())) {
             return false;
         }
-        String startingPG = dive.getPressureGroupAtBeginning().getPressureGroup();
-        if (!startingPG.equals(pgStart.getText())) {
+
+
+        String startingPg = dive.getPressureGroupAtBeginning().getPressureGroup();
+        if (!startingPg.equals(pgStart.getText())) {
             return false;
         }
-        String endingPG = dive.getPressureGroupAtEnd().getPressureGroup();
-        if (!endingPG.equals(pgEnd.getText())) {
+
+
+        String endingPg = dive.getPressureGroupAtEnd().getPressureGroup();
+        if (!endingPg.equals(pgEnd.getText())) {
             return false;
         }
+
+
         String timeStart = String.format(FORMAT_START_TIME, dive.getStart().getTimeString());
         if (!timeStart.equals(startTime.getText())) {
             return false;
         }
+
+
         String timeEnd = String.format(FORMAT_END_TIME, dive.getEnd().getTimeString());
         if (!timeEnd.equals(endTime.getText())) {
             return false;
         }
+
+
         String timeSafetyStop = String.format(FORMAT_SAFETY_STOP, dive.getSafetyStop().getTimeString());
         if (!timeSafetyStop.equals(safetyStop.getText())) {
             return false;
         }
+
         return true;
     }
 }

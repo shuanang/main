@@ -1,17 +1,10 @@
 package systemtests;
 
-import static seedu.divelog.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import org.junit.Test;
 
-import seedu.divelog.commons.core.Messages;
-import seedu.divelog.commons.core.index.Index;
 import seedu.divelog.logic.commands.AddCommand;
-import seedu.divelog.logic.commands.RedoCommand;
-import seedu.divelog.logic.commands.UndoCommand;
 import seedu.divelog.model.Model;
 import seedu.divelog.model.dive.DiveSession;
-import seedu.divelog.testutil.DiveSessionBuilder;
 import seedu.divelog.testutil.DiveUtil;
 
 public class AddCommandSystemTest extends DiveLogSystemTest {

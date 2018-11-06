@@ -55,13 +55,13 @@ public class DeleteCommand extends Command {
 
         try {
             model.recalculatePressureGroups();
+            model.commitDiveLog();
             if (model.getPlanningMode()) {
                 model.plannerCountPlus();
-            } else {
-                model.commitDiveLog();
             }
             return new CommandResult(String.format(MESSAGE_DELETE_DIVE_SESSION_SUCCESS, diveToDelete));
         } catch (LimitExceededException le) {
+            //Shouldn't actually be triggered
             return new CommandResult(MESSAGE_ERROR_LIMIT_EXCEED);
         }
     }

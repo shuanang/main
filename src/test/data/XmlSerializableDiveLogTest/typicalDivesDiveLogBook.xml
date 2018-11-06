@@ -14,12 +14,12 @@
     </dives>
     <dives>
         <dateStart>01012019</dateStart>
-        <startTime>0700</startTime>
+        <startTime>1000</startTime>
         <safetyStop>0745</safetyStop>
         <dateEnd>01012019</dateEnd>
-        <endTime>0800</endTime>
-        <pressureGroupAtBeginning>F</pressureGroupAtBeginning>
-        <pressureGroupAtEnd>G</pressureGroupAtEnd>
+        <endTime>1030</endTime>
+        <pressureGroupAtBeginning>B</pressureGroupAtBeginning>
+        <pressureGroupAtEnd>I</pressureGroupAtEnd>
         <location>Tioman</location>
         <depthProfile>5.0</depthProfile>
         <timezone>+8</timezone>

@@ -12,6 +12,9 @@ import com.google.common.eventbus.Subscribe;
 import seedu.divelog.commons.core.EventsCenter;
 import seedu.divelog.commons.events.BaseEvent;
 
+/**
+ * A class to handle events. (Ported from AB4)
+ */
 public class EventsCollectorRule implements TestRule {
     public final EventsCollector eventsCollector = new EventsCollector();
 

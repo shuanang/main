@@ -8,7 +8,6 @@ import static seedu.divelog.logic.commands.CommandTestUtil.DESC_DAY_TIOMAN;
 import org.junit.Test;
 
 import seedu.divelog.logic.commands.EditCommand.EditDiveDescriptor;
-import seedu.divelog.testutil.EditDiveDescriptorBuilder;
 
 public class EditDiveDescriptorTest {
 

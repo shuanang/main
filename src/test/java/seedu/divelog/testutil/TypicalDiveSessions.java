@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.divelog.logic.pressuregroup.exceptions.LimitExceededException;
 import seedu.divelog.model.DiveLog;
 import seedu.divelog.model.dive.DiveSession;
+import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 
 /**
  * A utility class containing a list of {@code DiveSession} objects to be used in tests.
@@ -15,8 +17,14 @@ public class TypicalDiveSessions {
     public static final DiveSession DIVE_AT_BALI = new DiveSessionBuilder().build();
     public static final DiveSession DIVE_AT_TIOMAN = new DiveSessionBuilder()
             .withLocation("Tioman")
-            .withPressureGroupAtBeginning("F")
-            .withPressureGroupAtEnd("G")
+            .withStart("1000")
+            .withEnd("1030")
+            .build();
+    public static final DiveSession DIVE_AT_NOON = new DiveSessionBuilder()
+            .withLocation("Tioman")
+            .withStart("1200")
+            .withSafetyStop("1245")
+            .withEnd("1300")
             .build();
     public static final DiveSession DIVE_AT_NIGHT = new DiveSessionBuilder()
             .withLocation("Tioman")
@@ -30,13 +38,22 @@ public class TypicalDiveSessions {
     private TypicalDiveSessions() {} // prevents instantiation
 
     /**
-     * Returns an {@code DiveLog} with all the typical dive sessions.
+     * Returns an {@code DiveLog} with typical dive sessions.
      */
     public static DiveLog getTypicalDiveLog() {
+
         DiveLog ab = new DiveLog();
+
         for (DiveSession dive : getTypicalDives()) {
             ab.addDive(dive);
         }
+
+        try {
+            ab.recalculatePressureGroups();
+        } catch (LimitExceededException | InvalidTimeException e) {
+            e.printStackTrace();
+        }
+
         return ab;
     }
 

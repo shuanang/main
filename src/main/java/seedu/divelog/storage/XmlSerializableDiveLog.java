@@ -8,9 +8,11 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.divelog.commons.exceptions.IllegalValueException;
+import seedu.divelog.logic.pressuregroup.exceptions.LimitExceededException;
 import seedu.divelog.model.DiveLog;
 import seedu.divelog.model.ReadOnlyDiveLog;
 import seedu.divelog.model.dive.DiveSession;
+import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 
 /**
  * An Immutable DiveLog that is serializable to XML format
@@ -49,6 +51,13 @@ public class XmlSerializableDiveLog {
         for (XmlAdaptedDiveSession p : dives) {
             DiveSession dive = p.toModelType();
             diveLog.addDive(dive);
+        }
+        try {
+            diveLog.recalculatePressureGroups();
+        } catch (LimitExceededException le) {
+            throw new IllegalValueException("A dive that would result in decompression was found in the ");
+        } catch (InvalidTimeException ive) {
+            throw new IllegalValueException("Time was misformatted");
         }
         return diveLog;
     }

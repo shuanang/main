@@ -199,6 +199,7 @@ public class DiveSession implements Comparable {
         stringBuilder.append("\tPressureGroup: " + getPressureGroupAtBeginning().getPressureGroup() + "->"
                 + getPressureGroupAtEnd().getPressureGroup() + "\n");
         stringBuilder.append("\tDepth: " + getDepthProfile().getDepth() + "\n");
+        stringBuilder.append("\tSafety stop: " + getSafetyStop().getTimeString());
         stringBuilder.append("\tTime Zone:" + getTimeZone().getTimeZoneString());
         return stringBuilder.toString();
     }

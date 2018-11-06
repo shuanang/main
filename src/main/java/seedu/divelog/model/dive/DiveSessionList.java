@@ -89,18 +89,28 @@ public class DiveSessionList implements Iterable<DiveSession> {
 
     /**
      * Recalculate pressure groups for all dives. Assumes oldest dive is the correct starting point.
-     * @throws LimitExceededException if the new dive cannot be accomodated within the system.
+     * @throws LimitExceededException if the new dive cannot be accommodated within the system.
      * @throws InvalidTimeException if the dive data is malformed
      */
     public void recalculatePressureGroup() throws LimitExceededException, InvalidTimeException {
         //sort dives
         sortDiveSession(SortingMethod.TIME);
+        Logger logger = LogsCenter.getLogger(DiveSessionList.class);
 
         //iterate through list and solve dives
+        logger.info("Recalculating dives");
+
+        //No dives to solve
+        if (internalList.size() == 0) {
+            return;
+        }
+
         internalList.get(internalList.size() - 1).computePressureGroupNonRepeated();
         DiveSession prevDive = internalList.get(internalList.size() - 1);
-        for (int i = internalList.size() - 2; i > 0; i--) {
+        for (int i = internalList.size() - 2; i >= 0; i--) {
+
             float surfaceInterval = prevDive.getTimeBetweenDiveSession(internalList.get(i));
+
             if (surfaceInterval > ONE_DAY_IN_MINUTES) {
                 internalList.get(i).computePressureGroupNonRepeated();
             } else {
@@ -109,13 +119,14 @@ public class DiveSessionList implements Iterable<DiveSession> {
                 internalList.get(i).setPressureGroupAtBeginning(newPg);
                 internalList.get(i).computePressureGroupComputeRepeated();
             }
+
+            prevDive = internalList.get(i);
         }
     }
     //@@author
 
     /**
      * Adds a Dive Session to the list.
-     * The dive session must not already exist in the list.
      * If planning mode, adds to planningInternalList;
      */
     public void add(DiveSession toAdd) {

@@ -13,7 +13,6 @@ import guitests.guihandles.HelpWindowHandle;
 import seedu.divelog.logic.commands.DeleteCommand;
 import seedu.divelog.logic.commands.HelpCommand;
 import seedu.divelog.logic.commands.SelectCommand;
-import seedu.divelog.ui.BrowserPanel;
 import seedu.divelog.ui.StatusBarFooter;
 
 /**

@@ -4,7 +4,6 @@ import static seedu.divelog.logic.parser.CliSyntax.PREFIX_DATE_END;
 import static seedu.divelog.logic.parser.CliSyntax.PREFIX_DATE_START;
 import static seedu.divelog.logic.parser.CliSyntax.PREFIX_DEPTH;
 import static seedu.divelog.logic.parser.CliSyntax.PREFIX_LOCATION;
-import static seedu.divelog.logic.parser.CliSyntax.PREFIX_PRESSURE_GROUP_END;
 import static seedu.divelog.logic.parser.CliSyntax.PREFIX_PRESSURE_GROUP_START;
 import static seedu.divelog.logic.parser.CliSyntax.PREFIX_SAFETY_STOP;
 import static seedu.divelog.logic.parser.CliSyntax.PREFIX_TIMEZONE;
@@ -60,8 +59,6 @@ public class DiveUtil {
                 sb.append(PREFIX_DEPTH).append(depth.getDepth()).append(" "));
         descriptor.getPressureGroupAtBeginning().ifPresent(pressureGroup ->
                 sb.append(PREFIX_PRESSURE_GROUP_START).append(pressureGroup.getPressureGroup()).append(" "));
-        /*descriptor.getPressureGroupAtEnd().ifPresent(pressureGroup ->
-                sb.append(PREFIX_PRESSURE_GROUP_END).append(pressureGroup.getPressureGroup()).append(" "));*/
         descriptor.getLocation().ifPresent(location ->
                 sb.append(PREFIX_LOCATION).append(location.getLocationName()).append(" "));
         return sb.toString();

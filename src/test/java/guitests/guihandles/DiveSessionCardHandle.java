@@ -41,11 +41,18 @@ public class DiveSessionCardHandle extends NodeHandle<Node> {
         return nameLabel.getText();
     }
 
-    public String getDepth() { return depth.getText(); }
+    public String getDepth() {
+        return depth.getText();
+    }
 
-    public String getDateStart() { return dateStart.getText(); }
+    public String getDateStart() {
+        return dateStart.getText();
+    }
 
-    public String getDateEndId() { return dateEnd.getText(); }
+    public String getDateEndId() {
+        return dateEnd.getText();
+    }
+
     //@@author shuanang
     /**
      * Returns true if this handle contains {@code dive}.

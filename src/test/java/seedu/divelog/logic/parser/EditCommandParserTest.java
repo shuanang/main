@@ -2,9 +2,7 @@ package seedu.divelog.logic.parser;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.divelog.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.divelog.commons.core.Messages.MESSAGE_INVALID_DIVE_DISPLAYED_INDEX;
 import static seedu.divelog.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.divelog.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.divelog.testutil.TypicalIndexes.INDEX_FIRST_DIVE;
 
 import org.junit.Test;
@@ -82,7 +80,7 @@ public class EditCommandParserTest {
         /*Check date ended*/
         command = targetIndex.getOneBased() + " de/20122018";
         editCommand = parser.parse(command);
-        expectedDesc =  new EditDiveDescriptor();
+        expectedDesc = new EditDiveDescriptor();
         expectedDesc.setDateEnd(new OurDate("20122018"));
         expected = new EditCommand(targetIndex, expectedDesc);
         assertEquals(editCommand, expected);
@@ -91,7 +89,7 @@ public class EditCommandParserTest {
         editCommand = parser.parse(command);
         expectedDesc = new EditDiveDescriptor();
         expectedDesc.setStart(new Time("2000"));
-        expected = new EditCommand(targetIndex,expectedDesc);
+        expected = new EditCommand(targetIndex, expectedDesc);
         assertEquals(editCommand, expected);
         /*Check the time ended*/
         command = targetIndex.getOneBased() + " te/2020";

@@ -155,6 +155,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void recalculatePressureGroups() throws LimitExceededException {
         try {
             versionedDiveLog.recalculatePressureGroups();
+            indicateDiveLogChanged();
         } catch (InvalidTimeException e) {
             Logger logs = LogsCenter.getLogger(ModelManager.class);
             logs.severe("Invalid time format found. " + e.toString());
@@ -206,6 +207,11 @@ public class ModelManager extends ComponentManager implements Model {
         ModelManager other = (ModelManager) obj;
         return versionedDiveLog.equals(other.versionedDiveLog)
                 && filteredDives.equals(other.filteredDives);
+    }
+
+    @Override
+    public String toString() {
+        return versionedDiveLog.toString() + "Filtered Dives: \n" + filteredDives.toString();
     }
 
 }
