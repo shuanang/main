@@ -65,7 +65,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         Time safetyStop = new Time(argMultimap.getValue(CliSyntax.PREFIX_SAFETY_STOP).get());
         PressureGroup pressureGroupAtBegining = new PressureGroup("A");
         if (argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_START).isPresent()) {
-            pressureGroupAtBegining = new PressureGroup(argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_START).get());
+            pressureGroupAtBegining = new PressureGroup(
+                    argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_START).get());
         }
         Location location =
                 new Location(argMultimap.getValue(CliSyntax.PREFIX_LOCATION).get());

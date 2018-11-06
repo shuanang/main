@@ -20,6 +20,12 @@ public class TypicalDiveSessions {
             .withStart("1000")
             .withEnd("1030")
             .build();
+    public static final DiveSession DIVE_AT_NOON =new DiveSessionBuilder()
+            .withLocation("Tioman")
+            .withStart("1200")
+            .withSafetyStop("1245")
+            .withEnd("1300")
+            .build();
     public static final DiveSession DIVE_AT_NIGHT = new DiveSessionBuilder()
             .withLocation("Tioman")
             .withStart("2100")
@@ -32,18 +38,22 @@ public class TypicalDiveSessions {
     private TypicalDiveSessions() {} // prevents instantiation
 
     /**
-     * Returns an {@code DiveLog} with all the typical dive sessions.
+     * Returns an {@code DiveLog} with typical dive sessions.
      */
     public static DiveLog getTypicalDiveLog() {
+
         DiveLog ab = new DiveLog();
+
         for (DiveSession dive : getTypicalDives()) {
             ab.addDive(dive);
         }
+
         try {
             ab.recalculatePressureGroups();
         } catch (LimitExceededException | InvalidTimeException e) {
             e.printStackTrace();
         }
+
         return ab;
     }
 

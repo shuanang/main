@@ -209,4 +209,9 @@ public class ModelManager extends ComponentManager implements Model {
                 && filteredDives.equals(other.filteredDives);
     }
 
+    @Override
+    public String toString() {
+        return versionedDiveLog.toString() + "Filtered Dives: \n" + filteredDives.toString();
+    }
+
 }

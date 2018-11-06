@@ -99,6 +99,12 @@ public class DiveSessionList implements Iterable<DiveSession> {
 
         //iterate through list and solve dives
         logger.info("Recalculating dives");
+
+        //No dives to solve
+        if (internalList.size() == 0) {
+            return;
+        }
+
         internalList.get(internalList.size() - 1).computePressureGroupNonRepeated();
         DiveSession prevDive = internalList.get(internalList.size() - 1);
         for (int i = internalList.size() - 2; i >= 0; i--) {
