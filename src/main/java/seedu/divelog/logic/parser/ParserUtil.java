@@ -8,6 +8,9 @@ import seedu.divelog.logic.parser.exceptions.ParseException;
 import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.dive.PressureGroup;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -17,6 +20,7 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_DEPTH = "Depth must be a positive number.";
     public static final String MESSAGE_INVALID_PRESSURE_GROUP = "Pressure group must be a single alphabet from A-Z";
+
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
@@ -62,6 +66,39 @@ public class ParserUtil {
             Integer.parseInt(argMultimap.getValue(CliSyntax.PREFIX_DATE_END).get());
         } catch (NumberFormatException nfe) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_DATE_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+    }
+
+    /**
+     *  throws exception if Time inputs are not in chronological order
+     * {@code ArgumentMultimap}.
+     */
+    public static void checkTimeDateLimit(ArgumentMultimap argMultimap) throws java.text.ParseException, ParseException {
+        String startDateString = argMultimap.getValue(CliSyntax.PREFIX_DATE_START).get();
+        String endDateString = argMultimap.getValue(CliSyntax.PREFIX_DATE_END).get();
+        String startTimeString = argMultimap.getValue(CliSyntax.PREFIX_TIME_START).get();
+        String endTimeString = argMultimap.getValue(CliSyntax.PREFIX_TIME_END).get();
+        String safetyTimeString = argMultimap.getValue(CliSyntax.PREFIX_SAFETY_STOP).get();
+
+        SimpleDateFormat inputFormat = new SimpleDateFormat("ddMMyyyyHHmm");
+
+        Date startTimeDateDate = inputFormat.parse(startDateString + startTimeString);
+        Date endTimeDateDate = inputFormat.parse(endDateString + endTimeString);
+        Date safetyStopEarlyDateTime = inputFormat.parse(startDateString + safetyTimeString);
+        Date safetyStopLateDateTime = inputFormat.parse(endDateString + safetyTimeString);
+
+        long startSafeDiff = safetyStopEarlyDateTime.getTime() - startTimeDateDate.getTime();
+        long endSafeDiff = safetyStopLateDateTime.getTime() - endTimeDateDate.getTime();
+
+
+        if ((endSafeDiff > 0 && startSafeDiff < 0)
+            || (endSafeDiff < 0 && startSafeDiff > 0)) {
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_SAFETYSTOPTIME_LIMITS,
+                    AddCommand.MESSAGE_USAGE));
+        }
+
+        if (startTimeDateDate.getTime() - endTimeDateDate.getTime() > 0) {
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_DATE_LIMITS, AddCommand.MESSAGE_USAGE));
         }
     }
 

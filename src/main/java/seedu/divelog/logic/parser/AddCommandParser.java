@@ -28,7 +28,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      * and returns an AddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format.
      */
-    public AddCommand parse(String args) throws ParseException {
+    public AddCommand parse(String args) throws ParseException, java.text.ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args,
                         CliSyntax.PREFIX_DATE_START,
@@ -55,7 +55,11 @@ public class AddCommandParser implements Parser<AddCommand> {
 
 
         ParserUtil.checkTimeformat(argMultimap);
+
+        ParserUtil.checkTimeDateLimit(argMultimap);
+
         ParserUtil.checkDateformat(argMultimap);
+
         //ParserUtil.checkTimeZoneformat(argMultimap);
 
         OurDate dateStart = new OurDate(argMultimap.getValue(CliSyntax.PREFIX_DATE_START).get());
