@@ -80,7 +80,7 @@ public class EditCommandParserTest {
         /*Check date ended*/
         command = targetIndex.getOneBased() + " de/20122018";
         editCommand = parser.parse(command);
-        expectedDesc =  new EditDiveDescriptor();
+        expectedDesc = new EditDiveDescriptor();
         expectedDesc.setDateEnd(new OurDate("20122018"));
         expected = new EditCommand(targetIndex, expectedDesc);
         assertEquals(editCommand, expected);
@@ -89,7 +89,7 @@ public class EditCommandParserTest {
         editCommand = parser.parse(command);
         expectedDesc = new EditDiveDescriptor();
         expectedDesc.setStart(new Time("2000"));
-        expected = new EditCommand(targetIndex,expectedDesc);
+        expected = new EditCommand(targetIndex, expectedDesc);
         assertEquals(editCommand, expected);
         /*Check the time ended*/
         command = targetIndex.getOneBased() + " te/2020";

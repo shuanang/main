@@ -1,8 +1,6 @@
 package systemtests;
 
-
 import org.junit.Test;
-
 
 import seedu.divelog.logic.commands.AddCommand;
 import seedu.divelog.model.Model;

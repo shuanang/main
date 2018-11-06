@@ -2,7 +2,6 @@ package seedu.divelog.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.divelog.testutil.TypicalDiveSessions.DIVE_AT_BALI;
 import static seedu.divelog.testutil.TypicalDiveSessions.DIVE_AT_NIGHT;
 import static seedu.divelog.testutil.TypicalDiveSessions.DIVE_AT_NOON;
 import static seedu.divelog.testutil.TypicalDiveSessions.getTypicalDiveLog;

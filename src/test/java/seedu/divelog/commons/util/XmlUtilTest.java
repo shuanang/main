@@ -122,7 +122,7 @@ public class XmlUtilTest {
 
     /**
      * Test class annotated with {@code XmlRootElement} to allow unmarshalling of
-     * .xml data to {@code XmlAdaptedDiveSession objects.
+     * .xml data to {@code XmlAdaptedDiveSession} objects.
      */
     @XmlRootElement(name = "dives")
     private static class XmlAdaptedDiveSessionWithRootElement extends XmlAdaptedDiveSession {
