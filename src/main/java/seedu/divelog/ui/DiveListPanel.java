@@ -31,14 +31,14 @@ public class DiveListPanel extends UiPart<Region> {
 
     @FXML
     private ListView<DiveSession> diveListView;
-    @FXML
-    private Label dateId;
+//    @FXML
+//    private Label dateId;
 
 
     public DiveListPanel(ObservableList<DiveSession> diveList) {
         super(FXML);
         //dateID.setText(String.format(FORMAT_TIME_NOW, dive.getDateStart().getOurDateString()));
-        loadMyTimeNow();
+        //loadMyTimeNow();
         setConnections(diveList);
         registerAsAnEventHandler(this);
     }
@@ -104,14 +104,14 @@ public class DiveListPanel extends UiPart<Region> {
      * Retrieves the current date time as a string
      * @return retrieves date as string
      */
-    private String dateTimeSend() {
-        Date d = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY hh:mmaa");
-        String dateTimeNow = dateFormat.format(d);
-        return dateTimeNow;
-    }
-    private void loadMyTimeNow() {
-        dateId.setText(String.format(FORMAT_TIME_NOW, dateTimeSend()));
-    }
+//    private String dateTimeSend() {
+//        Date d = new Date();
+//        DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY hh:mmaa");
+//        String dateTimeNow = dateFormat.format(d);
+//        return dateTimeNow;
+//    }
+//    private void loadMyTimeNow() {
+//        dateId.setText(String.format(FORMAT_TIME_NOW, dateTimeSend()));
+//    }
 
 }
