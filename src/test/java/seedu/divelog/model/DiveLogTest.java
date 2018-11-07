@@ -52,6 +52,11 @@ public class DiveLogTest {
 
     @Test
     public void getMostRecent_test() {
+
+        //Test when empty
+        assertEquals(diveLog.getMostRecentDive(), null);
+
+        //Check most recent without dives planned in the future
         DiveSession diveSession1 = new DiveSessionBuilder()
                 .withStart("1000")
                 .withStartDate("01011996")
@@ -70,8 +75,10 @@ public class DiveLogTest {
         diveLog.addDive(diveSession1);
         diveLog.addDive(diveSession2);
         diveLog.addDive(diveSession3);
-        //Check most recent without dives planned in the future
         assertEquals(diveLog.getMostRecentDive(), diveSession3);
+
+
+        //Check most recent dive. Should still be dive session 3 if system clock is correctly set
         //TODO: update this test in 100 years :) Hopefully JAVA will be dead by then!
         DiveSession diveSession4 = new DiveSessionBuilder()
                 .withStart("1100")
@@ -80,8 +87,9 @@ public class DiveLogTest {
                 .withEndDate("01012118").build();
         diveLog.addDive(diveSession4);
         DiveSession actual = diveLog.getMostRecentDive();
-        //Check most recent dive. Should still be dive session 3 if system clock is correctly set
         assertEquals(diveSession3, actual);
+
+
     }
 
 }

@@ -37,16 +37,16 @@ For more information on pressure groups (whether you are a recreational diver or
 .  Ensure you have Java version `9` or later installed in your Computer.
 .  Download the latest `divelog.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Dive Log.
-.  Double-click the file to start the app. The GUI (as seen in Diagram 1 below) should appear in a few seconds.
+.  Double-click the file to start the app. The Graphical User Interface (GUI), as seen in Diagram 1 below, should appear in a few seconds.
 +
-image::Ui.png[width="790"]
-Diagram 1: Screenshot of GUI
+image::UGSS_gui.png[width="790"]
+Diagram 1: screenshot of GUI
 +
 .  Type the command in the command box (as seen in Diagram 2 below) and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 +++ <details><summary> +++
-View Screenshot for location of command box
+View screenshot for location of command box
 +++ </summary><div> +++
 
 image::UGSS_Ui_command.png[width="800"]
@@ -89,7 +89,7 @@ Diagram 4: The help guide will open up
 TIP: You can close the guide by closing it. This can be done by clicking on the X on the top right corner.
 
 +++ <details><summary> +++
-View the screenshot for hwo to close the help guide.
+View the screenshot for how to close the help guide.
 +++ </summary><div> +++
 
 image::UGSS_help3.png[width="800"]
@@ -100,12 +100,14 @@ Diagram 5: Click the X to close
 === Adding a dive session: `add`
 Use this command to adds your new dive session to the Dive Log.
 
-Format: `add ds/DATE_STARTED ts/TIME_DIVE_STARTED de/DATE_ENDED te/TIME_DIVE_ENDED ss/SAFETY_STOP  d/DEPTH  l/LOCATION pg/INITIAL_PRESSURE_GROUP`
+Format: `add ds/DATE_STARTED ts/TIME_DIVE_STARTED de/DATE_ENDED te/TIME_DIVE_ENDED ss/SAFETY_STOP  d/DEPTH  l/LOCATION [pg/INITIAL_PRESSURE_GROUP]`
 
 TIP: Words in UPPER_CASE are the parameters, items in SQUARE_BRACKETS are optional. Order of parameters are fixed as per the format above, meaning if you entered the ts/TIME_DIVE_STARTED before the ds/DATE_STARTED,
 the program will not be able to add your dive.
 
 Put a `ts/` before the time started(24 hours format - HHMM), te/time ended (24 hours format - HHMM), d/depth (in metres), l/ location (location name), per dive at v1.0) (optional) and pg/initial pressure group.
+
+An important thing to note is that as of `v1.4`, the `pg/` argument is ignored for all dives except if it is the oldest dive in the logbook.
 
 _Example:
 add ds/04082018 ts/0900 de/04082018  te/1020 ss/1015 d/15 l/Bukit Lagoon pg/C tz/+8_
@@ -119,7 +121,7 @@ add ds/04082018 ts/0900 de/04082018  te/1020 ss/1015 d/15 l/Bukit Lagoon pg/C tz
 |Time Started / Ended (HHMM)                    |ts or te       |ts/0800 or te/0900
 |Location                                       |l              |l/Sentosa
 |Depth (integer value)                          |d              |d/18
-|Initial Pressure Group (Character Value) |pg             |pg/A
+|Initial Pressure Group (Character Value) _Note: this only updates the PG if its the oldest dive_  |pg             |pg/A
 |Timezone (in UTC)                              |tz             |tz/+12 or tz/-5
 |=========================================
 
@@ -131,7 +133,7 @@ To change the manner in which your dives are ordered, view `<<sortby>>`
 Format: `list`
 
 +++ <details><summary> +++
-View Screenshot for list
+View screenshot for list
 +++ </summary><div> +++
 
 image::UGSS_list.png[width="800"]
@@ -164,7 +166,7 @@ Examples:
 |Time Started / Ended (HHMM)                    |ts or te       |ts/0800 or te/0900
 |Location                                       |l              |l/Sentosa
 |Depth (integer value)                          |d              |d/18
-|Initial Pressure Group (Character Value) |pg             |pg/A
+|Initial Pressure Group (Character Value) _Note: this only updates the PG if its the oldest dive_  |pg             |pg/A
 |Timezone (in UTC)                              |tz             |tz/+12 or tz/-5
 |=========================================
 
@@ -194,7 +196,7 @@ Examples:
 Returns `Dive at Bali`
 
 +++ <details><summary> +++
-View Screenshot for example of a successful find
+View screenshot for example of a successful find
 +++ </summary><div> +++
 
 image::UGSS_find.png[width="800"]
@@ -244,7 +246,7 @@ Selects the 2nd dive in the Dive Log.
 Selects the 1st dive in the results of the `find` command.
 
 +++ <details><summary> +++
-View Screenshot for a successful select
+View screenshot for a successful select
 +++ </summary><div> +++
 
 image::UGSS_select.png[width="800"]
@@ -265,7 +267,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 ====
 
 +++ <details><summary> +++
-View Screenshot for a successful history command
+View screenshot for a successful history command
 +++ </summary><div> +++
 
 image::UGSS_history.png[width="800"]

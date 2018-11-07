@@ -18,7 +18,7 @@ import seedu.divelog.model.divetables.PadiDiveTable;
  * Calculates the pressure group given depth and minutes spent at depth for single and/or repeat dives.
  */
 public class PressureGroupLogic {
-    PressureGroupLogic(){}
+    public PressureGroupLogic(){}
 
     /**
      * For first dive of the day, calculates pressure group given depth and minutes spent at depth
