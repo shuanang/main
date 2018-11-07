@@ -69,15 +69,16 @@ public class DiveSessionList implements Iterable<DiveSession> {
                 continue;
             }
 
-            if(mostRecent == null) continue;
+            if (mostRecent == null) {
+                continue;
+            }
 
 
             if (mostRecent.compareTo(diveSession) < 0
                     && CompareUtil.getCurrentDateTime().compareTo(diveSession.getDateTime()) > 0) {
-                log.severe("Updating dive " + mostRecent.toString() + "to" + diveSession.toString() );
+                log.severe("Updating dive " + mostRecent.toString() + "to" + diveSession.toString());
                 mostRecent = diveSession;
             }
-            
         }
         return mostRecent;
     }

@@ -14,13 +14,9 @@ import seedu.divelog.logic.CommandHistory;
 import seedu.divelog.logic.commands.exceptions.CommandException;
 import seedu.divelog.logic.pressuregroup.PressureGroupLogic;
 import seedu.divelog.model.Model;
-import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.dive.DiveSession;
-import seedu.divelog.model.dive.Location;
-import seedu.divelog.model.dive.OurDate;
 import seedu.divelog.model.dive.PressureGroup;
-import seedu.divelog.model.dive.Time;
-import seedu.divelog.model.dive.TimeZone;
+
 
 /**
  * Returns the current pressure group with respect to the latest dive session based on the current time
@@ -35,7 +31,6 @@ public class CurrentPgCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         DiveSession lastDive = model.getMostRecent();
-        System.out.println(lastDive.getDateStart().getOurDateString());
         PressureGroupLogic pressureGroupLogic = new PressureGroupLogic();
         long currentDateTime = CompareUtil.getCurrentDateTimeLong(); //ddMMyyyyHHmm
         String timeNow = readTimeFromLong(currentDateTime);
