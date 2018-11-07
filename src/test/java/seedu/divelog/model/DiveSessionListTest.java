@@ -62,5 +62,8 @@ public class DiveSessionListTest {
         expected.add(idealDive2);
         expected.add(idealDive3);
         assertEquals(expected, diveSessions);
+
+        DiveSessionList emptyDiveList;
+
     }
 }

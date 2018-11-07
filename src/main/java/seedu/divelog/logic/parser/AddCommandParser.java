@@ -82,8 +82,10 @@ public class AddCommandParser implements Parser<AddCommand> {
         try {
             long duration = CompareUtil.checkTimeDifference(startTime.getTimeString(), endTime.getTimeString(),
                     dateStart.getOurDateString(), dateEnd.getOurDateString());
-            PressureGroup pressureGroupAtEnd = PressureGroupLogic.computePressureGroup(depthProfile,
-                    (float) duration, pressureGroupAtBeginning);
+
+            PressureGroup pressureGroupAtEnd = PressureGroupLogic.computePressureGroupFirstDive(depthProfile,
+                    (float) duration);
+
             DiveSession dive =
                     new DiveSession(dateStart, startTime, safetyStop, dateEnd, endTime, pressureGroupAtBeginning,
                             pressureGroupAtEnd, location, depthProfile, timezone);
