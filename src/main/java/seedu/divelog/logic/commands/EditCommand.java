@@ -1,6 +1,7 @@
 package seedu.divelog.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.divelog.commons.core.Messages.MESSAGE_INVALID_DATE_LIMITS;
 
 import java.text.ParseException;
 import java.util.List;
@@ -70,7 +71,7 @@ public class EditCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history)
-            throws CommandException, ParseException {
+            throws CommandException, seedu.divelog.logic.parser.exceptions.ParseException {
         requireNonNull(model);
         List<DiveSession> lastShownList = model.getFilteredDiveList();
 
@@ -81,12 +82,11 @@ public class EditCommand extends Command {
         DiveSession diveToEdit = lastShownList.get(index.getZeroBased());
         DiveSession editedDive = null;
 
-        editedDive = createEditedDive(diveToEdit, editDiveDescriptor);
-
         try {
-            ParserUtil.checkEditTimeDateLimit(editedDive);
+            editedDive = createEditedDive(diveToEdit, editDiveDescriptor);
         } catch (seedu.divelog.logic.parser.exceptions.ParseException e) {
-            e.printStackTrace();
+            throw new seedu.divelog.logic.parser.exceptions.ParseException(
+                    String.format(MESSAGE_INVALID_DATE_LIMITS, AddCommand.MESSAGE_USAGE));
         }
 
         try {
@@ -117,7 +117,8 @@ public class EditCommand extends Command {
      * Creates and returns a {@code DiveSession} with the details of {@code diveSessionToEdit}
      * edited with {@code editDiveDescriptor}.
      */
-    private static DiveSession createEditedDive(DiveSession diveToEdit, EditDiveDescriptor editDiveSessionDescriptor) {
+    private static DiveSession createEditedDive(DiveSession diveToEdit, EditDiveDescriptor editDiveSessionDescriptor)
+            throws seedu.divelog.logic.parser.exceptions.ParseException {
         assert diveToEdit != null;
         OurDate dateStart = editDiveSessionDescriptor.getDateStart().orElse(diveToEdit.getDateStart());
         Time start = editDiveSessionDescriptor.getStart().orElse(diveToEdit.getStart());
@@ -132,8 +133,17 @@ public class EditCommand extends Command {
         DepthProfile depth = editDiveSessionDescriptor.getDepthProfile().orElse(diveToEdit.getDepthProfile());
         TimeZone timezone = editDiveSessionDescriptor.getTimeZone().orElse(diveToEdit.getTimeZone());
 
-        return new DiveSession(dateStart, start, safetyStop, dateEnd, end, pressureGroupAtBeginning, pressureGroupAtEnd,
-        location, depth, timezone);
+        DiveSession editedDive = new DiveSession(dateStart, start, safetyStop, dateEnd, end,
+                pressureGroupAtBeginning, pressureGroupAtEnd, location, depth, timezone);
+
+        try {
+            ParserUtil.checkEditTimeDateLimit(editedDive);
+            return editedDive;
+        } catch (ParseException | seedu.divelog.logic.parser.exceptions.ParseException e) {
+            throw new seedu.divelog.logic.parser.exceptions.ParseException(
+                    String.format(MESSAGE_INVALID_DATE_LIMITS, AddCommand.MESSAGE_USAGE));
+        }
+
     }
 
     @Override

@@ -110,6 +110,7 @@ public class ParserUtil {
         String safetyTimeString = divesession.getSafetyStop().getTimeString();
 
         SimpleDateFormat inputFormat = new SimpleDateFormat("ddMMyyyyHHmm");
+
         Date startTimeDateDate = inputFormat.parse(startDateString + startTimeString);
         Date endTimeDateDate = inputFormat.parse(endDateString + endTimeString);
 
