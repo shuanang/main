@@ -143,7 +143,7 @@ public class ParserUtil {
         if (startTimeDate.getTime() - endTimeDate.getTime() != 0) {
             if (safetyTimeDate.getTime() - startTimeDate.getTime() > 0) {
                 safetyEndDateTime = inputFormat.parse(startDateString + safetyTimeString);
-            } else if (safetyTimeDate.getTime() - endTimeDate.getTime() < 0) { 
+            } else if (safetyTimeDate.getTime() - endTimeDate.getTime() < 0) {
                 safetyEndDateTime = inputFormat.parse(endDateString + safetyTimeString);
             }
         }
