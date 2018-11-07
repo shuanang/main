@@ -55,7 +55,13 @@ public class AddCommandParser implements Parser<AddCommand> {
 
 
         ParserUtil.checkTimeformat(argMultimap);
+        try {
+            ParserUtil.checkTimeDateLimit(argMultimap);
+        } catch (java.text.ParseException e) {
+            e.printStackTrace();
+        }
         ParserUtil.checkDateformat(argMultimap);
+
         //ParserUtil.checkTimeZoneformat(argMultimap);
 
         OurDate dateStart = new OurDate(argMultimap.getValue(CliSyntax.PREFIX_DATE_START).get());
@@ -63,9 +69,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         OurDate dateEnd = new OurDate(argMultimap.getValue(CliSyntax.PREFIX_DATE_END).get());
         Time endTime = new Time(argMultimap.getValue(CliSyntax.PREFIX_TIME_END).get());
         Time safetyStop = new Time(argMultimap.getValue(CliSyntax.PREFIX_SAFETY_STOP).get());
-        PressureGroup pressureGroupAtBegining = new PressureGroup("A");
+        PressureGroup pressureGroupAtBeginning = new PressureGroup("A");
         if (argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_START).isPresent()) {
-            pressureGroupAtBegining = new PressureGroup(
+            pressureGroupAtBeginning = new PressureGroup(
                     argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_START).get());
         }
         Location location =
@@ -76,10 +82,12 @@ public class AddCommandParser implements Parser<AddCommand> {
         try {
             long duration = CompareUtil.checkTimeDifference(startTime.getTimeString(), endTime.getTimeString(),
                     dateStart.getOurDateString(), dateEnd.getOurDateString());
+
             PressureGroup pressureGroupAtEnd = PressureGroupLogic.computePressureGroupFirstDive(depthProfile,
                     (float) duration);
+
             DiveSession dive =
-                    new DiveSession(dateStart, startTime, safetyStop, dateEnd, endTime, pressureGroupAtBegining,
+                    new DiveSession(dateStart, startTime, safetyStop, dateEnd, endTime, pressureGroupAtBeginning,
                             pressureGroupAtEnd, location, depthProfile, timezone);
             return new AddCommand(dive);
         } catch (JSONException e) {

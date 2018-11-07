@@ -30,7 +30,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException {
+    public CommandResult execute(String commandText) throws CommandException, ParseException, java.text.ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
             Command command = diveLogParser.parseCommand(commandText);

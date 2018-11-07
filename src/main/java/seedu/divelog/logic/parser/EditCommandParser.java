@@ -44,6 +44,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         EditCommand.EditDiveDescriptor editDiveSessionDescriptor = new EditCommand.EditDiveDescriptor();
+
         if (argMultimap.getValue(CliSyntax.PREFIX_DATE_START).isPresent()) {
             editDiveSessionDescriptor.setDateStart(new OurDate(argMultimap.getValue(CliSyntax.PREFIX_DATE_START)
                     .get()));
