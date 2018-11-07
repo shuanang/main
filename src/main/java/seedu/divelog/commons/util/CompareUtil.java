@@ -46,7 +46,7 @@ public class CompareUtil {
         SimpleDateFormat inputFormat = new SimpleDateFormat("ddMMyyyyHHmm");
 
         Date oldTime = inputFormat.parse(timeNowString);
-        Date newTime = new Date(oldTime.getTime() - TimeUnit.HOURS.toMillis(timezone));
+        Date newTime = new Date(oldTime.getTime() + TimeUnit.HOURS.toMillis(timezone));
 
         String newDateTime = new SimpleDateFormat("ddMMyyyyHHmm").format(newTime);
         long newDateTimeLong = Long.parseLong(newDateTime);
