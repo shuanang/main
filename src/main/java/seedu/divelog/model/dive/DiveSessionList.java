@@ -56,33 +56,28 @@ public class DiveSessionList implements Iterable<DiveSession> {
     //@@author arjo129
     /**
      * Gets the most recent dive.
-     * @return a handle to the DiveSession
+     * @return a handle to the DiveSession, returns null if the list is empty
      */
     public DiveSession getMostRecentDive() {
+        Logger log = LogsCenter.getLogger(DiveSessionList.class);
+        log.info("Retrieving latest dive");
         DiveSession mostRecent = null;
         for (DiveSession diveSession: internalList) {
-
-            try {
-                if (mostRecent == null
-                        && CompareUtil.getCurrentDateTime().compareTo(diveSession.getDiveLocalDate()) > 0) {
-                    mostRecent = diveSession;
-                    continue;
-                }
-            } catch (Exception e) {
-                Logger log = LogsCenter.getLogger(DiveSessionList.class);
-                log.severe("Something went wrong decoding the divelist time: " + e.toString());
+            if (mostRecent == null
+                    && CompareUtil.getCurrentDateTime().compareTo(diveSession.getDateTime()) > 0) {
+                mostRecent = diveSession;
+                continue;
             }
 
-            try {
-                if (mostRecent.compareTo(diveSession) < 0
-                        && CompareUtil.getCurrentDateTime().compareTo(diveSession.getDiveLocalDate()) > 0) {
-                    mostRecent = diveSession;
-                }
-            } catch (Exception e) {
-                //This will technically never occur due to input checking
-                Logger log = LogsCenter.getLogger(DiveSessionList.class);
-                log.severe("Something went wrong decoding the divelist time: " + e.toString());
+            if(mostRecent == null) continue;
+
+
+            if (mostRecent.compareTo(diveSession) < 0
+                    && CompareUtil.getCurrentDateTime().compareTo(diveSession.getDateTime()) > 0) {
+                log.severe("Updating dive " + mostRecent.toString() + "to" + diveSession.toString() );
+                mostRecent = diveSession;
             }
+            
         }
         return mostRecent;
     }

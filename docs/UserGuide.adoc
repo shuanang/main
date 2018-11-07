@@ -100,12 +100,14 @@ Diagram 5: Click the X to close
 === Adding a dive session: `add`
 Use this command to adds your new dive session to the Dive Log.
 
-Format: `add ds/DATE_STARTED ts/TIME_DIVE_STARTED de/DATE_ENDED te/TIME_DIVE_ENDED ss/SAFETY_STOP  d/DEPTH  l/LOCATION pg/INITIAL_PRESSURE_GROUP`
+Format: `add ds/DATE_STARTED ts/TIME_DIVE_STARTED de/DATE_ENDED te/TIME_DIVE_ENDED ss/SAFETY_STOP  d/DEPTH  l/LOCATION [pg/INITIAL_PRESSURE_GROUP]`
 
 TIP: Words in UPPER_CASE are the parameters, items in SQUARE_BRACKETS are optional. Order of parameters are fixed as per the format above, meaning if you entered the ts/TIME_DIVE_STARTED before the ds/DATE_STARTED,
 the program will not be able to add your dive.
 
 Put a `ts/` before the time started(24 hours format - HHMM), te/time ended (24 hours format - HHMM), d/depth (in metres), l/ location (location name), per dive at v1.0) (optional) and pg/initial pressure group.
+
+An important thing to note is that as of `v1.4`, the `pg/` argument is ignored for all dives except if it is the oldest dive in the logbook.
 
 _Example:
 add ds/04082018 ts/0900 de/04082018  te/1020 ss/1015 d/15 l/Bukit Lagoon pg/C tz/+8_
@@ -119,7 +121,7 @@ add ds/04082018 ts/0900 de/04082018  te/1020 ss/1015 d/15 l/Bukit Lagoon pg/C tz
 |Time Started / Ended (HHMM)                    |ts or te       |ts/0800 or te/0900
 |Location                                       |l              |l/Sentosa
 |Depth (integer value)                          |d              |d/18
-|Initial Pressure Group (Character Value) |pg             |pg/A
+|Initial Pressure Group (Character Value) _Note: this only updates the PG if its the oldest dive_  |pg             |pg/A
 |Timezone (in UTC)                              |tz             |tz/+12 or tz/-5
 |=========================================
 
@@ -164,7 +166,7 @@ Examples:
 |Time Started / Ended (HHMM)                    |ts or te       |ts/0800 or te/0900
 |Location                                       |l              |l/Sentosa
 |Depth (integer value)                          |d              |d/18
-|Initial Pressure Group (Character Value) |pg             |pg/A
+|Initial Pressure Group (Character Value) _Note: this only updates the PG if its the oldest dive_  |pg             |pg/A
 |Timezone (in UTC)                              |tz             |tz/+12 or tz/-5
 |=========================================
 

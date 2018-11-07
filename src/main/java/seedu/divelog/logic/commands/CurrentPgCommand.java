@@ -34,12 +34,8 @@ public class CurrentPgCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        //DiveSession lastDive = model.getMostRecent();
-        DiveSession lastDive = new DiveSession(new OurDate("06112018"),
-                new Time("1800"), new Time("2045"), new OurDate("06112018"), new Time("2110"),
-                new PressureGroup("A"), new PressureGroup("Y"), new Location("Bali"),
-                new DepthProfile(10.0f), new TimeZone("+8"));
-        System.out.println(model.getMostRecent().getDateStart().getOurDateString());
+        DiveSession lastDive = model.getMostRecent();
+        System.out.println(lastDive.getDateStart().getOurDateString());
         PressureGroupLogic pressureGroupLogic = new PressureGroupLogic();
         long currentDateTime = CompareUtil.getCurrentDateTimeLong(); //ddMMyyyyHHmm
         String timeNow = readTimeFromLong(currentDateTime);
