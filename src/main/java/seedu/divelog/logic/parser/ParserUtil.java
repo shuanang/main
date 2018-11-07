@@ -6,6 +6,7 @@ import seedu.divelog.commons.util.StringUtil;
 import seedu.divelog.logic.commands.AddCommand;
 import seedu.divelog.logic.parser.exceptions.ParseException;
 import seedu.divelog.model.dive.DepthProfile;
+import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.PressureGroup;
 
 import java.text.SimpleDateFormat;
@@ -82,18 +83,14 @@ public class ParserUtil {
         String safetyTimeString = argMultimap.getValue(CliSyntax.PREFIX_SAFETY_STOP).get();
 
         SimpleDateFormat inputFormat = new SimpleDateFormat("ddMMyyyyHHmm");
-
         Date startTimeDateDate = inputFormat.parse(startDateString + startTimeString);
         Date endTimeDateDate = inputFormat.parse(endDateString + endTimeString);
-        Date safetyStopEarlyDateTime = inputFormat.parse(startDateString + safetyTimeString);
-        Date safetyStopLateDateTime = inputFormat.parse(endDateString + safetyTimeString);
 
-        long startSafeDiff = safetyStopEarlyDateTime.getTime() - startTimeDateDate.getTime();
-        long endSafeDiff = safetyStopLateDateTime.getTime() - endTimeDateDate.getTime();
+        Date safetyEndDateTime = checkSafetyTime(startTimeString, endTimeString, safetyTimeString,
+                startDateString, endDateString);
 
-
-        if ((endSafeDiff > 0 && startSafeDiff < 0)
-            || (endSafeDiff < 0 && startSafeDiff > 0)) {
+        if (safetyEndDateTime.getTime() - startTimeDateDate.getTime() < 0
+                || safetyEndDateTime.getTime() - endTimeDateDate.getTime() > 0){
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_SAFETYSTOPTIME_LIMITS,
                     AddCommand.MESSAGE_USAGE));
         }
@@ -105,23 +102,23 @@ public class ParserUtil {
     /**
      * Throws an exception IF edit is now not legit.
      */
-    public static void checkEditTimeDateLimit(String startDateString, String startTimeString,
-                                              String endDateString, String endTimeString,
-                                              String safetyStopTimeString)
+    public static void checkEditTimeDateLimit(DiveSession divesession)
             throws java.text.ParseException, ParseException {
+        String startDateString = divesession.getDateStart().getOurDateString();
+        String endDateString = divesession.getDateEnd().getOurDateString();
+        String startTimeString = divesession.getStart().getTimeString();
+        String endTimeString = divesession.getEnd().getTimeString();
+        String safetyTimeString = divesession.getSafetyStop().getTimeString();
 
         SimpleDateFormat inputFormat = new SimpleDateFormat("ddMMyyyyHHmm");
         Date startTimeDateDate = inputFormat.parse(startDateString + startTimeString);
         Date endTimeDateDate = inputFormat.parse(endDateString + endTimeString);
-        Date safetyStopEarlyDateTime = inputFormat.parse(startDateString + safetyStopTimeString);
-        Date safetyStopLateDateTime = inputFormat.parse(endDateString + safetyStopTimeString);
 
-        long startSafeDiff = safetyStopEarlyDateTime.getTime() - startTimeDateDate.getTime();
-        long endSafeDiff = safetyStopLateDateTime.getTime() - endTimeDateDate.getTime();
+        Date safetyEndDateTime = checkSafetyTime(startTimeString, endTimeString, safetyTimeString,
+                startDateString, endDateString);
 
-
-        if ((endSafeDiff > 0 && startSafeDiff < 0)
-                || (endSafeDiff < 0 && startSafeDiff > 0)) {
+        if (safetyEndDateTime.getTime() - startTimeDateDate.getTime() < 0
+            || safetyEndDateTime.getTime() - endTimeDateDate.getTime() > 0){
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_SAFETYSTOPTIME_LIMITS,
                     AddCommand.MESSAGE_USAGE));
         }
@@ -129,6 +126,27 @@ public class ParserUtil {
         if (startTimeDateDate.getTime() - endTimeDateDate.getTime() > 0) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_DATE_LIMITS, AddCommand.MESSAGE_USAGE));
         }
+    }
+
+    private static Date checkSafetyTime(String startTimeString, String endTimeString, String safetyTimeString,
+                                        String startDateString, String endDateString)
+            throws java.text.ParseException {
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HHmm");
+        SimpleDateFormat inputFormat = new SimpleDateFormat("ddMMyyyyHHmm");
+
+        Date startTimeDate = timeFormat.parse(startTimeString);
+        Date endTimeDate = timeFormat.parse(endTimeString);
+        Date safetyTimeDate = timeFormat.parse(safetyTimeString);
+
+        Date safetyEndDateTime = inputFormat.parse(startDateString + safetyTimeString);
+        if (startTimeDate.getTime() - endTimeDate.getTime() != 0) {
+            if (safetyTimeDate.getTime() - startTimeDate.getTime() > 0) { //later than start time
+                safetyEndDateTime = inputFormat.parse(startDateString + safetyTimeString);
+            }else if (safetyTimeDate.getTime() - endTimeDate.getTime() < 0) { //earlier than end time
+                safetyEndDateTime = inputFormat.parse(endDateString + safetyTimeString);
+            }
+        }
+        return safetyEndDateTime;
     }
 
     /**

@@ -4,6 +4,8 @@ import seedu.divelog.logic.CommandHistory;
 import seedu.divelog.logic.commands.exceptions.CommandException;
 import seedu.divelog.model.Model;
 
+import java.text.ParseException;
+
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
  */
@@ -17,6 +19,6 @@ public abstract class Command {
      * @return feedback message of the operation result for display
      * @throws CommandException If an error occurs during command execution.
      */
-    public abstract CommandResult execute(Model model, CommandHistory history) throws CommandException;
+    public abstract CommandResult execute(Model model, CommandHistory history) throws CommandException, ParseException, seedu.divelog.logic.parser.exceptions.ParseException;
 
 }

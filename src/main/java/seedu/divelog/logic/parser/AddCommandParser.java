@@ -55,9 +55,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
 
         ParserUtil.checkTimeformat(argMultimap);
-
         ParserUtil.checkTimeDateLimit(argMultimap);
-
         ParserUtil.checkDateformat(argMultimap);
 
         //ParserUtil.checkTimeZoneformat(argMultimap);
