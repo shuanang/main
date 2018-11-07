@@ -100,6 +100,7 @@ public class DiveSessionList implements Iterable<DiveSession> {
             return;
         }
 
+        //Iterate through all dives
         internalList.get(internalList.size() - 1).computePressureGroupNonRepeated();
         DiveSession prevDive = internalList.get(internalList.size() - 1);
         for (int i = internalList.size() - 2; i >= 0; i--) {
@@ -117,6 +118,17 @@ public class DiveSessionList implements Iterable<DiveSession> {
 
             prevDive = internalList.get(i);
         }
+    }
+
+    /**
+     * Checks if there are overlapping dives given a dive session.
+     * @return True if dives overlap (this is bad), false other wise
+     */
+    public boolean hasOverlap(DiveSession diveSession) {
+        //sort dives
+        sortDiveSession(SortingMethod.TIME);
+
+        //Find the dive with the ending time that is closest to
     }
     //@@author
 
