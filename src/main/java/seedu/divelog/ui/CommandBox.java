@@ -99,7 +99,7 @@ public class CommandBox extends UiPart<Region> {
      * Handles the Enter button pressed event.
      */
     @FXML
-    private void handleCommandEntered() throws java.text.ParseException {
+    private void handleCommandEntered() {
         try {
             CommandResult commandResult = logic.execute(commandTextField.getText());
             initHistory();
@@ -109,7 +109,7 @@ public class CommandBox extends UiPart<Region> {
             logger.info("Result: " + commandResult.feedbackToUser);
             raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
 
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | ParseException | java.text.ParseException e) {
             initHistory();
             // handle command failure
             setStyleToIndicateCommandFailure();

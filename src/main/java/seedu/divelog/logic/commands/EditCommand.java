@@ -70,7 +70,7 @@ public class EditCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history)
-            throws CommandException, ParseException, seedu.divelog.logic.parser.exceptions.ParseException {
+            throws CommandException, ParseException {
         requireNonNull(model);
         List<DiveSession> lastShownList = model.getFilteredDiveList();
 
@@ -83,7 +83,11 @@ public class EditCommand extends Command {
 
         editedDive = createEditedDive(diveToEdit, editDiveDescriptor);
 
-        ParserUtil.checkEditTimeDateLimit(editedDive);
+        try {
+            ParserUtil.checkEditTimeDateLimit(editedDive);
+        } catch (seedu.divelog.logic.parser.exceptions.ParseException e) {
+            e.printStackTrace();
+        }
 
         try {
             model.updateDiveSession(diveToEdit, editedDive);

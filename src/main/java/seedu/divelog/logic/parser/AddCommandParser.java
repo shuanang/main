@@ -28,7 +28,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      * and returns an AddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format.
      */
-    public AddCommand parse(String args) throws ParseException, java.text.ParseException {
+    public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args,
                         CliSyntax.PREFIX_DATE_START,
@@ -55,7 +55,11 @@ public class AddCommandParser implements Parser<AddCommand> {
 
 
         ParserUtil.checkTimeformat(argMultimap);
-        ParserUtil.checkTimeDateLimit(argMultimap);
+        try {
+            ParserUtil.checkTimeDateLimit(argMultimap);
+        } catch (java.text.ParseException e) {
+            e.printStackTrace();
+        }
         ParserUtil.checkDateformat(argMultimap);
 
         //ParserUtil.checkTimeZoneformat(argMultimap);
@@ -65,9 +69,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         OurDate dateEnd = new OurDate(argMultimap.getValue(CliSyntax.PREFIX_DATE_END).get());
         Time endTime = new Time(argMultimap.getValue(CliSyntax.PREFIX_TIME_END).get());
         Time safetyStop = new Time(argMultimap.getValue(CliSyntax.PREFIX_SAFETY_STOP).get());
-        PressureGroup pressureGroupAtBegining = new PressureGroup("A");
+        PressureGroup pressureGroupAtBeginning = new PressureGroup("A");
         if (argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_START).isPresent()) {
-            pressureGroupAtBegining = new PressureGroup(
+            pressureGroupAtBeginning = new PressureGroup(
                     argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_START).get());
         }
         Location location =
@@ -79,9 +83,9 @@ public class AddCommandParser implements Parser<AddCommand> {
             long duration = CompareUtil.checkTimeDifference(startTime.getTimeString(), endTime.getTimeString(),
                     dateStart.getOurDateString(), dateEnd.getOurDateString());
             PressureGroup pressureGroupAtEnd = PressureGroupLogic.computePressureGroup(depthProfile,
-                    (float) duration, pressureGroupAtBegining);
+                    (float) duration, pressureGroupAtBeginning);
             DiveSession dive =
-                    new DiveSession(dateStart, startTime, safetyStop, dateEnd, endTime, pressureGroupAtBegining,
+                    new DiveSession(dateStart, startTime, safetyStop, dateEnd, endTime, pressureGroupAtBeginning,
                             pressureGroupAtEnd, location, depthProfile, timezone);
             return new AddCommand(dive);
         } catch (JSONException e) {

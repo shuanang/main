@@ -102,7 +102,7 @@ public class ParserUtil {
      * Throws an exception IF edit is now not legit.
      */
     public static void checkEditTimeDateLimit(DiveSession divesession)
-            throws java.text.ParseException, ParseException {
+            throws ParseException, java.text.ParseException {
         String startDateString = divesession.getDateStart().getOurDateString();
         String endDateString = divesession.getDateEnd().getOurDateString();
         String startTimeString = divesession.getStart().getTimeString();
@@ -130,8 +130,7 @@ public class ParserUtil {
      * Determines date of safety time
      */
     private static Date checkSafetyTime(String startTimeString, String endTimeString, String safetyTimeString,
-                                        String startDateString, String endDateString)
-            throws java.text.ParseException {
+                                        String startDateString, String endDateString) throws java.text.ParseException {
         SimpleDateFormat timeFormat = new SimpleDateFormat("HHmm");
         SimpleDateFormat inputFormat = new SimpleDateFormat("ddMMyyyyHHmm");
 

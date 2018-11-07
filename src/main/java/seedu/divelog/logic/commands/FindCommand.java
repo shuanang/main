@@ -26,8 +26,8 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.updateFilteredDiveList(predicate);
-        if (model.getPlanningMode()) {
+            model.updateFilteredDiveList(predicate);
+            if (model.getPlanningMode()) {
             model.plannerCountPlus();
         }
         return new CommandResult(
