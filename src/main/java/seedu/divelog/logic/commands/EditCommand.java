@@ -113,8 +113,7 @@ public class EditCommand extends Command {
      * Creates and returns a {@code DiveSession} with the details of {@code diveSessionToEdit}
      * edited with {@code editDiveDescriptor}.
      */
-    private static DiveSession createEditedDive(DiveSession diveToEdit, EditDiveDescriptor editDiveSessionDescriptor)
-            {
+    private static DiveSession createEditedDive(DiveSession diveToEdit, EditDiveDescriptor editDiveSessionDescriptor) {
         assert diveToEdit != null;
         OurDate dateStart = editDiveSessionDescriptor.getDateStart().orElse(diveToEdit.getDateStart());
         Time start = editDiveSessionDescriptor.getStart().orElse(diveToEdit.getStart());

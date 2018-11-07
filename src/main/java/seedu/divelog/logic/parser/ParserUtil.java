@@ -1,5 +1,8 @@
 package seedu.divelog.logic.parser;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import seedu.divelog.commons.core.Messages;
 import seedu.divelog.commons.core.index.Index;
 import seedu.divelog.commons.util.StringUtil;
@@ -8,10 +11,6 @@ import seedu.divelog.logic.parser.exceptions.ParseException;
 import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.PressureGroup;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -90,7 +89,7 @@ public class ParserUtil {
                 startDateString, endDateString);
 
         if (safetyEndDateTime.getTime() - startTimeDateDate.getTime() < 0
-                || safetyEndDateTime.getTime() - endTimeDateDate.getTime() > 0){
+                || safetyEndDateTime.getTime() - endTimeDateDate.getTime() > 0) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_SAFETYSTOPTIME_LIMITS,
                     AddCommand.MESSAGE_USAGE));
         }
@@ -118,7 +117,7 @@ public class ParserUtil {
                 startDateString, endDateString);
 
         if (safetyEndDateTime.getTime() - startTimeDateDate.getTime() < 0
-            || safetyEndDateTime.getTime() - endTimeDateDate.getTime() > 0){
+            || safetyEndDateTime.getTime() - endTimeDateDate.getTime() > 0) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_SAFETYSTOPTIME_LIMITS,
                     AddCommand.MESSAGE_USAGE));
         }
@@ -127,7 +126,9 @@ public class ParserUtil {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_DATE_LIMITS, AddCommand.MESSAGE_USAGE));
         }
     }
-
+    /**
+     * Determines date of safety time
+     */
     private static Date checkSafetyTime(String startTimeString, String endTimeString, String safetyTimeString,
                                         String startDateString, String endDateString)
             throws java.text.ParseException {
@@ -140,9 +141,9 @@ public class ParserUtil {
 
         Date safetyEndDateTime = inputFormat.parse(startDateString + safetyTimeString);
         if (startTimeDate.getTime() - endTimeDate.getTime() != 0) {
-            if (safetyTimeDate.getTime() - startTimeDate.getTime() > 0) { //later than start time
+            if (safetyTimeDate.getTime() - startTimeDate.getTime() > 0) {
                 safetyEndDateTime = inputFormat.parse(startDateString + safetyTimeString);
-            }else if (safetyTimeDate.getTime() - endTimeDate.getTime() < 0) { //earlier than end time
+            } else if (safetyTimeDate.getTime() - endTimeDate.getTime() < 0) { 
                 safetyEndDateTime = inputFormat.parse(endDateString + safetyTimeString);
             }
         }
