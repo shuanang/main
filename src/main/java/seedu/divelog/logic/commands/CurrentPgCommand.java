@@ -24,7 +24,7 @@ import seedu.divelog.model.dive.PressureGroup;
 public class CurrentPgCommand extends Command {
     public static final String COMMAND_WORD = "currentpg";
     public static final String COMMAND_ALIAS = "cpg";
-    public static final String MESSAGE_CURRENTPG = "Your current pressure group is: ";
+    public static final String MESSAGE_CURRENTPG = "Based on your latest dive(s), your current pressure group is: ";
     public static final String MESSAGE_TIMETONEXT = "Time to next pressure group, ";
     public static final String MESSAGE_TIMETOMIN = "Time to 'A' pressure group: ";
 
@@ -71,13 +71,15 @@ public class CurrentPgCommand extends Command {
             if ((currentPg.getPressureGroup().equals("A")) && (firstDive == 0)
                    && (surfaceDuration >= singleDivePreFlightSurfaceIntervalMinutes)) {
                 //check if there is any dive in the past 12 hours for single dives
-                return new CommandResult("Your current pressure group is already A."
-                       + " It has been at least 12 hours since your last SINGLE dive - you can safely fly!");
+                return new CommandResult("Based on your latest dive(s), "
+                       + "your current pressure group is already A." + "\n"
+                       + "It has been at least 12 hours since your last SINGLE dive - you can safely fly!");
             }
             if ((currentPg.getPressureGroup().equals("A")) && (firstDive == 1)
                     && (surfaceDuration >= repeatDivePreFlightSurfaceIntervalMinutes)) {
                 //check if there is any dive in the past 18 hours for repeat/multi-day dives
-                return new CommandResult("Your current pressure group is already A."
+                return new CommandResult("Based on your latest dive(s),"
+                       + " your current pressure group is already A." + "\n"
                         + " It has been at least 18 hours since your last dive of your repetitive dive series"
                        + " - you can safely fly!");
             }
