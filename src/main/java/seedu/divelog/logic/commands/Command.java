@@ -1,5 +1,7 @@
 package seedu.divelog.logic.commands;
 
+import java.text.ParseException;
+
 import seedu.divelog.logic.CommandHistory;
 import seedu.divelog.logic.commands.exceptions.CommandException;
 import seedu.divelog.model.Model;
@@ -17,6 +19,7 @@ public abstract class Command {
      * @return feedback message of the operation result for display
      * @throws CommandException If an error occurs during command execution.
      */
-    public abstract CommandResult execute(Model model, CommandHistory history) throws CommandException;
+    public abstract CommandResult execute(Model model, CommandHistory history)
+            throws CommandException, ParseException;
 
 }

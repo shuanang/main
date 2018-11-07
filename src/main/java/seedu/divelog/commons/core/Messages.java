@@ -12,6 +12,12 @@ public class Messages {
     public static final String MESSAGE_DIVE_LISTED_OVERVIEW = "%1$d dives listed!";
     public static final String MESSAGE_INVALID_TIME_FORMAT = "Invalid time format! (Not 24Hr format) ";
     public static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date format! (Not DDMMYYYY) ";
+    public static final String MESSAGE_INVALID_SAFETYSTOPTIME_LIMITS = "Safety Stop is either "
+            + "earlier than start of dive or later than the end of dive. "
+            + "It should be in chronological order!";
+    public static final String MESSAGE_INVALID_DATE_LIMITS = "Start and End date or time "
+            + "are not in chronological order!"
+            + " Start Date should be earlier than End Date!";
     public static final String MESSAGE_INVALID_TIMEZONE_FORMAT = "Invalid timezone format! (UTC format)";
     public static final String MESSAGE_INTERNAL_ERROR = "An internal error occured";
     public static final String MESSAGE_ERROR_LIMIT_EXCEED = "Dive is too deep and too long!!";

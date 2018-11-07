@@ -1,5 +1,6 @@
 package seedu.divelog.commons.util;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -28,7 +29,7 @@ public class CompareUtil {
      * Converts date and time into LOCAL time
      * returns a java date object
      */
-    public static Date getLocalDate(String time, String date, int timezone) throws Exception {
+    public static Date getLocalDate(String time, String date, int timezone) throws ParseException {
         String timeNowString = date.concat(time);
         SimpleDateFormat inputFormat = new SimpleDateFormat("ddMMyyyyHHmm");
         Date oldTime = inputFormat.parse(timeNowString);
@@ -37,12 +38,13 @@ public class CompareUtil {
     }
 
     /**
-     * Converts date and time into LOCAL time
+     * Converts date and time into UTC time
      * returns first 8 digits of Date in DDMMYYYY, next 4 digits in HHMM
      */
-    public static Long convertTimeToLocal(String time, String date, int timezone) throws Exception {
+    public static Long convertTimeToLocal(String time, String date, int timezone) throws ParseException {
         String timeNowString = date.concat(time);
         SimpleDateFormat inputFormat = new SimpleDateFormat("ddMMyyyyHHmm");
+
         Date oldTime = inputFormat.parse(timeNowString);
         Date newTime = new Date(oldTime.getTime() + TimeUnit.HOURS.toMillis(timezone));
 
@@ -57,8 +59,6 @@ public class CompareUtil {
      */
     public static Date getCurrentDateTime() {
         Date date = new Date();
-        //        String newDateTime = new SimpleDateFormat("ddMMyyyyHHmm").format(date);
-        //        long newDateTimeLong = Long.parseLong(newDateTime);
         return date;
     }
 

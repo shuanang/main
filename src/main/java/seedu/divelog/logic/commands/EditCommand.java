@@ -2,6 +2,7 @@ package seedu.divelog.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -13,6 +14,7 @@ import seedu.divelog.commons.util.CollectionUtil;
 import seedu.divelog.logic.CommandHistory;
 import seedu.divelog.logic.commands.exceptions.CommandException;
 import seedu.divelog.logic.parser.CliSyntax;
+import seedu.divelog.logic.parser.ParserUtil;
 import seedu.divelog.logic.pressuregroup.exceptions.LimitExceededException;
 import seedu.divelog.model.Model;
 import seedu.divelog.model.dive.DepthProfile;
@@ -67,7 +69,8 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history)
+            throws CommandException, ParseException {
         requireNonNull(model);
         List<DiveSession> lastShownList = model.getFilteredDiveList();
 
@@ -77,7 +80,14 @@ public class EditCommand extends Command {
 
         DiveSession diveToEdit = lastShownList.get(index.getZeroBased());
         DiveSession editedDive = null;
+
         editedDive = createEditedDive(diveToEdit, editDiveDescriptor);
+
+        try {
+            ParserUtil.checkEditTimeDateLimit(editedDive);
+        } catch (seedu.divelog.logic.parser.exceptions.ParseException e) {
+            e.printStackTrace();
+        }
 
         try {
             model.updateDiveSession(diveToEdit, editedDive);
@@ -121,8 +131,9 @@ public class EditCommand extends Command {
         Location location = editDiveSessionDescriptor.getLocation().orElse(diveToEdit.getLocation());
         DepthProfile depth = editDiveSessionDescriptor.getDepthProfile().orElse(diveToEdit.getDepthProfile());
         TimeZone timezone = editDiveSessionDescriptor.getTimeZone().orElse(diveToEdit.getTimeZone());
+
         return new DiveSession(dateStart, start, safetyStop, dateEnd, end, pressureGroupAtBeginning, pressureGroupAtEnd,
-                location, depth, timezone);
+        location, depth, timezone);
     }
 
     @Override
