@@ -17,6 +17,7 @@ import seedu.divelog.model.dive.OurDate;
 import seedu.divelog.model.dive.PressureGroup;
 import seedu.divelog.model.dive.Time;
 import seedu.divelog.model.dive.TimeZone;
+import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 
 /**
  * Parses input arguments and creates a new AddCommand object.
@@ -59,7 +60,10 @@ public class AddCommandParser implements Parser<AddCommand> {
             ParserUtil.checkTimeDateLimit(argMultimap);
         } catch (java.text.ParseException e) {
             e.printStackTrace();
+        } catch (InvalidTimeException e) {
+            e.printStackTrace();
         }
+
         ParserUtil.checkDateformat(argMultimap);
 
         //ParserUtil.checkTimeZoneformat(argMultimap);

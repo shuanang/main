@@ -5,6 +5,7 @@ import seedu.divelog.logic.commands.CommandResult;
 import seedu.divelog.logic.commands.exceptions.CommandException;
 import seedu.divelog.logic.parser.exceptions.ParseException;
 import seedu.divelog.model.dive.DiveSession;
+import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 
 /**
  * API of the Logic component
@@ -17,7 +18,7 @@ public interface Logic {
      * @throws CommandException If an error occurs during command execution.
      * @throws ParseException If an error occurs during parsing.
      */
-    CommandResult execute(String commandText) throws CommandException, ParseException, java.text.ParseException;
+    CommandResult execute(String commandText) throws CommandException, ParseException, java.text.ParseException, InvalidTimeException;
 
     /** Returns an unmodifiable view of the filtered list of dives */
     ObservableList<DiveSession> getFilteredDiveList();

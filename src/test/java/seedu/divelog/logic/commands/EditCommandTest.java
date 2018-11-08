@@ -101,16 +101,16 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_noFieldSpecifiedUnfilteredList_success() {
+    public void execute_noFieldSpecifiedUnfilteredList_failure() {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_DIVE, new EditDiveDescriptor());
         DiveSession editedDive = model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_DIVE_SUCCESS, editedDive);
+        String expectedMessage = String.format(EditCommand.MESSAGE_NOT_EDITED, editedDive);
 
         Model expectedModel = new ModelManager(new DiveLog(model.getDiveLog()), new UserPrefs());
         expectedModel.commitDiveLog();
 
-        assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandFailure(editCommand, model, commandHistory, expectedMessage);
     }
 
     @Test

@@ -15,6 +15,7 @@ import seedu.divelog.model.DiveLog;
 import seedu.divelog.model.Model;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.LocationContainsKeywordPredicate;
+import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 import seedu.divelog.testutil.EditDiveDescriptorBuilder;
 
 /**
@@ -75,6 +76,8 @@ public class CommandTestUtil {
             assertEquals(expectedCommandHistory, actualCommandHistory);
         } catch (CommandException | ParseException | seedu.divelog.logic.parser.exceptions.ParseException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
+        } catch (InvalidTimeException e) {
+            e.printStackTrace();
         }
     }
 
@@ -102,6 +105,8 @@ public class CommandTestUtil {
             assertEquals(expectedDiveLog, actualModel.getDiveLog());
             assertEquals(expectedFilteredList, actualModel.getFilteredDiveList());
             assertEquals(expectedCommandHistory, actualCommandHistory);
+        } catch (InvalidTimeException e) {
+            e.printStackTrace();
         }
     }
 

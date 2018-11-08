@@ -5,6 +5,7 @@ import java.text.ParseException;
 import seedu.divelog.logic.CommandHistory;
 import seedu.divelog.logic.commands.exceptions.CommandException;
 import seedu.divelog.model.Model;
+import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
@@ -20,6 +21,6 @@ public abstract class Command {
      * @throws CommandException If an error occurs during command execution.
      */
     public abstract CommandResult execute(Model model, CommandHistory history)
-            throws CommandException, ParseException, seedu.divelog.logic.parser.exceptions.ParseException;
+            throws CommandException, ParseException, seedu.divelog.logic.parser.exceptions.ParseException, InvalidTimeException;
 
 }

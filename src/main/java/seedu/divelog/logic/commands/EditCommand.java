@@ -25,6 +25,7 @@ import seedu.divelog.model.dive.OurDate;
 import seedu.divelog.model.dive.PressureGroup;
 import seedu.divelog.model.dive.Time;
 import seedu.divelog.model.dive.TimeZone;
+import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 
 
 /**
@@ -71,7 +72,7 @@ public class EditCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history)
-            throws CommandException, seedu.divelog.logic.parser.exceptions.ParseException {
+            throws CommandException, ParseException, InvalidTimeException {
         requireNonNull(model);
         List<DiveSession> lastShownList = model.getFilteredDiveList();
 
@@ -82,12 +83,7 @@ public class EditCommand extends Command {
         DiveSession diveToEdit = lastShownList.get(index.getZeroBased());
         DiveSession editedDive = null;
 
-        try {
-            editedDive = createEditedDive(diveToEdit, editDiveDescriptor);
-        } catch (seedu.divelog.logic.parser.exceptions.ParseException e) {
-            throw new seedu.divelog.logic.parser.exceptions.ParseException(
-                    String.format(MESSAGE_INVALID_DATE_LIMITS, AddCommand.MESSAGE_USAGE));
-        }
+        editedDive = createEditedDive(diveToEdit, editDiveDescriptor);
 
         try {
             model.updateDiveSession(diveToEdit, editedDive);
@@ -118,7 +114,7 @@ public class EditCommand extends Command {
      * edited with {@code editDiveDescriptor}.
      */
     private static DiveSession createEditedDive(DiveSession diveToEdit, EditDiveDescriptor editDiveSessionDescriptor)
-            throws seedu.divelog.logic.parser.exceptions.ParseException {
+            throws InvalidTimeException, ParseException {
         assert diveToEdit != null;
         OurDate dateStart = editDiveSessionDescriptor.getDateStart().orElse(diveToEdit.getDateStart());
         Time start = editDiveSessionDescriptor.getStart().orElse(diveToEdit.getStart());
@@ -136,14 +132,8 @@ public class EditCommand extends Command {
         DiveSession editedDive = new DiveSession(dateStart, start, safetyStop, dateEnd, end,
                 pressureGroupAtBeginning, pressureGroupAtEnd, location, depth, timezone);
 
-        try {
-            ParserUtil.checkEditTimeDateLimit(editedDive);
-            return editedDive;
-        } catch (ParseException | seedu.divelog.logic.parser.exceptions.ParseException e) {
-            throw new seedu.divelog.logic.parser.exceptions.ParseException(
-                    String.format(MESSAGE_INVALID_DATE_LIMITS, AddCommand.MESSAGE_USAGE));
-        }
-
+        ParserUtil.checkEditTimeDateLimit(editedDive);
+        return editedDive;
     }
 
     @Override

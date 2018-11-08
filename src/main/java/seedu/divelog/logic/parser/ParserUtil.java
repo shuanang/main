@@ -11,6 +11,7 @@ import seedu.divelog.logic.parser.exceptions.ParseException;
 import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.PressureGroup;
+import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -74,7 +75,7 @@ public class ParserUtil {
      * {@code ArgumentMultimap}.
      */
     public static void checkTimeDateLimit(ArgumentMultimap argMultimap)
-            throws java.text.ParseException, ParseException {
+            throws java.text.ParseException, InvalidTimeException {
         String startDateString = argMultimap.getValue(CliSyntax.PREFIX_DATE_START).get();
         String endDateString = argMultimap.getValue(CliSyntax.PREFIX_DATE_END).get();
         String startTimeString = argMultimap.getValue(CliSyntax.PREFIX_TIME_START).get();
@@ -90,19 +91,18 @@ public class ParserUtil {
 
         if (safetyEndDateTime.getTime() - startTimeDateDate.getTime() < 0
                 || safetyEndDateTime.getTime() - endTimeDateDate.getTime() > 0) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_SAFETYSTOPTIME_LIMITS,
-                    AddCommand.MESSAGE_USAGE));
+            throw new InvalidTimeException();
         }
 
         if (startTimeDateDate.getTime() - endTimeDateDate.getTime() > 0) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_DATE_LIMITS, AddCommand.MESSAGE_USAGE));
+            throw new InvalidTimeException();
         }
     }
     /**
      * Throws an exception IF edit is now not legit.
      */
     public static void checkEditTimeDateLimit(DiveSession divesession)
-            throws ParseException, java.text.ParseException {
+            throws java.text.ParseException, InvalidTimeException {
         String startDateString = divesession.getDateStart().getOurDateString();
         String endDateString = divesession.getDateEnd().getOurDateString();
         String startTimeString = divesession.getStart().getTimeString();
@@ -119,12 +119,11 @@ public class ParserUtil {
 
         if (safetyEndDateTime.getTime() - startTimeDateDate.getTime() < 0
             || safetyEndDateTime.getTime() - endTimeDateDate.getTime() > 0) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_SAFETYSTOPTIME_LIMITS,
-                    AddCommand.MESSAGE_USAGE));
+            throw new InvalidTimeException();
         }
 
         if (startTimeDateDate.getTime() - endTimeDateDate.getTime() > 0) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_DATE_LIMITS, AddCommand.MESSAGE_USAGE));
+            throw new InvalidTimeException();
         }
     }
     /**
