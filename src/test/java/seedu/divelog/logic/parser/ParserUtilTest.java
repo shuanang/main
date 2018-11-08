@@ -73,51 +73,18 @@ public class ParserUtilTest {
         thrown.expectMessage(MESSAGE_INVALID_DEPTH);
         ParserUtil.parseDepth("0");
     }
-    /*
-    * Not yet completed
-    * @author Cjunx
 
     @Test
-    public void checkTimeformat_Test() throws ParseException {
-        String args = "ds/25102018 ts/0800 (24Hr Format) de/2102018 " +
-                "te/0900 ss/084 " +
-                "d/15 pg/A pge/B l/Sentosa tz/5";
-                ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args,
-                        CliSyntax.PREFIX_DATE_START,
-                        CliSyntax.PREFIX_TIME_START,
-                        CliSyntax.PREFIX_DATE_END,
-                        CliSyntax.PREFIX_TIME_END,
-                        CliSyntax.PREFIX_SAFETY_STOP,
-                        CliSyntax.PREFIX_DEPTH,
-                        CliSyntax.PREFIX_PRESSURE_GROUP_START,
-                        CliSyntax.PREFIX_PRESSURE_GROUP_END,
-                        CliSyntax.PREFIX_LOCATION,
-                        CliSyntax.PREFIX_TIMEZONE);
+    public void checkTimeformat_Test() throws seedu.divelog.logic.parser.exceptions.ParseException {
+        String timezone = "-8";
+        int returnint = Integer.parseInt(timezone);
 
-        if (!arePrefixesPresent(argMultimap,
-                CliSyntax.PREFIX_DATE_START,
-                CliSyntax.PREFIX_TIME_START,
-                CliSyntax.PREFIX_DATE_END,
-                CliSyntax.PREFIX_TIME_END,
-                CliSyntax.PREFIX_SAFETY_STOP,
-                CliSyntax.PREFIX_DEPTH,
-                CliSyntax.PREFIX_PRESSURE_GROUP_START,
-                CliSyntax.PREFIX_PRESSURE_GROUP_END,
-                CliSyntax.PREFIX_LOCATION)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                AddCommand.MESSAGE_USAGE));
-        }
+        assertEquals(returnint, -8);
 
-        ParserUtil.checkDateFormat(argMultimap);
-        //assert
-        ParserUtil.checkTimeZoneformat(argMultimap);
-        //assert
-        ParserUtil.checkTimeformat(argMultimap);
-        //assert
-    }*/
+//        String test = ParserUtil.checkTimeZoneformat("+8");
+//        assertEquals(test, "+8");
 
+    }
 
 
 

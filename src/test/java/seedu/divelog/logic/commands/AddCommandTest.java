@@ -194,7 +194,6 @@ public class AddCommandTest {
             requireNonNull(diveSession);
             this.diveSession = diveSession;
         }
-
     }
 
     /**
