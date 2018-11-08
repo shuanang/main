@@ -75,14 +75,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void checkTimeformat_Test() throws seedu.divelog.logic.parser.exceptions.ParseException {
-        String timezone = "-8";
-        int returnint = Integer.parseInt(timezone);
-
-        assertEquals(returnint, -8);
-
-//        String test = ParserUtil.checkTimeZoneformat("+8");
-//        assertEquals(test, "+8");
+    public void checkTimeformat_Test() {
 
     }
 

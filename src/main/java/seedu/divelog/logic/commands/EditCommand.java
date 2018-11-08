@@ -71,7 +71,8 @@ public class EditCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history)
-            throws CommandException, ParseException, InvalidTimeException {
+            throws CommandException, ParseException,
+            InvalidTimeException, seedu.divelog.logic.parser.exceptions.ParseException {
         requireNonNull(model);
         List<DiveSession> lastShownList = model.getFilteredDiveList();
 
@@ -113,7 +114,7 @@ public class EditCommand extends Command {
      * edited with {@code editDiveDescriptor}.
      */
     private static DiveSession createEditedDive(DiveSession diveToEdit, EditDiveDescriptor editDiveSessionDescriptor)
-            throws InvalidTimeException, ParseException {
+            throws InvalidTimeException, ParseException, seedu.divelog.logic.parser.exceptions.ParseException {
         assert diveToEdit != null;
         OurDate dateStart = editDiveSessionDescriptor.getDateStart().orElse(diveToEdit.getDateStart());
         Time start = editDiveSessionDescriptor.getStart().orElse(diveToEdit.getStart());
@@ -131,7 +132,10 @@ public class EditCommand extends Command {
         DiveSession editedDive = new DiveSession(dateStart, start, safetyStop, dateEnd, end,
                 pressureGroupAtBeginning, pressureGroupAtEnd, location, depth, timezone);
 
+
+        ParserUtil.checkTimeZoneformat(timezone.getTimeZoneString());
         ParserUtil.checkEditTimeDateLimit(editedDive);
+
         return editedDive;
     }
 
