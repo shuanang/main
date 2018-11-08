@@ -11,11 +11,13 @@ import seedu.divelog.logic.commands.CurrentPgCommand;
 import seedu.divelog.logic.commands.DeleteCommand;
 import seedu.divelog.logic.commands.EditCommand;
 import seedu.divelog.logic.commands.ExitCommand;
+import seedu.divelog.logic.commands.ExitPlanningCommand;
 import seedu.divelog.logic.commands.FindCommand;
 import seedu.divelog.logic.commands.HelpCommand;
 import seedu.divelog.logic.commands.HistoryCommand;
 import seedu.divelog.logic.commands.ListCommand;
 import seedu.divelog.logic.commands.PlanningCommand;
+import seedu.divelog.logic.commands.PortOverCommand;
 import seedu.divelog.logic.commands.RedoCommand;
 import seedu.divelog.logic.commands.SelectCommand;
 import seedu.divelog.logic.commands.SetUnitsCommand;
@@ -88,12 +90,15 @@ public class DiveLogParser {
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
 
-
         case PlanningCommand.COMMAND_WORD_PLAN:
             return new PlanningCommand();
 
-        case PlanningCommand.COMMAND_WORD_NORMAL:
-            return new PlanningCommand();
+        case PortOverCommand.COMMAND_WORD_PORT_OVER:
+            return new PortOverCommand();
+
+        case ExitPlanningCommand.COMMAND_WORD_NORMAL:
+            return new ExitPlanningCommand();
+
 
         case SetUnitsCommand.COMMAND_WORD:
             return new SetUnitsCommandParser().parse(arguments);
