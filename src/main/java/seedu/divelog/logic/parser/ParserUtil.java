@@ -166,7 +166,7 @@ public class ParserUtil {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_TIMEZONE_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        if (toTest > 12 || toTest < -12 ) {
+        if (toTest > 12 || toTest < -12) {
             System.err.println("Illegal Timezone input");
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_TIMEZONE_FORMAT, AddCommand.MESSAGE_USAGE));
         }
