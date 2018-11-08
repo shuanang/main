@@ -21,6 +21,7 @@ public abstract class Command {
      * @throws CommandException If an error occurs during command execution.
      */
     public abstract CommandResult execute(Model model, CommandHistory history)
-            throws CommandException, ParseException, InvalidTimeException, seedu.divelog.logic.parser.exceptions.ParseException;
+            throws CommandException, ParseException, InvalidTimeException,
+            seedu.divelog.logic.parser.exceptions.ParseException;
 
 }
