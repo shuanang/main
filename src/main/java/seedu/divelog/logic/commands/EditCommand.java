@@ -1,7 +1,6 @@
 package seedu.divelog.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.divelog.commons.core.Messages.MESSAGE_INVALID_DATE_LIMITS;
 
 import java.text.ParseException;
 import java.util.List;

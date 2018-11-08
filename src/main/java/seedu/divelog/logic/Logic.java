@@ -18,7 +18,8 @@ public interface Logic {
      * @throws CommandException If an error occurs during command execution.
      * @throws ParseException If an error occurs during parsing.
      */
-    CommandResult execute(String commandText) throws CommandException, ParseException, java.text.ParseException, InvalidTimeException;
+    CommandResult execute(String commandText) throws CommandException, ParseException,
+            java.text.ParseException, InvalidTimeException;
 
     /** Returns an unmodifiable view of the filtered list of dives */
     ObservableList<DiveSession> getFilteredDiveList();
