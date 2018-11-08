@@ -57,7 +57,7 @@ public class ParserUtil {
      *  Returns true if string given is DATE FORMATTED
      * {@code ArgumentMultimap}.
      */
-    public static void checkDateformat(ArgumentMultimap argMultimap) throws ParseException {
+    public static void checkDateFormat(ArgumentMultimap argMultimap) throws ParseException {
         if (argMultimap.getValue(CliSyntax.PREFIX_DATE_START).get().length() != 8
                 || argMultimap.getValue(CliSyntax.PREFIX_DATE_END).get().length() != 8) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_DATE_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -91,11 +91,13 @@ public class ParserUtil {
 
         if (safetyEndDateTime.getTime() - startTimeDateDate.getTime() < 0
                 || safetyEndDateTime.getTime() - endTimeDateDate.getTime() > 0) {
-            throw new InvalidTimeException();
+            throw new InvalidTimeException(
+                    String.format(Messages.MESSAGE_INVALID_DATE_LIMITS, AddCommand.MESSAGE_USAGE));
         }
 
         if (startTimeDateDate.getTime() - endTimeDateDate.getTime() > 0) {
-            throw new InvalidTimeException();
+            throw new InvalidTimeException(
+                    String.format(Messages.MESSAGE_INVALID_DATE_LIMITS, AddCommand.MESSAGE_USAGE));
         }
     }
     /**
@@ -118,12 +120,14 @@ public class ParserUtil {
                 startDateString, endDateString);
 
         if (safetyEndDateTime.getTime() - startTimeDateDate.getTime() < 0
-            || safetyEndDateTime.getTime() - endTimeDateDate.getTime() > 0) {
-            throw new InvalidTimeException();
+                || safetyEndDateTime.getTime() - endTimeDateDate.getTime() > 0) {
+            throw new InvalidTimeException(
+                    String.format(Messages.MESSAGE_INVALID_DATE_LIMITS, AddCommand.MESSAGE_USAGE));
         }
 
         if (startTimeDateDate.getTime() - endTimeDateDate.getTime() > 0) {
-            throw new InvalidTimeException();
+            throw new InvalidTimeException(
+                    String.format(Messages.MESSAGE_INVALID_DATE_LIMITS, AddCommand.MESSAGE_USAGE));
         }
     }
     /**

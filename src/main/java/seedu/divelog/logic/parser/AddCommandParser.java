@@ -64,7 +64,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             e.printStackTrace();
         }
 
-        ParserUtil.checkDateformat(argMultimap);
+        ParserUtil.checkDateFormat(argMultimap);
 
         //ParserUtil.checkTimeZoneformat(argMultimap);
 

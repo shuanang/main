@@ -110,7 +110,7 @@ public class ParserUtilTest {
                 AddCommand.MESSAGE_USAGE));
         }
 
-        ParserUtil.checkDateformat(argMultimap);
+        ParserUtil.checkDateFormat(argMultimap);
         //assert
         ParserUtil.checkTimeZoneformat(argMultimap);
         //assert
