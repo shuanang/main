@@ -74,7 +74,7 @@ public class CommandTestUtil {
             assertEquals(expectedMessage, result.feedbackToUser);
             assertEquals(expectedModel, actualModel);
             assertEquals(expectedCommandHistory, actualCommandHistory);
-        } catch (CommandException | ParseException | seedu.divelog.logic.parser.exceptions.ParseException ce) {
+        } catch (CommandException | ParseException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         } catch (InvalidTimeException e) {
             e.printStackTrace();
@@ -100,7 +100,7 @@ public class CommandTestUtil {
         try {
             command.execute(actualModel, actualCommandHistory);
             throw new AssertionError("The expected CommandException was not thrown.");
-        } catch (CommandException | ParseException | seedu.divelog.logic.parser.exceptions.ParseException e) {
+        } catch (CommandException | ParseException e) {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedDiveLog, actualModel.getDiveLog());
             assertEquals(expectedFilteredList, actualModel.getFilteredDiveList());
