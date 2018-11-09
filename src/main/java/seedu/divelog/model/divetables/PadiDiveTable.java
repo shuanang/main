@@ -11,10 +11,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import seedu.divelog.commons.core.LogsCenter;
+import seedu.divelog.commons.core.Messages;
 import seedu.divelog.commons.util.DiveTableUtil;
+import seedu.divelog.logic.parser.exceptions.ParseException;
 import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.dive.PressureGroup;
 import seedu.divelog.model.dive.exceptions.InvalidTimeException;
+import seedu.divelog.model.divetables.exceptions.MaxDepthExceededException;
 
 //@@author arjo129
 /**
@@ -28,12 +31,14 @@ public class PadiDiveTable {
     private final DiveTableUtil surfaceTable;
     private final DiveTableUtil depthToPressureGroup;
     private final DiveTableUtil diveTableUtil;
+    private final DiveTableUtil maxBottomTimes;
 
     //@@author shuanang
     private PadiDiveTable() {
         this.surfaceTable = new DiveTableUtil("/divetables/surface_table.json");
         this.depthToPressureGroup = new DiveTableUtil("/divetables/Dive_table_1.json");
         this.diveTableUtil = new DiveTableUtil("/divetables/Dive_table_2.json");
+        this.maxBottomTimes = new DiveTableUtil("/divetables/max_bottom_times.json");
         logger.info("Successfully loaded dive tables");
     }
 
@@ -159,8 +164,35 @@ public class PadiDiveTable {
         return null;
 
     }
+    //@@author shuanang
+    /**
+     * Takes in depth (1-42m) and returns a float of the maximum time allowed at that depth
+     * @param depth - depth dove to
+     * @return float with max bottom times at that depth
+     */
+    public float getMaxBottomTime(DepthProfile depth) throws ParseException {
+        try {
+            if (depth.getDepth() > 42) {
+                throw new MaxDepthExceededException();
+            }
+            logger.info("Attempting to read json");
+            JSONObject table = maxBottomTimes.readJsonFileFromResources();
+            logger.info("attempting to lookup data");
+            String key = findClosestKey(table, depth.getDepth());
+            return table.getInt(key);
+        } catch (IOException e) {
+            logger.severe("Failed to read dive tables due to an IOException\n\t" + e.getMessage());
+        } catch (JSONException e) {
+            logger.severe("Malformatted json");
+        } catch (MaxDepthExceededException e) {
+            logger.severe("Max depth exceeded\n\t" + e.getMessage());
+            throw new ParseException(Messages.MESSAGE_ERROR_LIMIT_EXCEED + "\n"
+                    + "The deepest you can go is 42m - don't risk your life!");
+        }
+        return 0;
+    }
 
-
+    //@@author arjo129
     /**
      * Looks for the nearest key
      * @param object - JSON Object

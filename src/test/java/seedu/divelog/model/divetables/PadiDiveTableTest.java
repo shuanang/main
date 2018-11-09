@@ -8,9 +8,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.divelog.logic.parser.exceptions.ParseException;
 import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.dive.PressureGroup;
 import seedu.divelog.model.dive.exceptions.InvalidTimeException;
+import seedu.divelog.model.divetables.exceptions.MaxDepthExceededException;
 
 //@@author arjo129
 public class PadiDiveTableTest {
@@ -87,5 +89,26 @@ public class PadiDiveTableTest {
     public void timeToMinutes_correctConversion() throws InvalidTimeException {
         PadiDiveTable padiDiveTable = PadiDiveTable.getInstance();
         assertEquals(padiDiveTable.timeToMinutes("12:12"), 732);
+    }
+
+    //@@author shuanang
+    @Test
+    public void getMaxBottomTime_canRead() throws ParseException {
+        DepthProfile depthProfile = new DepthProfile(5);
+        PadiDiveTable padiDiveTable = PadiDiveTable.getInstance();
+        assertEquals(padiDiveTable.getMaxBottomTime(depthProfile), 219);
+        depthProfile = new DepthProfile(25);
+        assertEquals(padiDiveTable.getMaxBottomTime(depthProfile), 29);
+        depthProfile = new DepthProfile(41);
+        assertEquals(padiDiveTable.getMaxBottomTime(depthProfile), 8);
+    }
+    @Test
+    public void getMaxBottomTime_tooDeepThrowsException() throws ParseException {
+        thrown.expect(ParseException.class);
+        DepthProfile depthProfile = new DepthProfile(43);
+        PadiDiveTable padiDiveTable = PadiDiveTable.getInstance();
+        padiDiveTable.getMaxBottomTime(depthProfile);
+        depthProfile = new DepthProfile(430);
+        padiDiveTable.getMaxBottomTime(depthProfile);
     }
 }
