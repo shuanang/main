@@ -152,6 +152,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void zeroPlannerCount() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void commitDiveLog() {
             throw new AssertionError("This method should not be called.");
         }
