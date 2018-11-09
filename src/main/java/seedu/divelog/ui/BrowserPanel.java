@@ -89,9 +89,14 @@ public class BrowserPanel extends UiPart<Region> {
         //checkPressureGrp(dive.getPressureGroupAtBeginning().getPressureGroup());
         currentDive = dive;
         String pgGGGG = checkPressureGrp(pgGGG);
+        pgStart.getStyleClass().clear();
+        pgStart.getStyleClass().add("label");
         pgStart.getStyleClass().add(pgGGGG);
         String pgGGGG2 = checkPressureGrp(pgGGG2);
+        pgEnd.getStyleClass().clear();
+        pgEnd.getStyleClass().add("label");
         pgEnd.getStyleClass().add(pgGGGG2);
+
     }
 
     public void freeResources(){
