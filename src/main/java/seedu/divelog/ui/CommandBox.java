@@ -14,6 +14,7 @@ import seedu.divelog.logic.Logic;
 import seedu.divelog.logic.commands.CommandResult;
 import seedu.divelog.logic.commands.exceptions.CommandException;
 import seedu.divelog.logic.parser.exceptions.ParseException;
+import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 
 /**
  * The UI component that is responsible for receiving user command inputs.
@@ -109,7 +110,7 @@ public class CommandBox extends UiPart<Region> {
             logger.info("Result: " + commandResult.feedbackToUser);
             raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
 
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | ParseException | java.text.ParseException | InvalidTimeException e) {
             initHistory();
             // handle command failure
             setStyleToIndicateCommandFailure();

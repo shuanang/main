@@ -17,6 +17,7 @@ import seedu.divelog.model.dive.OurDate;
 import seedu.divelog.model.dive.PressureGroup;
 import seedu.divelog.model.dive.Time;
 import seedu.divelog.model.dive.TimeZone;
+import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 
 /**
  * Parses input arguments and creates a new AddCommand object.
@@ -55,17 +56,26 @@ public class AddCommandParser implements Parser<AddCommand> {
 
 
         ParserUtil.checkTimeformat(argMultimap);
-        ParserUtil.checkDateformat(argMultimap);
-        //ParserUtil.checkTimeZoneformat(argMultimap);
+        try {
+            ParserUtil.checkTimeDateLimit(argMultimap);
+        } catch (java.text.ParseException e) {
+            e.printStackTrace();
+        } catch (InvalidTimeException e) {
+            e.printStackTrace();
+        }
+
+        ParserUtil.checkDateFormat(argMultimap);
+        ParserUtil.checkTimeZoneformat(argMultimap.getValue(CliSyntax.PREFIX_TIMEZONE).get());
+
 
         OurDate dateStart = new OurDate(argMultimap.getValue(CliSyntax.PREFIX_DATE_START).get());
         Time startTime = new Time(argMultimap.getValue(CliSyntax.PREFIX_TIME_START).get());
         OurDate dateEnd = new OurDate(argMultimap.getValue(CliSyntax.PREFIX_DATE_END).get());
         Time endTime = new Time(argMultimap.getValue(CliSyntax.PREFIX_TIME_END).get());
         Time safetyStop = new Time(argMultimap.getValue(CliSyntax.PREFIX_SAFETY_STOP).get());
-        PressureGroup pressureGroupAtBegining = new PressureGroup("A");
+        PressureGroup pressureGroupAtBeginning = new PressureGroup("A");
         if (argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_START).isPresent()) {
-            pressureGroupAtBegining = new PressureGroup(
+            pressureGroupAtBeginning = new PressureGroup(
                     argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_START).get());
         }
         Location location =
@@ -76,10 +86,12 @@ public class AddCommandParser implements Parser<AddCommand> {
         try {
             long duration = CompareUtil.checkTimeDifference(startTime.getTimeString(), endTime.getTimeString(),
                     dateStart.getOurDateString(), dateEnd.getOurDateString());
+
             PressureGroup pressureGroupAtEnd = PressureGroupLogic.computePressureGroupFirstDive(depthProfile,
                     (float) duration);
+
             DiveSession dive =
-                    new DiveSession(dateStart, startTime, safetyStop, dateEnd, endTime, pressureGroupAtBegining,
+                    new DiveSession(dateStart, startTime, safetyStop, dateEnd, endTime, pressureGroupAtBeginning,
                             pressureGroupAtEnd, location, depthProfile, timezone);
             return new AddCommand(dive);
         } catch (JSONException e) {

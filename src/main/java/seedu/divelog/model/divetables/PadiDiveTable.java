@@ -112,7 +112,7 @@ public class PadiDiveTable {
             String[] minutes = time.split(":");
             return Integer.parseInt(minutes[0]) * 60 + Integer.parseInt(minutes[1]);
         } else {
-            throw new InvalidTimeException();
+            throw new InvalidTimeException("timetoMinutes failed");
         }
     }
     /**

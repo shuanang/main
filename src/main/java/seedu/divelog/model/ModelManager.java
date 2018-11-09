@@ -72,6 +72,12 @@ public class ModelManager extends ComponentManager implements Model {
     public void plannerCountMinus() {
         this.plannerCount--;
     }
+
+    @Override
+    public void zeroPlannerCount() {
+        this.plannerCount = 0;
+    }
+
     //@@author
 
     @Override
