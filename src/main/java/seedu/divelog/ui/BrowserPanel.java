@@ -88,7 +88,7 @@ public class BrowserPanel extends UiPart<Region> {
         dateTime.setText(String.format(FORMAT_TIME_NOW, dive.getDateStart().getOurDateString()));
         //checkPressureGrp(dive.getPressureGroupAtBeginning().getPressureGroup());
         currentDive = dive;
-        resetPGColour();
+        resetPgColour();
         String pgStartColour = checkPressureGrp(pgStartText);
         pgStart.getStyleClass().add(pgStartColour);
         String pgEndColour = checkPressureGrp(pgEndText);
@@ -130,7 +130,7 @@ public class BrowserPanel extends UiPart<Region> {
     /**
      * Resets the PG colour in the UI
      */
-    private void resetPGColour(){
+    private void resetPgColour() {
         pgStart.getStyleClass().clear();
         pgEnd.getStyleClass().clear();
         pgStart.getStyleClass().add("label");
