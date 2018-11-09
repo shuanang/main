@@ -17,15 +17,15 @@ public class PortOverCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         if (model.getPlanningMode()) {
             if (model.getPlannerCount() == 0) {
-                String MESSAGE_NO_DATA = "You have yet to input any planning dives to port over";
-                throw new CommandException(MESSAGE_NO_DATA);
+                String messageNoData = "You have yet to input any planning dives to port over";
+                throw new CommandException(messageNoData);
             }
             model.zeroPlannerCount();
             model.setPlanningMode();
             return new CommandResult(MESSAGE_ENTRY);
         } else {
-            String MESSAGE_FAILURE = "You are not in planning mode thus you have no data to port over";
-            throw new CommandException(MESSAGE_FAILURE);
+            String messageFailure = "You are not in planning mode thus you have no data to port over";
+            throw new CommandException(messageFailure);
         }
     }
 }
