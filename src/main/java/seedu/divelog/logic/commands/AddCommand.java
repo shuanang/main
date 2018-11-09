@@ -24,7 +24,6 @@ public class AddCommand extends Command {
             + CliSyntax.PREFIX_TIME_END + "END_TIME (24Hr Format) "
             + CliSyntax.PREFIX_SAFETY_STOP + "SAFETY_STOP_TIME (24Hr Format) \n\t"
             + CliSyntax.PREFIX_DEPTH + "DEPTH "
-            + CliSyntax.PREFIX_PRESSURE_GROUP_START + "PRESSURE_GROUP_START "
             + CliSyntax.PREFIX_LOCATION + "LOCATION"
             + CliSyntax.PREFIX_TIMEZONE + "TIMEZONE\n"
             + "Example: " + COMMAND_WORD + " "
@@ -34,7 +33,6 @@ public class AddCommand extends Command {
             + CliSyntax.PREFIX_TIME_END + "0800 "
             + CliSyntax.PREFIX_SAFETY_STOP + "0745 "
             + CliSyntax.PREFIX_DEPTH + "16 "
-            + CliSyntax.PREFIX_PRESSURE_GROUP_START + "A "
             + CliSyntax.PREFIX_LOCATION + "Sentosa "
             + CliSyntax.PREFIX_TIMEZONE + "+8";
 
