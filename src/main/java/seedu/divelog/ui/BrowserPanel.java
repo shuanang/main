@@ -74,10 +74,10 @@ public class BrowserPanel extends UiPart<Region> {
         logger.info("REDRAWING");
         diveLocation.setText(String.format(FORMAT_DIVE_LOCATION, dive.getLocation().getLocationName()));
         diveDepth.setText(String.format(FORMAT_DIVE_DEPTH, dive.getDepthProfile().getFormattedString()));
-        String pgGGG = dive.getPressureGroupAtBeginning().getPressureGroup();
-        pgStart.setText(pgGGG);
-        String pgGGG2 = dive.getPressureGroupAtEnd().getPressureGroup();
-        pgEnd.setText(pgGGG2);
+        String pgStartText = dive.getPressureGroupAtBeginning().getPressureGroup();
+        pgStart.setText(pgStartText);
+        String pgEndText = dive.getPressureGroupAtEnd().getPressureGroup();
+        pgEnd.setText(pgEndText);
         //pgEnd.setTextFill(Color.web("#0076a3"));
         //pgEnd.setForeground(Color.web("#0076a3"));
         //pgEnd.setTextFill(Color.GREEN);
@@ -88,14 +88,11 @@ public class BrowserPanel extends UiPart<Region> {
         dateTime.setText(String.format(FORMAT_TIME_NOW, dive.getDateStart().getOurDateString()));
         //checkPressureGrp(dive.getPressureGroupAtBeginning().getPressureGroup());
         currentDive = dive;
-        String pgGGGG = checkPressureGrp(pgGGG);
-        pgStart.getStyleClass().clear();
-        pgStart.getStyleClass().add("label");
-        pgStart.getStyleClass().add(pgGGGG);
-        String pgGGGG2 = checkPressureGrp(pgGGG2);
-        pgEnd.getStyleClass().clear();
-        pgEnd.getStyleClass().add("label");
-        pgEnd.getStyleClass().add(pgGGGG2);
+        resetPGColour();
+        String pgStartColour = checkPressureGrp(pgStartText);
+        pgStart.getStyleClass().add(pgStartColour);
+        String pgEndColour = checkPressureGrp(pgEndText);
+        pgEnd.getStyleClass().add(pgEndColour);
 
     }
 
@@ -120,7 +117,6 @@ public class BrowserPanel extends UiPart<Region> {
             });
         }
     }
-
     /**
      * Retrieves the current date time as a string
      * @return retrieves date as string
@@ -130,6 +126,15 @@ public class BrowserPanel extends UiPart<Region> {
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY hh:mmaa");
         String dateTimeNow = dateFormat.format(d);
         return dateTimeNow;
+    }
+    /**
+     * Resets the PG colour in the UI
+     */
+    private void resetPGColour(){
+        pgStart.getStyleClass().clear();
+        pgEnd.getStyleClass().clear();
+        pgStart.getStyleClass().add("label");
+        pgEnd.getStyleClass().add("label");
     }
     /**
      * Receives the pressure group that needs to be parsed
