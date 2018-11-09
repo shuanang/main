@@ -74,8 +74,10 @@ public class BrowserPanel extends UiPart<Region> {
         logger.info("REDRAWING");
         diveLocation.setText(String.format(FORMAT_DIVE_LOCATION, dive.getLocation().getLocationName()));
         diveDepth.setText(String.format(FORMAT_DIVE_DEPTH, dive.getDepthProfile().getFormattedString()));
-        pgStart.setText(dive.getPressureGroupAtBeginning().getPressureGroup());
-        pgEnd.setText(dive.getPressureGroupAtEnd().getPressureGroup());
+        String pgGGG = dive.getPressureGroupAtBeginning().getPressureGroup();
+        pgStart.setText(pgGGG);
+        String pgGGG2 = dive.getPressureGroupAtEnd().getPressureGroup();
+        pgEnd.setText(pgGGG2);
         //pgEnd.setTextFill(Color.web("#0076a3"));
         //pgEnd.setForeground(Color.web("#0076a3"));
         //pgEnd.setTextFill(Color.GREEN);
@@ -84,10 +86,12 @@ public class BrowserPanel extends UiPart<Region> {
         endTime.setText(String.format(FORMAT_END_TIME, dive.getEnd().getTimeString()));
         safetyStop.setText(String.format(FORMAT_SAFETY_STOP, dive.getSafetyStop().getTimeString()));
         dateTime.setText(String.format(FORMAT_TIME_NOW, dive.getDateStart().getOurDateString()));
-        checkPressureGrp(dive.getPressureGroupAtBeginning().getPressureGroup());
+        //checkPressureGrp(dive.getPressureGroupAtBeginning().getPressureGroup());
         currentDive = dive;
-        pgStart.getStyleClass().add(checkPressureGrp(dive.getPressureGroupAtBeginning().getPressureGroup()));
-        pgEnd.getStyleClass().add(checkPressureGrp(dive.getPressureGroupAtEnd().getPressureGroup()));
+        String pgGGGG = checkPressureGrp(pgGGG);
+        pgStart.getStyleClass().add(pgGGGG);
+        String pgGGGG2 = checkPressureGrp(pgGGG2);
+        pgEnd.getStyleClass().add(pgGGGG2);
     }
 
     public void freeResources(){
@@ -131,57 +135,58 @@ public class BrowserPanel extends UiPart<Region> {
         case "A":
             //to return it as #008000 or GREEN or rgb(0,128,0)
             // break;
-            return "thisIsGreenA";
+            return "thisIsA";
         case "B":
-            return "thisIsGreen";
+            return "thisIsB";
         case "C":
-            return "thisIsGreen";
+            return "thisIsC";
         case "D":
-            return "thisIsGreen";
+            return "thisIsD";
         case "E":
-            return "thisIsGreen";
+            return "thisIsE";
         case "F":
-            return "thisIsGreen";
+            return "thisIsF";
         case "G":
-            return "thisIsGreen";
+            return "thisIsG";
         case "H":
-            return "thisIsGreen";
+            return "thisIsH";
         case "I":
-            return "thisIsGreen";
+            return "thisIsI";
         case "J":
-            return "thisIsGreen";
+            return "thisIsJ";
+        case "K":
+            return "thisIsK";
         case "L":
-            return "thisIsGreen";
+            return "thisIsL";
         case "M":
-            return "thisIsGreen";
+            return "thisIsM";
         case "N":
-            return "thisIsGreen";
+            return "thisIsN";
         case "O":
-            return "thisIsGreen";
+            return "thisIsO";
         case "P":
-            //return #ff6600 or ORANGE or rgb(255, 102, 0)
-            return "thisIsOrangeP";
+            return "thisIsP";
         case "Q":
-            return "thisIsOrangeP";
+            return "thisIsQ";
         case "R":
-            return "thisIsOrange";
+            return "thisIsR";
         case "S":
-            return "thisIsOrange";
+            return "thisIsS";
         case "T":
-            return "thisIsOrange";
+            return "thisIsT";
         case "U":
-            return "thisIsOrange";
+            return "thisIsU";
         case "V":
-            return "thisIsOrange";
+            return "thisIsV";
         case "W":
-            return "thisIsOrange";
+            return "thisIsW";
         case "X":
-            return "thisIsOrange";
+            return "thisIsX";
         case "Y":
-            return "thisIsOrange";
+            return "thisIsY";
         case "Z":
             //to return as RED or #ff0000 or (255,0,0)
-            return "thisIsRed";
+            return "thisIsZ";
         default:
             //return black
             return "label";
