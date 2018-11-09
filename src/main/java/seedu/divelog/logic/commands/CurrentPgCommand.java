@@ -90,7 +90,8 @@ public class CurrentPgCommand extends Command {
                 return new CommandResult(MESSAGE_CURRENTPG + currentPg.getPressureGroup() + "\n"
                         + MESSAGE_TIMETONEXT + nextPg + ": " + timeToNextPg + " minutes." + "\n"
                         + MESSAGE_TIMETOMIN + timeToMinPg + " minutes, at: " + dateFormat.format(minPgCal.getTime())
-                        + "\n" + "You just completed a single dive, ended on " + lastDive.getDateEnd().getOurDateString() + " "
+                        + "\n" + "You just completed a single dive, ended on "
+                        + lastDive.getDateEnd().getOurDateString() + " "
                         + lastDive.getEnd().getTimeString()
                         + "hrs." + "\n"
                         + "You are recommended to wait at least 12 hours on land "
