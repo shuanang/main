@@ -15,6 +15,7 @@ import seedu.divelog.model.DiveLog;
 import seedu.divelog.model.Model;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.LocationContainsKeywordPredicate;
+import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 import seedu.divelog.testutil.EditDiveDescriptorBuilder;
 
 /**
@@ -73,8 +74,10 @@ public class CommandTestUtil {
             assertEquals(expectedMessage, result.feedbackToUser);
             assertEquals(expectedModel, actualModel);
             assertEquals(expectedCommandHistory, actualCommandHistory);
-        } catch (CommandException | ParseException ce) {
+        } catch (CommandException | ParseException | seedu.divelog.logic.parser.exceptions.ParseException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
+        } catch (InvalidTimeException e) {
+            e.printStackTrace();
         }
     }
 
@@ -97,11 +100,13 @@ public class CommandTestUtil {
         try {
             command.execute(actualModel, actualCommandHistory);
             throw new AssertionError("The expected CommandException was not thrown.");
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | ParseException | seedu.divelog.logic.parser.exceptions.ParseException e) {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedDiveLog, actualModel.getDiveLog());
             assertEquals(expectedFilteredList, actualModel.getFilteredDiveList());
             assertEquals(expectedCommandHistory, actualCommandHistory);
+        } catch (InvalidTimeException e) {
+            e.printStackTrace();
         }
     }
 

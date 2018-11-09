@@ -11,6 +11,7 @@ import seedu.divelog.logic.parser.exceptions.ParseException;
 import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.PressureGroup;
+import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -56,7 +57,7 @@ public class ParserUtil {
      *  Returns true if string given is DATE FORMATTED
      * {@code ArgumentMultimap}.
      */
-    public static void checkDateformat(ArgumentMultimap argMultimap) throws ParseException {
+    public static void checkDateFormat(ArgumentMultimap argMultimap) throws ParseException {
         if (argMultimap.getValue(CliSyntax.PREFIX_DATE_START).get().length() != 8
                 || argMultimap.getValue(CliSyntax.PREFIX_DATE_END).get().length() != 8) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_DATE_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -74,7 +75,7 @@ public class ParserUtil {
      * {@code ArgumentMultimap}.
      */
     public static void checkTimeDateLimit(ArgumentMultimap argMultimap)
-            throws java.text.ParseException, ParseException {
+            throws java.text.ParseException, InvalidTimeException {
         String startDateString = argMultimap.getValue(CliSyntax.PREFIX_DATE_START).get();
         String endDateString = argMultimap.getValue(CliSyntax.PREFIX_DATE_END).get();
         String startTimeString = argMultimap.getValue(CliSyntax.PREFIX_TIME_START).get();
@@ -90,19 +91,20 @@ public class ParserUtil {
 
         if (safetyEndDateTime.getTime() - startTimeDateDate.getTime() < 0
                 || safetyEndDateTime.getTime() - endTimeDateDate.getTime() > 0) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_SAFETYSTOPTIME_LIMITS,
-                    AddCommand.MESSAGE_USAGE));
+            throw new InvalidTimeException(
+                    String.format(Messages.MESSAGE_INVALID_DATE_LIMITS, AddCommand.MESSAGE_USAGE));
         }
 
         if (startTimeDateDate.getTime() - endTimeDateDate.getTime() > 0) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_DATE_LIMITS, AddCommand.MESSAGE_USAGE));
+            throw new InvalidTimeException(
+                    String.format(Messages.MESSAGE_INVALID_DATE_LIMITS, AddCommand.MESSAGE_USAGE));
         }
     }
     /**
      * Throws an exception IF edit is now not legit.
      */
     public static void checkEditTimeDateLimit(DiveSession divesession)
-            throws ParseException, java.text.ParseException {
+            throws java.text.ParseException, InvalidTimeException {
         String startDateString = divesession.getDateStart().getOurDateString();
         String endDateString = divesession.getDateEnd().getOurDateString();
         String startTimeString = divesession.getStart().getTimeString();
@@ -110,6 +112,7 @@ public class ParserUtil {
         String safetyTimeString = divesession.getSafetyStop().getTimeString();
 
         SimpleDateFormat inputFormat = new SimpleDateFormat("ddMMyyyyHHmm");
+
         Date startTimeDateDate = inputFormat.parse(startDateString + startTimeString);
         Date endTimeDateDate = inputFormat.parse(endDateString + endTimeString);
 
@@ -117,13 +120,14 @@ public class ParserUtil {
                 startDateString, endDateString);
 
         if (safetyEndDateTime.getTime() - startTimeDateDate.getTime() < 0
-            || safetyEndDateTime.getTime() - endTimeDateDate.getTime() > 0) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_SAFETYSTOPTIME_LIMITS,
-                    AddCommand.MESSAGE_USAGE));
+                || safetyEndDateTime.getTime() - endTimeDateDate.getTime() > 0) {
+            throw new InvalidTimeException(
+                    String.format(Messages.MESSAGE_INVALID_DATE_LIMITS, AddCommand.MESSAGE_USAGE));
         }
 
         if (startTimeDateDate.getTime() - endTimeDateDate.getTime() > 0) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_DATE_LIMITS, AddCommand.MESSAGE_USAGE));
+            throw new InvalidTimeException(
+                    String.format(Messages.MESSAGE_INVALID_DATE_LIMITS, AddCommand.MESSAGE_USAGE));
         }
     }
     /**
@@ -153,13 +157,17 @@ public class ParserUtil {
      *  Returns true if string given is TIMEZONE FORMATTED
      * {@code ArgumentMultimap}.
      */
-    public static void checkTimeZoneformat(ArgumentMultimap argMultimap) throws ParseException {
-        if (argMultimap.getValue(CliSyntax.PREFIX_TIMEZONE).get().length() != 2
-                || argMultimap.getValue(CliSyntax.PREFIX_TIMEZONE).get().length() != 3) {
+    public static void checkTimeZoneformat(String timeZoneString) throws ParseException {
+        int toTest;
+        try {
+            toTest = Integer.parseInt(timeZoneString);
+        } catch (NumberFormatException ex) {
+            System.err.println("Illegal Timezone input");
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_TIMEZONE_FORMAT, AddCommand.MESSAGE_USAGE));
         }
-        if (!argMultimap.getValue(CliSyntax.PREFIX_TIMEZONE).get().startsWith("+")
-                && !argMultimap.getValue(CliSyntax.PREFIX_TIMEZONE).get().startsWith("-")) {
+
+        if (toTest > 12 || toTest < -12) {
+            System.err.println("Illegal Timezone input");
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_TIMEZONE_FORMAT, AddCommand.MESSAGE_USAGE));
         }
     }

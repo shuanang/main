@@ -24,6 +24,7 @@ import seedu.divelog.model.dive.OurDate;
 import seedu.divelog.model.dive.PressureGroup;
 import seedu.divelog.model.dive.Time;
 import seedu.divelog.model.dive.TimeZone;
+import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 
 
 /**
@@ -70,7 +71,8 @@ public class EditCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history)
-            throws CommandException, ParseException {
+            throws CommandException, ParseException,
+            InvalidTimeException, seedu.divelog.logic.parser.exceptions.ParseException {
         requireNonNull(model);
         List<DiveSession> lastShownList = model.getFilteredDiveList();
 
@@ -82,12 +84,6 @@ public class EditCommand extends Command {
         DiveSession editedDive = null;
 
         editedDive = createEditedDive(diveToEdit, editDiveDescriptor);
-
-        try {
-            ParserUtil.checkEditTimeDateLimit(editedDive);
-        } catch (seedu.divelog.logic.parser.exceptions.ParseException e) {
-            e.printStackTrace();
-        }
 
         try {
             model.updateDiveSession(diveToEdit, editedDive);
@@ -117,7 +113,8 @@ public class EditCommand extends Command {
      * Creates and returns a {@code DiveSession} with the details of {@code diveSessionToEdit}
      * edited with {@code editDiveDescriptor}.
      */
-    private static DiveSession createEditedDive(DiveSession diveToEdit, EditDiveDescriptor editDiveSessionDescriptor) {
+    private static DiveSession createEditedDive(DiveSession diveToEdit, EditDiveDescriptor editDiveSessionDescriptor)
+            throws InvalidTimeException, ParseException, seedu.divelog.logic.parser.exceptions.ParseException {
         assert diveToEdit != null;
         OurDate dateStart = editDiveSessionDescriptor.getDateStart().orElse(diveToEdit.getDateStart());
         Time start = editDiveSessionDescriptor.getStart().orElse(diveToEdit.getStart());
@@ -132,8 +129,14 @@ public class EditCommand extends Command {
         DepthProfile depth = editDiveSessionDescriptor.getDepthProfile().orElse(diveToEdit.getDepthProfile());
         TimeZone timezone = editDiveSessionDescriptor.getTimeZone().orElse(diveToEdit.getTimeZone());
 
-        return new DiveSession(dateStart, start, safetyStop, dateEnd, end, pressureGroupAtBeginning, pressureGroupAtEnd,
-        location, depth, timezone);
+        DiveSession editedDive = new DiveSession(dateStart, start, safetyStop, dateEnd, end,
+                pressureGroupAtBeginning, pressureGroupAtEnd, location, depth, timezone);
+
+
+        ParserUtil.checkTimeZoneformat(timezone.getTimeZoneString());
+        ParserUtil.checkEditTimeDateLimit(editedDive);
+
+        return editedDive;
     }
 
     @Override

@@ -12,6 +12,7 @@ import seedu.divelog.logic.parser.DiveLogParser;
 import seedu.divelog.logic.parser.exceptions.ParseException;
 import seedu.divelog.model.Model;
 import seedu.divelog.model.dive.DiveSession;
+import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 
 /**
  * The main LogicManager of the app.
@@ -30,7 +31,8 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException, java.text.ParseException {
+    public CommandResult execute(String commandText)
+            throws CommandException, ParseException, java.text.ParseException, InvalidTimeException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
             Command command = diveLogParser.parseCommand(commandText);
