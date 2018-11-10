@@ -367,6 +367,174 @@ This saves both memory and disc writes.
 ** Pros: Easy to implement
 ** Cons: Wastes memory and performs unnecessary IO.
 
+== Implementation
+
+This section describes some noteworthy details on how certain features are implemented.
+
+// tag::undoredo[]
+=== Undo/Redo feature
+==== Current Implementation
+
+The undo/redo mechanism is facilitated by `VersionedAddressBook`.
+It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+Additionally, it implements the following operations:
+
+* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
+* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
+* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+
+These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+
+image::UndoRedoStartingStateListDiagram.png[width="800"]
+
+Step 2. The user executes `delete 5` command to delete the 5th diveSession in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+
+image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
+
+Step 3. The user executes `add n/David ...` to add a new diveSession. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+
+image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
+
+[NOTE]
+If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+
+Step 4. The user now decides that adding the diveSession was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+
+image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
+
+[NOTE]
+If the `currentStatePointer` is at index 0, pointing to the initial Dive Log state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+
+The following sequence diagram shows how the undo operation works:
+
+image::UndoRedoSequenceDiagram.png[width="800"]
+
+The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+
+[NOTE]
+If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+
+image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
+
+Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+
+image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::UndoRedoActivityDiagram.png[width="650"]
+
+==== Design Considerations
+
+===== Aspect: How undo & redo executes
+
+* **Alternative 1 (current choice):** Saves the entire Dive Log.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage.
+* **Alternative 2:** Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory (e.g. for `delete`, just save the diveSession being deleted).
+** Cons: We must ensure that the implementation of each individual command are correct.
+
+===== Aspect: Data structure to support the undo/redo commands
+
+* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+* **Alternative 2:** Use `HistoryManager` for undo/redo
+** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+// end::undoredo[]
+
+=== Looking Up Dive Tables For Pressure Groups
+
+At the heart of the divelog app is the ability to automatically calculate nitrogen pressure groups.
+To do so we adhere to PADI's dive charts, available here https://elearning.padi.com/company0/tools/RDP_Table%20Met.pdf. These charts provide a lookup table for divers through which they can determine
+their current pressure group. The underlying implementation for these charts can be found in the `PadiDiveTable` class.
+A such the dive tales are stored in the `resources` folder as JSON files. They are loaded using the `DiveTableUtil` class
+via the FASTXML Jackson library. The `PadiDiveTable` itself is a singleton class. This choice was made as it makes sense to
+load the Dive Tables only once at the stat into memory (although in its current form it is not the case). An example
+interaction with `PadiDiveTable` and `DiveTableUtil` can be found in the sequence diagram below:
+
+image::PadiDiveTableUsage.png[width="800"]
+
+Internally at the moment, `DiveTableUtil#readJsonFileFromResources` has the following interaction:
+
+image::DiveTableUtilInternal.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: Retrieving Dive Tables
+* **Alternative 1 (current choice):** Use JSON files
+** Pros: Easy to change data within tables.
+** Cons: May have performance issues if the tables are too large as it reads from disk.
+* **Alternative 2:** Hard code the tables
+** Pros: Have mildly smaller impact on performance as data is loaded into memory at start up.
+** Cons: Very tedious to implement, results in unreadable code.
+
+===== Aspect: Minimising File Reads And Data Duplication
+* **Alternative 1 (current choice)**: Use a singleton class
+** Pros: It is possible to read the file only once and the memory used by the objects will only exist in one place.
+This saves both memory and disc writes.
+** Cons: Can be troublesome to implement.
+* **Alternative 2: ** Just use `PADIDiveTable` standard classes
+** Pros: Easy to implement
+** Cons: Wastes memory and performs unnecessary IO.
+
+=== New Feature: Planning Mode (with `portover` capability)
+From our verbal surveys with test users and user stories, we have decided to implement a Planning mode in order for users to plan their dives ahead of their trips.
+
+==== Design Considerations
+
+==== Design Alternatives
+
+=== Sorting of data
+We have considered that once a user has a considerable number of dives registered in the app, the user would potentially have difficulty finding dives, even with the `find` function. (as many dives can have the same parameters such as location) To simplify the app usage, this command allows for users to decide the way
+
+==== Design Considerations
+* **Current implementation**:
+
+* **Potential improvement to the feature 1**: Add a `sortby` CLI command.
+** Method to implement: +
+*Step 1:* Create a new Command [link to xxx]
++
+*Step 2:* Create a enum with the parameters you want to sort the data by (E.g Time, Location and Duration)
++
+*Step 3:* Ensure that the divelog refreshes / reflects the newly sorted
+
+** Pros: To increase the number of parameters / methods to sort the data by, simply create a new corresponding comparator, add the respective prefixes the parse for, and to increase the number of parameters included in the Enum file.
+** Cons: Can be troublesome to implement at first.
+
+* **Potential improvement to the feature 2**: Reverse the current order by calling `reverseorder`
+** Method to implement: Simply reverse the comparator in the sorting methods, which is located in the
+** Pros: Improved usability
+** Cons: Increased difficulty to maintain
+
+
+=== New Parameters & conditions in Dive Log
+
+==== Timezone
+Considering that users would dive in many different parts of the world, we have taken the effort to implement a Timezone parameter to ease users in adding new dives into the Dive Log without the need to convert any time to Local time. +
+We have decided to utilise the format of UTC, given its universal usage around the world. The UTC timezones range from -12 to +12, including 0. Singapore lies in the timezone of UTC+8.
+
+
+==== Time and OurDate
+Time and OurDate are 2 of the new parameters in the Dive Log.
+
+* **Alternative 1 (current choice)**: Use a 4 length String to contain time and 8 length String to contain date.
+** Pros: When reading in data from the `ArgumentMultimap`, it requires very little effort in parsing. Also, the use of String allows for versatile typecasting into long, int, or Java SE 7's SimpleDateFormat. Similarly, the use of String and long as main type allows for better versatility among different methods.
+** Cons: Data needs to be parsed into Java SE 8's java.date and Java SE 7's SimpleDateFormat in order to calculate time differences. This means that there can potentially be many type conflicts. However, this problem is contained in a helper class `CompareUtils` which handles methods like `checkTimeDifference`, `getLocalDate` and `convertTimeToLocal`.
+
+* **Alternative 2: ** Adopt Java SE 9's java.time library
+** Pros: More volatile as the library contains many ready-made solutions. Also, java.time also allows for the easy implementation of *local time*, which is one of our improvements made to AB4.
+** Cons: Takes time to learn and to adopt the methods, which might not be efficient for our light usage.
+
+
 === CRUD for `DiveSession` objects
 At its heart, the application is a divelog. The source code for this application was adopted from an addressbook application.
 The main implementation consideration was to minimize the number of changes in the existing addressbook class. At its heart
