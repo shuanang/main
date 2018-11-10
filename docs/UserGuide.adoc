@@ -17,15 +17,15 @@ endif::[]
 By: `Team CS2113-AY1819S1-W13-2`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
-Divelog is a dive log for tracking dives.
+Divelog is a digital dive log for tracking dives that aims to simplify safe dive planning,logging and calculations.
 Divelog provides a simple way for underwater divers to input details of their dives such as the time they spent at a particular depth, and Divelog will keep track of their nitrogen levels.
 This allows divers to plan their next trip safely. +
 
 We have adopted the <<PADI>> dive tables standards to calculate pressure groups for individual dives, whether the dive is the first dive
 or a repeat dive of the day.
-Pressure groups are a letter between A to Z which mark the nitrogen
-concentration within a diver ("A" corresponds to a scenario where the diver is almost free of nitrogen).
-As of v1.3, the pressure group is automatically calculated within a dive, all one needs to enter is their
+Pressure groups are denoted by a letter between A to Z which marks the nitrogen
+concentration in a diver's body (A Pressure group of "A" shows that the diver's body is almost free of nitrogen).
+As of v1.4, the pressure group is automatically calculated within a dive, all one needs to enter is their
 current pressure group and their ending pressure group is automatically updated.
  +
 
