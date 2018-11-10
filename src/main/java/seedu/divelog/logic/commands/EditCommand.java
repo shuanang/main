@@ -14,6 +14,7 @@ import seedu.divelog.commons.util.CollectionUtil;
 import seedu.divelog.logic.CommandHistory;
 import seedu.divelog.logic.commands.exceptions.CommandException;
 import seedu.divelog.logic.parser.CliSyntax;
+import seedu.divelog.logic.parser.Parser;
 import seedu.divelog.logic.parser.ParserUtil;
 import seedu.divelog.logic.pressuregroup.exceptions.LimitExceededException;
 import seedu.divelog.model.Model;
@@ -85,6 +86,7 @@ public class EditCommand extends Command {
 
         editedDive = createEditedDive(diveToEdit, editDiveDescriptor);
 
+
         try {
             model.updateDiveSession(diveToEdit, editedDive);
         } catch (seedu.divelog.model.dive.exceptions.DiveNotFoundException e) {
@@ -132,7 +134,7 @@ public class EditCommand extends Command {
         DiveSession editedDive = new DiveSession(dateStart, start, safetyStop, dateEnd, end,
                 pressureGroupAtBeginning, pressureGroupAtEnd, location, depth, timezone);
 
-
+        ParserUtil.checkTimeformat(start.getTimeString(), end.getTimeString(), safetyStop.getTimeString());
         ParserUtil.checkTimeZoneformat(timezone.getTimeZoneString());
         ParserUtil.checkEditTimeDateLimit(editedDive);
 
