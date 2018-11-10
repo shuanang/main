@@ -82,6 +82,7 @@ public class EditCommand extends Command {
 
         DiveSession editedDive = createEditedDive(diveToEdit, editDiveDescriptor);
 
+
         try {
             ParserUtil.checkEditTimeDateLimit(editedDive);
         } catch (ParseException e) {
@@ -144,6 +145,7 @@ public class EditCommand extends Command {
         } catch (ParseException e) {
             throw new CommandException(e.getMessage());
         }
+
 
         return editedDive;
     }
