@@ -62,7 +62,7 @@ public class DiveSessionListTest {
                 .withEndDate("01011996").build();
         temporaryList.setDives(diveSessions);
         temporaryList.add(toBeInserted);
-        assertTrue(diveSessions.hasOverlap());
+        assertTrue(temporaryList.hasOverlap());
 
         //Falls within a dive
         toBeInserted = new DiveSessionBuilder()
@@ -72,13 +72,13 @@ public class DiveSessionListTest {
                 .withEndDate("01011996").build();
         temporaryList.setDives(diveSessions);
         temporaryList.add(toBeInserted);
-        assertTrue(diveSessions.hasOverlap());
+        assertTrue(temporaryList.hasOverlap());
 
         //Overlaps identical dive
         toBeInserted = diveSession1;
         temporaryList.setDives(diveSessions);
         temporaryList.add(toBeInserted);
-        assertTrue(diveSessions.hasOverlap());
+        assertTrue(temporaryList.hasOverlap());
 
         //Overlaps multiple dives
         toBeInserted = new DiveSessionBuilder()
@@ -88,7 +88,7 @@ public class DiveSessionListTest {
                 .withEndDate("01011996").build();
         temporaryList.setDives(diveSessions);
         temporaryList.add(toBeInserted);
-        assertTrue(diveSessions.hasOverlap());
+        assertTrue(temporaryList.hasOverlap());
 
 
         //Overlaps at start
@@ -97,7 +97,9 @@ public class DiveSessionListTest {
                 .withStartDate("01011996")
                 .withEnd("1015")
                 .withEndDate("01021996").build();
-        assertTrue(diveSessions.hasOverlap());
+        temporaryList.setDives(diveSessions);
+        temporaryList.add(toBeInserted);
+        assertTrue(temporaryList.hasOverlap());
     }
 
     @Test
