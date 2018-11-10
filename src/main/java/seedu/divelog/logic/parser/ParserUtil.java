@@ -52,7 +52,7 @@ public class ParserUtil {
 
             ApplicationState app = ApplicationState.getInstance();
             if (app.getUnit() == Units.FEET) {
-                value = UnitsUtil.metersToFeet(value);
+                value = UnitsUtil.feetToMeters(value);
             }
 
             return new DepthProfile(value);
