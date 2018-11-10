@@ -3,9 +3,12 @@ package seedu.divelog.logic.parser;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import seedu.divelog.commons.core.ApplicationState;
 import seedu.divelog.commons.core.Messages;
 import seedu.divelog.commons.core.index.Index;
+import seedu.divelog.commons.enums.Units;
 import seedu.divelog.commons.util.StringUtil;
+import seedu.divelog.commons.util.UnitsUtil;
 import seedu.divelog.logic.commands.AddCommand;
 import seedu.divelog.logic.parser.exceptions.ParseException;
 import seedu.divelog.model.dive.DepthProfile;
@@ -35,7 +38,7 @@ public class ParserUtil {
     }
     //@@author arjo129
     /**
-     * Parses depth profile
+     * Parses depth profile. If the settings are in feet it will convert them to meters for internal storage.
      * @param depth - The depth in String Format
      * @return a Depth Profile object.
      * @throws ParseException if the depth is not a valid float.
@@ -46,6 +49,12 @@ public class ParserUtil {
             if (value <= 0) {
                 throw new ParseException(MESSAGE_INVALID_DEPTH);
             }
+
+            ApplicationState app = ApplicationState.getInstance();
+            if (app.getUnit() == Units.FEET) {
+                value = UnitsUtil.metersToFeet(value);
+            }
+
             return new DepthProfile(value);
         } catch (NumberFormatException n) {
             throw new ParseException(MESSAGE_INVALID_DEPTH);
