@@ -1,5 +1,6 @@
 package seedu.divelog.model.util;
 
+import seedu.divelog.logic.pressuregroup.exceptions.LimitExceededException;
 import seedu.divelog.model.DiveLog;
 import seedu.divelog.model.ReadOnlyDiveLog;
 import seedu.divelog.model.dive.DepthProfile;
@@ -9,6 +10,8 @@ import seedu.divelog.model.dive.OurDate;
 import seedu.divelog.model.dive.PressureGroup;
 import seedu.divelog.model.dive.Time;
 import seedu.divelog.model.dive.TimeZone;
+import seedu.divelog.model.dive.exceptions.DiveOverlapsException;
+import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 
 
 /**
@@ -60,7 +63,11 @@ public class SampleDataUtil {
     public static ReadOnlyDiveLog getSampleDiveLog() {
         DiveLog sampleDl = new DiveLog();
         for (DiveSession dive : getSampleDives()) {
-            sampleDl.addDive(dive);
+            try {
+                sampleDl.addDive(dive);
+            } catch (LimitExceededException | InvalidTimeException | DiveOverlapsException e) {
+                throw new AssertionError("Sample data should follow convention of dialogs");
+            }
         }
         return sampleDl;
     }

@@ -1,6 +1,7 @@
 package seedu.divelog.logic.commands;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.divelog.logic.commands.CommandTestUtil.DESC_DAY_BALI;
 import static seedu.divelog.logic.commands.CommandTestUtil.DESC_DAY_TIOMAN;
@@ -26,6 +27,8 @@ import seedu.divelog.model.ModelManager;
 import seedu.divelog.model.UserPrefs;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.PressureGroup;
+import seedu.divelog.model.dive.exceptions.DiveNotFoundException;
+import seedu.divelog.model.dive.exceptions.DiveOverlapsException;
 import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 import seedu.divelog.testutil.DiveSessionBuilder;
 import seedu.divelog.testutil.EditDiveDescriptorBuilder;
@@ -49,8 +52,13 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        DiveSession editedDive = new DiveSessionBuilder().build();
+    public void execute_allFieldsSpecifiedUnfilteredList_success()
+            throws DiveNotFoundException, LimitExceededException, InvalidTimeException, DiveOverlapsException {
+        DiveSession editedDive = new DiveSessionBuilder()
+                .withStart("0900")
+                .withEnd("1000")
+                .withSafetyStop("0945")
+                .build();
         EditDiveDescriptor descriptor = new EditDiveDescriptorBuilder(editedDive).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_DIVE, descriptor);
 
@@ -65,19 +73,17 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_DIVE_SUCCESS, editedDive);
 
         Model expectedModel = new ModelManager(new DiveLog(model.getDiveLog()), new UserPrefs());
-        try {
-            expectedModel.updateDiveSession(model.getFilteredDiveList().get(0), editedDive);
-            expectedModel.recalculatePressureGroups();
-        } catch (seedu.divelog.model.dive.exceptions.DiveNotFoundException | LimitExceededException e) {
-            e.printStackTrace();
-        }
+
+        expectedModel.updateDiveSession(model.getFilteredDiveList().get(0), editedDive);
+        expectedModel.recalculatePressureGroups();
         expectedModel.commitDiveLog();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_someFieldsSpecifiedUnfilteredList_success() {
+    public void execute_someFieldsSpecifiedUnfilteredList_success()
+            throws LimitExceededException, InvalidTimeException, DiveOverlapsException, DiveNotFoundException {
         Index indexLastDive = Index.fromOneBased(model.getFilteredDiveList().size());
         DiveSession lastDive = model.getFilteredDiveList().get(indexLastDive.getZeroBased());
 
@@ -90,11 +96,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_DIVE_SUCCESS, editedDive);
 
         Model expectedModel = new ModelManager(new DiveLog(model.getDiveLog()), new UserPrefs());
-        try {
-            expectedModel.updateDiveSession(lastDive, editedDive);
-        } catch (seedu.divelog.model.dive.exceptions.DiveNotFoundException e) {
-            e.printStackTrace();
-        }
+        expectedModel.updateDiveSession(lastDive, editedDive);
         expectedModel.commitDiveLog();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -114,7 +116,8 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_filteredList_success() {
+    public void execute_filteredList_success()
+            throws LimitExceededException, DiveNotFoundException, InvalidTimeException, DiveOverlapsException {
         showDiveAtIndex(model, INDEX_FIRST_DIVE);
 
         DiveSession diveSessionInFilteredList = model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased());
@@ -126,11 +129,8 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_DIVE_SUCCESS, editedDive);
 
         Model expectedModel = new ModelManager(new DiveLog(model.getDiveLog()), new UserPrefs());
-        try {
-            expectedModel.updateDiveSession(model.getFilteredDiveList().get(0), editedDive);
-        } catch (seedu.divelog.model.dive.exceptions.DiveNotFoundException e) {
-            e.printStackTrace();
-        }
+        expectedModel.updateDiveSession(model.getFilteredDiveList().get(0), editedDive);
+
         expectedModel.commitDiveLog();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -165,7 +165,11 @@ public class EditCommandTest {
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
-        DiveSession editedDive = new DiveSessionBuilder().build();
+        DiveSession editedDive = new DiveSessionBuilder()
+                .withStart("0900")
+                .withEnd("1000")
+                .withSafetyStop("0945")
+                .build();
         DiveSession diveToEdit = model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased());
         EditDiveDescriptor descriptor = new EditDiveDescriptorBuilder(editedDive).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_DIVE, descriptor);
@@ -209,7 +213,7 @@ public class EditCommandTest {
      */
     @Test
     public void executeUndoRedo_validIndexFilteredList_sameDiveEdited() throws Exception {
-       /* DiveSession editedDive = new DiveSessionBuilder().build();
+        DiveSession editedDive = new DiveSessionBuilder().build();
         EditDiveDescriptor descriptor = new EditDiveDescriptorBuilder(editedDive).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_DIVE, descriptor);
         Model expectedModel = new ModelManager(new DiveLog(model.getDiveLog()), new UserPrefs());
@@ -229,7 +233,7 @@ public class EditCommandTest {
         assertNotEquals(model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased()), diveToEdit);
         // redo -> edits same second dive session in unfiltered dive session list
         expectedModel.redoDiveLog();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);*/
+        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
