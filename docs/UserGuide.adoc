@@ -432,3 +432,4 @@ The Recreational Dive Planner Table is actually three tables linked together. Ea
 
 *Q*: Where can I find out more about PADI dive tables? [[PADI]] +
 *A*: The 36-page long Instructions for Use official document can be found https://elearning.padi.com/company0/tools/RDP%20InsforUseMet.pdf
+
