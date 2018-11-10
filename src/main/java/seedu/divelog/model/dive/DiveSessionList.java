@@ -23,7 +23,7 @@ import seedu.divelog.model.dive.exceptions.InvalidTimeException;
  * Stores a list of dives
  */
 public class DiveSessionList implements Iterable<DiveSession> {
-    private static final float ONE_DAY_IN_MINUTES = 24 * 60;
+    private static final float SIX_HOURS_IN_MINUTES = (6 * 60) - 1;
 
     private final ObservableList<DiveSession> internalList = FXCollections.observableArrayList();
     /**
@@ -108,7 +108,7 @@ public class DiveSessionList implements Iterable<DiveSession> {
 
             float surfaceInterval = prevDive.getTimeBetweenDiveSession(internalList.get(i));
 
-            if (surfaceInterval > ONE_DAY_IN_MINUTES) {
+            if (surfaceInterval > SIX_HOURS_IN_MINUTES) {
                 internalList.get(i).computePressureGroupNonRepeated();
             } else {
                 PressureGroup newPg = PressureGroupLogic.computePressureGroupAfterSurfaceInterval(
