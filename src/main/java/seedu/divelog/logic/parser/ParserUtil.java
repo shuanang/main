@@ -173,22 +173,33 @@ public class ParserUtil {
     }
 
     /**
-     * @param argMultimap
      * @throws ParseException
      */
-    public static void checkTimeformat(ArgumentMultimap argMultimap) throws ParseException {
-        if (argMultimap.getValue(CliSyntax.PREFIX_TIME_START).get().length() != 4
-                || argMultimap.getValue(CliSyntax.PREFIX_TIME_END).get().length() != 4
-                || argMultimap.getValue(CliSyntax.PREFIX_SAFETY_STOP).get().length() != 4) {
+    public static void checkTimeformat(String startTime, String endTime, String safetyTime) throws ParseException {
+        if (startTime.length() != 4
+                || endTime.length() != 4
+                || safetyTime.length() != 4) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_TIME_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
         try {
-            Integer.parseInt(argMultimap.getValue(CliSyntax.PREFIX_TIME_END).get());
-            Integer.parseInt(argMultimap.getValue(CliSyntax.PREFIX_SAFETY_STOP).get());
-            Integer.parseInt(argMultimap.getValue(CliSyntax.PREFIX_TIME_START).get());
+            Integer.parseInt(endTime);
+            Integer.parseInt(safetyTime);
+            Integer.parseInt(startTime);
         } catch (NumberFormatException nfe) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_TIME_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+
+        int timeInt1 = Integer.parseInt(startTime);
+        int timeInt2 = Integer.parseInt(endTime);
+        int timeInt3 = Integer.parseInt(safetyTime);
+
+        if (timeInt1 % 100 > 59 || timeInt2 % 100 > 59 || timeInt3 % 100 > 59) {
+            throw new ParseException("Minutes component of the time is more than 59!");
+        }
+        //
+        if (timeInt1 / 100 > 23 || timeInt2 / 100 > 23 || timeInt3 / 100 > 23) {
+            throw new ParseException("Hour component of the time is more than 23!");
         }
     }
     //@@author

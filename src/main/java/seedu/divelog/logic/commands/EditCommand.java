@@ -85,6 +85,7 @@ public class EditCommand extends Command {
 
         editedDive = createEditedDive(diveToEdit, editDiveDescriptor);
 
+
         try {
             model.updateDiveSession(diveToEdit, editedDive);
         } catch (seedu.divelog.model.dive.exceptions.DiveNotFoundException e) {
@@ -132,7 +133,7 @@ public class EditCommand extends Command {
         DiveSession editedDive = new DiveSession(dateStart, start, safetyStop, dateEnd, end,
                 pressureGroupAtBeginning, pressureGroupAtEnd, location, depth, timezone);
 
-
+        ParserUtil.checkTimeformat(start.getTimeString(), end.getTimeString(), safetyStop.getTimeString());
         ParserUtil.checkTimeZoneformat(timezone.getTimeZoneString());
         ParserUtil.checkEditTimeDateLimit(editedDive);
 

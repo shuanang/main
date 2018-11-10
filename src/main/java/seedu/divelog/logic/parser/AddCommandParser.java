@@ -58,7 +58,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
 
-        ParserUtil.checkTimeformat(argMultimap);
+
+
         try {
             ParserUtil.checkTimeDateLimit(argMultimap);
         } catch (java.text.ParseException e) {
@@ -66,10 +67,11 @@ public class AddCommandParser implements Parser<AddCommand> {
         } catch (InvalidTimeException e) {
             throw new ParseException(MESSAGE_INVALID_DATE_LIMITS);
         }
-
         ParserUtil.checkDateFormat(argMultimap);
         ParserUtil.checkTimeZoneformat(argMultimap.getValue(CliSyntax.PREFIX_TIMEZONE).get());
-
+        ParserUtil.checkTimeformat(argMultimap.getValue(CliSyntax.PREFIX_TIME_START).get(),
+                argMultimap.getValue(CliSyntax.PREFIX_TIME_END).get(),
+                argMultimap.getValue(CliSyntax.PREFIX_SAFETY_STOP).get());
 
         OurDate dateStart = new OurDate(argMultimap.getValue(CliSyntax.PREFIX_DATE_START).get());
         Time startTime = new Time(argMultimap.getValue(CliSyntax.PREFIX_TIME_START).get());
