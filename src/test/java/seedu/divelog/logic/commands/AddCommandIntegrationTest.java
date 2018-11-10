@@ -12,7 +12,6 @@ import seedu.divelog.model.Model;
 import seedu.divelog.model.ModelManager;
 import seedu.divelog.model.UserPrefs;
 import seedu.divelog.model.dive.DiveSession;
-import seedu.divelog.model.dive.exceptions.DiveNotFoundException;
 import seedu.divelog.model.dive.exceptions.DiveOverlapsException;
 import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 import seedu.divelog.testutil.DiveSessionBuilder;

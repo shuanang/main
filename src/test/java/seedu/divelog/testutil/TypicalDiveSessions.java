@@ -49,7 +49,7 @@ public class TypicalDiveSessions {
         for (DiveSession dive : getTypicalDives()) {
             try {
                 ab.addDive(dive);
-            } catch (InvalidTimeException | LimitExceededException |DiveOverlapsException de) {
+            } catch (InvalidTimeException | LimitExceededException | DiveOverlapsException de) {
                 throw new AssertionError("Typical dive log should be a valid log! Recieved a " + de.toString());
             }
         }

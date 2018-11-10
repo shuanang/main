@@ -37,7 +37,7 @@ public class AddCommandSystemTest extends DiveLogSystemTest {
      * {@code DiveLogSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see DiveLogSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandSuccess(DiveSession toAdd)   {
+    private void assertCommandSuccess(DiveSession toAdd) {
         assertCommandSuccess(DiveUtil.getAddCommand(toAdd), toAdd);
     }
 
@@ -46,7 +46,7 @@ public class AddCommandSystemTest extends DiveLogSystemTest {
      * instead.
      * @see AddCommandSystemTest#assertCommandSuccess(DiveSession)
      */
-    private void assertCommandSuccess(String command, DiveSession toAdd)  {
+    private void assertCommandSuccess(String command, DiveSession toAdd) {
         Model expectedModel = getModel();
         try {
             expectedModel.addDiveSession(toAdd);

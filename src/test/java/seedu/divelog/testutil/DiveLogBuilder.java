@@ -31,7 +31,7 @@ public class DiveLogBuilder {
     public DiveLogBuilder withDive(DiveSession dive) {
         try {
             diveLog.addDive(dive);
-        } catch (LimitExceededException| InvalidTimeException| DiveOverlapsException le) {
+        } catch (LimitExceededException | InvalidTimeException | DiveOverlapsException le) {
             throw new AssertionError(
                     "You should only be building valid dives for example test cases instead got" + le.toString());
         }

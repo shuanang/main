@@ -54,7 +54,7 @@ public class DiveLogTest {
     }
 
     @Test
-    public void getMostRecent_test()  throws LimitExceededException, InvalidTimeException, DiveOverlapsException {
+    public void getMostRecent_test() throws LimitExceededException, InvalidTimeException, DiveOverlapsException {
 
         //Test when empty
         assertEquals(diveLog.getMostRecentDive(), null);
