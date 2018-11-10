@@ -95,6 +95,10 @@ public interface Model {
      * Restores the model's divelog book to its previously undone state.
      */
     void redoDiveLog();
+    /**
+     * zeroes the planner count
+     */
+    void zeroPlannerCount();
 
     /**
      * Saves the current divelog book state for undo/redo.

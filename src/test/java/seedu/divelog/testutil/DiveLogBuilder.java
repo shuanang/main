@@ -3,6 +3,7 @@ package seedu.divelog.testutil;
 import seedu.divelog.logic.pressuregroup.exceptions.LimitExceededException;
 import seedu.divelog.model.DiveLog;
 import seedu.divelog.model.dive.DiveSession;
+import seedu.divelog.model.dive.exceptions.DiveOverlapsException;
 import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 
 /**
@@ -30,10 +31,9 @@ public class DiveLogBuilder {
     public DiveLogBuilder withDive(DiveSession dive) {
         try {
             diveLog.addDive(dive);
-        } catch (LimitExceededException le) {
-            throw new AssertionError("You should only be building valid dives for example test cases");
-        } catch (InvalidTimeException tie) {
-            throw new AssertionError("You should only be building valid dives for example test cases");
+        } catch (LimitExceededException| InvalidTimeException| DiveOverlapsException le) {
+            throw new AssertionError(
+                    "You should only be building valid dives for example test cases instead got" + le.toString());
         }
         return this;
     }

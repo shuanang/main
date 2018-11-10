@@ -157,7 +157,7 @@ public class DiveSession implements Comparable {
             //Shouldn't ever be reached
             Logger log = LogsCenter.getLogger(DiveSession.class);
             log.severe("Something went wrong with the time format");
-            throw new InvalidTimeException();
+            throw new InvalidTimeException("Something went wrong with the time format");
         }
     }
 
@@ -178,7 +178,7 @@ public class DiveSession implements Comparable {
             //Shouldn't ever be reached
             Logger log = LogsCenter.getLogger(DiveSession.class);
             log.severe("Something went wrong with the time format");
-            throw new InvalidTimeException();
+            throw new InvalidTimeException("Something went wrong with the time format");
         }
     }
 
@@ -194,7 +194,7 @@ public class DiveSession implements Comparable {
         } catch (Exception e) {
             Logger log = LogsCenter.getLogger(DiveSession.class);
             log.severe("Something went wrong with the time format");
-            throw new InvalidTimeException();
+            throw new InvalidTimeException("Something went wrong with the time format");
         }
     }
     @Override

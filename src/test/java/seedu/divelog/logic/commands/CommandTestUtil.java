@@ -15,6 +15,7 @@ import seedu.divelog.model.DiveLog;
 import seedu.divelog.model.Model;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.LocationContainsKeywordPredicate;
+import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 import seedu.divelog.testutil.EditDiveDescriptorBuilder;
 
 /**
@@ -97,6 +98,7 @@ public class CommandTestUtil {
         try {
             command.execute(actualModel, actualCommandHistory);
             throw new AssertionError("The expected CommandException was not thrown.");
+
         } catch (CommandException ce) {
             assertEquals(expectedMessage, ce.getMessage());
             assertEquals(expectedDiveLog, actualModel.getDiveLog());

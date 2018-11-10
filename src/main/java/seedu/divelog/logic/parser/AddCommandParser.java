@@ -2,9 +2,6 @@ package seedu.divelog.logic.parser;
 
 import java.util.stream.Stream;
 
-import org.json.JSONException;
-
-import seedu.divelog.commons.core.LogsCenter;
 import seedu.divelog.commons.core.Messages;
 import seedu.divelog.commons.util.CompareUtil;
 import seedu.divelog.logic.commands.AddCommand;
@@ -18,7 +15,7 @@ import seedu.divelog.model.dive.OurDate;
 import seedu.divelog.model.dive.PressureGroup;
 import seedu.divelog.model.dive.Time;
 import seedu.divelog.model.dive.TimeZone;
-import seedu.divelog.model.dive.exceptions.InvalidTimeException;
+import seedu.divelog.model.divetables.PadiDiveTable;
 
 /**
  * Parses input arguments and creates a new AddCommand object.
@@ -58,9 +55,9 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         ParserUtil.checkTimeformat(argMultimap);
         ParserUtil.checkTimeDateLimit(argMultimap);
-        ParserUtil.checkDateformat(argMultimap);
+        ParserUtil.checkDateFormat(argMultimap);
+        ParserUtil.checkTimeZoneformat(argMultimap.getValue(CliSyntax.PREFIX_TIMEZONE).get());
 
-        //ParserUtil.checkTimeZoneformat(argMultimap);
 
         OurDate dateStart = new OurDate(argMultimap.getValue(CliSyntax.PREFIX_DATE_START).get());
         Time startTime = new Time(argMultimap.getValue(CliSyntax.PREFIX_TIME_START).get());
@@ -76,6 +73,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 new Location(argMultimap.getValue(CliSyntax.PREFIX_LOCATION).get());
         DepthProfile depthProfile = ParserUtil.parseDepth(argMultimap.getValue(CliSyntax.PREFIX_DEPTH).get());
         TimeZone timezone = new TimeZone(argMultimap.getValue(CliSyntax.PREFIX_TIMEZONE).get());
+        PadiDiveTable padiDiveTable = PadiDiveTable.getInstance();
 
         try {
             long duration = CompareUtil.checkTimeDifference(startTime.getTimeString(), endTime.getTimeString(),
@@ -89,8 +87,9 @@ public class AddCommandParser implements Parser<AddCommand> {
                             pressureGroupAtEnd, location, depthProfile, timezone);
             return new AddCommand(dive);
         } catch (LimitExceededException e) {
-            throw new ParseException(Messages.MESSAGE_ERROR_LIMIT_EXCEED);
-        } catch (java.text.ParseException e) {
+            throw new ParseException(Messages.MESSAGE_ERROR_LIMIT_EXCEED + " Max time you can spend at "
+                    + depthProfile.getDepth() + "m is " + padiDiveTable.getMaxBottomTime(depthProfile) + " minutes");
+        } catch (java.text.ParseException pe) {
             throw new ParseException(Messages.MESSAGE_INVALID_TIME_FORMAT);
         }
 

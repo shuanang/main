@@ -6,6 +6,7 @@ import seedu.divelog.logic.commands.AddCommand;
 import seedu.divelog.logic.pressuregroup.exceptions.LimitExceededException;
 import seedu.divelog.model.Model;
 import seedu.divelog.model.dive.DiveSession;
+import seedu.divelog.model.dive.exceptions.DiveOverlapsException;
 import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 import seedu.divelog.testutil.DiveUtil;
 
@@ -17,7 +18,7 @@ public class AddCommandSystemTest extends DiveLogSystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add a dive without tags to a non-empty divelog book, command with leading spaces and trailing spaces
+        /* Case: add a simple dive to the logbook
          * -> added
          */
     }
@@ -36,7 +37,7 @@ public class AddCommandSystemTest extends DiveLogSystemTest {
      * {@code DiveLogSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see DiveLogSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandSuccess(DiveSession toAdd) throws LimitExceededException, InvalidTimeException  {
+    private void assertCommandSuccess(DiveSession toAdd)   {
         assertCommandSuccess(DiveUtil.getAddCommand(toAdd), toAdd);
     }
 
@@ -45,9 +46,13 @@ public class AddCommandSystemTest extends DiveLogSystemTest {
      * instead.
      * @see AddCommandSystemTest#assertCommandSuccess(DiveSession)
      */
-    private void assertCommandSuccess(String command, DiveSession toAdd) throws LimitExceededException, InvalidTimeException {
+    private void assertCommandSuccess(String command, DiveSession toAdd)  {
         Model expectedModel = getModel();
-        expectedModel.addDiveSession(toAdd);
+        try {
+            expectedModel.addDiveSession(toAdd);
+        } catch (DiveOverlapsException | LimitExceededException | InvalidTimeException e) {
+            throw new AssertionError("Expected model is incorrectly constructed");
+        }
         String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, toAdd);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
     }

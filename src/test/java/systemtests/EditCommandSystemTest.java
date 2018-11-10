@@ -12,6 +12,7 @@ import seedu.divelog.logic.pressuregroup.exceptions.LimitExceededException;
 import seedu.divelog.model.Model;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.exceptions.DiveNotFoundException;
+import seedu.divelog.model.dive.exceptions.DiveOverlapsException;
 import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 
 public class EditCommandSystemTest extends DiveLogSystemTest {
@@ -99,7 +100,7 @@ public class EditCommandSystemTest extends DiveLogSystemTest {
      * @see EditCommandSystemTest#assertCommandSuccess(String, Index, DiveSession, Index)
      */
     private void assertCommandSuccess(String command, Index toEdit, DiveSession editedDive)
-            throws InvalidTimeException, LimitExceededException, DiveNotFoundException {
+            throws InvalidTimeException, LimitExceededException, DiveNotFoundException, DiveOverlapsException {
         assertCommandSuccess(command, toEdit, editedDive, null);
     }
 
@@ -114,7 +115,7 @@ public class EditCommandSystemTest extends DiveLogSystemTest {
      */
     private void assertCommandSuccess(String command, Index toEdit, DiveSession editedDive,
                                       Index expectedSelectedCardIndex)
-            throws InvalidTimeException, LimitExceededException, DiveNotFoundException {
+            throws InvalidTimeException, LimitExceededException, DiveNotFoundException, DiveOverlapsException {
         Model expectedModel = getModel();
         expectedModel.updateDiveSession(expectedModel.getFilteredDiveList().get(toEdit.getZeroBased()), editedDive);
         expectedModel.updateFilteredDiveList(PREDICATE_SHOW_ALL_DIVES);

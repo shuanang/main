@@ -7,6 +7,7 @@ import java.util.List;
 import seedu.divelog.logic.pressuregroup.exceptions.LimitExceededException;
 import seedu.divelog.model.DiveLog;
 import seedu.divelog.model.dive.DiveSession;
+import seedu.divelog.model.dive.exceptions.DiveOverlapsException;
 import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 
 /**
@@ -47,8 +48,8 @@ public class TypicalDiveSessions {
         for (DiveSession dive : getTypicalDives()) {
             try {
                 ab.addDive(dive);
-            } catch (InvalidTimeException | LimitExceededException le) {
-                throw new AssertionError("Typical dive log should be a valid log!");
+            } catch (InvalidTimeException | LimitExceededException |DiveOverlapsException de) {
+                throw new AssertionError("Typical dive log should be a valid log! Recieved a " + de.toString());
             }
         }
 
