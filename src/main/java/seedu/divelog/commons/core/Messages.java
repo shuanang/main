@@ -18,5 +18,6 @@ public class Messages {
             + "Safety Stop should be between Start and End time";
     public static final String MESSAGE_INVALID_TIMEZONE_FORMAT = "Invalid timezone format! (UTC format)";
     public static final String MESSAGE_ERROR_LIMIT_EXCEED = "Dive is too deep and too long!!";
-    public static final String MESSAGE_ERROR_DIVES_OVERLAP = "The dive overlaps with another dive. Not updating the divelog.";
+    public static final String MESSAGE_ERROR_DIVES_OVERLAP =
+            "The dive overlaps with another dive. Not updating the divelog.";
 }

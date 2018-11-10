@@ -24,9 +24,11 @@ public class PressureGroupLogic {
      * For first dive of the day, calculates pressure group given depth and minutes spent at depth
      * @param depth {@code DepthProfile} in metres, the deepest point which the diver descends for the dive
      * @param actualBottomTime in minutes which the diver spent underwater
+     * @throws LimitExceededException if the dive is too long.
      * @return new PressureGroup object containing the new pressure group after repeat dive
      */
-    public static PressureGroup computePressureGroupFirstDive(DepthProfile depth, float actualBottomTime) throws LimitExceededException {
+    public static PressureGroup computePressureGroupFirstDive(DepthProfile depth, float actualBottomTime)
+            throws LimitExceededException {
         PadiDiveTable padiDiveTable = PadiDiveTable.getInstance();
         PressureGroup newPg;
         newPg = padiDiveTable.depthToPg(depth, (int) actualBottomTime);

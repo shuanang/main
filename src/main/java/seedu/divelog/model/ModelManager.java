@@ -105,7 +105,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void addDiveSession(DiveSession diveSession) throws DiveOverlapsException, InvalidTimeException, LimitExceededException {
+    public void addDiveSession(DiveSession diveSession)
+            throws DiveOverlapsException, InvalidTimeException, LimitExceededException {
         versionedDiveLog.addDive(diveSession);
         updateFilteredDiveList(PREDICATE_SHOW_ALL_DIVES);
         indicateDiveLogChanged();

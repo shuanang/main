@@ -118,7 +118,7 @@ public class EditCommand extends Command {
 
         assert diveToEdit != null;
 
-        if(!editDiveSessionDescriptor.isAnyFieldEdited()) {
+        if (!editDiveSessionDescriptor.isAnyFieldEdited()) {
             throw new CommandException(MESSAGE_NOT_EDITED);
         }
 

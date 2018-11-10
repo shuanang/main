@@ -133,7 +133,8 @@ public class DiveLog implements ReadOnlyDiveLog {
             //This should technically never happen as the add and edit are now transactional,
             //and removing dives will always make things safer
             Logger logger = LogsCenter.getLogger(DiveLog.class);
-            logger.severe("Something went wrong with the pressure group calculation. The divelog seemed to be in an invalid state."  + e.toString());
+            logger.severe("Something went wrong with the pressure group calculation."
+                    + "The divelog seemed to be in an invalid state." + e.toString());
         }
     }
 

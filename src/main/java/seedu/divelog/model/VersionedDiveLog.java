@@ -3,9 +3,6 @@ package seedu.divelog.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.divelog.logic.pressuregroup.exceptions.LimitExceededException;
-import seedu.divelog.model.dive.exceptions.InvalidTimeException;
-
 /**
  * {@code DiveLog} that keeps track of its own history.
  */

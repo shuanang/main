@@ -1,10 +1,7 @@
 package seedu.divelog.model.dive;
 
-import static java.lang.Math.abs;
 import static java.util.Objects.requireNonNull;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;

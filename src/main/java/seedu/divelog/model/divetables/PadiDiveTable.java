@@ -25,7 +25,7 @@ import seedu.divelog.model.divetables.exceptions.MaxDepthExceededException;
  * This class loads dive tables
  */
 public class PadiDiveTable {
-
+    private static final int HOUR_IN_MINUTES = 60;
     private static final Logger logger = LogsCenter.getLogger(PadiDiveTable.class);
     private static final String TIME_VALIDATION_REGEX = "[0-9][0-9][:][0-9][0-9]";
     private static PadiDiveTable diveTable = new PadiDiveTable();
@@ -118,10 +118,10 @@ public class PadiDiveTable {
             String[] duration = time.split(":");
             int minutes = Integer.parseInt(duration[1]);
             int hours = Integer.parseInt(duration[0]);
-            if( minutes >= 60 ) {
+            if (minutes >= HOUR_IN_MINUTES) {
                 throw new InvalidTimeException("timetoMinutes failed");
             }
-            return  hours * 60 + minutes;
+            return hours * HOUR_IN_MINUTES + minutes;
         } else {
             throw new InvalidTimeException("timetoMinutes failed");
         }

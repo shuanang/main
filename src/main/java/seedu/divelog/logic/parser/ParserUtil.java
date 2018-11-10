@@ -11,7 +11,6 @@ import seedu.divelog.logic.parser.exceptions.ParseException;
 import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.PressureGroup;
-import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
