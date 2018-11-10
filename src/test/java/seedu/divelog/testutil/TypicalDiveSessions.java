@@ -19,6 +19,7 @@ public class TypicalDiveSessions {
     public static final DiveSession DIVE_AT_TIOMAN = new DiveSessionBuilder()
             .withLocation("Tioman")
             .withStart("1000")
+            .withSafetyStop("1025")
             .withEnd("1030")
             .build();
     public static final DiveSession DIVE_AT_NOON = new DiveSessionBuilder()

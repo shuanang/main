@@ -1,6 +1,7 @@
 package seedu.divelog.logic.commands;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.divelog.logic.commands.CommandTestUtil.DESC_DAY_BALI;
 import static seedu.divelog.logic.commands.CommandTestUtil.DESC_DAY_TIOMAN;
@@ -212,7 +213,7 @@ public class EditCommandTest {
      */
     @Test
     public void executeUndoRedo_validIndexFilteredList_sameDiveEdited() throws Exception {
-       /* DiveSession editedDive = new DiveSessionBuilder().build();
+        DiveSession editedDive = new DiveSessionBuilder().build();
         EditDiveDescriptor descriptor = new EditDiveDescriptorBuilder(editedDive).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_DIVE, descriptor);
         Model expectedModel = new ModelManager(new DiveLog(model.getDiveLog()), new UserPrefs());
@@ -232,7 +233,7 @@ public class EditCommandTest {
         assertNotEquals(model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased()), diveToEdit);
         // redo -> edits same second dive session in unfiltered dive session list
         expectedModel.redoDiveLog();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);*/
+        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
