@@ -28,11 +28,6 @@ public class VersionedDiveLog extends DiveLog {
      * Undone states are removed from the state list.
      */
     public void commit() {
-        try {
-            recalculatePressureGroups();
-        } catch (LimitExceededException | InvalidTimeException e) {
-            e.printStackTrace();
-        }
         removeStatesAfterCurrentPointer();
         diveLogStateList.add(new DiveLog(this));
         currentStatePointer++;

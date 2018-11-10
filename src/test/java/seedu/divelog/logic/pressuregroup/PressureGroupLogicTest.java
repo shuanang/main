@@ -24,7 +24,7 @@ public class PressureGroupLogicTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void computePressureGroupFirstDive_test() {
+    public void computePressureGroupFirstDive_test() throws LimitExceededException {
         PressureGroup pressureGroup = PressureGroupLogic.computePressureGroupFirstDive(new DepthProfile(14),
                 50);
         assertEquals(pressureGroup.getPressureGroup(), "N");

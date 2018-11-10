@@ -7,6 +7,8 @@ import seedu.divelog.commons.enums.SortingMethod;
 import seedu.divelog.logic.pressuregroup.exceptions.LimitExceededException;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.exceptions.DiveNotFoundException;
+import seedu.divelog.model.dive.exceptions.DiveOverlapsException;
+import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 
 
 /**
@@ -34,7 +36,8 @@ public interface Model {
      * {@code DiveSession} must not already exist in the divelog book.
      * @param diveSession
      */
-    void addDiveSession(DiveSession diveSession);
+    void addDiveSession(DiveSession diveSession) throws DiveOverlapsException, LimitExceededException,
+            InvalidTimeException;
 
     /**
      * Replaces the given dive {@code target} with {@code editedDiveSession}.
@@ -43,7 +46,8 @@ public interface Model {
      * @param target
      * @param editedDiveSession
      */
-    void updateDiveSession(DiveSession target, DiveSession editedDiveSession) throws DiveNotFoundException;
+    void updateDiveSession(DiveSession target, DiveSession editedDiveSession) throws DiveOverlapsException,
+            DiveNotFoundException, InvalidTimeException, LimitExceededException;
 
     /** Returns an unmodifiable view of the filtered dive session list */
     ObservableList<DiveSession> getFilteredDiveList();

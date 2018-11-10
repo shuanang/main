@@ -12,6 +12,7 @@ import org.json.JSONObject;
 
 import seedu.divelog.commons.core.LogsCenter;
 import seedu.divelog.commons.util.DiveTableUtil;
+import seedu.divelog.logic.pressuregroup.exceptions.LimitExceededException;
 import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.dive.PressureGroup;
 import seedu.divelog.model.dive.exceptions.InvalidTimeException;
@@ -120,7 +121,7 @@ public class PadiDiveTable {
      * @param depth - The depth
      * @param duration - minutes;
      */
-    public PressureGroup depthToPg(DepthProfile depth, int duration) {
+    public PressureGroup depthToPg(DepthProfile depth, int duration) throws LimitExceededException {
         try {
             logger.info("Attempting to read json");
             JSONObject table = depthToPressureGroup.readJsonFileFromResources();
@@ -145,7 +146,7 @@ public class PadiDiveTable {
      * @param pressureGroup - pressure group at time
      * @return an array containing
      */
-    public JSONArray depthToTimes(DepthProfile depth, PressureGroup pressureGroup) {
+    public JSONArray depthToTimes(DepthProfile depth, PressureGroup pressureGroup) throws LimitExceededException {
         try {
             JSONObject table = diveTableUtil.readJsonFileFromResources();
             String key = findClosestKey(table, depth.getDepth());
@@ -166,7 +167,7 @@ public class PadiDiveTable {
      * @param object - JSON Object
      * @param key - The key that is nearest to that value.
      */
-    public static String findClosestKey(JSONObject object, float key) {
+    public static String findClosestKey(JSONObject object, float key) throws LimitExceededException {
         Iterator<String> keys = object.keys();
         ArrayList<Integer> integerKeys = new ArrayList<Integer>();
 
@@ -180,6 +181,9 @@ public class PadiDiveTable {
         int i = 0;
         while (key > integerKeys.get(i)) {
             i++;
+            if (i == integerKeys.size()) {
+                throw new LimitExceededException();
+            }
         }
 
         return integerKeys.get(i).toString();

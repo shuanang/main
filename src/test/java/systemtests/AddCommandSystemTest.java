@@ -3,8 +3,10 @@ package systemtests;
 import org.junit.Test;
 
 import seedu.divelog.logic.commands.AddCommand;
+import seedu.divelog.logic.pressuregroup.exceptions.LimitExceededException;
 import seedu.divelog.model.Model;
 import seedu.divelog.model.dive.DiveSession;
+import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 import seedu.divelog.testutil.DiveUtil;
 
 public class AddCommandSystemTest extends DiveLogSystemTest {
@@ -34,7 +36,7 @@ public class AddCommandSystemTest extends DiveLogSystemTest {
      * {@code DiveLogSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see DiveLogSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandSuccess(DiveSession toAdd) {
+    private void assertCommandSuccess(DiveSession toAdd) throws LimitExceededException, InvalidTimeException  {
         assertCommandSuccess(DiveUtil.getAddCommand(toAdd), toAdd);
     }
 
@@ -43,11 +45,10 @@ public class AddCommandSystemTest extends DiveLogSystemTest {
      * instead.
      * @see AddCommandSystemTest#assertCommandSuccess(DiveSession)
      */
-    private void assertCommandSuccess(String command, DiveSession toAdd) {
+    private void assertCommandSuccess(String command, DiveSession toAdd) throws LimitExceededException, InvalidTimeException {
         Model expectedModel = getModel();
         expectedModel.addDiveSession(toAdd);
         String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, toAdd);
-
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
     }
 

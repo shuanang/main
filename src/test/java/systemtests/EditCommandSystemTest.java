@@ -8,8 +8,11 @@ import org.junit.Test;
 import seedu.divelog.commons.core.Messages;
 import seedu.divelog.commons.core.index.Index;
 import seedu.divelog.logic.commands.EditCommand;
+import seedu.divelog.logic.pressuregroup.exceptions.LimitExceededException;
 import seedu.divelog.model.Model;
 import seedu.divelog.model.dive.DiveSession;
+import seedu.divelog.model.dive.exceptions.DiveNotFoundException;
+import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 
 public class EditCommandSystemTest extends DiveLogSystemTest {
 
@@ -95,7 +98,8 @@ public class EditCommandSystemTest extends DiveLogSystemTest {
      * @param toEdit the index of the current model's filtered list
      * @see EditCommandSystemTest#assertCommandSuccess(String, Index, DiveSession, Index)
      */
-    private void assertCommandSuccess(String command, Index toEdit, DiveSession editedDive) {
+    private void assertCommandSuccess(String command, Index toEdit, DiveSession editedDive)
+            throws InvalidTimeException, LimitExceededException, DiveNotFoundException {
         assertCommandSuccess(command, toEdit, editedDive, null);
     }
 
@@ -109,13 +113,10 @@ public class EditCommandSystemTest extends DiveLogSystemTest {
      * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
      */
     private void assertCommandSuccess(String command, Index toEdit, DiveSession editedDive,
-                                      Index expectedSelectedCardIndex) {
+                                      Index expectedSelectedCardIndex)
+            throws InvalidTimeException, LimitExceededException, DiveNotFoundException {
         Model expectedModel = getModel();
-        try {
-            expectedModel.updateDiveSession(expectedModel.getFilteredDiveList().get(toEdit.getZeroBased()), editedDive);
-        } catch (seedu.divelog.model.dive.exceptions.DiveNotFoundException e) {
-            e.printStackTrace();
-        }
+        expectedModel.updateDiveSession(expectedModel.getFilteredDiveList().get(toEdit.getZeroBased()), editedDive);
         expectedModel.updateFilteredDiveList(PREDICATE_SHOW_ALL_DIVES);
 
         assertCommandSuccess(command, expectedModel,

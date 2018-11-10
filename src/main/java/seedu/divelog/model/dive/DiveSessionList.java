@@ -1,7 +1,10 @@
 package seedu.divelog.model.dive;
 
+import static java.lang.Math.abs;
 import static java.util.Objects.requireNonNull;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
@@ -122,14 +125,21 @@ public class DiveSessionList implements Iterable<DiveSession> {
     }
 
     /**
-     * Checks if there are overlapping dives given a dive session.
-     * @return True if dives overlap (this is bad), false other wise
+     * Checks if the dive list has any overlaps
+     * @return True if dives overlap (this is bad), false otherwise
      */
-    public boolean hasOverlap(DiveSession diveSession) {
-        //sort dives
-        sortDiveSession(SortingMethod.TIME);
+    public boolean hasOverlap() {
 
-        //Find the dive with the ending time that is closest to
+        FXCollections.sort(internalList);
+
+        for (int i = 1; i < internalList.size(); i++) {
+            Date endOfLastDive = internalList.get(i - 1).getEndDate();
+            Date startOfNextDive = internalList.get(i).getDateTime();
+            if (endOfLastDive.compareTo(startOfNextDive) > 0) {
+                return true;
+            }
+        }
+        return false;
     }
     //@@author
 
@@ -176,8 +186,9 @@ public class DiveSessionList implements Iterable<DiveSession> {
      */
     public void setDives(DiveSessionList replacement) {
         requireNonNull(replacement);
-        sortDiveSession(SortingMethod.TIME);
         internalList.setAll(replacement.internalList);
+        sortDiveSession(SortingMethod.TIME);
+
     }
 
     /**

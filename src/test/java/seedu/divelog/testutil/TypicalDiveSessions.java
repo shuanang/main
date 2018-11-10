@@ -45,13 +45,11 @@ public class TypicalDiveSessions {
         DiveLog ab = new DiveLog();
 
         for (DiveSession dive : getTypicalDives()) {
-            ab.addDive(dive);
-        }
-
-        try {
-            ab.recalculatePressureGroups();
-        } catch (LimitExceededException | InvalidTimeException e) {
-            e.printStackTrace();
+            try {
+                ab.addDive(dive);
+            } catch (InvalidTimeException | LimitExceededException le) {
+                throw new AssertionError("Typical dive log should be a valid log!");
+            }
         }
 
         return ab;

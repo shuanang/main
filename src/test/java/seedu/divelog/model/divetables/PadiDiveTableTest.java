@@ -8,6 +8,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.divelog.logic.pressuregroup.exceptions.LimitExceededException;
 import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.dive.PressureGroup;
 import seedu.divelog.model.dive.exceptions.InvalidTimeException;
@@ -34,14 +35,14 @@ public class PadiDiveTableTest {
     }
 
     @Test
-    public void depthToPressuregroup_canRead() {
+    public void depthToPressuregroup_canRead() throws LimitExceededException {
         PadiDiveTable padiDiveTable = PadiDiveTable.getInstance();
         PressureGroup pg = padiDiveTable.depthToPg(new DepthProfile(10), 122);
         assertEquals(pg.getPressureGroup(), "T");
     }
 
     @Test
-    public void depthToTimes_canRead() throws JSONException {
+    public void depthToTimes_canRead() throws JSONException, LimitExceededException {
         PadiDiveTable padiDiveTable = PadiDiveTable.getInstance();
         JSONArray arr = padiDiveTable.depthToTimes(new DepthProfile(10), new PressureGroup("A"));
         assertEquals(arr.getInt(0), 10);

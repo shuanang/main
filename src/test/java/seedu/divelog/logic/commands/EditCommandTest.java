@@ -26,6 +26,7 @@ import seedu.divelog.model.ModelManager;
 import seedu.divelog.model.UserPrefs;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.PressureGroup;
+import seedu.divelog.model.dive.exceptions.DiveNotFoundException;
 import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 import seedu.divelog.testutil.DiveSessionBuilder;
 import seedu.divelog.testutil.EditDiveDescriptorBuilder;
@@ -49,7 +50,7 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_allFieldsSpecifiedUnfilteredList_success() {
+    public void execute_allFieldsSpecifiedUnfilteredList_success()throws DiveNotFoundException, LimitExceededException, InvalidTimeException {
         DiveSession editedDive = new DiveSessionBuilder().build();
         EditDiveDescriptor descriptor = new EditDiveDescriptorBuilder(editedDive).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_DIVE, descriptor);
@@ -65,19 +66,16 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_DIVE_SUCCESS, editedDive);
 
         Model expectedModel = new ModelManager(new DiveLog(model.getDiveLog()), new UserPrefs());
-        try {
-            expectedModel.updateDiveSession(model.getFilteredDiveList().get(0), editedDive);
-            expectedModel.recalculatePressureGroups();
-        } catch (seedu.divelog.model.dive.exceptions.DiveNotFoundException | LimitExceededException e) {
-            e.printStackTrace();
-        }
+
+        expectedModel.updateDiveSession(model.getFilteredDiveList().get(0), editedDive);
+        expectedModel.recalculatePressureGroups();
         expectedModel.commitDiveLog();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_someFieldsSpecifiedUnfilteredList_success() {
+    public void execute_someFieldsSpecifiedUnfilteredList_success() throws InvalidTimeException, LimitExceededException {
         Index indexLastDive = Index.fromOneBased(model.getFilteredDiveList().size());
         DiveSession lastDive = model.getFilteredDiveList().get(indexLastDive.getZeroBased());
 
@@ -114,7 +112,7 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_filteredList_success() {
+    public void execute_filteredList_success() throws LimitExceededException, DiveNotFoundException, InvalidTimeException {
         showDiveAtIndex(model, INDEX_FIRST_DIVE);
 
         DiveSession diveSessionInFilteredList = model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased());
@@ -126,11 +124,8 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_DIVE_SUCCESS, editedDive);
 
         Model expectedModel = new ModelManager(new DiveLog(model.getDiveLog()), new UserPrefs());
-        try {
-            expectedModel.updateDiveSession(model.getFilteredDiveList().get(0), editedDive);
-        } catch (seedu.divelog.model.dive.exceptions.DiveNotFoundException e) {
-            e.printStackTrace();
-        }
+        expectedModel.updateDiveSession(model.getFilteredDiveList().get(0), editedDive);
+
         expectedModel.commitDiveLog();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);

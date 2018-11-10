@@ -12,6 +12,7 @@ import seedu.divelog.logic.pressuregroup.exceptions.LimitExceededException;
 import seedu.divelog.model.DiveLog;
 import seedu.divelog.model.ReadOnlyDiveLog;
 import seedu.divelog.model.dive.DiveSession;
+import seedu.divelog.model.dive.exceptions.DiveOverlapsException;
 import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 
 /**
@@ -50,14 +51,15 @@ public class XmlSerializableDiveLog {
         DiveLog diveLog = new DiveLog();
         for (XmlAdaptedDiveSession p : dives) {
             DiveSession dive = p.toModelType();
-            diveLog.addDive(dive);
-        }
-        try {
-            diveLog.recalculatePressureGroups();
-        } catch (LimitExceededException le) {
-            throw new IllegalValueException("A dive that would result in decompression was found in the ");
-        } catch (InvalidTimeException ive) {
-            throw new IllegalValueException("Time was misformatted");
+            try {
+                diveLog.addDive(dive);
+            } catch (LimitExceededException le) {
+                throw new IllegalValueException("A dive that would result in decompression was found in the ");
+            } catch (InvalidTimeException ive) {
+                throw new IllegalValueException("Time was misformated");
+            } catch (DiveOverlapsException dv) {
+                throw new IllegalValueException("Found overlapping dives in XML file");
+            }
         }
         return diveLog;
     }

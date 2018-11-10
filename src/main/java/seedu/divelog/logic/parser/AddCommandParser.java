@@ -4,6 +4,7 @@ import java.util.stream.Stream;
 
 import org.json.JSONException;
 
+import seedu.divelog.commons.core.LogsCenter;
 import seedu.divelog.commons.core.Messages;
 import seedu.divelog.commons.util.CompareUtil;
 import seedu.divelog.logic.commands.AddCommand;
@@ -17,6 +18,7 @@ import seedu.divelog.model.dive.OurDate;
 import seedu.divelog.model.dive.PressureGroup;
 import seedu.divelog.model.dive.Time;
 import seedu.divelog.model.dive.TimeZone;
+import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 
 /**
  * Parses input arguments and creates a new AddCommand object.
@@ -55,11 +57,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
 
         ParserUtil.checkTimeformat(argMultimap);
-        try {
-            ParserUtil.checkTimeDateLimit(argMultimap);
-        } catch (java.text.ParseException e) {
-            e.printStackTrace();
-        }
+        ParserUtil.checkTimeDateLimit(argMultimap);
         ParserUtil.checkDateformat(argMultimap);
 
         //ParserUtil.checkTimeZoneformat(argMultimap);
@@ -90,12 +88,10 @@ public class AddCommandParser implements Parser<AddCommand> {
                     new DiveSession(dateStart, startTime, safetyStop, dateEnd, endTime, pressureGroupAtBeginning,
                             pressureGroupAtEnd, location, depthProfile, timezone);
             return new AddCommand(dive);
-        } catch (JSONException e) {
-            throw new ParseException(Messages.MESSAGE_INTERNAL_ERROR);
-        } catch (LimitExceededException l) {
+        } catch (LimitExceededException e) {
             throw new ParseException(Messages.MESSAGE_ERROR_LIMIT_EXCEED);
-        } catch (Exception e) {
-            throw new ParseException(Messages.MESSAGE_INTERNAL_ERROR);
+        } catch (java.text.ParseException e) {
+            throw new ParseException(Messages.MESSAGE_INVALID_TIME_FORMAT);
         }
 
     }

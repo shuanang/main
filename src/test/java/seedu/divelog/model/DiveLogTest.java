@@ -9,7 +9,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.divelog.logic.pressuregroup.exceptions.LimitExceededException;
 import seedu.divelog.model.dive.DiveSession;
+import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 import seedu.divelog.testutil.DiveSessionBuilder;
 
 public class DiveLogTest {
@@ -51,7 +53,7 @@ public class DiveLogTest {
     }
 
     @Test
-    public void getMostRecent_test() {
+    public void getMostRecent_test()  throws LimitExceededException, InvalidTimeException {
 
         //Test when empty
         assertEquals(diveLog.getMostRecentDive(), null);
