@@ -32,7 +32,11 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_newDive_success() throws InvalidTimeException, LimitExceededException, DiveOverlapsException {
-        DiveSession validDive = new DiveSessionBuilder().build();
+        DiveSession validDive = new DiveSessionBuilder()
+                .withStart("0900")
+                .withEnd("1000")
+                .withSafetyStop("0945")
+                .build();
 
         Model expectedModel = new ModelManager(model.getDiveLog(), new UserPrefs());
         expectedModel.addDiveSession(validDive);

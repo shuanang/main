@@ -53,7 +53,11 @@ public class EditCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success()
             throws DiveNotFoundException, LimitExceededException, InvalidTimeException, DiveOverlapsException {
-        DiveSession editedDive = new DiveSessionBuilder().build();
+        DiveSession editedDive = new DiveSessionBuilder()
+                .withStart("0900")
+                .withEnd("1000")
+                .withSafetyStop("0945")
+                .build();
         EditDiveDescriptor descriptor = new EditDiveDescriptorBuilder(editedDive).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_DIVE, descriptor);
 
@@ -160,7 +164,11 @@ public class EditCommandTest {
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
-        DiveSession editedDive = new DiveSessionBuilder().build();
+        DiveSession editedDive = new DiveSessionBuilder()
+                .withStart("0900")
+                .withEnd("1000")
+                .withSafetyStop("0945")
+                .build();
         DiveSession diveToEdit = model.getFilteredDiveList().get(INDEX_FIRST_DIVE.getZeroBased());
         EditDiveDescriptor descriptor = new EditDiveDescriptorBuilder(editedDive).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_DIVE, descriptor);
