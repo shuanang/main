@@ -25,8 +25,10 @@ public class PressureGroupLogic {
      * @param depth {@code DepthProfile} in metres, the deepest point which the diver descends for the dive
      * @param actualBottomTime in minutes which the diver spent underwater
      * @return new PressureGroup object containing the new pressure group after repeat dive
+     * @throws LimitExceededException if the dive is too long.
      */
-    public static PressureGroup computePressureGroupFirstDive(DepthProfile depth, float actualBottomTime) {
+    public static PressureGroup computePressureGroupFirstDive(DepthProfile depth, float actualBottomTime)
+            throws LimitExceededException {
         PadiDiveTable padiDiveTable = PadiDiveTable.getInstance();
         PressureGroup newPg;
         newPg = padiDiveTable.depthToPg(depth, (int) actualBottomTime);
@@ -82,7 +84,7 @@ public class PressureGroupLogic {
      * @return number of minutes needed to the next immediate Pressure group e.g. "D" to "C"
      */
     public float computeTimeToNextPg(DiveSession lastDive) throws Exception {
-        //fromsurfaceinterval - ending pressure group + difference in minutes -> current pg
+        //from surface interval - ending pressure group + difference in minutes -> current pg
         long currentDateTime = CompareUtil.getCurrentDateTimeLong(); //ddMMyyyyHHmm
         String timeNow = readTimeFromLong(currentDateTime);
         String dateNow = readDateFromLong(currentDateTime);

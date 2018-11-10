@@ -101,6 +101,15 @@ public class DiveSession implements Comparable {
         return dateTime;
     }
 
+    public Date getEndDate() {
+        String dateTimeString = this.getDateEnd().getOurDateString().concat(this.getEnd().getTimeString());
+        try {
+            return new SimpleDateFormat("ddMMyyyyHHmm").parse(dateTimeString);
+        } catch (ParseException pe) {
+            return null;
+        }
+    }
+
     /**
      * Gets the dive start time as a java Date object
      * @return The date as the system's locale percieves it.
@@ -144,8 +153,6 @@ public class DiveSession implements Comparable {
             float actualBottomTime = CompareUtil.checkTimeDifference(start.getTimeString(), end.getTimeString(),
                 dateStart.getOurDateString(), dateEnd.getOurDateString());
             pressureGroupAtEnd = PressureGroupLogic.computePressureGroupFirstDive(depthProfile, actualBottomTime);
-        } catch (LimitExceededException l) {
-            throw l;
         } catch (Exception e) {
             //Shouldn't ever be reached
             Logger log = LogsCenter.getLogger(DiveSession.class);

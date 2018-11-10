@@ -15,7 +15,7 @@
     <dives>
         <dateStart>01012019</dateStart>
         <startTime>1000</startTime>
-        <safetyStop>0745</safetyStop>
+        <safetyStop>1025</safetyStop>
         <dateEnd>01012019</dateEnd>
         <endTime>1030</endTime>
         <pressureGroupAtBeginning>B</pressureGroupAtBeginning>

@@ -16,6 +16,7 @@ import seedu.divelog.commons.util.CollectionUtil;
 import seedu.divelog.logic.pressuregroup.exceptions.LimitExceededException;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.exceptions.DiveNotFoundException;
+import seedu.divelog.model.dive.exceptions.DiveOverlapsException;
 import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 
 /**
@@ -72,6 +73,12 @@ public class ModelManager extends ComponentManager implements Model {
     public void plannerCountMinus() {
         this.plannerCount--;
     }
+
+    @Override
+    public void zeroPlannerCount() {
+        this.plannerCount = 0;
+    }
+
     //@@author
 
     @Override
@@ -98,14 +105,16 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void addDiveSession(DiveSession diveSession) {
+    public void addDiveSession(DiveSession diveSession)
+            throws DiveOverlapsException, InvalidTimeException, LimitExceededException {
         versionedDiveLog.addDive(diveSession);
         updateFilteredDiveList(PREDICATE_SHOW_ALL_DIVES);
         indicateDiveLogChanged();
     }
 
     @Override
-    public void updateDiveSession(DiveSession target, DiveSession editedDiveSession) throws DiveNotFoundException {
+    public void updateDiveSession(DiveSession target, DiveSession editedDiveSession)
+            throws DiveNotFoundException, DiveOverlapsException, InvalidTimeException, LimitExceededException {
         CollectionUtil.requireAllNonNull(target, editedDiveSession);
         versionedDiveLog.updateDive(target, editedDiveSession);
         indicateDiveLogChanged();

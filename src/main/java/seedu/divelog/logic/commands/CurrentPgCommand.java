@@ -69,19 +69,19 @@ public class CurrentPgCommand extends Command {
             int singleDivePreFlightSurfaceIntervalMinutes = 12 * 60;
             int repeatDivePreFlightSurfaceIntervalMinutes = 18 * 60;
             if ((currentPg.getPressureGroup().equals("A")) && (firstDive == 0)
-                   && (surfaceDuration >= singleDivePreFlightSurfaceIntervalMinutes)) {
+                    && (surfaceDuration >= singleDivePreFlightSurfaceIntervalMinutes)) {
                 //check if there is any dive in the past 12 hours for single dives
                 return new CommandResult("Based on your latest dive(s), "
-                       + "your current pressure group is already A." + "\n"
-                       + "It has been at least 12 hours since your last SINGLE dive - you can safely fly!");
+                        + "your current pressure group is already A." + "\n"
+                        + "It has been at least 12 hours since your last SINGLE dive - you can safely fly!");
             }
             if ((currentPg.getPressureGroup().equals("A")) && (firstDive == 1)
                     && (surfaceDuration >= repeatDivePreFlightSurfaceIntervalMinutes)) {
                 //check if there is any dive in the past 18 hours for repeat/multi-day dives
                 return new CommandResult("Based on your latest dive(s),"
-                       + " your current pressure group is already A." + "\n"
+                        + " your current pressure group is already A." + "\n"
                         + " It has been at least 18 hours since your last dive of your repetitive dive series"
-                       + " - you can safely fly!");
+                        + " - you can safely fly!");
             }
             long singleDiveToFlightTime = singleDivePreFlightSurfaceIntervalMinutes - surfaceDuration;
             long repeatDiveToFlightTime = repeatDivePreFlightSurfaceIntervalMinutes - surfaceDuration;
@@ -90,9 +90,11 @@ public class CurrentPgCommand extends Command {
                 return new CommandResult(MESSAGE_CURRENTPG + currentPg.getPressureGroup() + "\n"
                         + MESSAGE_TIMETONEXT + nextPg + ": " + timeToNextPg + " minutes." + "\n"
                         + MESSAGE_TIMETOMIN + timeToMinPg + " minutes, at: " + dateFormat.format(minPgCal.getTime())
-                + "\n" + "You just completed a single dive, ended on " + lastDive.getDateEnd().getOurDateString() + " "
+                        + "\n" + "You just completed a single dive, ended on "
+                        + lastDive.getDateEnd().getOurDateString() + " "
                         + lastDive.getEnd().getTimeString()
-                        + "hrs. You are recommended to wait at least 12 hours on land "
+                        + "hrs." + "\n"
+                        + "You are recommended to wait at least 12 hours on land "
                         + "before flying." + "\n"
                         + "You can safely fly from: " + dateFormat.format(timeToFlightCal.getTime()) + " onwards.");
             }
@@ -104,7 +106,8 @@ public class CurrentPgCommand extends Command {
                         + "\n" + "You just completed a repetitive/multi-day dive, ended on "
                         + lastDive.getDateEnd().getOurDateString() + " "
                         + lastDive.getEnd().getTimeString()
-                        + "hrs. You are recommended to wait at least 18 hours on land before flying." + "\n"
+                        + "hrs." + "\n"
+                        + "You are recommended to wait at least 18 hours on land before flying." + "\n"
                         + "You can safely fly from: " + dateFormat.format(timeToFlightCal.getTime()) + " onwards.");
             }
         } catch (Exception e) {
