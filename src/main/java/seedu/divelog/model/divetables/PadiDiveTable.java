@@ -14,6 +14,7 @@ import seedu.divelog.commons.core.LogsCenter;
 import seedu.divelog.commons.core.Messages;
 import seedu.divelog.commons.util.DiveTableUtil;
 import seedu.divelog.logic.parser.exceptions.ParseException;
+import seedu.divelog.logic.pressuregroup.exceptions.LimitExceededException;
 import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.dive.PressureGroup;
 import seedu.divelog.model.dive.exceptions.InvalidTimeException;
@@ -24,7 +25,7 @@ import seedu.divelog.model.divetables.exceptions.MaxDepthExceededException;
  * This class loads dive tables
  */
 public class PadiDiveTable {
-
+    private static final int HOUR_IN_MINUTES = 60;
     private static final Logger logger = LogsCenter.getLogger(PadiDiveTable.class);
     private static final String TIME_VALIDATION_REGEX = "[0-9][0-9][:][0-9][0-9]";
     private static PadiDiveTable diveTable = new PadiDiveTable();
@@ -114,8 +115,13 @@ public class PadiDiveTable {
      */
     public float timeToMinutes(String time) throws InvalidTimeException {
         if (time.matches(TIME_VALIDATION_REGEX)) {
-            String[] minutes = time.split(":");
-            return Integer.parseInt(minutes[0]) * 60 + Integer.parseInt(minutes[1]);
+            String[] duration = time.split(":");
+            int minutes = Integer.parseInt(duration[1]);
+            int hours = Integer.parseInt(duration[0]);
+            if (minutes >= HOUR_IN_MINUTES) {
+                throw new InvalidTimeException("timetoMinutes failed");
+            }
+            return hours * HOUR_IN_MINUTES + minutes;
         } else {
             throw new InvalidTimeException("timetoMinutes failed");
         }
@@ -125,7 +131,7 @@ public class PadiDiveTable {
      * @param depth - The depth
      * @param duration - minutes;
      */
-    public PressureGroup depthToPg(DepthProfile depth, int duration) {
+    public PressureGroup depthToPg(DepthProfile depth, int duration) throws LimitExceededException {
         try {
             logger.info("Attempting to read json");
             JSONObject table = depthToPressureGroup.readJsonFileFromResources();
@@ -150,7 +156,7 @@ public class PadiDiveTable {
      * @param pressureGroup - pressure group at time
      * @return an array containing
      */
-    public JSONArray depthToTimes(DepthProfile depth, PressureGroup pressureGroup) {
+    public JSONArray depthToTimes(DepthProfile depth, PressureGroup pressureGroup) throws LimitExceededException {
         try {
             JSONObject table = diveTableUtil.readJsonFileFromResources();
             String key = findClosestKey(table, depth.getDepth());
@@ -188,6 +194,10 @@ public class PadiDiveTable {
             logger.severe("Max depth exceeded\n\t" + e.getMessage());
             throw new ParseException(Messages.MESSAGE_ERROR_LIMIT_EXCEED + "\n"
                     + "The deepest you can go is 42m - don't risk your life!");
+        } catch (LimitExceededException le) {
+            logger.severe("Max depth exceeded\n\t" + le.getMessage());
+            throw new ParseException(Messages.MESSAGE_ERROR_LIMIT_EXCEED + "\n"
+                    + "The deepest you can go is 42m - don't risk your life!");
         }
         return 0;
     }
@@ -198,7 +208,7 @@ public class PadiDiveTable {
      * @param object - JSON Object
      * @param key - The key that is nearest to that value.
      */
-    public static String findClosestKey(JSONObject object, float key) {
+    public static String findClosestKey(JSONObject object, float key) throws LimitExceededException {
         Iterator<String> keys = object.keys();
         ArrayList<Integer> integerKeys = new ArrayList<Integer>();
 
@@ -212,6 +222,9 @@ public class PadiDiveTable {
         int i = 0;
         while (key > integerKeys.get(i)) {
             i++;
+            if (i == integerKeys.size()) {
+                throw new LimitExceededException();
+            }
         }
 
         return integerKeys.get(i).toString();

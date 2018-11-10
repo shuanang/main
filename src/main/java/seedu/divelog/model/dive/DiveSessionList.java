@@ -101,6 +101,7 @@ public class DiveSessionList implements Iterable<DiveSession> {
             return;
         }
 
+        //Iterate through all dives
         internalList.get(internalList.size() - 1).computePressureGroupNonRepeated();
         DiveSession prevDive = internalList.get(internalList.size() - 1);
         for (int i = internalList.size() - 2; i >= 0; i--) {
@@ -118,6 +119,24 @@ public class DiveSessionList implements Iterable<DiveSession> {
 
             prevDive = internalList.get(i);
         }
+    }
+
+    /**
+     * Checks if the dive list has any overlaps
+     * @return True if dives overlap (this is bad), false otherwise
+     */
+    public boolean hasOverlap() {
+
+        FXCollections.sort(internalList);
+
+        for (int i = 1; i < internalList.size(); i++) {
+            Date endOfLastDive = internalList.get(i - 1).getEndDate();
+            Date startOfNextDive = internalList.get(i).getDateTime();
+            if (endOfLastDive.compareTo(startOfNextDive) > 0) {
+                return true;
+            }
+        }
+        return false;
     }
     //@@author
 
@@ -164,8 +183,9 @@ public class DiveSessionList implements Iterable<DiveSession> {
      */
     public void setDives(DiveSessionList replacement) {
         requireNonNull(replacement);
-        sortDiveSession(SortingMethod.TIME);
         internalList.setAll(replacement.internalList);
+        sortDiveSession(SortingMethod.TIME);
+
     }
 
     /**
