@@ -173,19 +173,18 @@ public class ParserUtil {
     }
 
     /**
-     * @param startTime, endTime, SafetyTime
      * @throws ParseException
      */
-    public static void checkTimeformat(String startTime, String endTime, String SafetyTime) throws ParseException {
+    public static void checkTimeformat(String startTime, String endTime, String safetyTime) throws ParseException {
         if (startTime.length() != 4
                 || endTime.length() != 4
-                || SafetyTime.length() != 4) {
+                || safetyTime.length() != 4) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_TIME_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
         try {
             Integer.parseInt(endTime);
-            Integer.parseInt(SafetyTime);
+            Integer.parseInt(safetyTime);
             Integer.parseInt(startTime);
         } catch (NumberFormatException nfe) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_TIME_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -193,7 +192,7 @@ public class ParserUtil {
 
         int timeInt1 = Integer.parseInt(startTime);
         int timeInt2 = Integer.parseInt(endTime);
-        int timeInt3 = Integer.parseInt(SafetyTime);
+        int timeInt3 = Integer.parseInt(safetyTime);
 
         if (timeInt1 % 100 > 59 || timeInt2 % 100 > 59 || timeInt3 % 100 > 59) {
             throw new ParseException("Minutes component of the time is more than 59!");

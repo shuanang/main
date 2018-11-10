@@ -14,7 +14,6 @@ import seedu.divelog.commons.util.CollectionUtil;
 import seedu.divelog.logic.CommandHistory;
 import seedu.divelog.logic.commands.exceptions.CommandException;
 import seedu.divelog.logic.parser.CliSyntax;
-import seedu.divelog.logic.parser.Parser;
 import seedu.divelog.logic.parser.ParserUtil;
 import seedu.divelog.logic.pressuregroup.exceptions.LimitExceededException;
 import seedu.divelog.model.Model;
