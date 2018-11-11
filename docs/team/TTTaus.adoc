@@ -26,30 +26,20 @@ The DiveLog application can accurately calculate the diver’s current pressure 
 *** [UG] Added the screenshots and introduced the hidden details to make screenshots optional for users to see.
 Pull Request https://github.com/CS2113-AY1819S1-W13-2/main/pull/78[#78]
 *** [UG] Amended the tone and grammar issues in the User Guide
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+Pull Request https://github.com/CS2113-AY1819S1-W13-2/main/pull/116[#116] | https://github.com/CS2113-AY1819S1-W13-2/main/pull/145[#145]
+*** [UG] Documented the colour code of the Pressure Groups
 
-_{you can add/remove categories in the list above}_
+** Community:
+*** PRs reviewed (Examples: https://github.com/CS2113-AY1819S1-W13-2/main/pull/66[#66])
+*** Suggestions & discussions through comments on Issue trackers (Examples: https://github.com/CS2113-AY1819S1-W13-2/main/pull/58[#58])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2113-AY1819S1-T12-2/main/issues/160[#160 for T12-2])
 
 == Contributions to the User Guide
-
-
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-
+include::../UserGuide.adoc[tag=Select]
 
 == Contributions to the Developer Guide
 
@@ -58,10 +48,3 @@ _{you can add/remove categories in the list above}_
 |===
 
 
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
