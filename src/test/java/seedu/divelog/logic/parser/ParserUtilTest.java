@@ -10,8 +10,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.divelog.commons.core.index.Index;
 import seedu.divelog.logic.parser.exceptions.ParseException;
 import seedu.divelog.model.dive.DepthProfile;
+import seedu.divelog.model.dive.PressureGroup;
 
 public class ParserUtilTest {
     private static final String WHITESPACE = " \t\r\n";
