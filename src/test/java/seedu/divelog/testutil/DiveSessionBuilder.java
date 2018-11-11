@@ -34,7 +34,8 @@ public class DiveSessionBuilder {
     private DepthProfile depthProfile;
     private OurDate dateEnd;
     private OurDate dateStart;
-    private final TimeZone timezone;
+    private TimeZone timezone;
+
     public DiveSessionBuilder() {
         start = new Time(DEFAULT_START);
         end = new Time(DEFAULT_END);
@@ -141,6 +142,15 @@ public class DiveSessionBuilder {
      */
     public DiveSessionBuilder withEndDate(String date) {
         this.dateEnd = new OurDate(date);
+        return this;
+    }
+
+    /**
+     * Set the time zone
+     * @param tz - timezone in relation to UTC
+     */
+    public DiveSessionBuilder withTimeZone(String tz) {
+        this.timezone = new TimeZone(tz);
         return this;
     }
 
