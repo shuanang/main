@@ -135,7 +135,7 @@ A list of possible command flags is shown below.
 Adding a command may fail for a variety of reasons. This is to ensure your safety during dives. As a rule of thumb some reasons why a dive may not be added include:
 
 * The dive puts you outside the safety guidelines given by padi (i.e. its too deep or long).
-* The dive makes some other dives you take go out of padi's safety guidelines.
+* The dive makes future dives too risky.
 * The dive timing overlaps with another dive.
 * Issues with the way you entered the command.
 

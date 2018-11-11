@@ -211,6 +211,7 @@ public class DiveSession implements Comparable {
     public float getTimeBetweenDiveSession(DiveSession other) {
         return (float) Math.floor((other.getDiveUtcDateStart().getTime() - getDiveUtcDateEnd().getTime()) / 60000.0f);
     }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
