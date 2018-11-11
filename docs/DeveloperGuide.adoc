@@ -817,7 +817,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 [cols="2,2,2,2", options="header"]
 .List of user stories
-|===// tag::dataencryption[]
 |Priority |As a... |I want to... | So that I can...
 |`* * *` |Diver |Know my current pressure group |Plan my next dive safely
 |`* * *` |Diver |Add dive entries |So that I can know my pressure group.
