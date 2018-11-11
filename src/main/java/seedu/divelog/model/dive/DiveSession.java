@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Logger;
 
+import org.json.JSONException;
+
 import seedu.divelog.commons.core.LogsCenter;
 import seedu.divelog.commons.util.CompareUtil;
 import seedu.divelog.logic.pressuregroup.PressureGroupLogic;
@@ -49,7 +51,7 @@ public class DiveSession implements Comparable {
         try {
             this.dateTime = new SimpleDateFormat("ddMMyyyyHHmm").parse(dateTimeString);
         } catch (ParseException e) {
-            e.printStackTrace();
+            throw new AssertionError("Invalid time and date were parsed to DiveSession!");
         }
     }
 
@@ -97,11 +99,11 @@ public class DiveSession implements Comparable {
         return timezone;
     }
 
-    public Date getDateTime() {
+    public Date getStartDateTime() {
         return dateTime;
     }
 
-    public Date getEndDate() {
+    public Date getEndDateTime() {
         String dateTimeString = this.getDateEnd().getOurDateString().concat(this.getEnd().getTimeString());
         try {
             return new SimpleDateFormat("ddMMyyyyHHmm").parse(dateTimeString);
@@ -111,14 +113,33 @@ public class DiveSession implements Comparable {
     }
 
     /**
-     * Gets the dive start time as a java Date object
-     * @return The date as the system's locale percieves it.
+     * Gets the dive start time in UTC as a java Date object
+     * @return The date as the UTC date.
      */
-    public Date getDiveLocalDate() throws Exception {
+    public Date getDiveUTCDateStart()  {
         String date = getDateStart().getOurDateString();
         String time = getStart().getTimeString();
         int timeZone = getTimeZone().getTimeZone();
-        return CompareUtil.getLocalDate(time, date, timeZone);
+        try {
+            return CompareUtil.convertTimeToUTC(time, date, timeZone);
+        } catch (ParseException pe) {
+            throw new AssertionError("Time passed to DiveSession should be checked beforehand");
+        }
+    }
+
+    /**
+     * Gets the dive start time in UTC as a java Date object
+     * @return The date as the UTC date.
+     */
+    public Date getDiveUTCDateEnd()  {
+        String date = getDateEnd().getOurDateString();
+        String time = getStart().getTimeString();
+        int timeZone = getTimeZone().getTimeZone();
+        try {
+            return CompareUtil.convertTimeToUTC(time, date, timeZone);
+        } catch (ParseException pe) {
+            throw new AssertionError("Time passed to DiveSession should be checked beforehand");
+        }
     }
 
 
@@ -151,12 +172,9 @@ public class DiveSession implements Comparable {
     public void computePressureGroupNonRepeated() throws LimitExceededException, InvalidTimeException {
         try {
             float actualBottomTime = CompareUtil.checkTimeDifference(start.getTimeString(), end.getTimeString(),
-                dateStart.getOurDateString(), dateEnd.getOurDateString());
+                    dateStart.getOurDateString(), dateEnd.getOurDateString());
             pressureGroupAtEnd = PressureGroupLogic.computePressureGroupFirstDive(depthProfile, actualBottomTime);
-        } catch (Exception e) {
-            //Shouldn't ever be reached
-            Logger log = LogsCenter.getLogger(DiveSession.class);
-            log.severe("Something went wrong with the time format");
+        } catch (java.text.ParseException pe) {
             throw new InvalidTimeException("Something went wrong with the time format");
         }
     }
@@ -174,11 +192,14 @@ public class DiveSession implements Comparable {
                     pressureGroupAtBeginning);
         } catch (LimitExceededException l) {
             throw l;
-        } catch (Exception e) {
+        } catch (java.text.ParseException e) {
             //Shouldn't ever be reached
             Logger log = LogsCenter.getLogger(DiveSession.class);
             log.severe("Something went wrong with the time format");
             throw new InvalidTimeException("Something went wrong with the time format");
+        } catch (JSONException je) {
+            Logger log = LogsCenter.getLogger(DiveSession.class);
+            log.severe("Something went wrong decoding the JSON!!");
         }
     }
 
@@ -191,7 +212,7 @@ public class DiveSession implements Comparable {
         try {
             return CompareUtil.checkTimeDifference(end.getTimeString(), other.start.getTimeString(),
                     dateEnd.getOurDateString(), other.dateStart.getOurDateString());
-        } catch (Exception e) {
+        } catch (java.text.ParseException e) {
             Logger log = LogsCenter.getLogger(DiveSession.class);
             log.severe("Something went wrong with the time format");
             throw new InvalidTimeException("Something went wrong with the time format");
@@ -219,12 +240,10 @@ public class DiveSession implements Comparable {
         }
 
         DiveSession other = (DiveSession) o;
-        try {
-            Date otherDate = other.getDiveLocalDate();
-            Date myDate = getDiveLocalDate();
-            return myDate.compareTo(otherDate);
-        } catch (Exception e) {
-            throw new ClassCastException();
-        }
+
+        Date otherDate = other.getDiveUTCDateStart();
+        Date myDate = getDiveUTCDateStart();
+        return myDate.compareTo(otherDate);
+
     }
 }

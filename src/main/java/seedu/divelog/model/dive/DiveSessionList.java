@@ -41,8 +41,8 @@ public class DiveSessionList implements Iterable<DiveSession> {
      */
     public void sortDiveSession(SortingMethod sortByCategory) {
         Comparator<DiveSession> dateTimeComparator = (one, two) -> {
-            Date dateTime1 = one.getDateTime();
-            Date dateTime2 = two.getDateTime();
+            Date dateTime1 = one.getDiveUTCDateStart();
+            Date dateTime2 = two.getDiveUTCDateEnd();
             return dateTime2.compareTo(dateTime1);
         };
 
@@ -64,7 +64,7 @@ public class DiveSessionList implements Iterable<DiveSession> {
         DiveSession mostRecent = null;
         for (DiveSession diveSession: internalList) {
             if (mostRecent == null
-                    && CompareUtil.getCurrentDateTime().compareTo(diveSession.getDateTime()) > 0) {
+                    && CompareUtil.getCurrentUTCTime().compareTo(diveSession.getDiveUTCDateStart()) > 0) {
                 mostRecent = diveSession;
                 continue;
             }
@@ -75,7 +75,7 @@ public class DiveSessionList implements Iterable<DiveSession> {
 
 
             if (mostRecent.compareTo(diveSession) < 0
-                    && CompareUtil.getCurrentDateTime().compareTo(diveSession.getDateTime()) > 0) {
+                    && CompareUtil.getCurrentUTCTime().compareTo(diveSession.getDiveUTCDateStart()) > 0) {
                 log.severe("Updating dive " + mostRecent.toString() + "to" + diveSession.toString());
                 mostRecent = diveSession;
             }
@@ -105,12 +105,14 @@ public class DiveSessionList implements Iterable<DiveSession> {
         internalList.get(internalList.size() - 1).computePressureGroupNonRepeated();
         DiveSession prevDive = internalList.get(internalList.size() - 1);
         for (int i = internalList.size() - 2; i >= 0; i--) {
-
+            logger.info("Getting time");
             float surfaceInterval = prevDive.getTimeBetweenDiveSession(internalList.get(i));
 
             if (surfaceInterval > ONE_DAY_IN_MINUTES) {
+                logger.info("Computing pg >");
                 internalList.get(i).computePressureGroupNonRepeated();
             } else {
+                logger.info("Computing pg");
                 PressureGroup newPg = PressureGroupLogic.computePressureGroupAfterSurfaceInterval(
                         prevDive.getPressureGroupAtEnd(), surfaceInterval);
                 internalList.get(i).setPressureGroupAtBeginning(newPg);
@@ -130,8 +132,8 @@ public class DiveSessionList implements Iterable<DiveSession> {
         FXCollections.sort(internalList);
 
         for (int i = 1; i < internalList.size(); i++) {
-            Date endOfLastDive = internalList.get(i - 1).getEndDate();
-            Date startOfNextDive = internalList.get(i).getDateTime();
+            Date endOfLastDive = internalList.get(i - 1).getEndDateTime();
+            Date startOfNextDive = internalList.get(i).getStartDateTime();
             if (endOfLastDive.compareTo(startOfNextDive) > 0) {
                 return true;
             }

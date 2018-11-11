@@ -3,6 +3,7 @@ package seedu.divelog.commons.util;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 //@@author Cjunx
@@ -38,7 +39,7 @@ public class CompareUtil {
     }
 
     /**
-     * Converts date and time into UTC time
+     * Converts date and time into local time
      * returns first 8 digits of Date in DDMMYYYY, next 4 digits in HHMM
      */
     public static Long convertTimeToLocal(String time, String date, int timezone) throws ParseException {
@@ -55,11 +56,49 @@ public class CompareUtil {
     }
 
     /**
+     * Converts date and time into UTC time
+     * returns first 8 digits of Date in DDMMYYYY, next 4 digits in HHMM
+     */
+    public static Date convertTimeToUTC(String time, String date, int timezone) throws ParseException {
+        String timeNowString = date.concat(time);
+        SimpleDateFormat inputFormat = new SimpleDateFormat("ddMMyyyyHHmm");
+
+        Date oldTime = inputFormat.parse(timeNowString);
+        Date newTime = new Date(oldTime.getTime() - TimeUnit.HOURS.toMillis(timezone));
+
+        return newTime;
+    }
+
+    /**
      * gets current date and time in Date
      */
     public static Date getCurrentDateTime() {
         Date date = new Date();
         return date;
+    }
+
+
+    /**
+     * get current UTC time
+     * Based on: https://stackoverflow.com/questions/308683/how-can-i-get-the-current-date-and-time-in-utc-or-gmt-in-java
+     * @return Date with UTC.
+     * @return Date with UTC
+     */
+    public static Date getCurrentUTCTime() {
+        SimpleDateFormat dateFormatGmt = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
+        dateFormatGmt.setTimeZone(TimeZone.getTimeZone("GMT"));
+
+        //Local time zone
+        SimpleDateFormat dateFormatLocal = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
+
+        //Time in GMT
+        try {
+            return dateFormatLocal.parse( dateFormatGmt.format(new Date()) );
+        } catch (ParseException e) {
+            throw new AssertionError("Something went wrong within the UTC conversion for local time");
+        }
+
+
     }
 
     /**
