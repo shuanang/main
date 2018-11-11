@@ -34,7 +34,7 @@ public class DiveSessionTest {
                 .withTimeZone("+8")
                 .build();
 
-        DiveSession arr[] = new DiveSession[3];
+        DiveSession[] arr = new DiveSession[3];
         arr[0] = diveSession1;
         arr[1] = diveSession2;
         arr[2] = diveSession3;
