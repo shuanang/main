@@ -353,10 +353,7 @@ To do so we adhere to PADI's dive charts, available here https://elearning.padi.
 their current pressure group. The underlying implementation for these charts can be found in the `PadiDiveTable` class.
 A such the dive tales are stored in the `resources` folder as JSON files. They are loaded using the `DiveTableUtil` class
 via the FASTXML Jackson library. The `PadiDiveTable` itself is a singleton class. This choice was made as it makes sense to
-load the Dive Tables only once at the stat into memory (although in its current form it is not the case). An example
-interaction with `PadiDiveTable` and `DiveTableUtil` can be found in the sequence diagram below:
-
-image::PadiDiveTableUsage.png[width="800"]
+load the Dive Tables only once at the stat into memory (although in its current form it is not the case).
 
 ==== Design Considerations
 
@@ -401,6 +398,10 @@ At the end we have incorporated most of the code into our model. For `add` and `
 .. If not consistent throw `LimitExceededException` error.
 . Commit new `DiveSessionList` to divelog. Update `VersionedDivelog` 's current pointer.
 
+The flow can be seen in the sequence diagram below:
+
+image::ConsistencyCheckSequenceDiagram.png[width: 650px]
+
 In terms of calculations, the pressure group properties of the dives themselves will mutate to support
 
 ==== Design Considerations
@@ -435,11 +436,17 @@ Furthermore, most divers will not have more than 100 dives.
 === Localized Units
 
 As of `v1.3`, a `set_units` command was added. This allows the user to switch between meters and feet.
-The implementation of this command involves altering the `ApplicationState`. Once the `ApplicationState`
+As shown in the diagram below, the implementation of this command involves altering the `ApplicationState` singleton. Once the `ApplicationState`
 is updated a `UnitsChangedEvent` is posted to the `EventsCenter`. The `EventsCenter` issues a
 call to the UI. The relevant parts of the UI will be forced to re-render themselves to match
-the new units. As of `v1.4` the `ParserUtil#parseDepthProfile(String depth)` also reads this state, and converts the units to meters.
-Internally all the units are stored as meters. This choice was largely made to keep things simple.
+the new units.
+
+image::setunitsSequenceDiagram.png[width=650]
+
+As of `v1.4` the `ParserUtil#parseDepthProfile(String depth)` also reads this state, and converts the units to meters.
+Internally all the units are stored as meters. This choice was largely made to keep things simple. The
+`ApplicationState` also exposes a function to get the current units setting.
+
 
 === Logging
 
