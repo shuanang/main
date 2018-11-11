@@ -358,7 +358,7 @@ WARNING: You can only use the specific keywords below.
 |Duration of Dive                               |duration
 
 |=========================================
-
+// end::sortby[]
 // tag::newplan[]
 === Planning Mode : `newplan` or `normalmode`
 
@@ -374,7 +374,7 @@ planning mode only supports `add`, `delete` and `edit` commands +
 Format: `newplan` to enter Planning Mode, `normalmode` to exit planning mode.
 
 TIP: When you exit the planning mode, you will return to the state before you entered.
-
+// end::newplan[]
 === Exiting the program : `exit`
 
 Finished using Dive Log? This command shuts down Dive Log, and saves your new dive session data for your next use. +

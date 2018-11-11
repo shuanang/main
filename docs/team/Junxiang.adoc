@@ -31,28 +31,19 @@ contain methods that help
 
 
 ** Enhancements to existing features:
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Wrote tests for helper method to ensure adequate code coverage (Pull requests https://github.com/cjunxiang/main/commit/ac50bdd38ca56d40b402fc1b6b31300496bcab3b[#58])
 
 ** Documentation:
 *** [UG] Introduced tables to organise information (Cosmetics)
-    https://github.com[#14]
+    https://github.com/CS2113-AY1819S1-W13-2/main/commit/f7199ced6950cfd8d16ae3ac5a61f0ad9fd48253[#3]
 *** [UG] Tweaked the whole User Guide's tone to sound more interactive
-    https://github.com[#14]
-*** [UG] Documented new commands
-    https://github.com[#14]
+    https://github.com/CS2113-AY1819S1-W13-2/main/commit/9f8e2a3e41224a95130cb3692ed1c914f9239fb7[#66] https://github.com/CS2113-AY1819S1-W13-2/main/pull/135[#135]
+
+*** [UG] Documented new commands/features
+    https://github.com/CS2113-AY1819S1-W13-2/main/commit/1a618379326d09eb35ebcbbc7deedaa75db0f4e8[#39]
+
 *** [DG] Added components pertaining to Sorting, Planning Mode & New parameters in a Dive:
-    https://github.com[#14]
-    https://github.com[#14]
-    https://github.com[#14]
-
-
-https://github.com/CS2113-AY1819S1-W13-2/main/commit/0829afba21bceb1580ee72431b9c4fd3bc068644[#41 Fine tuned Compare Util and TimeZone] +
-https://github.com/CS2113-AY1819S1-W13-2/main/commit/4e1156e7682e38e35f11cbefb4b4924e55ea165f[#66 Sorting is up] +
-https://github.com/CS2113-AY1819S1-W13-2/main/commit/cd9c7b404eda71e47ca6714b65ae678e9a963110[#66 Planning mode] +
-https://github.com/CS2113-AY1819S1-W13-2/main/commit/9f8e2a3e41224a95130cb3692ed1c914f9239fb7[#66 UG Rephrasing] +
-https://github.com/CS2113-AY1819S1-W13-2/main/commit/5bf250378b702049f8f93e030d38561f2c3a0f4e[#128 PortOver Command] +
-https://github.com/CS2113-AY1819S1-W13-2/main/commit/5bf250378b702049f8f93e030d38561f2c3a0f4e[#128 Refine Exit Planning Mode] +
-https://github.com/CS2113-AY1819S1-W13-2/main/pull/135[#135 Updates to User Guide]
+    https://github.com/CS2113-AY1819S1-W13-2/main/commit/eada8f01b85ee8827d916dc2e4fa38ed49926a38[#41]
 
 
 ** Community:
@@ -60,8 +51,6 @@ https://github.com/CS2113-AY1819S1-W13-2/main/pull/135[#135 Updates to User Guid
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 
 == Contributions to the User Guide
-
-
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
