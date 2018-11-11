@@ -2,12 +2,14 @@ package systemtests;
 
 import org.junit.Test;
 
+import seedu.divelog.commons.core.Messages;
 import seedu.divelog.logic.commands.AddCommand;
 import seedu.divelog.logic.pressuregroup.exceptions.LimitExceededException;
 import seedu.divelog.model.Model;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.exceptions.DiveOverlapsException;
 import seedu.divelog.model.dive.exceptions.InvalidTimeException;
+import seedu.divelog.testutil.DiveSessionBuilder;
 import seedu.divelog.testutil.DiveUtil;
 
 public class AddCommandSystemTest extends DiveLogSystemTest {
@@ -21,6 +23,59 @@ public class AddCommandSystemTest extends DiveLogSystemTest {
         /* Case: add a simple dive to the logbook
          * -> added
          */
+        DiveSession diveSession = new DiveSessionBuilder()
+                .withStart("1000")
+                .withStartDate("01012018")
+                .withSafetyStop("1025")
+                .withEnd("1030")
+                .withEndDate("01012018")
+                .withTimeZone("+8")
+                .withDepth(5)
+                .build();
+        assertCommandSuccess(diveSession);
+
+        /*
+         * Case: Safety stop is outside time interval
+         */
+        diveSession = new DiveSessionBuilder()
+                .withStart("1000")
+                .withStartDate("01012018")
+                .withSafetyStop("1100")
+                .withEnd("1030")
+                .withEndDate("01012018")
+                .withTimeZone("+8")
+                .withDepth(5)
+                .build();
+        assertCommandFailure(DiveUtil.getAddCommand(diveSession), Messages.MESSAGE_INVALID_DATE_LIMITS);
+
+        /*
+         * Case: Overlapping dives
+         */
+        diveSession = new DiveSessionBuilder()
+                .withStart("1015")
+                .withStartDate("01012018")
+                .withSafetyStop("1020")
+                .withEnd("1030")
+                .withEndDate("01012018")
+                .withTimeZone("+8")
+                .withDepth(5)
+                .build();
+        assertCommandFailure(DiveUtil.getAddCommand(diveSession), Messages.MESSAGE_ERROR_DIVES_OVERLAP);
+
+        /*
+         * Case: Overlapping dives due to different timezones
+         */
+        diveSession = new DiveSessionBuilder()
+                .withStart("1115")
+                .withStartDate("01012018")
+                .withSafetyStop("1125")
+                .withEnd("1130")
+                .withEndDate("01012018")
+                .withTimeZone("+9")
+                .withDepth(5)
+                .build();
+        assertCommandFailure(DiveUtil.getAddCommand(diveSession), Messages.MESSAGE_ERROR_DIVES_OVERLAP);
+
     }
 
     /**

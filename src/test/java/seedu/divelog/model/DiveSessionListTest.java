@@ -22,16 +22,20 @@ public class DiveSessionListTest {
                 .withStart("1000")
                 .withStartDate("01011996")
                 .withEnd("1030")
-                .withEndDate("01011996").build();
+                .withEndDate("01011996")
+                .withTimeZone("+8")
+                .build();
         DiveSession diveSession2 = new DiveSessionBuilder()
                 .withStart("1100")
                 .withStartDate("01011996")
                 .withEnd("1200")
+                .withTimeZone("+8")
                 .withEndDate("01011996").build();
         DiveSession diveSession3 = new DiveSessionBuilder()
                 .withStart("1100")
                 .withStartDate("01021996")
                 .withEnd("1200")
+                .withTimeZone("+8")
                 .withEndDate("01021996").build();
 
 
@@ -47,6 +51,7 @@ public class DiveSessionListTest {
                 .withStart("1330")
                 .withStartDate("01011996")
                 .withEnd("1400")
+                .withTimeZone("+8")
                 .withEndDate("01011996").build();
 
         DiveSessionList temporaryList = new DiveSessionList();
@@ -59,7 +64,9 @@ public class DiveSessionListTest {
                 .withStart("1045")
                 .withStartDate("01011996")
                 .withEnd("1115")
-                .withEndDate("01011996").build();
+                .withEndDate("01011996")
+                .withTimeZone("+8")
+                .build();
         temporaryList.setDives(diveSessions);
         temporaryList.add(toBeInserted);
         assertTrue(temporaryList.hasOverlap());
@@ -69,6 +76,7 @@ public class DiveSessionListTest {
                 .withStart("1115")
                 .withStartDate("01011996")
                 .withEnd("1145")
+                .withTimeZone("+8")
                 .withEndDate("01011996").build();
         temporaryList.setDives(diveSessions);
         temporaryList.add(toBeInserted);
@@ -85,6 +93,7 @@ public class DiveSessionListTest {
                 .withStart("0900")
                 .withStartDate("01011996")
                 .withEnd("1300")
+                .withTimeZone("+8")
                 .withEndDate("01011996").build();
         temporaryList.setDives(diveSessions);
         temporaryList.add(toBeInserted);
@@ -96,7 +105,20 @@ public class DiveSessionListTest {
                 .withStart("09045")
                 .withStartDate("01011996")
                 .withEnd("1015")
+                .withTimeZone("+8")
                 .withEndDate("01021996").build();
+        temporaryList.setDives(diveSessions);
+        temporaryList.add(toBeInserted);
+        assertTrue(temporaryList.hasOverlap());
+
+        //Test an overlapping from different timezone.
+        toBeInserted = new DiveSessionBuilder()
+                .withStart("1145")
+                .withStartDate("01011996")
+                .withEnd("1215")
+                .withEndDate("01011996")
+                .withTimeZone("+9")
+                .build();
         temporaryList.setDives(diveSessions);
         temporaryList.add(toBeInserted);
         assertTrue(temporaryList.hasOverlap());
