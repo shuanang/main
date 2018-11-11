@@ -72,7 +72,9 @@ public class CommandTestUtil {
             assertEquals(expectedMessage, result.feedbackToUser);
             assertEquals(expectedModel, actualModel);
             assertEquals(expectedCommandHistory, actualCommandHistory);
+
         } catch (CommandException ce) {
+
             throw new AssertionError("Execution of command should not fail.", ce);
         }
     }
@@ -96,9 +98,9 @@ public class CommandTestUtil {
         try {
             command.execute(actualModel, actualCommandHistory);
             throw new AssertionError("The expected CommandException was not thrown.");
-
         } catch (CommandException ce) {
             assertEquals(expectedMessage, ce.getMessage());
+
             assertEquals(expectedDiveLog, actualModel.getDiveLog());
             assertEquals(expectedFilteredList, actualModel.getFilteredDiveList());
             assertEquals(expectedCommandHistory, actualCommandHistory);
