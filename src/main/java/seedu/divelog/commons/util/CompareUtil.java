@@ -84,7 +84,7 @@ public class CompareUtil {
      * @return Date with UTC.
      * @return Date with UTC
      */
-    public static Date getCurrentUTCTime() {
+    public static Date getCurrentUtcTime() {
         SimpleDateFormat dateFormatGmt = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
         dateFormatGmt.setTimeZone(TimeZone.getTimeZone("GMT"));
 
