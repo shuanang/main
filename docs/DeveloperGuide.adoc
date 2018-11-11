@@ -373,6 +373,8 @@ This saves both memory and disc writes.
 * **Alternative 2: ** Just use `PADIDiveTable` standard classes
 ** Pros: Easy to implement
 ** Cons: Wastes memory and performs unnecessary IO.
+// tag::planning[]
+
 
 [[CRUD]]
 === Consistency checks for `DiveSession` objects during Creation/Update
@@ -431,6 +433,103 @@ dives safer. Thus our design considerations could be summed up as follows:
 ** Pros: Will be more efficient.
 ** Cons: More code will need to be written. Since `VersionedDiveLog` already maintains copies, it is just a matter of passing the reference of the temporary dive list to the system.
 Furthermore, most divers will not have more than 100 dives.
+
+[[portover]]
+=== New Feature: Planning Mode (with `portover` capability)
+From our verbal surveys with test users and from our user stories, we have decided to implement a Planning mode in order for users to plan their
+dives ahead of their trips safely without worrying about corrupting their current data.
+
+==== Design Considerations
+* **Alternative 1 (current choice)**:
+When in planning mode, a counter increments every time a command is called. In addition, there is now a state called planning mode, which shows true if in planning mode and false if in normal mode. +
+
+*** When the user chooses to exit and enter `normalmode`,
+the underlying method calls for a `undo` method and decreases the counter. This will repeat until the counter is zero, whereby then the state of the machine will change back to normal mode. +
+
+*** If the user decides to call `portover`, the counter is simply reset to 0 and the state of the machine is changed back to normal mode.
+
+*** *Pros:* Uses a method that is already present, `undo`. This means there won't be two implementations of the same method and follows the
+single responsibility principle.
+*** *Cons:*
+
+* **Alternative 2**: Create a temporary Stack to store commands instead of just a counter.
+** Pros: All types of commands can now be used in planning mode, and not just `add`, `delete` and `edit`
+** Cons: Extra implementations and considerations have to be taken into account. This might increase coupling between classes.
+// end::planning[]
+// tag::sorting[]
+=== Sorting of data
+We have considered that once a user has a considerable number of dives registered in the app, the user would potentially have difficulty finding dives,
+even with the `find` function. (as many dives can have the same parameters such as location) To simplify the app usage, this command allows for users to decide the way
+that the data shown to them is organised.
+
+==== Design Considerations
+* **Current implementation**:
+
+* **Potential improvement to the feature 1**: Add a `sortby` CLI command.
+** Method to implement: +
+*Step 1:* Create a new Command[[GetStartedProgramming-RemarkCommand]] with a Command Parser that reads in the Command Prefix and a
+[KEYWORD], which will dictate the parameter to sort by. The Command and Parser file should look like below:
+
+.Command Parser File Sample
+image::sortbyparser.png[width="600"]
+
+.Command Class File Sample
+image::sortbyclass.png[width="600"]
+
+
+Optional: Create a enum with the parameters you want to sort the data by (E.g Time, Location and Duration)
+
+*_Sample Enum_* +
+_public enum SortCategory { +
+TIME, LOCATION, DURATION +
+}_
+
+*Step 2:* Create a sort method preferably in a separate utils class. This method should take in the parameter to sort by. (It will be easier and
+less prone to mistakes if Step 2 was used) The corresponding comparators should be created. The sort method should look something like b
+
+.Sort method Sample
+image::sortmethod.png[width="500"]
+
+*Step 3:* Ensure that the divelog refreshes / reflects the newly sorted. You can do this by calling for the sort
+method after every add or edit command. You can also create a new event in commons.events.
+
+** Pros: Once implemented, to increase the number of parameters / methods to sort the data by, simply create a new corresponding comparator, add the respective prefixes the parse for, and to increase the number of parameters included in the Enum file.
+** Cons: Can be troublesome to implement in the beginning.
+
+* **Potential improvement to the feature 2**: Reverse the current order by calling `reverseorder`
+** Method to implement: Simply reverse the comparator in the sorting methods, which is located in the
+** Pros: Improved usability
+** Cons: Increased difficulty to maintain
+// end::sorting[]
+// tag::newparam[]
+=== New Parameters & conditions in a DiveSession
+
+==== Timezone
+Considering that users would dive in many different parts of the world, we have taken the effort to implement a Timezone parameter to ease users in adding new dives into the Dive Log without the need to convert any time to Local time. +
+We have decided to utilise the format of UTC, given its universal usage around the world. The UTC timezones range from -12 to +12, including 0. Singapore lies in the timezone of UTC+8.
+
+* **Alternative 1 (current choice)**: When calculating Pressure Groups using TimeZone
+** Pros:
+** Cons:
+
+* **Alternative 2: ** Adopt Java SE 9's java.time library
+** Pros: There are pre-built algorithms and methods in the library.
+** Cons: Takes time to learn and to adopt the methods, which might not be efficient for our light usage.
+
+==== Time and OurDate
+Time and OurDate are 2 of the new parameters in the Dive Log. In order to be able to calculate the Pressure Groups automatically,
+there has to be a time and date parameter. We have decided to create our own class.
+
+* **Alternative 1 (current choice)**: Use a 4 length String to contain time and 8 length String to contain date.
+** Pros: When reading in data from the `ArgumentMultimap`, it requires very little effort in parsing. Also, the use of String allows for versatile typecasting into long, int, or Java SE 7's SimpleDateFormat. Similarly, the use of String and long as main type allows for better versatility among different methods.
+** Cons: Data needs to be parsed into Java SE 8's java.date and Java SE 7's SimpleDateFormat in order to calculate time differences. This means that there can potentially be many type conflicts. However, this problem is contained in a helper class `CompareUtils` which handles methods like `checkTimeDifference`, `getLocalDate` and `convertTimeToLocal`.
+
+* **Alternative 2: ** Adopt Java SE 9's java.time library
+** Pros: More volatile as the library contains many ready-made solutions. Also, java.time also allows for the easy implementation of *local time*, which is one of our improvements made to AB4.
+** Cons: Takes time to learn and to adopt the methods, which might not be efficient for our light usage.
+
+// end::newparam[]
+
 
 [[local-units]]
 === Localized Units
