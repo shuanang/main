@@ -1,4 +1,4 @@
-= Divelog - Developer Guide v.1.0
+= Divelog - Developer Guide v.1.4
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -35,13 +35,15 @@ Windows developers are highly recommended to use JDK `9`.
 
 . *IntelliJ* IDE
 +
+// tag::javafx[]
+[[JavaFXTip]]
 [NOTE]
 IntelliJ by default has Gradle and JavaFx plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 If there is still error after enabling them, you will need to go to `File` > `Settings` > `Build, Execution, Deployment` > `Compiler` > `Java Compiler` > `Javac options` and add the following: `--add-modules=javafx.fxml`. This is illustrated by the diagram below.
 
 image::commandlineparameters.png[width="800"]
-
+// end::javafx[]
 === Setting up the project in your computer
 
 . Fork this repo, and clone the fork to your computer
@@ -557,6 +559,38 @@ Internally all the units are stored as meters. This choice was largely made to k
 `ApplicationState` also exposes a function to get the current units setting.
 // end::local_units[]
 
+// tag::colourCode[]
+=== Colour Coding of the Pressure Groups
+
+Through engagement with our test users and from our user stories, the pressure group needed to be obvious and easy to reference to
+our users, which meant that it had to stand out on the display. These pressure group would let the divers know if their dives was
+safe and how much leeway they might have in the water. As such, the `BrowserPanel` takes into the account the pressure groups that
+are supposed to be returned and adds colour to it.
+
+==== Design Considerations
+* **Current implementation**: When the pressure group returned the the `BrowserPanel` for display to the user, the colour is changed by
+changing its CSS style. The colour is chosen from green [`#0FFF0F`] to yellow [`#F5FF07`] to red [`#FF0000`]. The colour are in order
+of normal to moderate and finally, dangerous amount of nitrogen in the blood of the user or their pressure group. The colours are seen
+in the figure below.
+** Pros: The pressure group is clearly distinguished by its severity at one glance.
+** Cons: Not all may be able to use it. For example, users who may be colour-blind.
+
+.Colour Gradient Chart
+image::Colour_gradient.png[width="600"]
+
+* **Alternative implementation**: Instead of changing the colour, the text font maybe increased in proportion to the severity of the pressure
+group.
+** Pros: Most people would be able to see it. If the text is very big, the warning regarding its severity will be obvious.
+** Cons: May make the UI and screen messy. Will need to have a comparision chart to compare the size to.
+
+* **Potential Improvements**: The current implementation could be combined with the alternative implementation, to make the emphasis on the
+pressure group being severe. For example, the pressure group could be in the red zone (dangerous/severe zone) and the text font would be
+increased.
+** Pros: Makes it even clearer, especially if the pressure group is at dangerous levels. Allows more users to potentially benefit from it.
+** Cons: If not properly implemented, it might end up making the UI messy.
+// end::colourCode[]
+
+// tag::Logging[]
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.

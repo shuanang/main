@@ -101,7 +101,7 @@ Diagram 5: Click the X to close
 
 
 // tag::add[]
-[[Add]]
+[[add]]
 === Adding a dive session: `add`
 
 Use this command to adds your new dive session to the Dive Log.
@@ -149,8 +149,9 @@ If for instance you enter an invalid dive, the system will tell you that you hav
 |Invalid time format! (Not HHMM)  | Time entered is in invalid format.
 |Start and End date or time or Safety Stop Time are not in chronological order! Start Date should be earlier than End Date! Safety Stop should be between Start and End time" | You need to make sure that your start time is before your end time and safety stop comes inbetween.
 |=========================================
-//end::add[]
+// end::add[]
 
+// tag::List[]
 [[List]]
 === Listing all dives : `list`
 
@@ -167,9 +168,8 @@ image::UGSS_list.png[width="800"]
 Diagram 6: List command
 
 +++ </div></details> +++
-
-//tag::edit[]
-[[Edit]]
+// end::List[]
+// tag::edit[]
 === Editing a dive : `edit` [[edit]]
 
 If you made a mistake while adding a new dive, `edit` will come in handy.
@@ -202,10 +202,9 @@ NOTE: All data provided must comply to chronological order, meaning to say Date/
 
 Like the `add` command, edit may fail for a variety of reasons. The same rules which apply for add apply for edit.
 For a set of reasons why an edit may fail please take a look at <<add>>.
-//end::edit[]
+// end::edit[]
 
-//tag::set_units[]
-[[set_units]]
+// tag::set_units[]
 === Setting display units `set_units` [[set_units]]
 If you're not used to the metric or imperial system, `set_units`
 switches between meters and feet. (App defaults to meters) All data displayed will be automatically and accurately converted  +
@@ -216,9 +215,8 @@ Format: `set_units meters|feet` +
 * Internally, we store everything in meters, as a result the xml file produced will always be in meters.
 ****
 Example usage: `set_units feet`
-//end::set_units[]
-
-[[Find]]
+// end::set_units[]
+// tag::Find[]
 === Locating dives by location: `find` [[find]]
 Looking for a specific dive? Use `find` to find dives whose location contain any of the given keywords that you input. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
@@ -241,7 +239,8 @@ Click here to view the screenshot for an example of a successful find
 image::UGSS_find.png[width="800"]
 Diagram 7: Find command
 +++ </div></details> +++
-
+// end::Find[]
+// tag::Delete[]
 [[Delete]]
 === Deleting a dive : `delete`
 Deletes the specified dive from the Dive Log. +
@@ -261,9 +260,9 @@ Deletes the 2nd dive in the Dive Log.
 * `find Bali` +
 `delete 1` +
 Deletes the 1st dive in the results of the `find` command.
-
-[[Select]]
-=== Selecting a diveSession : `select`
+// end::Delete[]
+// tag::Select[]
+=== Selecting a diveSession : `select` [[Select]]
 Selects the dive identified by the index number used in the displayed dive list. +
 Format: `select INDEX`
 
@@ -293,7 +292,8 @@ Diagram 8: Select command
 
 +++ </div></details> +++
 
-[[History]]
+// end::Select[]
+// tag::history[]
 === Listing entered commands : `history`
 
 Forgot what command you did just now and corrupted your data? Find our what command exactly did you execute
@@ -314,9 +314,8 @@ image::UGSS_history.png[width="800"]
 Diagram 9: History command
 
 +++ </div></details> +++
-
+// end::history
 // tag::undoredo[]
-[[undoredo]]
 === Undoing previous command : `undo` [[undo]]
 The perfect solution to a slip of the finger. `undo` restores the Dive Log to the state before the previous _undoable_ command was executed. +
 
@@ -343,7 +342,6 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
 
-[[redo]]
 === Redoing the previously undone command : `redo`
 Ever thought of undo-ing a `undo` command? `Redo`
 reverses the most recent `undo` command. +
@@ -367,7 +365,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
-[[clear]]
+// tag::clear[]
 === Clearing all entries : `clear`
 
 This command, as the name suggests, clears Dive Log of *all* your previous dive logs and
@@ -379,7 +377,7 @@ TIP: Performed an accidental `clear` of your precious data? Use `undo` to, _you'
     +
      <<undo>>
 
-
+// end::clear[]
 // tag::sortby[]
 === Setting parameters to sort dives : `sortby` [[sortby]] [coming in V2.0]
 
@@ -403,7 +401,6 @@ WARNING: You can only use the specific keywords below.
 // end::sortby[]
 // tag::newplan[]
 
-[[newplan]]
 === Planning Mode : `newplan` or `normalmode`
 
 The planning mode is a temporary space for you to plan trips and to simulate dives. This is especially important if you
@@ -417,7 +414,6 @@ Format: `newplan` to enter Planning Mode, `normalmode` to exit planning mode.
 
 TIP: When you exit the planning mode, you will return to the state before you entered.
 
-[[portover]]
 === Port files from Planning Mode to normal mode : `portover`
 When you have finished your plan and found the perfect set of dives, simply input the `portover` command and
 the app will port all planning data into data in the normal mode.
@@ -425,12 +421,13 @@ the app will port all planning data into data in the normal mode.
 TIP: You cannot use this command in `normalmode` as there are no planning data to port over.
 // end::newplan[]
 
-[[exit]]
+// tag::exit[]
 === Exiting the program : `exit`
 
 Finished using Dive Log? This command shuts down Dive Log, and saves your new dive session data for your next use. +
 
 Format: `exit`
+// end::exit[]
 
 === Saving the data
 
