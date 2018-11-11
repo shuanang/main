@@ -62,6 +62,20 @@ public class AddCommandSystemTest extends DiveLogSystemTest {
                 .build();
         assertCommandFailure(DiveUtil.getAddCommand(diveSession), Messages.MESSAGE_ERROR_DIVES_OVERLAP);
 
+        /*
+         * Case: Overlapping dives due to different timezones
+         */
+        diveSession = new DiveSessionBuilder()
+                .withStart("1115")
+                .withStartDate("01012018")
+                .withSafetyStop("1125")
+                .withEnd("1130")
+                .withEndDate("01012018")
+                .withTimeZone("+9")
+                .withDepth(5)
+                .build();
+        assertCommandFailure(DiveUtil.getAddCommand(diveSession), Messages.MESSAGE_ERROR_DIVES_OVERLAP);
+
     }
 
     /**

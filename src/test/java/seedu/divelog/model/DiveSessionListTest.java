@@ -110,6 +110,18 @@ public class DiveSessionListTest {
         temporaryList.setDives(diveSessions);
         temporaryList.add(toBeInserted);
         assertTrue(temporaryList.hasOverlap());
+
+        //Test an overlapping from different timezone.
+        toBeInserted = new DiveSessionBuilder()
+                .withStart("1145")
+                .withStartDate("01011996")
+                .withEnd("1215")
+                .withEndDate("01011996")
+                .withTimeZone("+9")
+                .build();
+        temporaryList.setDives(diveSessions);
+        temporaryList.add(toBeInserted);
+        assertTrue(temporaryList.hasOverlap());
     }
 
     @Test
