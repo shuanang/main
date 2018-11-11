@@ -103,7 +103,10 @@ Diagram 5: Click the X to close
 
 +++ </div></details> +++
 
-=== Adding a dive session: `add` [[add]]
+
+// tag::add[]
+=== Adding a dive session: `add`
+
 Use this command to adds your new dive session to the Dive Log.
 
 Format: `add ds/DATE_STARTED ts/TIME_DIVE_STARTED de/DATE_ENDED te/TIME_DIVE_ENDED ss/SAFETY_STOP  d/DEPTH  l/LOCATION`
@@ -368,6 +371,7 @@ TIP: Performed an accidental `clear` of your precious data? Use `undo` to, _you'
      <<undo>>
 
 
+// tag::sortby[]
 === Setting parameters to sort dives : `sortby` [[sortby]] [coming in V2.0]
 
 In V1.4, all dives are sorted automatically according to time and date by default.
@@ -388,6 +392,9 @@ WARNING: You can only use the specific keywords below.
 |Duration of Dive                               |duration
 |=========================================
 
+// end::sortby[]
+// tag::newplan[]
+
 === Planning Mode : `newplan` or `normalmode`
 
 The planning mode is a temporary space for you to plan trips and to simulate dives. This is especially important if you
@@ -401,11 +408,13 @@ Format: `newplan` to enter Planning Mode, `normalmode` to exit planning mode.
 
 TIP: When you exit the planning mode, you will return to the state before you entered.
 
+
 === Port files from Planning Mode to normal mode : `portover`
 When you have finished your plan and found the perfect set of dives, simply input the `portover` command and
 the app will port all planning data into data in the normal mode.
 
 TIP: You cannot use this command in `normalmode` as there are no planning data to port over.
+// end::newplan[]
 
 === Exiting the program : `exit`
 
