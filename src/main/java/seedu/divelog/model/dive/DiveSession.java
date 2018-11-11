@@ -208,15 +208,8 @@ public class DiveSession implements Comparable {
      * @return time in minutes between dive sessions
      * @throws InvalidTimeException When time format is incorrect. Should never reach this stage.
      */
-    public float getTimeBetweenDiveSession(DiveSession other) throws InvalidTimeException {
-        try {
-            return CompareUtil.checkTimeDifference(end.getTimeString(), other.start.getTimeString(),
-                    dateEnd.getOurDateString(), other.dateStart.getOurDateString());
-        } catch (java.text.ParseException e) {
-            Logger log = LogsCenter.getLogger(DiveSession.class);
-            log.severe("Something went wrong with the time format");
-            throw new InvalidTimeException("Something went wrong with the time format");
-        }
+    public float getTimeBetweenDiveSession(DiveSession other) {
+        return (float)(other.getDiveUtcDateStart().getTime() - getDiveUtcDateStart().getTime()) / 60000;
     }
     @Override
     public String toString() {

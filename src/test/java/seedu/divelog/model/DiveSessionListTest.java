@@ -160,8 +160,8 @@ public class DiveSessionListTest {
         DiveSession idealDive2 = new DiveSessionBuilder()
                 .withStart("1100")
                 .withStartDate("01011996")
-                .withPressureGroupAtBeginning("C")
-                .withPressureGroupAtEnd("P")
+                .withPressureGroupAtBeginning("B")
+                .withPressureGroupAtEnd("O")
                 .withEnd("1200")
                 .withEndDate("01011996").build();
         DiveSession idealDive3 = new DiveSessionBuilder()
