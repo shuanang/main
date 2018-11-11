@@ -560,7 +560,7 @@ Internally all the units are stored as meters. This choice was largely made to k
 // end::local_units[]
 
 // tag::colourCode[]
-=== Colour Coding of the Pressure Groups
+=== Colour coding of the Pressure Groups
 
 Through engagement with our test users and from our user stories, the pressure group needed to be obvious and easy to reference to
 our users, which meant that it had to stand out on the display. These pressure group would let the divers know if their dives was
