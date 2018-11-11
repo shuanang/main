@@ -345,6 +345,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+[[look-up-table]]
 === Looking Up Dive Tables For Pressure Groups
 
 At the heart of the divelog app is the ability to automatically calculate nitrogen pressure groups.
