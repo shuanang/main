@@ -167,7 +167,7 @@ Diagram 6: List command
 
 +++ </div></details> +++
 
-=== Editing a dive : `edit`
+=== Editing a dive : `edit` [[edit]]
 
 If you made a mistake while adding a new dive, `edit` will come in handy.
 `edits` edits an existing dive session in the Dive Log. +
@@ -200,7 +200,7 @@ NOTE: All data provided must comply to chronological order, meaning to say Date/
 Like the `add` command, edit may fail for a variety of reasons. The same rules which apply for add apply for edit.
 For a set of reasons why an edit may fail please take a look at <<add>>.
 
-=== Setting display units `set_units`
+=== Setting display units `set_units` [[set_units]]
 If you're not used to the metric or impreial system, `set_units`
 switches between meters and feet. (App defaults to meters) All data displayed will be automatically and accurately converted  +
 Format: `set_units meters|feet` +
@@ -211,7 +211,7 @@ Format: `set_units meters|feet` +
 ****
 Example usage: `set_units feet`
 
-=== Locating dives by location: `find`
+=== Locating dives by location: `find` [[find]]
 Looking for a specific dive? Use `find` to find dives whose location contain any of the given keywords that you input. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
