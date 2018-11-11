@@ -55,11 +55,11 @@ include::../UserGuide.adoc[tag=set_units]
 
 include::../DeveloperGuide.adoc[tag=Design-Model]
 
-include::../DeveloperGuide.adoc[tag=application-state]
-
 include::../DeveloperGuide.adoc[tag=lookuptable]
+
+include::../DeveloperGuide.adoc[tag=local_units]
 
 include::../DeveloperGuide.adoc[tag=CRUD]
 
-include::../DeveloperGuide.adoc[tag=local_units]
+
 

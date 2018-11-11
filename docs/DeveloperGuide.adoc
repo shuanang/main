@@ -550,7 +550,7 @@ is updated a `UnitsChangedEvent` is posted to the `EventsCenter`. The `EventsCen
 call to the UI. The relevant parts of the UI will be forced to re-render themselves to match
 the new units.
 
-image::setunitsSequenceDiagram.png[width=650]
+image::setunitsSequenceDiagram.png[width=450]
 
 As of `v1.4` the `ParserUtil#parseDepthProfile(String depth)` also reads this state, and converts the units to meters.
 Internally all the units are stored as meters. This choice was largely made to keep things simple. The
