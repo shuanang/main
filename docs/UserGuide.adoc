@@ -17,27 +17,32 @@ endif::[]
 By: `Team CS2113-AY1819S1-W13-2`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
-Divelog is a dive log for tracking dives.
-Divelog provides a simple way for underwater divers to input details of their dives such as the time they spent at a particular depth, and the application will keep track of their nitrogen levels.
+
+Divelog is a digital dive log for planning and tracking dives that aims to simplify safe dive planning,logging and calculations.
+Divelog provides a simple way for underwater divers to input details of their dives such as the time they spent at a particular depth, and Divelog will keep track of their nitrogen levels.
 This allows divers to plan their next trip safely. +
 
-We use the PADI dive tables to calculate pressure groups for individual dives, whether the dive is the first dive
+
+We have adopted the <<PADI>> dive tables standards to calculate pressure groups for individual dives, whether the dive is the first dive
 or a repeat dive of the day.
+
 Pressure groups are a letter between A to Z which mark the nitrogen
 concentration within a diver ("A" corresponds to a scenario where the diver is almost free of nitrogen).
-As of v1.3, the pressure group is automatically calculated within a dive, all one needs to enter is their
-current pressure group and their ending pressure group is automatically updated.
+As of v1.4, the pressure groups are automatically calculated accross all dives,
+all one needs to enter is the depth and time of the the dive and the pressure groups of all dives are automatically updated.
+The system also will verify the dives are safe before letting you add or edit them. This is to help ensure your safety.
 We are still working on the sortby
-`<<sortby>>` feature coming in the upcoming release v1.4. +
+`<<sortby>>` feature coming in the upcoming release v2.0. +
 
 For more information on pressure groups (whether you are a recreational diver or looking to become one), you can find out more over at `<<pressure_groups>>` and  `<<FAQ>>`.
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
+http://www.methods.co.nz/asciidoc/[Here's how^]
 .  Download the latest `divelog.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Dive Log.
-.  Double-click the file to start the app. The Graphical User Interface (GUI), as seen in Diagram 1 below, should appear in a few seconds.
+.  Double-click the *divelog.jar* file to start the app. The Graphical User Interface (GUI), as seen in Diagram 1 below, should appear in a few seconds.
 +
 image::UGSS_gui.png[width="790"]
 Diagram 1: screenshot of GUI
@@ -48,13 +53,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 +++ <details><summary> +++
 View screenshot for location of command box
 +++ </summary><div> +++
-
 image::UGSS_Ui_command.png[width="800"]
 Diagram 2: Command Box location
-
 +++ </div></details> +++
-
-
 
 [[Features]]
 == Features
@@ -62,9 +63,14 @@ Diagram 2: Command Box location
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add l/LOCATION`, `LOCATION` is a parameter which can be used as `add l/Sentosa`.
-* Items in square brackets are optional e.g `l/LOCATION [tz/TIMEZONE]` can be used as `l/Bali tz/+8` or as `l/Bali`.
-* Parameters can be in any order e.g. if the command specifies `pg/A d/10`, `d/10 pg/A` is also acceptable.
+Confused by our User Guide? Our guide is written following the below few guidelines.
+
+* Words in `UPPER_CASE` are the parameters to be supplied by you, the user.
+** e.g. in `add l/LOCATION`, `LOCATION` is a parameter which can be used as `add l/Sentosa`.
+* Items in square brackets are optional
+** e.g `l/LOCATION [tz/TIMEZONE]` can be used as `l/Bali tz/+8` or as `l/Bali`.
+* Parameters can be in any order
+** e.g. if the command specifies `pg/A d/10`, `d/10 pg/A` is also acceptable.
 * A vertical bar `a|b` means either `a` or `b` will work as inputs.
 ====
 
@@ -97,21 +103,20 @@ Diagram 5: Click the X to close
 
 +++ </div></details> +++
 
-=== Adding a dive session: `add`
+=== Adding a dive session: `add` [[add]]
 Use this command to adds your new dive session to the Dive Log.
 
-Format: `add ds/DATE_STARTED ts/TIME_DIVE_STARTED de/DATE_ENDED te/TIME_DIVE_ENDED ss/SAFETY_STOP  d/DEPTH  l/LOCATION [pg/INITIAL_PRESSURE_GROUP]`
+Format: `add ds/DATE_STARTED ts/TIME_DIVE_STARTED de/DATE_ENDED te/TIME_DIVE_ENDED ss/SAFETY_STOP  d/DEPTH  l/LOCATION`
 
 TIP: Words in UPPER_CASE are the parameters, items in SQUARE_BRACKETS are optional. Order of parameters are fixed as per the format above, meaning if you entered the ts/TIME_DIVE_STARTED before the ds/DATE_STARTED,
 the program will not be able to add your dive.
 
 Put a `ts/` before the time started(24 hours format - HHMM), te/time ended (24 hours format - HHMM), d/depth (in metres), l/ location (location name), per dive at v1.0) (optional) and pg/initial pressure group.
 
-An important thing to note is that as of `v1.4`, the `pg/` argument is ignored for all dives except if it is the oldest dive in the logbook.
 
-_Example:
-add ds/04082018 ts/0900 de/04082018  te/1020 ss/1015 d/15 l/Bukit Lagoon pg/C tz/+8_
+_Example:_ `add ds/04082018 ts/0900 de/04082018  te/1020 ss/1015 d/15 l/Bukit Lagoon tz/+8`
 
+A list of possible command flags is shown below.
 
 .Table of Prefix and Data
 [options="header"]
@@ -120,9 +125,30 @@ add ds/04082018 ts/0900 de/04082018  te/1020 ss/1015 d/15 l/Bukit Lagoon pg/C tz
 |Date started / Ended (DDMMYYYY)                |ds or de       |ds/04082018 or de/05082018
 |Time Started / Ended (HHMM)                    |ts or te       |ts/0800 or te/0900
 |Location                                       |l              |l/Sentosa
-|Depth (integer value)                          |d              |d/18
-|Initial Pressure Group (Character Value) _Note: this only updates the PG if its the oldest dive_  |pg             |pg/A
+|Depth (integer value). Depending on whether the app is set to use meters or feet, the value used will change. |d              |d/18
 |Timezone (in UTC)                              |tz             |tz/+12 or tz/-5
+|=========================================
+
+Adding a command may fail for a variety of reasons. This is to ensure your safety during dives. As a rule of thumb some reasons why a dive may not be added include:
+
+* The dive puts you outside the safety guidelines given by padi (i.e. its too deep or long).
+* The dive makes some other dives you take go out of padi's safety guidelines.
+* The dive timing overlaps with another dive.
+* Issues with the way you entered the command.
+
+An important thing to note is that your safety stop time must be between your start and end time.
+
+If for instance you enter an invalid dive, the system will tell you that you have dived to deep. Some common error messages are shown below:
+
+.Common error messages (non-exhaustive list)
+[options="header"]
+|=========================================
+|Error Messages                                                           |Cause
+|The dive overlaps with another dive. Not updating the divelog.           | There is another dive which is occuring at the same time.
+|Dive is too deep and too long!!                                          | The dive you added is too long/deep given your current plans. This message is often accompanied by advice about how you can stay safe. Please follow it.
+|Invalid date format! (Not DDMMYYYY)                                      | Date you entered is invalid. Make sure the date is in the form of DDMMYYYY
+|Invalid time format! (Not HHMM)  | Time entered is in invalid format.
+|Start and End date or time or Safety Stop Time are not in chronological order! Start Date should be earlier than End Date! Safety Stop should be between Start and End time" | You need to make sure that your start time is before your end time and safety stop comes inbetween.
 |=========================================
 
 === Listing all dives : `list`
@@ -158,6 +184,8 @@ Format: `edit INDEX [ts/TIME_START] [te/TIME_END] [ss/SAFETY_STOP_TIME] [d/DEPTH
 Examples:
 `edit 1 pge/F l/Tioman`
 
+NOTE: All data provided must comply to chronological order, meaning to say Date/Time Started has to be earlier than Date/Time Ended.
+
 .Table of Prefix and Data
 [options="header"]
 |=========================================
@@ -166,22 +194,25 @@ Examples:
 |Time Started / Ended (HHMM)                    |ts or te       |ts/0800 or te/0900
 |Location                                       |l              |l/Sentosa
 |Depth (integer value)                          |d              |d/18
-|Initial Pressure Group (Character Value) _Note: this only updates the PG if its the oldest dive_  |pg             |pg/A
 |Timezone (in UTC)                              |tz             |tz/+12 or tz/-5
 |=========================================
 
+Like the `add` command, edit may fail for a variety of reasons. The same rules which apply for add apply for edit.
+For a set of reasons why an edit may fail please take a look at <<add>>.
+
 === Setting display units `set_units`
-Switches between meters and feet. (App defaults to meters) +
+If you're not used to the metric or impreial system, `set_units`
+switches between meters and feet. (App defaults to meters) All data displayed will be automatically and accurately converted  +
 Format: `set_units meters|feet` +
 ****
-* As of v1.3 it only updates the DISPLAY units, not the actual entered units.
+* As of v1.4 it updates both the DISPLAY units and the actual entered units.
 * The settings are not saved upon application restart.
+* Internally, we store everything in meters, as a result the xml file produced will always be in meters.
 ****
-Example usage: `set feet`
+Example usage: `set_units feet`
 
 === Locating dives by location: `find`
-
-Finds dives whose location contain any of the given keywords. +
+Looking for a specific dive? Use `find` to find dives whose location contain any of the given keywords that you input. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
@@ -277,13 +308,13 @@ Diagram 9: History command
 
 // tag::undoredo[]
 === Undoing previous command : `undo` [[undo]]
+The perfect solution to a slip of the finger. `undo` restores the Dive Log to the state before the previous _undoable_ command was executed. +
 
-Restores the Dive Log to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the Dive Log's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the Dive Log's content (`add`, `delete`, `edit` and `clear` only).
 ====
 
 Examples:
@@ -303,8 +334,8 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `delete 1` command) +
 
 === Redoing the previously undone command : `redo`
-
-Reverses the most recent `undo` command. +
+Ever thought of undo-ing a `undo` command? `Redo`
+reverses the most recent `undo` command. +
 Format: `redo`
 
 Examples:
@@ -332,20 +363,20 @@ gives you a clean start to use Dive Log again! +
 
 Format: `clear`
 
-TIP: use `undo` to, _you've guessed it_, undo your mistaken `clear`  and restore all your deleted dive sessions.
+TIP: Performed an accidental `clear` of your precious data? Use `undo` to, _you've guessed it_, undo your mistaken `clear` command to restore all your deleted dive sessions.
     +
      <<undo>>
 
 
-=== Setting parameters to sort dives : `sortby` [[sortby]] [coming in V1.4]
-In V1.3, all dives are sorted automatically according to time and date by default.
+=== Setting parameters to sort dives : `sortby` [[sortby]] [coming in V2.0]
+
+In V1.4, all dives are sorted automatically according to time and date by default.
+
 
 Want to view your dives in ranked order by different options? Simply type `sortby` followed by a `KEYWORD`,
  your following `list`, `find` commands will return you all your dive sessions in that particular order. +
 
 Format: `sortby KEYWORD`
-
-
 WARNING: You can only use the specific keywords below.
 
 .Table of parameters available to sort by
@@ -355,9 +386,7 @@ WARNING: You can only use the specific keywords below.
 |Time                                           |time
 |Location (lexicographical)                     |location
 |Duration of Dive                               |duration
-
 |=========================================
-
 
 === Planning Mode : `newplan` or `normalmode`
 
@@ -365,18 +394,23 @@ The planning mode is a temporary space for you to plan trips and to simulate div
  are planning on a multiple day diving trip! +
  When you enter the planning mode, simply enter simulation dives as per how you would use the other commands normally.
 
-When you exit, all your simulation files will be deleted automatically. In the Current V1.3,
+When you exit, all your simulation files will be deleted automatically. In the Current V1.4,
 planning mode only supports `add`, `delete` and `edit` commands +
-
-[Coming in V1.4] To convert your simulation files to the actual mode, type `convert`
 
 Format: `newplan` to enter Planning Mode, `normalmode` to exit planning mode.
 
 TIP: When you exit the planning mode, you will return to the state before you entered.
 
+=== Port files from Planning Mode to normal mode : `portover`
+When you have finished your plan and found the perfect set of dives, simply input the `portover` command and
+the app will port all planning data into data in the normal mode.
+
+TIP: You cannot use this command in `normalmode` as there are no planning data to port over.
+
 === Exiting the program : `exit`
 
 Finished using Dive Log? This command shuts down Dive Log, and saves your new dive session data for your next use. +
+
 Format: `exit`
 
 === Saving the data
@@ -386,6 +420,9 @@ Worry not! Dive Log  saves all your data in the hard disk *automatically* after 
 There is absolutely no need to save manually.
 
 == About Pressure Groups in recreational diving [[pressure_groups]]
+
+New to diving and to our product? Pressure groups are a crucial part of diving, as it limits the amount of time you can spend underwater. In this section, we will explain how diving and pressure groups are related.
+
 image::PADI_TableOneAndTwo.png[width="790"]
 [[Diagram_10]]Diagram 10: PADI Recreational Dive Planner, Table 1 (No Decompression Limits and Group Designation Table)
 and Table 2 (Surface Interval Credit Table) +
@@ -409,6 +446,8 @@ Total Bottom Time (TBT). Going back to Table 1 in <<Diagram_10>>, for a depth of
 
 == FAQ [[FAQ]]
 
+Below are the few Frequently Asked Questions (FAQs). If your doubts are not addressed below, please feel free to post your doubts directly on our product https://github.com/CS2113-AY1819S1-W13-2/main[Git Page^].
+
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Dive Log folder.
 
@@ -416,6 +455,6 @@ Total Bottom Time (TBT). Going back to Table 1 in <<Diagram_10>>, for a depth of
 *A*: The purpose of the Recreational Dive Planner is to make all dives no decompression dives. Proper planning assures that all dives, single or repetitive, are within the no decompression limits by controlling the length of the dive, the depth of the dive, and the sur- face interval between dives.
 The Recreational Dive Planner Table is actually three tables linked together. Each of the three tables provides information for planning dives within accepted nitrogen levels.
 
-*Q*: Where can I find out more about PADI dive tables? +
+*Q*: Where can I find out more about PADI dive tables? [[PADI]] +
 *A*: The 36-page long Instructions for Use official document can be found https://elearning.padi.com/company0/tools/RDP%20InsforUseMet.pdf
 

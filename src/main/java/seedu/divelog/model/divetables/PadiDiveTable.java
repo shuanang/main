@@ -197,7 +197,7 @@ public class PadiDiveTable {
         } catch (LimitExceededException le) {
             logger.severe("Max depth exceeded\n\t" + le.getMessage());
             throw new ParseException(Messages.MESSAGE_ERROR_LIMIT_EXCEED + "\n"
-                    + "The deepest you can go is 42m - don't risk your life!");
+                    + Messages.MESSAGE_MAX_DEPTH_EXCEEDED);
         }
         return 0;
     }

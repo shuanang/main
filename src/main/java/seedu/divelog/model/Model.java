@@ -28,6 +28,7 @@ public interface Model {
      * Deletes the given dive.
      * The dive session must exist in the divelog book.
      * @param target
+     * @throws DiveNotFoundException if the dive to be deleted does not exist
      */
     void deleteDiveSession(DiveSession target) throws DiveNotFoundException;
 
@@ -35,6 +36,9 @@ public interface Model {
      * Adds the given dive.
      * {@code DiveSession} must not already exist in the divelog book.
      * @param diveSession
+     * @throws DiveOverlapsException when the dive you want to insert overlaps
+     * @throws LimitExceededException if the dive to be added pushes the diver over the limit
+     * @throws InvalidTimeException if something goes wrong in time conversions
      */
     void addDiveSession(DiveSession diveSession) throws DiveOverlapsException, LimitExceededException,
             InvalidTimeException;
@@ -45,6 +49,10 @@ public interface Model {
      * The dive of {@code DiveSession} must not be the same as another existing dive session in the divelog book.
      * @param target
      * @param editedDiveSession
+     * @throws DiveNotFoundException if the dive to be deleted does not exist
+     * @throws DiveOverlapsException when the dive you want to insert overlaps
+     * @throws LimitExceededException if the dive to be added pushes the diver over the limit
+     * @throws InvalidTimeException if something goes wrong in time conversions
      */
     void updateDiveSession(DiveSession target, DiveSession editedDiveSession) throws DiveOverlapsException,
             DiveNotFoundException, InvalidTimeException, LimitExceededException;
@@ -73,7 +81,6 @@ public interface Model {
     /**
      * Recalculate all pressure groups
      */
-
     void recalculatePressureGroups() throws LimitExceededException;
 
     /**

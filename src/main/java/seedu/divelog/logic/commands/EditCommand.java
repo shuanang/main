@@ -44,8 +44,6 @@ public class EditCommand extends Command {
             + "[" + CliSyntax.PREFIX_TIME_END + "TIME_END] "
             + "[" + CliSyntax.PREFIX_SAFETY_STOP + "SAFETY_STOP_TIME] "
             + "[" + CliSyntax.PREFIX_DEPTH + "DEPTH] "
-            //+ "[" + CliSyntax.PREFIX_PRESSURE_GROUP_START + "PG_AT_START] "
-            //+ "[" + CliSyntax.PREFIX_PRESSURE_GROUP_END + "PG_AT_END] "
             + "[" + CliSyntax.PREFIX_LOCATION + "LOCATION]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + CliSyntax.PREFIX_LOCATION + "Tioman "
@@ -228,8 +226,6 @@ public class EditCommand extends Command {
                     && getStart().equals(e.getStart())
                     && getDateEnd().equals(e.getDateEnd())
                     && getEnd().equals(e.getEnd())
-                    && getPressureGroupAtBeginning().equals(e.getPressureGroupAtBeginning())
-                    && getPressureGroupAtEnd().equals(e.getPressureGroupAtEnd())
                     && getLocation().equals(e.getLocation())
                     && getDepthProfile().equals(e.getDepthProfile())
                     && getTimeZone().equals(e.getTimeZone());
