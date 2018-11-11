@@ -18,7 +18,7 @@ Responsibilities: Team Lead
 
 === Ang Yi Shaun
 image::shuanang.png[width="150", align="left"]
-{empty}[http://github.com/shuanang[github]]
+{empty}[http://github.com/shuanang[github]] [https://cs2113-ay1819s1-w13-2.github.io/main/team/shuanang.html[Portfolio]] +
 Role: Developer +
 Responsibilities: Pressure group calculation
 
