@@ -116,12 +116,12 @@ public class DiveSession implements Comparable {
      * Gets the dive start time in UTC as a java Date object
      * @return The date as the UTC date.
      */
-    public Date getDiveUTCDateStart()  {
+    public Date getDiveUtcDateStart() {
         String date = getDateStart().getOurDateString();
         String time = getStart().getTimeString();
         int timeZone = getTimeZone().getTimeZone();
         try {
-            return CompareUtil.convertTimeToUTC(time, date, timeZone);
+            return CompareUtil.convertTimeToUtc(time, date, timeZone);
         } catch (ParseException pe) {
             throw new AssertionError("Time passed to DiveSession should be checked beforehand");
         }
@@ -131,12 +131,12 @@ public class DiveSession implements Comparable {
      * Gets the dive start time in UTC as a java Date object
      * @return The date as the UTC date.
      */
-    public Date getDiveUTCDateEnd()  {
+    public Date getDiveUtcDateEnd() {
         String date = getDateEnd().getOurDateString();
         String time = getStart().getTimeString();
         int timeZone = getTimeZone().getTimeZone();
         try {
-            return CompareUtil.convertTimeToUTC(time, date, timeZone);
+            return CompareUtil.convertTimeToUtc(time, date, timeZone);
         } catch (ParseException pe) {
             throw new AssertionError("Time passed to DiveSession should be checked beforehand");
         }
@@ -241,8 +241,8 @@ public class DiveSession implements Comparable {
 
         DiveSession other = (DiveSession) o;
 
-        Date otherDate = other.getDiveUTCDateStart();
-        Date myDate = getDiveUTCDateStart();
+        Date otherDate = other.getDiveUtcDateStart();
+        Date myDate = getDiveUtcDateStart();
         return myDate.compareTo(otherDate);
 
     }

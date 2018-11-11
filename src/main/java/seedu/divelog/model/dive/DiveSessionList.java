@@ -41,8 +41,8 @@ public class DiveSessionList implements Iterable<DiveSession> {
      */
     public void sortDiveSession(SortingMethod sortByCategory) {
         Comparator<DiveSession> dateTimeComparator = (one, two) -> {
-            Date dateTime1 = one.getDiveUTCDateStart();
-            Date dateTime2 = two.getDiveUTCDateEnd();
+            Date dateTime1 = one.getDiveUtcDateStart();
+            Date dateTime2 = two.getDiveUtcDateEnd();
             return dateTime2.compareTo(dateTime1);
         };
 
@@ -64,7 +64,7 @@ public class DiveSessionList implements Iterable<DiveSession> {
         DiveSession mostRecent = null;
         for (DiveSession diveSession: internalList) {
             if (mostRecent == null
-                    && CompareUtil.getCurrentUtcTime().compareTo(diveSession.getDiveUTCDateStart()) > 0) {
+                    && CompareUtil.getCurrentUtcTime().compareTo(diveSession.getDiveUtcDateStart()) > 0) {
                 mostRecent = diveSession;
                 continue;
             }
@@ -75,7 +75,7 @@ public class DiveSessionList implements Iterable<DiveSession> {
 
 
             if (mostRecent.compareTo(diveSession) < 0
-                    && CompareUtil.getCurrentUtcTime().compareTo(diveSession.getDiveUTCDateStart()) > 0) {
+                    && CompareUtil.getCurrentUtcTime().compareTo(diveSession.getDiveUtcDateStart()) > 0) {
                 log.severe("Updating dive " + mostRecent.toString() + "to" + diveSession.toString());
                 mostRecent = diveSession;
             }

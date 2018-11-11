@@ -59,7 +59,7 @@ public class CompareUtil {
      * Converts date and time into UTC time
      * returns first 8 digits of Date in DDMMYYYY, next 4 digits in HHMM
      */
-    public static Date convertTimeToUTC(String time, String date, int timezone) throws ParseException {
+    public static Date convertTimeToUtc(String time, String date, int timezone) throws ParseException {
         String timeNowString = date.concat(time);
         SimpleDateFormat inputFormat = new SimpleDateFormat("ddMMyyyyHHmm");
 
@@ -80,9 +80,9 @@ public class CompareUtil {
 
     /**
      * get current UTC time
-     * Based on: https://stackoverflow.com/questions/308683/how-can-i-get-the-current-date-and-time-in-utc-or-gmt-in-java
+     * Based on:
+     * https://stackoverflow.com/questions/308683/how-can-i-get-the-current-date-and-time-in-utc-or-gmt-in-java
      * @return Date with UTC.
-     * @return Date with UTC
      */
     public static Date getCurrentUtcTime() {
         SimpleDateFormat dateFormatGmt = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
@@ -93,7 +93,7 @@ public class CompareUtil {
 
         //Time in GMT
         try {
-            return dateFormatLocal.parse( dateFormatGmt.format(new Date()) );
+            return dateFormatLocal.parse(dateFormatGmt.format(new Date()));
         } catch (ParseException e) {
             throw new AssertionError("Something went wrong within the UTC conversion for local time");
         }
