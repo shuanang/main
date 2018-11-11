@@ -377,6 +377,7 @@ This saves both memory and disc writes.
 ** Pros: Easy to implement
 ** Cons: Wastes memory and performs unnecessary IO.
 // tag::planning[]
+
 === New Feature: Planning Mode (with `portover` capability)
 From our verbal surveys with test users and from our user stories, we have decided to implement a Planning mode in order for users to plan their
 dives ahead of their trips safely without worrying about corrupting their current data.
