@@ -209,7 +209,7 @@ public class DiveSession implements Comparable {
      * @throws InvalidTimeException When time format is incorrect. Should never reach this stage.
      */
     public float getTimeBetweenDiveSession(DiveSession other) {
-        return (other.getDiveUtcDateStart().getTime() - getDiveUtcDateStart().getTime()) / 60000.0f;
+        return (float) Math.floor((other.getDiveUtcDateStart().getTime() - getDiveUtcDateEnd().getTime()) / 60000.0f);
     }
     @Override
     public String toString() {

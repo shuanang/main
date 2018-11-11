@@ -63,7 +63,7 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_DIVE, descriptor);
 
         //Adjust expected output to accommodate for automated PG calculation
-        editedDive.setPressureGroupAtBeginning(new PressureGroup("B"));
+        editedDive.setPressureGroupAtBeginning(new PressureGroup("C"));
         try {
             editedDive.computePressureGroupComputeRepeated();
         } catch (LimitExceededException | InvalidTimeException e) {
