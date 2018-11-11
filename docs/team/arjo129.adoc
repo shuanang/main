@@ -17,13 +17,13 @@ deep or too long.
 * *Major enhancement*: added *consistency check between dives*
 ** What it does: When a dive is added or edited, one must always check whether the dive is valid or not.
 One must also check that the addition or change in parameters of the dive does not make the subsequent dives to risky to attempt.
-** Justification: This feature is critical for the functioning of the divelog as the individual nitrogen levels depend on the previous dives
-** Highlights: This enhancement affects both the `add` and `edit` command.
+** Justification: This feature is critical for the functioning of the divelog as the individual nitrogen levels depend on the previous dives. If a user enters a dive that is too long or deep he or she must be warned.
+** Highlights: This enhancement affects both the `add` and `edit` command. This feature also made calculation of pressuregroups between dives possible.
 
-* *Minor enhancement*:
-** added a `set_units` command
-** Integration of timezones into calculations
-** Morphed the UI and Model to make it work
+* *Minor enhancements*:
+** Added a `set_units` command which makes the app switch between feet and meters.
+** Integration of timezones into calculations.
+** Morphed the UI and Model to make it work.
 
 * *Code contributed*: https://nuscs2113-ay1819s1.github.io/dashboard/#=undefined&search=arjo129&sort=displayName&since=2018-09-12&until=2018-11-04&timeframe=day&reverse=false&repoSort=true[RepoSense Dashboard]
 
@@ -35,7 +35,7 @@ One must also check that the addition or change in parameters of the dive does n
 *** Performed initial morph of model and UI. Added the `DiveSession` object. (Pull requests )
 *** Adapted old tests to make them work for the divelog.
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2113-AY1819S1-W13-2/main/pull/119[#119], https://github.com/CS2113-AY1819S1-W13-2/main/pull/66[#66], https://github.com/CS2113-AY1819S1-W13-2/main/pull/125[#125], https://github.com/CS2113-AY1819S1-W13-2/main/pull/68[#68],
 *** Contributed to forum discussions (examples:  https://github.com/nusCS2113-AY1819S1/forum/issues/58[#58], https://github.com/nusCS2113-AY1819S1/forum/issues/62[#62], https://github.com/nusCS2113-AY1819S1/forum/issues/29[#29])
 *** Reported bugs and suggestions for other teams in the class (examples: https://github.com/CS2113-AY1819S1-W12-3/main/issues/152[1] , https://github.com/CS2113-AY1819S1-W12-3/main/issues/149[2], https://github.com/CS2113-AY1819S1-W12-3/main/issues/142[3])
 
