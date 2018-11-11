@@ -18,23 +18,19 @@ By: `Team CS2113-AY1819S1-W13-2`      Since: `Aug 2018`      Licence: `M
 
 == Introduction
 
-Divelog is a digital dive log for planning and tracking dives that aims to simplify safe dive planning,logging and calculations.
+Divelog is a digital dive log for planning and tracking dives that aims to simplify safe dive planning, logging and calculations.
 Divelog provides a simple way for underwater divers to input details of their dives such as the time they spent at a particular depth, and Divelog will keep track of their nitrogen levels.
 This allows divers to plan their next trip safely. +
 
+We have adopted the <<PADI>> dive tables standards to calculate pressure groups for individual dives. In addition, we are also able to determine if the dive is the first dive or a repeat dive for the day.
 
-We have adopted the <<PADI>> dive tables standards to calculate pressure groups for individual dives, whether the dive is the first dive
-or a repeat dive of the day.
-
-Pressure groups are a letter between A to Z which mark the nitrogen
-concentration within a diver ("A" corresponds to a scenario where the diver is almost free of nitrogen).
-As of v1.4, the pressure groups are automatically calculated accross all dives,
-all one needs to enter is the depth and time of the the dive and the pressure groups of all dives are automatically updated.
-The system also will verify the dives are safe before letting you add or edit them. This is to help ensure your safety.
+Pressure groups are made up of an alphabet, between A to Z, which marks the nitrogen concentration within a diver ("A" corresponds to a scenario where the diver is almost free of nitrogen, whilst "Z" corresponds to a scenario where the diver has dangerously excess of Nitrogen).
+As of v1.4, the pressure groups are automatically calculated across all dives. You only need to enter the location, depth and the time of the the dive. Following which, the pressure groups of all dives are automatically calculated and updated.
+The system will also verify that the dives are safe before allowing you to add and/or edit the dives. This is to ensure your safety.
 We are still working on the sortby
 `<<sortby>>` feature coming in the upcoming release v2.0. +
 
-For more information on pressure groups (whether you are a recreational diver or looking to become one), you can find out more over at `<<pressure_groups>>` and  `<<FAQ>>`.
+For more information on pressure groups, you can find out more over at `<<pressure_groups>>` and  `<<FAQ>>`.
 
 == Quick Start
 
@@ -51,7 +47,7 @@ Diagram 1: screenshot of GUI
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 +++ <details><summary> +++
-View screenshot for location of command box
+Click to view screenshot for location of command box
 +++ </summary><div> +++
 image::UGSS_Ui_command.png[width="800"]
 Diagram 2: Command Box location
@@ -69,7 +65,7 @@ Confused by our User Guide? Our guide is written following the below few guideli
 ** e.g. in `add l/LOCATION`, `LOCATION` is a parameter which can be used as `add l/Sentosa`.
 * Items in square brackets are optional
 ** e.g `l/LOCATION [tz/TIMEZONE]` can be used as `l/Bali tz/+8` or as `l/Bali`.
-* Parameters can be in any order
+* Parameters can be entered in any order
 ** e.g. if the command specifies `pg/A d/10`, `d/10 pg/A` is also acceptable.
 * A vertical bar `a|b` means either `a` or `b` will work as inputs.
 ====
@@ -81,7 +77,7 @@ Use this command to help window to see the user guide. Upon entering the command
 Format: `help`
 
 +++ <details><summary> +++
-View the flow for the help guide
+Click here to view the screenshots to open help within the application
 +++ </summary><div> +++
 
 image::UGSS_help1.png[width="800"]
@@ -95,7 +91,7 @@ Diagram 4: The help guide will open up
 TIP: You can close the guide by closing it. This can be done by clicking on the X on the top right corner.
 
 +++ <details><summary> +++
-View the screenshot for how to close the help guide.
+Click here to view the screenshot on how to close the help window when open within the application
 +++ </summary><div> +++
 
 image::UGSS_help3.png[width="800"]
@@ -105,6 +101,7 @@ Diagram 5: Click the X to close
 
 
 // tag::add[]
+[[Add]]
 === Adding a dive session: `add`
 
 Use this command to adds your new dive session to the Dive Log.
@@ -115,7 +112,6 @@ TIP: Words in UPPER_CASE are the parameters, items in SQUARE_BRACKETS are option
 the program will not be able to add your dive.
 
 Put a `ts/` before the time started(24 hours format - HHMM), te/time ended (24 hours format - HHMM), d/depth (in metres), l/ location (location name), per dive at v1.0) (optional) and pg/initial pressure group.
-
 
 _Example:_ `add ds/04082018 ts/0900 de/04082018  te/1020 ss/1015 d/15 l/Bukit Lagoon tz/+8`
 
@@ -154,6 +150,8 @@ If for instance you enter an invalid dive, the system will tell you that you hav
 |Start and End date or time or Safety Stop Time are not in chronological order! Start Date should be earlier than End Date! Safety Stop should be between Start and End time" | You need to make sure that your start time is before your end time and safety stop comes inbetween.
 |=========================================
 //end::add[]
+
+[[List]]
 === Listing all dives : `list`
 
 To display all the dives that you have previously recorded, `list` shows a list of all dives in the dive log. +
@@ -162,7 +160,7 @@ To change the manner in which your dives are ordered, view `<<sortby>>`
 Format: `list`
 
 +++ <details><summary> +++
-View screenshot for list
+Click here to see the screenshot for list
 +++ </summary><div> +++
 
 image::UGSS_list.png[width="800"]
@@ -171,6 +169,7 @@ Diagram 6: List command
 +++ </div></details> +++
 
 //tag::edit[]
+[[Edit]]
 === Editing a dive : `edit` [[edit]]
 
 If you made a mistake while adding a new dive, `edit` will come in handy.
@@ -206,8 +205,9 @@ For a set of reasons why an edit may fail please take a look at <<add>>.
 //end::edit[]
 
 //tag::set_units[]
+[[set_units]]
 === Setting display units `set_units` [[set_units]]
-If you're not used to the metric or impreial system, `set_units`
+If you're not used to the metric or imperial system, `set_units`
 switches between meters and feet. (App defaults to meters) All data displayed will be automatically and accurately converted  +
 Format: `set_units meters|feet` +
 ****
@@ -218,6 +218,7 @@ Format: `set_units meters|feet` +
 Example usage: `set_units feet`
 //end::set_units[]
 
+[[Find]]
 === Locating dives by location: `find` [[find]]
 Looking for a specific dive? Use `find` to find dives whose location contain any of the given keywords that you input. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
@@ -234,13 +235,14 @@ Examples:
 Returns `Dive at Bali`
 
 +++ <details><summary> +++
-View screenshot for example of a successful find
+Click here to view the screenshot for an example of a successful find
 +++ </summary><div> +++
 
 image::UGSS_find.png[width="800"]
 Diagram 7: Find command
 +++ </div></details> +++
 
+[[Delete]]
 === Deleting a dive : `delete`
 Deletes the specified dive from the Dive Log. +
 Format: `delete INDEX`
@@ -260,12 +262,11 @@ Deletes the 2nd dive in the Dive Log.
 `delete 1` +
 Deletes the 1st dive in the results of the `find` command.
 
+[[Select]]
 === Selecting a diveSession : `select`
-//is this needed LOLOl
 Selects the dive identified by the index number used in the displayed dive list. +
 Format: `select INDEX`
 
-//to update the rationale for the color code.
 ****
 * Selects the dive and loads the details of the dive at the specified `INDEX`.
 * The current pressure group of the start of the dive and end of the dive will be displayed.
@@ -284,7 +285,7 @@ Selects the 2nd dive in the Dive Log.
 Selects the 1st dive in the results of the `find` command.
 
 +++ <details><summary> +++
-View screenshot for a successful select
+Click here to view the screenshot for a successful select
 +++ </summary><div> +++
 
 image::UGSS_select.png[width="800"]
@@ -292,6 +293,7 @@ Diagram 8: Select command
 
 +++ </div></details> +++
 
+[[History]]
 === Listing entered commands : `history`
 
 Forgot what command you did just now and corrupted your data? Find our what command exactly did you execute
@@ -305,7 +307,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 ====
 
 +++ <details><summary> +++
-View screenshot for a successful history command
+Click here to view the screenshot for a successful history command
 +++ </summary><div> +++
 
 image::UGSS_history.png[width="800"]
@@ -314,6 +316,7 @@ Diagram 9: History command
 +++ </div></details> +++
 
 // tag::undoredo[]
+[[undoredo]]
 === Undoing previous command : `undo` [[undo]]
 The perfect solution to a slip of the finger. `undo` restores the Dive Log to the state before the previous _undoable_ command was executed. +
 
@@ -340,6 +343,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
 
+[[redo]]
 === Redoing the previously undone command : `redo`
 Ever thought of undo-ing a `undo` command? `Redo`
 reverses the most recent `undo` command. +
@@ -363,6 +367,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
+[[clear]]
 === Clearing all entries : `clear`
 
 This command, as the name suggests, clears Dive Log of *all* your previous dive logs and
@@ -379,7 +384,6 @@ TIP: Performed an accidental `clear` of your precious data? Use `undo` to, _you'
 === Setting parameters to sort dives : `sortby` [[sortby]] [coming in V2.0]
 
 In V1.4, all dives are sorted automatically according to time and date by default.
-
 
 Want to view your dives in ranked order by different options? Simply type `sortby` followed by a `KEYWORD`,
  your following `list`, `find` commands will return you all your dive sessions in that particular order. +
@@ -399,6 +403,7 @@ WARNING: You can only use the specific keywords below.
 // end::sortby[]
 // tag::newplan[]
 
+[[newplan]]
 === Planning Mode : `newplan` or `normalmode`
 
 The planning mode is a temporary space for you to plan trips and to simulate dives. This is especially important if you
@@ -412,7 +417,7 @@ Format: `newplan` to enter Planning Mode, `normalmode` to exit planning mode.
 
 TIP: When you exit the planning mode, you will return to the state before you entered.
 
-
+[[portover]]
 === Port files from Planning Mode to normal mode : `portover`
 When you have finished your plan and found the perfect set of dives, simply input the `portover` command and
 the app will port all planning data into data in the normal mode.
@@ -420,6 +425,7 @@ the app will port all planning data into data in the normal mode.
 TIP: You cannot use this command in `normalmode` as there are no planning data to port over.
 // end::newplan[]
 
+[[exit]]
 === Exiting the program : `exit`
 
 Finished using Dive Log? This command shuts down Dive Log, and saves your new dive session data for your next use. +
@@ -456,7 +462,6 @@ Finding his current pressure group "A" on the top row of Table 3, he would match
 10 minutes refer the Residual Nitrogen Time (RNT) and 209 minutes refer to the adjusted no decompression limits. The diver has to add the RNT value (10) to his intended/actual diving time (15 minutes), giving a total of 25 minutes
 Total Bottom Time (TBT). Going back to Table 1 in <<Diagram_10>>, for a depth of 10 metres and 25 minutes TBT, his new pressure group would be "C".
 
-
 == FAQ [[FAQ]]
 
 Below are the few Frequently Asked Questions (FAQs). If your doubts are not addressed below, please feel free to post your doubts directly on our product https://github.com/CS2113-AY1819S1-W13-2/main[Git Page^].
@@ -469,5 +474,5 @@ Below are the few Frequently Asked Questions (FAQs). If your doubts are not addr
 The Recreational Dive Planner Table is actually three tables linked together. Each of the three tables provides information for planning dives within accepted nitrogen levels.
 
 *Q*: Where can I find out more about PADI dive tables? [[PADI]] +
-*A*: The 36-page long Instructions for Use official document can be found https://elearning.padi.com/company0/tools/RDP%20InsforUseMet.pdf
+*A*: The 36-page long Instructions for Use official document can be found https://elearning.padi.com/company0/tools/RDP%20InsforUseMet.pdf[Padi's Website].
 
