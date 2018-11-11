@@ -217,12 +217,26 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the DiveLog data.
+* enforces relational rules between dive sessions (i.e Dives may not overlap). For more information on this take a look at the section on <<CRUD>>.
 * exposes an unmodifiable `ObservableList<DiveSession>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 Some choices made here include the encapsulation of even simple values such as depth which is stored as a `DepthProfile` object.
 By doing so suppose we want to extend Depth to support complex dives with multiple depths or different units, we can simply update
-`DepthProfile` without breaking existing code.
+`DepthProfile` without breaking existing code. Similarly, we also decided to have `DiveSession` implement java's `Comparable` interface
+as it makes sorting the dives easier. Sorting the dives is an essential part of making sure that the dives retain their integrity.
+
+
+A rough summary of what each class does is as follows:
+[options="header"]
+|=========================================
+|Class(es)                                      | Role
+|`DiveSession`                                  | Holds data about the dives. Provides a few getters and setters.
+|`Time`, `OurDate`, `PressureGroup`, `DepthProfile`, `Location` | Encapsulates simple properties of the dives
+|`DiveSessionList`                              | Stores a list of `DiveSessions` and provides properties of the list.
+|`DiveLog`                                      | Handles updating the DiveSessionList.
+|`VersionedDiveLog`                             | Handles undo/redo feature and versioning.
+|=========================================
 
 [[Design-Storage]]
 === Storage component
@@ -344,10 +358,6 @@ interaction with `PadiDiveTable` and `DiveTableUtil` can be found in the sequenc
 
 image::PadiDiveTableUsage.png[width="800"]
 
-Internally at the moment, `DiveTableUtil#readJsonFileFromResources` has the following interaction:
-
-image::DiveTableUtilInternal.png[width="800"]
-
 ==== Design Considerations
 
 ===== Aspect: Retrieving Dive Tables
@@ -462,19 +472,57 @@ there has to be a time and date parameter. We have decided to create our own cla
 
 // end::newparam[]
 === CRUD for `DiveSession` objects
-At its heart, the application is a divelog. The source code for this application was adopted from an addressbook application.
-The main implementation consideration was to minimize the number of changes in the existing addressbook class. At its heart
-the Dive Log uses the Model which is described in (See <<Design-Model>>). The overall flow for command execution is similar
-to the case of undo. For additions, additions are made to the model, which is eventually committed to storage.
-An overall sequence diagram is as follows:
 
+At its heart, the application is a dive log. The source code for this application was adopted from an addressbook application.
+The addressbook has a relatively simple set of rules, DiveLog on the other hand has a more complicated set of rules which have to be followed.
+This is because the starting pressure group on each dive is dependent on the previous dive's end time and ending pressure group. In turn,
+the ending pressure group is dependent on the starting pressure group and depth of a dive. This poses a lot of problems as a single update
+to the system requires recalculating all subsequent dive's pressure groups. Furthermore, it is only after
+all calculations are complete that the system can make sure that the update is valid. Some possible sources of inconsistency include:
 
+* Dives with overlapping time periods - these cause problems in the chain as the PADI tables are only meant to be used by a single diver doing one dive at a time.
+* Dives that are deemed too deep and too long by PADI - we have no way of determining their nitrogen level apat from the tables.
+* Dives which cause other dives to become too dangrous. Lets say you add a dive inbetween two dives. This may cause the later dive to be deemed as too dangerous.
 
-=== Consistency Checks For Diving And Retaining Order [TODO]
+At the end we have incorporated most of the code into our model. For `add` and `edit` we required atomicity thus the general flow is as follows:
 
-Currently, this is still unimplemented. However, the plan would be to modify the `DiveSession` object such that it implements `java.lang.Comparable`.
-In doing so it allows for the whole model to be traversed in a linear fashion. At the same time, this allows for insertion of
-new dives at the right locations efficiently through Binary Search. The sorting is achieved by time and date.
+. Create a temporary copy of the `DiveSessionList`.
+. Perform the update/addition on this list and sort it to make calculations easier.
+. Check if there are any overlapping dives
+.. If there are overlapping dives throw `DiveOverlapsException`.
+. Recalculate pressure groups and check for consistency
+.. If not consistent throw `LimitExceededException` error.
+. Commit new `DiveSessionList` to divelog. Update `VersionedDivelog` 's current pointer.
+
+In terms of calculations, the pressure group properties of the dives themselves will mutate to support
+
+==== Design Considerations
+
+Upon failure of calculations it is important that the divelog remains in a consistent state. For instance, when updating the dive log if after adding a dive we see that
+it is causing issues in the dive log, or if we edit a dive to have overlapping time periods with another dive, the divelog should roll back the latest transaction and throw an error.
+This calls for atomicity in our Create, Update and Delete. Fortunately, in our case, deleting the dive cannot actually cause a violation as it only makes the
+dives safer. Thus our design considerations could be summed up as follows:
+
+* Ensure consistency in the divelog
+* Ensure creating and Updating the divelog are atomic
+
+===== Aspect: Ensure consistency in the divelog
+* *Alternative 1*: implementing rules for consistency in `logic` module.
+** Pros: Stronger Separation of Concerns.
+** Cons: Will require duplicating code accross `AddCommand` and `EditCommand`. This will lead to inconsistent behaviour between the two and more lines of code to debug.
+
+* *Alternative 2*: implementing rules for consistency in `model` module.
+** Pros: Only one code base to debug. System will remain consistent.
+** Cons: Weaker separation of concerns than if implemented separately. Can also mean a bug effects both add and edit making the system unreliable.
+
+===== Aspect: Ensure creating and updating the divelog are atomic
+* *Alternative 1*: Creating a temporary copy of the list and mutating the copy
+** Pros: Simple to implement and fast.
+** Cons: Inefficient
+* *Alternative 2*: Having a separate data structure that only handles mutation after the edited dive.
+** Pros: Will be more efficient.
+** Cons: More code will need to be written. Since `VersionedDiveLog` already maintains copies, it is just a matter of passing the reference of the temporary dive list to the system.
+Furthermore, most divers will not have more than 100 dives.
 
 
 === Localized Units
@@ -483,7 +531,8 @@ As of `v1.3`, a `set_units` command was added. This allows the user to switch be
 The implementation of this command involves altering the `ApplicationState`. Once the `ApplicationState`
 is updated a `UnitsChangedEvent` is posted to the `EventsCenter`. The `EventsCenter` issues a
 call to the UI. The relevant parts of the UI will be forced to re-render themselves to match
-the new units.
+the new units. As of `v1.4` the `ParserUtil#parseDepthProfile(String depth)` also reads this state, and converts the units to meters.
+Internally all the units are stored as meters. This choice was largely made to keep things simple.
 
 === Logging
 

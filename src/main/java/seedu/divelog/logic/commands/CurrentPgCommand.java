@@ -11,7 +11,6 @@ import java.util.Calendar;
 
 import seedu.divelog.commons.util.CompareUtil;
 import seedu.divelog.logic.CommandHistory;
-import seedu.divelog.logic.commands.exceptions.CommandException;
 import seedu.divelog.logic.pressuregroup.PressureGroupLogic;
 import seedu.divelog.model.Model;
 import seedu.divelog.model.dive.DiveSession;
@@ -20,6 +19,8 @@ import seedu.divelog.model.dive.PressureGroup;
 
 /**
  * Returns the current pressure group with respect to the latest dive session based on the current time
+ * provides information on current pressure group, minutes to next pressure group, minutes and time to the minimum
+ * pressure group "A", as well as flight recommendation times according to number of dives
  */
 public class CurrentPgCommand extends Command {
     public static final String COMMAND_WORD = "currentpg";
@@ -29,7 +30,7 @@ public class CurrentPgCommand extends Command {
     public static final String MESSAGE_TIMETOMIN = "Time to 'A' pressure group: ";
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) {
         DiveSession lastDive = model.getMostRecent();
         PressureGroupLogic pressureGroupLogic = new PressureGroupLogic();
         long currentDateTime = CompareUtil.getCurrentDateTimeLong(); //ddMMyyyyHHmm
@@ -71,15 +72,19 @@ public class CurrentPgCommand extends Command {
             if ((currentPg.getPressureGroup().equals("A")) && (firstDive == 0)
                     && (surfaceDuration >= singleDivePreFlightSurfaceIntervalMinutes)) {
                 //check if there is any dive in the past 12 hours for single dives
-                return new CommandResult("Based on your latest dive(s), "
-                        + "your current pressure group is already A." + "\n"
+                return new CommandResult("Based on your latest dive(s) that ended on "
+                        + lastDive.getDateEnd().getOurDateString() + " "
+                        + lastDive.getEnd().getTimeString()
+                        + "hrs, your current pressure group is already A." + "\n"
                         + "It has been at least 12 hours since your last SINGLE dive - you can safely fly!");
             }
             if ((currentPg.getPressureGroup().equals("A")) && (firstDive == 1)
                     && (surfaceDuration >= repeatDivePreFlightSurfaceIntervalMinutes)) {
                 //check if there is any dive in the past 18 hours for repeat/multi-day dives
-                return new CommandResult("Based on your latest dive(s),"
-                        + " your current pressure group is already A." + "\n"
+                return new CommandResult("Based on your latest dive(s) that ended on "
+                        + lastDive.getDateEnd().getOurDateString() + " "
+                        + lastDive.getEnd().getTimeString()
+                        + "hrs, your current pressure group is already A." + "\n"
                         + " It has been at least 18 hours since your last dive of your repetitive dive series"
                         + " - you can safely fly!");
             }

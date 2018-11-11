@@ -23,7 +23,7 @@ import seedu.divelog.model.dive.exceptions.InvalidTimeException;
  * Stores a list of dives
  */
 public class DiveSessionList implements Iterable<DiveSession> {
-    private static final float ONE_DAY_IN_MINUTES = 24 * 60;
+    private static final float SIX_HOURS_IN_MINUTES = (6 * 60) - 1;
 
     private final ObservableList<DiveSession> internalList = FXCollections.observableArrayList();
     /**
@@ -41,8 +41,8 @@ public class DiveSessionList implements Iterable<DiveSession> {
      */
     public void sortDiveSession(SortingMethod sortByCategory) {
         Comparator<DiveSession> dateTimeComparator = (one, two) -> {
-            Date dateTime1 = one.getDateTime();
-            Date dateTime2 = two.getDateTime();
+            Date dateTime1 = one.getDiveUtcDateStart();
+            Date dateTime2 = two.getDiveUtcDateEnd();
             return dateTime2.compareTo(dateTime1);
         };
 
@@ -64,7 +64,7 @@ public class DiveSessionList implements Iterable<DiveSession> {
         DiveSession mostRecent = null;
         for (DiveSession diveSession: internalList) {
             if (mostRecent == null
-                    && CompareUtil.getCurrentDateTime().compareTo(diveSession.getDateTime()) > 0) {
+                    && CompareUtil.getCurrentUtcTime().compareTo(diveSession.getDiveUtcDateStart()) > 0) {
                 mostRecent = diveSession;
                 continue;
             }
@@ -75,7 +75,7 @@ public class DiveSessionList implements Iterable<DiveSession> {
 
 
             if (mostRecent.compareTo(diveSession) < 0
-                    && CompareUtil.getCurrentDateTime().compareTo(diveSession.getDateTime()) > 0) {
+                    && CompareUtil.getCurrentUtcTime().compareTo(diveSession.getDiveUtcDateStart()) > 0) {
                 log.severe("Updating dive " + mostRecent.toString() + "to" + diveSession.toString());
                 mostRecent = diveSession;
             }
@@ -105,10 +105,8 @@ public class DiveSessionList implements Iterable<DiveSession> {
         internalList.get(internalList.size() - 1).computePressureGroupNonRepeated();
         DiveSession prevDive = internalList.get(internalList.size() - 1);
         for (int i = internalList.size() - 2; i >= 0; i--) {
-
             float surfaceInterval = prevDive.getTimeBetweenDiveSession(internalList.get(i));
-
-            if (surfaceInterval > ONE_DAY_IN_MINUTES) {
+            if (surfaceInterval > SIX_HOURS_IN_MINUTES) {
                 internalList.get(i).computePressureGroupNonRepeated();
             } else {
                 PressureGroup newPg = PressureGroupLogic.computePressureGroupAfterSurfaceInterval(
@@ -130,8 +128,8 @@ public class DiveSessionList implements Iterable<DiveSession> {
         FXCollections.sort(internalList);
 
         for (int i = 1; i < internalList.size(); i++) {
-            Date endOfLastDive = internalList.get(i - 1).getEndDate();
-            Date startOfNextDive = internalList.get(i).getDateTime();
+            Date endOfLastDive = internalList.get(i - 1).getDiveUtcDateEnd();
+            Date startOfNextDive = internalList.get(i).getDiveUtcDateStart();
             if (endOfLastDive.compareTo(startOfNextDive) > 0) {
                 return true;
             }

@@ -14,7 +14,6 @@ import seedu.divelog.logic.parser.exceptions.ParseException;
 import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.dive.Location;
 import seedu.divelog.model.dive.OurDate;
-import seedu.divelog.model.dive.PressureGroup;
 import seedu.divelog.model.dive.Time;
 import seedu.divelog.model.dive.TimeZone;
 
@@ -110,13 +109,6 @@ public class EditCommandParserTest {
         editCommand = parser.parse(command);
         expectedDesc = new EditDiveDescriptor();
         expectedDesc.setDepthProfile(new DepthProfile(9.0f));
-        expected = new EditCommand(targetIndex, expectedDesc);
-        assertEquals(editCommand, expected);
-        /*Check initial pressure group*/
-        command = targetIndex.getOneBased() + " pg/A";
-        editCommand = parser.parse(command);
-        expectedDesc = new EditDiveDescriptor();
-        expectedDesc.setPressureGroupAtBeginning(new PressureGroup("A"));
         expected = new EditCommand(targetIndex, expectedDesc);
         assertEquals(editCommand, expected);
         /*Check timezone*/
