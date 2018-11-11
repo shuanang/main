@@ -7,12 +7,9 @@
 
 == Overview
 
-DiveLog is a desktop dive log application for divers to calculate their blood nitrogen levels prior to conducting dives.
-It was built to help divers plan so as to minimise the risk of https://en.wikipedia.org/wiki/Decompression_sickness[decompression sickness]. Divers interact with
-divelog through a simple command line interface. Divers can add their dives and the system will warn them if its too
-deep or too long. The app was originally based on https://github.com/nusCS2113-AY1819S1/addressbook-level4[Addressbook 4], thus it took a fair deal of tweaking to make it useful for our use case.
-
-This app was written as part of the requirements for NUS CS2113T in semester 1 of AY2018/2019.
+DiveLog is a command line driven desktop dive log application for divers to calculate their blood nitrogen levels prior to conducting dives.
+It was built to help divers plan so as to minimise the risk of https://en.wikipedia.org/wiki/Decompression_sickness[decompression sickness]. The app was originally based on https://github.com/nusCS2113-AY1819S1/addressbook-level4[Addressbook 4] and
+written as part of the requirements for NUS CS2113T in semester 1 of AY2018/2019.
 
 == Summary of contributions
 
