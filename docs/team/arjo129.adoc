@@ -34,8 +34,8 @@ One must also check that the addition or change in parameters of the dive does n
 *** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 ** Enhancements to existing features:
 *** Performed initial morph of model and UI. Added the `DiveSession` object. (Pull requests https://github.com/CS2113-AY1819S1-W13-2/main/pull/1[#1], https://github.com/CS2113-AY1819S1-W13-2/main/pull/2[#2], https://github.com/CS2113-AY1819S1-W13-2/main/pull/3[#3], https://github.com/CS2113-AY1819S1-W13-2/main/pull/6[#6])
-*** Adapted old tests to make them work for the divelog. Including rewriting handles for GUI tests. (Pull requests: )
-*** Initial implementation of look up tables for pressuregroup calculations (Pull request: )
+*** Adapted old tests to make them work for the divelog. Including rewriting handles for GUI tests. (Pull request https://github.com/CS2113-AY1819S1-W13-2/main/pull/28[#28])
+*** Initial implementation of look up tables for pressuregroup calculations (Pull request https://github.com/CS2113-AY1819S1-W13-2/main/pull/38[#38])
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/CS2113-AY1819S1-W13-2/main/pull/119[#119], https://github.com/CS2113-AY1819S1-W13-2/main/pull/66[#66], https://github.com/CS2113-AY1819S1-W13-2/main/pull/125[#125], https://github.com/CS2113-AY1819S1-W13-2/main/pull/68[#68],
 *** Contributed to forum discussions (examples:  https://github.com/nusCS2113-AY1819S1/forum/issues/58[#58], https://github.com/nusCS2113-AY1819S1/forum/issues/62[#62], https://github.com/nusCS2113-AY1819S1/forum/issues/29[#29])
