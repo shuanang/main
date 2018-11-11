@@ -174,7 +174,7 @@ public class DiveSession implements Comparable {
             float actualBottomTime = CompareUtil.checkTimeDifference(start.getTimeString(), end.getTimeString(),
                     dateStart.getOurDateString(), dateEnd.getOurDateString());
             pressureGroupAtEnd = PressureGroupLogic.computePressureGroupFirstDive(depthProfile, actualBottomTime);
-        } catch (java.text.ParseException pe) {
+        } catch (ParseException pe) {
             throw new InvalidTimeException("Something went wrong with the time format");
         }
     }
@@ -192,7 +192,7 @@ public class DiveSession implements Comparable {
                     pressureGroupAtBeginning);
         } catch (LimitExceededException l) {
             throw l;
-        } catch (java.text.ParseException e) {
+        } catch (ParseException e) {
             //Shouldn't ever be reached
             Logger log = LogsCenter.getLogger(DiveSession.class);
             log.severe("Something went wrong with the time format");
