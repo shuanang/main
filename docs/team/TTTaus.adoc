@@ -28,6 +28,10 @@ Pull Request https://github.com/CS2113-AY1819S1-W13-2/main/pull/78[#78]
 *** [UG] Amended the tone and grammar issues in the User Guide
 Pull Request https://github.com/CS2113-AY1819S1-W13-2/main/pull/116[#116] | https://github.com/CS2113-AY1819S1-W13-2/main/pull/145[#145]
 *** [UG] Documented the colour code of the Pressure Groups
+*** [DG] Added and updated the diagrams, architecture, logic flows:
+Pull Request https://github.com/CS2113-AY1819S1-W13-2/main/pull/56[#56]
+*** [DG] Added additional debug for Javafx for developers. Made Developer guide into using proper adoc listing format.
+Pull Request https://github.com/CS2113-AY1819S1-W13-2/main/pull/46[#46]
 
 ** Community:
 *** PRs reviewed (Examples: https://github.com/CS2113-AY1819S1-W13-2/main/pull/66[#66])
@@ -47,4 +51,4 @@ include::../UserGuide.adoc[tag=Select]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-
+include::../DeveloperGuide.adoc[tag=colourCode]
