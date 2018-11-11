@@ -16,10 +16,12 @@ endif::[]
 
 By: `Team CS2113-AY1819S1-W13-2`      Since: `Aug 2018`      Licence: `MIT`
 
-== Context [[intro]]
+//tag::intro[]
+[[intro]]
+== Context
 When a diver goes on a dive, the pressure underwater causes nitrogen to build up in the blood stream. When the diver returns to the surface, he or she has that level of nitrogen in his or her blood. However, due to the atmospheric pressure being lower than underwater, the partial pressure of nitrogen is different. Having too much nitrogen build up can be dangerous particularly if you are planning a second dive or going on a flight as the nitrogen can form bubbles inside one’s bloodstream. In order to solve this problem, divers manually calculate their “pressure groups”. The pressure groups are on a range from A,B,C all the way to Z. Depending on your pressure group you can attempt your next dive. It is generally advised to be below the “B” pressure group before your next dive.
 Before attempting your next dive, you have to plan your dive first! You want to dive to 15 metres for half an hour after your pressure group from your first dive is D. Are you sure it's safe to do so? Use our Divelog to find out!
-
+//end::intro[]
 
 == Setting up
 
@@ -205,6 +207,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeleteDiveSessionSdForLogic.png[width="800"]
 
+//tag::Design-Model[]
 [[Design-Model]]
 === Model component
 
@@ -236,6 +239,7 @@ A rough summary of what each class does is as follows:
 |`DiveLog`                                      | Handles updating the DiveSessionList.
 |`VersionedDiveLog`                             | Handles undo/redo feature and versioning.
 |=========================================
+//end::Design-Model[]
 
 [[Design-Storage]]
 === Storage component
@@ -255,11 +259,13 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
+//tag::application-state[]
 ==== Application State [[application-state]]
 As of now certain things that are planned in the future require global data.
 For instance, the `set_units` command. These are stored in the `ApplicationState` singleton.
 Any other temporary information that is global and stored within the run
 should be added as a property to {repoURL}/src/main/java/seedu/divelog/commons/core/ApplicationState.java[`ApplicationState.java`]
+//end::application-state[]
 
 == Implementation
 
@@ -345,6 +351,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::look-up-table[]
 [[look-up-table]]
 === Looking Up Dive Tables For Pressure Groups
 
@@ -373,9 +380,10 @@ This saves both memory and disc writes.
 * **Alternative 2: ** Just use `PADIDiveTable` standard classes
 ** Pros: Easy to implement
 ** Cons: Wastes memory and performs unnecessary IO.
-// tag::planning[]
+// end::look-up-table
 
 
+// tag::crud[]
 [[CRUD]]
 === Consistency checks for `DiveSession` objects during Creation/Update
 
@@ -433,7 +441,10 @@ dives safer. Thus our design considerations could be summed up as follows:
 ** Pros: Will be more efficient.
 ** Cons: More code will need to be written. Since `VersionedDiveLog` already maintains copies, it is just a matter of passing the reference of the temporary dive list to the system.
 Furthermore, most divers will not have more than 100 dives.
+// end::crud[]
 
+
+// tag::planning[]
 [[portover]]
 === New Feature: Planning Mode (with `portover` capability)
 From our verbal surveys with test users and from our user stories, we have decided to implement a Planning mode in order for users to plan their
@@ -531,6 +542,7 @@ there has to be a time and date parameter. We have decided to create our own cla
 // end::newparam[]
 
 
+// tag::local-units[]
 [[local-units]]
 === Localized Units
 
@@ -545,7 +557,7 @@ image::setunitsSequenceDiagram.png[width=650]
 As of `v1.4` the `ParserUtil#parseDepthProfile(String depth)` also reads this state, and converts the units to meters.
 Internally all the units are stored as meters. This choice was largely made to keep things simple. The
 `ApplicationState` also exposes a function to get the current units setting.
-
+// end::local-units[]
 
 === Logging
 
@@ -908,7 +920,6 @@ Use case ends here.
 .  Should be able to calculate the pressure groups as specified by PADI’s dive table.
 .  Should have a simple tutorial walk through to orientate the users if it is their first time running the application
 
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -920,6 +931,7 @@ Windows, Linux, Unix, OS-X
 A contact detail that is not meant to be shared with others
 
 [appendix]
+//tag::product-survey[]
 == Product Survey [[product-survey]]
 A few similar products exist out there.
 Firstly, one of the team members (Arjo) uses a paper equivalent of such a dive log. This dive log records all the necessary information and provides a user with the basic safety information of the PG being provided as fields. However, the pressure group information must be hand calculated leading to error or negligence.
@@ -932,6 +944,7 @@ Subsurface has a comprehensive interface for entering a lot of details. It allow
 
 image::subsurface_2.png[width="300"]
 When the user first opens the dive log he or she is greeted with this screen, which is not very indicative of what exactly is going on. It takes the user a few attempts to figure out how to add a dive as the add dive is nested very deep inside the menu. It also does not display the pressure group anywhere. This can be confusing for beginner divers as they rely on pressure groups to ensure their own safety.
+//end::product-survey[]
 
 [appendix]
 == Instructions for Manual Testing
