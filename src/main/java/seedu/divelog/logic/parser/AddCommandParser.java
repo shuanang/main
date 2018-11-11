@@ -36,7 +36,6 @@ public class AddCommandParser implements Parser<AddCommand> {
                         CliSyntax.PREFIX_TIME_END,
                         CliSyntax.PREFIX_SAFETY_STOP,
                         CliSyntax.PREFIX_DEPTH,
-                        CliSyntax.PREFIX_PRESSURE_GROUP_START,
                         CliSyntax.PREFIX_LOCATION,
                         CliSyntax.PREFIX_TIMEZONE);
 
@@ -67,10 +66,6 @@ public class AddCommandParser implements Parser<AddCommand> {
         Time endTime = new Time(argMultimap.getValue(CliSyntax.PREFIX_TIME_END).get());
         Time safetyStop = new Time(argMultimap.getValue(CliSyntax.PREFIX_SAFETY_STOP).get());
         PressureGroup pressureGroupAtBeginning = new PressureGroup("A");
-        if (argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_START).isPresent()) {
-            pressureGroupAtBeginning = new PressureGroup(
-                    argMultimap.getValue(CliSyntax.PREFIX_PRESSURE_GROUP_START).get());
-        }
         Location location =
                 new Location(argMultimap.getValue(CliSyntax.PREFIX_LOCATION).get());
         DepthProfile depthProfile = ParserUtil.parseDepth(argMultimap.getValue(CliSyntax.PREFIX_DEPTH).get());
