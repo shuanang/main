@@ -133,7 +133,7 @@ public class DiveSession implements Comparable {
      */
     public Date getDiveUtcDateEnd() {
         String date = getDateEnd().getOurDateString();
-        String time = getStart().getTimeString();
+        String time = getEnd().getTimeString();
         int timeZone = getTimeZone().getTimeZone();
         try {
             return CompareUtil.convertTimeToUtc(time, date, timeZone);

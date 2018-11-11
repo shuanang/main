@@ -112,13 +112,6 @@ public class EditCommandParserTest {
         expectedDesc.setDepthProfile(new DepthProfile(9.0f));
         expected = new EditCommand(targetIndex, expectedDesc);
         assertEquals(editCommand, expected);
-        /*Check initial pressure group*/
-        command = targetIndex.getOneBased() + " pg/A";
-        editCommand = parser.parse(command);
-        expectedDesc = new EditDiveDescriptor();
-        expectedDesc.setPressureGroupAtBeginning(new PressureGroup("A"));
-        expected = new EditCommand(targetIndex, expectedDesc);
-        assertEquals(editCommand, expected);
         /*Check timezone*/
         command = targetIndex.getOneBased() + " tz/+9";
         editCommand = parser.parse(command);
