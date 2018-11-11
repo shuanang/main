@@ -4,7 +4,6 @@ import static seedu.divelog.logic.parser.CliSyntax.PREFIX_DATE_END;
 import static seedu.divelog.logic.parser.CliSyntax.PREFIX_DATE_START;
 import static seedu.divelog.logic.parser.CliSyntax.PREFIX_DEPTH;
 import static seedu.divelog.logic.parser.CliSyntax.PREFIX_LOCATION;
-import static seedu.divelog.logic.parser.CliSyntax.PREFIX_PRESSURE_GROUP_START;
 import static seedu.divelog.logic.parser.CliSyntax.PREFIX_SAFETY_STOP;
 import static seedu.divelog.logic.parser.CliSyntax.PREFIX_TIMEZONE;
 import static seedu.divelog.logic.parser.CliSyntax.PREFIX_TIME_END;
