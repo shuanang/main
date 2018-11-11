@@ -366,7 +366,7 @@ This saves both memory and disc writes.
 * **Alternative 2: ** Just use `PADIDiveTable` standard classes
 ** Pros: Easy to implement
 ** Cons: Wastes memory and performs unnecessary IO.
-
+// tag::planning[]
 === New Feature: Planning Mode (with `portover` capability)
 From our verbal surveys with test users and from our user stories, we have decided to implement a Planning mode in order for users to plan their
 dives ahead of their trips safely without worrying about corrupting their current data.
@@ -387,13 +387,13 @@ single responsibility principle.
 * **Alternative 2**: Create a temporary Stack to store commands instead of just a counter.
 ** Pros: All types of commands can now be used in planning mode, and not just `add`, `delete` and `edit`
 ** Cons: Extra implementations and considerations have to be taken into account. This might increase coupling between classes.
-
+// tag::sorting[]
 === Sorting of data
 We have considered that once a user has a considerable number of dives registered in the app, the user would potentially have difficulty finding dives,
 even with the `find` function. (as many dives can have the same parameters such as location) To simplify the app usage, this command allows for users to decide the way
 that the data shown to them is organised.
 
-=== Design Considerations
+==== Design Considerations
 * **Current implementation**:
 
 * **Potential improvement to the feature 1**: Add a `sortby` CLI command.
@@ -432,8 +432,8 @@ method after every add or edit command. You can also create a new event in commo
 ** Pros: Improved usability
 ** Cons: Increased difficulty to maintain
 
-
-=== New Parameters & conditions in Dive Log
+// tag::newparam[]
+=== New Parameters & conditions in a DiveSession
 
 ==== Timezone
 Considering that users would dive in many different parts of the world, we have taken the effort to implement a Timezone parameter to ease users in adding new dives into the Dive Log without the need to convert any time to Local time. +

@@ -97,6 +97,7 @@ Diagram 5: Click the X to close
 
 +++ </div></details> +++
 
+// tag::add[]
 === Adding a dive session: `add`
 Use this command to adds your new dive session to the Dive Log.
 
@@ -336,7 +337,7 @@ TIP: use `undo` to, _you've guessed it_, undo your mistaken `clear`  and restore
     +
      <<undo>>
 
-
+// tag::sortby[]
 === Setting parameters to sort dives : `sortby` [[sortby]] [coming in V1.4]
 In V1.3, all dives are sorted automatically according to time and date by default.
 
@@ -358,7 +359,7 @@ WARNING: You can only use the specific keywords below.
 
 |=========================================
 
-
+// tag::newplan[]
 === Planning Mode : `newplan` or `normalmode`
 
 The planning mode is a temporary space for you to plan trips and to simulate dives. This is especially important if you
