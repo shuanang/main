@@ -18,13 +18,13 @@ Dive Log is able to calculate accurately the diver’s current Blood Nitrogen Co
 * *Major enhancement*: Implemented a *Planning Mode*
 ** What it does: This feature allows users to be able to plan for future dives without the fear of corrupting their current data.
 When the users exit planning mode, the data is restored to before when entered planning mode.
-If the user wants to transfer planning data to normal mode, the user can use `portover` command.
+If the user wants to transfer planning data to normal mode, the user can use the `portover` command.
 ** Justification: This is a major feature of the app as divers often want to plan their dives ahead of their trips. This
-also helps to reduce the instance where divers cannot board a plane ride due to too high of a Nitrogen composition in the body.
+also helps to prevent the instance where divers cannot board a plane ride due to too high of a Nitrogen composition in the body.
 ** Highlights: This enhancement works across many different commands and will require understanding of every command class file
 in order to properly implement.
-* *Minor enhancement*: Created Time, OurDate parameters in a `DiveSession` and a helper class `CompareUtils`. The two parameters
-are crucial in logging a dive, and also in calculations of Pressure Groups which is the main feature of our app. `CompareUtils`
+* *Minor enhancement*: Created Time, OurDate parameters in a `DiveSession` and a helper class `CompareUtils` which contain methods to handle OurDate and Time. The two parameters
+are crucial in logging a dive, and methods in CompareUtils are also crucial in calculations of Pressure Groups which is the main feature of our app. `CompareUtils`
 contain methods that are used to help calculate Pressure Group.
 
 * *Other contributions*:
