@@ -440,7 +440,7 @@ dives safer. Thus our design considerations could be summed up as follows:
 ** Pros: Will be more efficient.
 ** Cons: More code will need to be written. Since `VersionedDiveLog` already maintains copies, it is just a matter of passing the reference of the temporary dive list to the system.
 Furthermore, most divers will not have more than 100 dives.
-// end::CRUD[]
+// end::CRUD
 
 
 // tag::planning[]
@@ -555,7 +555,7 @@ image::setunitsSequenceDiagram.png[width=650]
 As of `v1.4` the `ParserUtil#parseDepthProfile(String depth)` also reads this state, and converts the units to meters.
 Internally all the units are stored as meters. This choice was largely made to keep things simple. The
 `ApplicationState` also exposes a function to get the current units setting.
-// end::local_units[]
+// end::local_units
 
 === Logging
 
