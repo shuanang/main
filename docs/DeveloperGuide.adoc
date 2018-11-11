@@ -819,36 +819,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 .List of user stories
 |===// tag::dataencryption[]
 |Priority |As a... |I want to... | So that I can...
-
-|`* * *`
-|Diver
-|Know my current pressure group
-|Plan my next dive safely
-
-|`* * *`
-|Diver
-|Add dive entries
-|So that I can know my pressure group.
-
-|`**`
-|Diver
-|Be able to enter data in local time
-|Save time when calculating my pressure groups.
-
-|`**`
-|Diver
-|Plan my dives ahead of performing them
-|So that I know what a safe limit is.
-
-|`*`
-|Diver
-|to see where I have been
-|Reminisce
-
-|`-`
-|Dive master
-|Check my dive buddy’s logs
-|Make sure all of us have a safe trip
+|`* * *` |Diver |Know my current pressure group |Plan my next dive safely
+|`* * *` |Diver |Add dive entries |So that I can know my pressure group.
+|`**` |Diver |Be able to enter data in local time |Save time when calculating my pressure groups.
+|`**` |Diver |Plan my dives ahead of performing them |So that I know what a safe limit is.
+|`*` |Diver |to see where I have been |Reminisce
+|`-` |Dive master |Check my dive buddy’s logs |Make sure all of us have a safe trip
 
 [appendix]
 == Use Cases
