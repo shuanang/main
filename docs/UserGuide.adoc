@@ -153,7 +153,7 @@ If for instance you enter an invalid dive, the system will tell you that you hav
 |Invalid time format! (Not HHMM)  | Time entered is in invalid format.
 |Start and End date or time or Safety Stop Time are not in chronological order! Start Date should be earlier than End Date! Safety Stop should be between Start and End time" | You need to make sure that your start time is before your end time and safety stop comes inbetween.
 |=========================================
-
+//end::add[]
 === Listing all dives : `list`
 
 To display all the dives that you have previously recorded, `list` shows a list of all dives in the dive log. +
@@ -170,7 +170,8 @@ Diagram 6: List command
 
 +++ </div></details> +++
 
-=== Editing a dive : `edit`
+//tag::edit[]
+=== Editing a dive : `edit` [[edit]]
 
 If you made a mistake while adding a new dive, `edit` will come in handy.
 `edits` edits an existing dive session in the Dive Log. +
@@ -202,8 +203,10 @@ NOTE: All data provided must comply to chronological order, meaning to say Date/
 
 Like the `add` command, edit may fail for a variety of reasons. The same rules which apply for add apply for edit.
 For a set of reasons why an edit may fail please take a look at <<add>>.
+//end::edit[]
 
-=== Setting display units `set_units`
+//tag::set_units[]
+=== Setting display units `set_units` [[set_units]]
 If you're not used to the metric or impreial system, `set_units`
 switches between meters and feet. (App defaults to meters) All data displayed will be automatically and accurately converted  +
 Format: `set_units meters|feet` +
@@ -213,8 +216,9 @@ Format: `set_units meters|feet` +
 * Internally, we store everything in meters, as a result the xml file produced will always be in meters.
 ****
 Example usage: `set_units feet`
+//end::set_units[]
 
-=== Locating dives by location: `find`
+=== Locating dives by location: `find` [[find]]
 Looking for a specific dive? Use `find` to find dives whose location contain any of the given keywords that you input. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
