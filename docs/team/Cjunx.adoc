@@ -18,18 +18,16 @@ Dive Log is able to calculate accurately the diver’s current Blood Nitrogen Co
 * *Major enhancement*: Implemented a *Planning Mode*
 ** What it does: This feature allows users to be able to plan for future dives without the fear of corrupting their current data.
 When the users exit planning mode, the data is restored to before when entered planning mode.
-If the user wants to transfer planning data to normal mode, the user can use `portover` command.
+If the user wants to transfer planning data to normal mode, the user can use the `portover` command.
 ** Justification: This is a major feature of the app as divers often want to plan their dives ahead of their trips. This
-also helps to reduce the instance where divers cannot board a plane ride due to
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-
-* *Minor enhancement*: Created Time, OurDate parameters in a `DiveSession` and a helper class `CompareUtils`. The two parameters
-are crucial in logging a dive, and also in calculations of Pressure Groups which is the main feature of our app. `CompareUtils`
-contain methods that help
+also helps to prevent the instance where divers cannot board a plane ride due to too high of a Nitrogen composition in the body.
+** Highlights: This enhancement works across many different commands and will require understanding of every command class file
+in order to properly implement.
+* *Minor enhancement*: Created Time, OurDate parameters in a `DiveSession` and a helper class `CompareUtils` which contain methods to handle OurDate and Time. The two parameters
+are crucial in logging a dive, and methods in CompareUtils are also crucial in calculations of Pressure Groups which is the main feature of our app. `CompareUtils`
+contain methods that are used to help calculate Pressure Group.
 
 * *Other contributions*:
-
-
 ** Enhancements to existing features:
 *** Wrote tests for helper method to ensure adequate code coverage (Pull requests https://github.com/cjunxiang/main/commit/ac50bdd38ca56d40b402fc1b6b31300496bcab3b[#58])
 
@@ -44,11 +42,11 @@ contain methods that help
 
 *** [DG] Added components pertaining to Sorting, Planning Mode & New parameters in a Dive:
     https://github.com/CS2113-AY1819S1-W13-2/main/commit/eada8f01b85ee8827d916dc2e4fa38ed49926a38[#41]
-
+    https://github.com/CS2113-AY1819S1-W13-2/main/pull/139/[#139]
 
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** PRs reviewed (examples: https://github.com/CS2113-AY1819S1-W13-2/main/pull/47[#47])
+*** Suggestions & discussions through comments on Issue trackers (examples:  https://github.com/CS2113-AY1819S1-W13-2/main/issues/17[#17])
 
 == Contributions to the User Guide
 |===
