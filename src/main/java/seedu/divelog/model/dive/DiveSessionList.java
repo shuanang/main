@@ -132,8 +132,8 @@ public class DiveSessionList implements Iterable<DiveSession> {
         FXCollections.sort(internalList);
 
         for (int i = 1; i < internalList.size(); i++) {
-            Date endOfLastDive = internalList.get(i - 1).getEndDateTime();
-            Date startOfNextDive = internalList.get(i).getStartDateTime();
+            Date endOfLastDive = internalList.get(i - 1).getDiveUtcDateEnd();
+            Date startOfNextDive = internalList.get(i).getDiveUtcDateStart();
             if (endOfLastDive.compareTo(startOfNextDive) > 0) {
                 return true;
             }
