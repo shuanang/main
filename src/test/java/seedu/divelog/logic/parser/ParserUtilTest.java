@@ -7,6 +7,9 @@ import static seedu.divelog.logic.parser.ParserUtil.MESSAGE_INVALID_DEPTH;
 import static seedu.divelog.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.divelog.testutil.TypicalIndexes.INDEX_FIRST_DIVE;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -18,10 +21,6 @@ import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.dive.DiveSession;
 import seedu.divelog.model.dive.PressureGroup;
 import seedu.divelog.testutil.DiveSessionBuilder;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 
 public class ParserUtilTest {
     private static final String WHITESPACE = " \t\r\n";
@@ -104,7 +103,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void checkTimeformat_test() throws ParseException {
+    public void checkTimeFormat_test() throws ParseException {
         String startTime = "0800";
         String endTime = "0900";
         String safetyTime = "0930";
@@ -113,7 +112,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void checkTimeformat_invalid_length_test() throws ParseException {
+    public void checkTimeFormat_invalidlengthtest() throws ParseException {
         String startTime = "0860";
         String endTime = "0900";
         String safetyTime = "0930";
@@ -146,7 +145,7 @@ public class ParserUtilTest {
 
 
     @Test
-    public void checkTimeformat_invalid_hour_mins_test() throws ParseException {
+    public void checkTimeFormat_invalidhourminstest() throws ParseException {
         String startTime = "0800";
         String endTime = "0900";
         String safetyTime = "0930";

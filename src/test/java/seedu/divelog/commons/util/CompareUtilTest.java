@@ -4,9 +4,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //@author Cjunx
 /**
@@ -122,9 +122,9 @@ public class CompareUtilTest {
         time1 = CompareUtil.readTimeFromLong(datetime);
         assertEquals(time1, "0002");
 
-//        datetime = Long.parseLong("121120180000");
-//        time1 = CompareUtil.readTimeFromLong(datetime);
-//        assertEquals(time1, "0000");
+        datetime = Long.parseLong("121120180000");
+        time1 = CompareUtil.readTimeFromLong(datetime);
+        assertEquals(time1, "0000");
     }
 
 
