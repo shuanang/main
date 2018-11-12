@@ -119,7 +119,7 @@ public class CompareUtil {
         long time;
         time = date % 10000;
         String timeString = Long.toString(time);
-        if (time < 1000) {
+        while (timeString.length() < 4) {
             timeString = "0" + timeString;
         }
         return timeString;
@@ -132,7 +132,7 @@ public class CompareUtil {
         long date;
         date = longdate / 10000;
         String dateString = Long.toString(date);
-        if (date < 10000000) {
+        if (dateString.length() < 8) {
             dateString = "0" + dateString;
         }
         return dateString;

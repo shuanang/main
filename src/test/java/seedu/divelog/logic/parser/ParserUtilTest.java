@@ -10,8 +10,15 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.divelog.commons.core.Messages;
 import seedu.divelog.logic.parser.exceptions.ParseException;
 import seedu.divelog.model.dive.DepthProfile;
+import seedu.divelog.model.dive.DiveSession;
+import seedu.divelog.model.dive.PressureGroup;
+import seedu.divelog.testutil.DiveSessionBuilder;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class ParserUtilTest {
@@ -74,10 +81,144 @@ public class ParserUtilTest {
         thrown.expectMessage(MESSAGE_INVALID_DEPTH);
         ParserUtil.parseDepth("0");
     }
+    //@@author
 
     //    @Test
     //    public void checkTimeformat_Test() {
     //
     //    }
 
+    //@@author Cjunx
+    @Test
+    public void parsePressureGroup_test() throws ParseException {
+        PressureGroup expected = new PressureGroup("A");
+        PressureGroup answer = ParserUtil.parsePressureGroup("A");
+        assertEquals(answer, expected);
+
+        answer = ParserUtil.parsePressureGroup("3");
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(Messages.MESSAGE_INVALID_PRESSURE_GROUP);
+    }
+
+    @Test
+    public void checkTimeformat_test() throws ParseException {
+        String startTime = "0800";
+        String endTime = "0900";
+        String safetyTime = "0930";
+        ParserUtil.checkTimeformat(startTime, endTime, safetyTime);
+        ParserUtil.checkTimeformat("2359", "0001", "0000");
+    }
+
+    @Test
+    public void checkTimeformat_invalid_length_test() throws ParseException {
+        String startTime = "08000";
+        String endTime = "0900";
+        String safetyTime = "0930";
+        ParserUtil.checkTimeformat(startTime, endTime, safetyTime);
+        thrown.expect(ParseException.class);
+
+        startTime = "0800";
+        endTime = "09";
+        safetyTime = "0930";
+        ParserUtil.checkTimeformat(startTime, endTime, safetyTime);
+        thrown.expect(ParseException.class);
+
+        startTime = "0800";
+        endTime = "0900";
+        safetyTime = "09333";
+        ParserUtil.checkTimeformat(startTime, endTime, safetyTime);
+        thrown.expect(ParseException.class);
+    }
+
+    @Test
+    public void checkTimeformat_invalid_hour_mins_test() throws ParseException {
+        String startTime = "0800";
+        String endTime = "0900";
+        String safetyTime = "0930";
+        ParserUtil.checkTimeformat(startTime, endTime, safetyTime);
+
+        startTime = "0800";
+        endTime = "0960";
+        safetyTime = "0930";
+        ParserUtil.checkTimeformat(startTime, endTime, safetyTime);
+        thrown.expect(ParseException.class);
+
+        startTime = "0800";
+        endTime = "0900";
+        safetyTime = "2539";
+        ParserUtil.checkTimeformat(startTime, endTime, safetyTime);
+        thrown.expect(ParseException.class);
+    }
+
+    @Test
+    public void checkTimeZoneFormat_test() throws seedu.divelog.logic.parser.exceptions.ParseException {
+        ParserUtil.checkTimeZoneformat("+5");
+        ParserUtil.checkTimeZoneformat("0");
+        ParserUtil.checkTimeZoneformat("-5");
+        ParserUtil.checkTimeZoneformat("+12");
+        ParserUtil.checkTimeZoneformat("-12");
+
+//        ParserUtil.checkTimeZoneformat("+13");
+//        thrown.expect(seedu.divelog.logic.parser.exceptions.ParseException.class);
+//        thrown.expectMessage(String.format(Messages.MESSAGE_INVALID_TIMEZONE_FORMAT, AddCommand.MESSAGE_USAGE));
+
+//        ParserUtil.checkTimeZoneformat("-13");
+//        thrown.expect(seedu.divelog.logic.parser.exceptions.ParseException.class);
+//        thrown.expectMessage(String.format(Messages.MESSAGE_INVALID_TIMEZONE_FORMAT, AddCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void checkSafetyTime_test() throws java.text.ParseException {
+        String startTimeString = "0800";
+        String endTimeString = "0830";
+        String safetyTimeString = "0820";
+        String startDateString = "12112018";
+        String endDateString = "12112018";
+        SimpleDateFormat inputFormat = new SimpleDateFormat("ddMMyyyyHHmm");
+
+        Date answer = ParserUtil.checkSafetyTime(startTimeString, endTimeString, safetyTimeString,
+                 startDateString, endDateString);
+        Date expected = inputFormat.parse("121120180820");
+        assertEquals(answer, expected);
+
+        startTimeString = "2350";
+        endTimeString = "0030";
+        safetyTimeString = "2359";
+        startDateString = "12112018";
+        endDateString = "13112018";
+        answer = ParserUtil.checkSafetyTime(startTimeString, endTimeString, safetyTimeString,
+                startDateString, endDateString);
+        expected = inputFormat.parse("121120182359");
+        assertEquals(answer, expected);
+
+
+        startTimeString = "2350";
+        endTimeString = "0030";
+        safetyTimeString = "0010";
+        startDateString = "12112018";
+        endDateString = "13112018";
+        answer = ParserUtil.checkSafetyTime(startTimeString, endTimeString, safetyTimeString,
+                startDateString, endDateString);
+        expected = inputFormat.parse("131120180010");
+        assertEquals(answer, expected);
+    }
+
+    @Test
+    public void checkEditTimeDateLimit_test() throws ParseException {
+        DiveSession diveSession = new DiveSessionBuilder()
+                .withStart("1000")
+                .withStartDate("12112018")
+                .withEnd("1030")
+                .withEndDate("11112018")
+                .withDepth(5)
+                .withSafetyStop("1020")
+                .withTimeZone("+8")
+                .build();
+
+        ParserUtil.checkEditTimeDateLimit(diveSession);
+        thrown.expect(ParseException.class);
+        throw new ParseException(Messages.MESSAGE_INVALID_DATE_FORMAT);
+//        //thrown.expectMessage(Messages.MESSAGE_INVALID_DATE_FORMAT);
+    }
+    //@@author
 }

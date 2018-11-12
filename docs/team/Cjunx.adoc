@@ -43,6 +43,7 @@ contain methods that are used to help calculate Pressure Group.
 *** [DG] Added components pertaining to Sorting, Planning Mode & New parameters in a Dive:
     https://github.com/CS2113-AY1819S1-W13-2/main/commit/eada8f01b85ee8827d916dc2e4fa38ed49926a38[#41]
     https://github.com/CS2113-AY1819S1-W13-2/main/pull/139/[#139]
+    https://github.com/CS2113-AY1819S1-W13-2/main/pull/146[#146]
 
 ** Community:
 *** PRs reviewed (examples: https://github.com/CS2113-AY1819S1-W13-2/main/pull/47[#47])
