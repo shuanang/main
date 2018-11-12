@@ -54,6 +54,9 @@ public class ClearCommandSystemTest extends DiveLogSystemTest {
 
         /* Case: mixed case command word -> rejected */
         assertCommandFailure("ClEaR", MESSAGE_UNKNOWN_COMMAND);
+
+        /* Case: invalid case command -> rejected */
+        assertCommandFailure("Clear", MESSAGE_UNKNOWN_COMMAND);
     }
 
     /**
