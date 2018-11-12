@@ -49,6 +49,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 +++ <details><summary> +++
 Click to view screenshot for location of command box
 +++ </summary><div> +++
+
 image::UGSS_Ui_command.png[width="800"]
 Diagram 2: Command Box location
 +++ </div></details> +++
@@ -113,7 +114,7 @@ Format: `add ds/DATE_STARTED ts/TIME_DIVE_STARTED de/DATE_ENDED te/TIME_DIVE_END
 TIP: Words in UPPER_CASE are the parameters, items in SQUARE_BRACKETS are optional. Order of parameters are fixed as per the format above, meaning if you entered the ts/TIME_DIVE_STARTED before the ds/DATE_STARTED,
 the program will not be able to add your dive.
 
-Put a `ts/` before the time started(24 hours format - HHMM), te/time ended (24 hours format - HHMM), d/depth (in metres), l/ location (location name), per dive at v1.0) (optional) and pg/initial pressure group.
+Put a `ts/` before the time started(24 hours format - HHMM), te/time ended (24 hours format - HHMM), d/depth (in metres), l/ location (location name).
 
 _Example:_ `add ds/04082018 ts/0900 de/04082018 te/1020 ss/1015 d/15 l/Bukit Lagoon tz/+8`
 
@@ -179,7 +180,7 @@ If you made a mistake while adding a new dive, `edit` will come in handy.
 `edits` edits an existing dive session in the Dive Log. +
 The only parameters you have to input are the data of that specific dive session at `INDEX`
 
-Format: `edit INDEX [ts/TIME_START] [te/TIME_END] [ss/SAFETY_STOP_TIME] [d/DEPTH] [pg/PG_AT_START] [l/LOCATION]...`
+Format: `edit INDEX [ts/TIME_START] [te/TIME_END] [ss/SAFETY_STOP_TIME] [d/DEPTH] [l/LOCATION]...`
 
 ****
 * Edits the dive at the specified `INDEX`. The index refers to the index number shown in the displayed dive list. The index *must be a positive integer* 1, 2, 3, ...
@@ -188,7 +189,7 @@ Format: `edit INDEX [ts/TIME_START] [te/TIME_END] [ss/SAFETY_STOP_TIME] [d/DEPTH
 ****
 
 Examples:
-`edit 1 pge/F l/Tioman`
+`edit 1 l/Tioman d/10`
 
 NOTE: All data provided must comply to chronological order, meaning to say Date/Time Started has to be earlier than Date/Time Ended.
 
@@ -561,3 +562,77 @@ The Recreational Dive Planner Table is actually three tables linked together. Ea
 *Q*: Where can I find out more about PADI dive tables? [[PADI]] +
 *A*: The 36-page long Instructions for Use official document can be found at https://elearning.padi.com/company0/tools/RDP%20InsforUseMet.pdf[Padi's Website].
 
+== Command Summary
+
+|===
+|Command |Command format and example
+
+|Help
+|`help`
+
+|Add
+|`add ds/DATE_STARTED ts/TIME_DIVE_STARTED de/DATE_ENDED te/TIME_DIVE_ENDED ss/SAFETY_STOP d/DEPTH l/LOCATION`
+ +
+ +
+ e.g. `add ds/04082018 ts/0900 de/04082018 te/1020 ss/1015 d/15 l/Bukit Lagoon tz/+8`
+
+|List
+| `list`
+
+|Edit
+|`edit INDEX [ds/DATE_STARTED] [ts/TIME_DIVE_STARTED] [de/DATE_ENDED] [te/TIME_DIVE_ENDED] [ss/SAFETY_STOP] [d/DEPTH] [l/LOCATION]`
+ +
+ +
+ e.g. `edit 1 d/8 l/Tioman`
+
+|Set display units
+|`set_units`
+ +
+ +
+ e.g. `set_units meters`
+
+|Find
+|`find KEYWORD [MORE_KEYWORDS]`
+ +
+ +
+ e.g.  `find Bali`
+
+|Delete
+|`delete INDEX`
+ +
+ +
+ e.g. `delete 2`
+
+|Select
+|`select INDEX`
+ +
+ +
+ e.g. `select 2`
+
+|History
+|`history`
+
+|Undo
+|`undo`
+
+|Redo
+|`redo`
+
+|Clear
+|`clear`
+
+|Current Pressure Group
+|`currentpg`
+ +
+ +
+ Alias: `cpg`
+
+|Planning mode
+|`newplan`
+
+|Normal mode
+|`normalmode`
+
+|Port planning mode to normal mode
+|`portover`
+|===
