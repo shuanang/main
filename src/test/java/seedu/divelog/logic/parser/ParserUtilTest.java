@@ -103,19 +103,16 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void checkTimeFormat_test() throws ParseException {
+    public void checkTimeFormat_invalidlengthtest() throws ParseException {.
         String startTime = "0800";
         String endTime = "0900";
         String safetyTime = "0930";
         ParserUtil.checkTimeformat(startTime, endTime, safetyTime);
         ParserUtil.checkTimeformat("2359", "0001", "0000");
-    }
 
-    @Test
-    public void checkTimeFormat_invalidlengthtest() throws ParseException {
-        String startTime = "0860";
-        String endTime = "0900";
-        String safetyTime = "0930";
+        startTime = "0860";
+        endTime = "0900";
+        safetyTime = "0930";
 
         thrown.expect(ParseException.class);
         thrown.expectMessage(startsWith("Minutes component of the time is more than 59!"));
