@@ -23,7 +23,7 @@ public class DeleteCommandSystemTest extends DiveLogSystemTest {
     @Test
     public void delete() {
 
-        Model defaultModel = getModel();
+        //Model defaultModel = getModel();
         /* ----------------- Performing delete operation while an unfiltered list is being shown -------------------- */
 
         /* Case: delete the first dive session in the list -> deleted */
@@ -45,7 +45,7 @@ public class DeleteCommandSystemTest extends DiveLogSystemTest {
 
         /* Case: undo deleting the last dive session in the list -> last dive session restored */
         command = UndoCommand.COMMAND_WORD;
-        String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
+        //String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
         //assertCommandSuccess(command, getModel(), expectedResultMessage);
         //assertSelectedCardUnchanged();
 
