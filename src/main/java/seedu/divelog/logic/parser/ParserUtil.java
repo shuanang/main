@@ -120,6 +120,7 @@ public class ParserUtil {
         String startTimeString = divesession.getStart().getTimeString();
         String endTimeString = divesession.getEnd().getTimeString();
         String safetyTimeString = divesession.getSafetyStop().getTimeString();
+
         try {
             SimpleDateFormat inputFormat = new SimpleDateFormat("ddMMyyyyHHmm");
             Date startTimeDateDate = inputFormat.parse(startDateString + startTimeString);
@@ -142,7 +143,7 @@ public class ParserUtil {
     /**
      * Determines date of safety time
      */
-    private static Date checkSafetyTime(String startTimeString, String endTimeString, String safetyTimeString,
+    public static Date checkSafetyTime(String startTimeString, String endTimeString, String safetyTimeString,
                                         String startDateString, String endDateString) throws java.text.ParseException {
         SimpleDateFormat timeFormat = new SimpleDateFormat("HHmm");
         SimpleDateFormat inputFormat = new SimpleDateFormat("ddMMyyyyHHmm");
@@ -189,7 +190,7 @@ public class ParserUtil {
                 || endTime.length() != 4
                 || safetyTime.length() != 4) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_TIME_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
+    }
 
         try {
             Integer.parseInt(endTime);
