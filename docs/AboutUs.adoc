@@ -34,9 +34,8 @@ Responsibilities: Dive plot UI
 
 === Chen Jun Xiang
 image::cjunxiang.png[width="150", align="left"]
-{empty}[http://github.com/cjunxiang[github]] [https://cs2113-ay1819s1-w13-2.github.io/main/team/Cjunx.html[Portfolio]] +
+{empty}[http://github.com/cjunxiang[github]] [https://cs2113-ay1819s1-w13-2.github.io/main/team/cjunxiang.html[Portfolio]] +
 Role: Developer +
-Responsibilities: Search
+Responsibilities: Search, Planning Mode
 
 '''
-

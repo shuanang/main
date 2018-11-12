@@ -1,10 +1,10 @@
 package seedu.divelog.commons.util;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.Test;
 
@@ -75,7 +75,7 @@ public class CompareUtilTest {
     }
 
     @Test
-    public void convertTimeToUtc_differentday_test() throws ParseException {
+    public void convertTimeToUtc_differentDay_test() throws ParseException {
         Date answer = CompareUtil.convertTimeToUtc("0100", "25102018", 5);
         SimpleDateFormat inputFormat = new SimpleDateFormat("ddMMyyyyHHmm");
         Date expectedDate = inputFormat.parse("241020182000");
@@ -122,9 +122,9 @@ public class CompareUtilTest {
         time1 = CompareUtil.readTimeFromLong(datetime);
         assertEquals(time1, "0002");
 
-//        datetime = Long.parseLong("121120180000");
-//        time1 = CompareUtil.readTimeFromLong(datetime);
-//        assertEquals(time1, "0000");
+        datetime = Long.parseLong("121120180000");
+        time1 = CompareUtil.readTimeFromLong(datetime);
+        assertEquals(time1, "0000");
     }
 
 
