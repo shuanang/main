@@ -13,6 +13,7 @@ import seedu.divelog.testutil.DiveSessionBuilder;
 import seedu.divelog.testutil.DiveUtil;
 
 public class AddCommandSystemTest extends DiveLogSystemTest {
+    public static final String HARDCODE_MAX_TIME = "Max time you can spend at 40.0m is 9.0 minutes";
 
     @Test
     public void add() {
@@ -75,6 +76,65 @@ public class AddCommandSystemTest extends DiveLogSystemTest {
                 .withDepth(5)
                 .build();
         assertCommandFailure(DiveUtil.getAddCommand(diveSession), Messages.MESSAGE_ERROR_DIVES_OVERLAP);
+
+        /*
+         * Case: Dive is too deep
+         */
+        diveSession = new DiveSessionBuilder()
+                .withStart("1500")
+                .withStartDate("11012018")
+                .withSafetyStop("1545")
+                .withEnd("1600")
+                .withEndDate("11012018")
+                .withTimeZone("+8")
+                .withDepth(80)
+                .build();
+        assertCommandFailure(DiveUtil.getAddCommand(diveSession), (
+                Messages.MESSAGE_ERROR_LIMIT_EXCEED + "\n" + Messages.MESSAGE_MAX_DEPTH_EXCEEDED));
+
+        /*
+         * Case: Dive is too long
+         */
+        diveSession = new DiveSessionBuilder()
+                .withStart("1500")
+                .withStartDate("11012018")
+                .withSafetyStop("1545")
+                .withEnd("1600")
+                .withEndDate("11012018")
+                .withTimeZone("+8")
+                .withDepth(40)
+                .build();
+        assertCommandFailure(DiveUtil.getAddCommand(diveSession), (
+                Messages.MESSAGE_ERROR_LIMIT_EXCEED + " " + HARDCODE_MAX_TIME));
+
+
+        /*
+         * Case: Time Zone invalid as it is too big
+         */
+        diveSession = new DiveSessionBuilder()
+                .withStart("1500")
+                .withStartDate("11012018")
+                .withSafetyStop("1545")
+                .withEnd("1600")
+                .withEndDate("11012018")
+                .withTimeZone("+13")
+                .withDepth(10)
+                .build();
+        assertCommandFailure(DiveUtil.getAddCommand(diveSession), Messages.MESSAGE_INVALID_TIMEZONE_FORMAT);
+
+        /*
+         * Case: Time Zone invalid as it is too small
+         */
+        diveSession = new DiveSessionBuilder()
+                .withStart("1500")
+                .withStartDate("11012018")
+                .withSafetyStop("1545")
+                .withEnd("1600")
+                .withEndDate("11012018")
+                .withTimeZone("-13")
+                .withDepth(10)
+                .build();
+        assertCommandFailure(DiveUtil.getAddCommand(diveSession), Messages.MESSAGE_INVALID_TIMEZONE_FORMAT);
 
     }
 
