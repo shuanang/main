@@ -441,15 +441,19 @@ dives safer. Thus our design considerations could be summed up as follows:
 * *Alternative 2*: Having a separate data structure that only handles mutation after the edited dive.
 ** Pros: Will be more efficient.
 ** Cons: More code will need to be written. Since `VersionedDiveLog` already maintains copies, it is just a matter of passing the reference of the temporary dive list to the system.
-Furthermore, most divers will not have more than 100 dives.
+Furthermore, most divers will not have more than 100 dives. +
 // end::CRUD[]
 
 
 // tag::planning[]
-[[portover]]
-=== New Feature: Planning Mode (with `portover` capability)
+=== New Feature: Planning Mode (with `portover` capability) [[portover]]
 From our verbal surveys with test users and from our user stories, we have decided to implement a Planning mode in order for users to plan their
-dives ahead of their trips safely without worrying about corrupting their current data.
+dives ahead of their trips safely without worrying about corrupting their current data. Below shows the activity diagram
+of the planning mode.
+
+.Activity Diagram for planning mode
+image::planningAD.PNG[width="600"]
+
 
 ==== Design Considerations
 * **Alternative 1 (current choice)**:
@@ -463,7 +467,8 @@ the underlying method calls for a `undo` method and decreases the counter. This 
 *** *Pros:* Uses a method that is already present, `undo`. This means there won't be two implementations of the same method.
 *** *Cons:* The limitations of this method lie in its sole ability to handle `add`, `delete` and `edit` commands in planning mode. Any other commands are not accepted.
 
-* **Alternative 2**: Create a temporary Stack to store commands instead of just a counter.
+* **Alternative 2**: Create a temporary Stack to store commands instead of just a counter. The stack is created when
+user enters planning mode, and is destroyed after exiting planning mode.
 ** Pros: All types of commands can now be used in planning mode, and not just `add`, `delete` and `edit`
 ** Cons: Extra implementations and considerations have to be taken into account. This might increase coupling between classes.
 // end::planning[]
@@ -479,7 +484,8 @@ that the data shown to them is organised.
 * **Current implementation**: A sort method with a time/date comparator is called every time a new dive is added, deleted
 or edited.
 
-* **Potential improvement to the feature 1**: Add a `sortby` CLI command.
+* **Potential improvement to the feature 1**: Add a `sortby` CLI command, which decides how to sort the data by. Potential
+additional methods are sorting by Name (alphabetical) or Duration of Dive.
 ** Method to implement: +
 *Step 1:* Create a new Command[[GetStartedProgramming-RemarkCommand]] with a Command Parser that reads in the Command Prefix and a
 [KEYWORD], which will dictate the parameter to sort by. The Command and Parser file should look like below:
@@ -542,11 +548,15 @@ there has to be a time and date parameter. We have decided to create our own cla
 
 * **Alternative 1 (current choice)**: Use a 4 length String to contain time and 8 length String to contain date.
 ** Pros: When reading in data from the `ArgumentMultimap`, it requires very little effort in parsing. Also, the use of String allows for versatile typecasting into long, int, or Java SE 7's SimpleDateFormat. Similarly, the use of String and long as main type allows for better versatility among different methods.
-** Cons: Data needs to be parsed into Java SE 8's java.date and Java SE 7's SimpleDateFormat in order to calculate time differences. This means that there can potentially be many type conflicts. However, this problem is contained in a helper class `CompareUtils` which handles methods like `checkTimeDifference`, `getLocalDate` and `convertTimeToLocal`.
+** Cons: Data needs to be parsed into Java SE 8's java.date and Java SE 7's SimpleDateFormat in order to
+ calculate time differences. This means that there can potentially be many type conflicts. However, this
+  problem is contained in a helper class `CompareUtils` which handles methods like `checkTimeDifference` (returns the difference between 2 given time and date),
+   `getLocalDate`(gets the local date and time), `convertTimeToUtc`(converts given date into UTC timing) and `convertTimeToLocal`(converts a date into Local time and date).
 
 * **Alternative 2: ** Adopt Java SE 9's java.time library
 ** Pros: More volatile as the library contains many ready-made solutions. Also, java.time also allows for the easy implementation of *local time*, which is one of our improvements made to AB4.
-** Cons: Takes time to learn and to adopt the methods, which might not be efficient for our light usage.
+** Cons: Takes time to learn and to adopt the methods, which might not be efficient for our light usage. Also, it will only be
+compatible with Java SE 9.
 
 // end::newparam[]
 
