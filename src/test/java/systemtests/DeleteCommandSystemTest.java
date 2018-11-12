@@ -8,7 +8,10 @@ import org.junit.Test;
 import seedu.divelog.commons.core.Messages;
 import seedu.divelog.commons.core.index.Index;
 import seedu.divelog.logic.commands.DeleteCommand;
+import seedu.divelog.logic.commands.RedoCommand;
+import seedu.divelog.logic.commands.UndoCommand;
 import seedu.divelog.model.Model;
+import seedu.divelog.model.ModelManager;
 import seedu.divelog.model.dive.DiveSession;
 
 public class DeleteCommandSystemTest extends DiveLogSystemTest {
@@ -18,18 +21,31 @@ public class DeleteCommandSystemTest extends DiveLogSystemTest {
 
     @Test
     public void delete() {
+        Model defaultModel = getModel();
         /* ----------------- Performing delete operation while an unfiltered list is being shown -------------------- */
 
+        /* Case: delete the first dive session in the list -> deleted */
+
+
         /* Case: delete the first dive session in the list, command with leading spaces and trailing spaces ->deleted */
+        //assertCommandSuccess("   " + DeleteCommand.COMMAND_WORD + "       ");
+
+
 
         /* Case: delete the last dive session in the list -> deleted */
 
 
         /* Case: undo deleting the last dive session in the list -> last dive session restored */
-
+        String command = UndoCommand.COMMAND_WORD;
+        String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
+        assertCommandSuccess(command, defaultModel, expectedResultMessage);
+        assertSelectedCardUnchanged();
 
         /* Case: redo deleting the last dive session in the list -> last dive session deleted again */
-
+        command = RedoCommand.COMMAND_WORD;
+        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
+        assertCommandSuccess(command, new ModelManager(), expectedResultMessage);
+        assertSelectedCardUnchanged();
 
         /* Case: delete the middle dive session in the list -> deleted */
 
