@@ -1,4 +1,4 @@
-= Dive Log - User Guide
+= DiveLog - User Guide v1.4
 :site-section: UserGuide
 :toc:
 :toc-title:

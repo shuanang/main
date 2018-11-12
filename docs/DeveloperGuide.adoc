@@ -1,4 +1,4 @@
-= Divelog - Developer Guide v.1.4
+= DiveLog - Developer Guide v.1.4
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
