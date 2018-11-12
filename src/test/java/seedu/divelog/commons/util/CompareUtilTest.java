@@ -1,12 +1,12 @@
 package seedu.divelog.commons.util;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.junit.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //@author Cjunx
 /**
