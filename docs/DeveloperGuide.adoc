@@ -1,4 +1,4 @@
-= Divelog - Developer Guide v.1.4
+= DiveLog - Developer Guide v.1.4
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -589,12 +589,19 @@ are supposed to be returned and adds colour to it.
 * **Current implementation**: When the pressure group returned the the `BrowserPanel` for display to the user, the colour is changed by
 changing its CSS style. The colour is chosen from green [`#0FFF0F`] to yellow [`#F5FF07`] to red [`#FF0000`]. The colour are in order
 of normal to moderate and finally, dangerous amount of nitrogen in the blood of the user or their pressure group. The colours are seen
-in the figure below.
+in the Figure 14 below.
+As seen in the implementation below (Figure 15), once the `Application State` is updated, a `selectChangedEvent` is posted to the `EventsCenter`. The
+`EventsCenter` then issues a call to check the `checkPressureGrp()` to the `BrowserPanel` and updates the CSS of the pressure group. It will
+then re-render the UI to reflect the new CSS through `getStyleClass()`.
+
 ** Pros: The pressure group is clearly distinguished by its severity at one glance.
 ** Cons: Not all may be able to use it. For example, users who may be colour-blind.
 
 .Colour Gradient Chart
 image::Colour_gradient.png[width="600"]
+
+.Set Colour Implementation Diagram
+image::setColourDiagram.png[width="600"]
 
 * **Alternative implementation**: Instead of changing the colour, the text font maybe increased in proportion to the severity of the pressure
 group.
