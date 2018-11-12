@@ -2,6 +2,8 @@ package systemtests;
 
 import static seedu.divelog.logic.commands.DeleteCommand.MESSAGE_DELETE_DIVE_SESSION_SUCCESS;
 import static seedu.divelog.testutil.TestUtil.getDive;
+import static seedu.divelog.testutil.TestUtil.getLastIndex;
+import static seedu.divelog.testutil.TestUtil.getMidIndex;
 
 import org.junit.Test;
 
@@ -9,6 +11,7 @@ import seedu.divelog.commons.core.Messages;
 import seedu.divelog.commons.core.index.Index;
 import seedu.divelog.logic.commands.DeleteCommand;
 import seedu.divelog.logic.commands.RedoCommand;
+import seedu.divelog.logic.commands.SelectCommand;
 import seedu.divelog.logic.commands.UndoCommand;
 import seedu.divelog.model.Model;
 import seedu.divelog.model.ModelManager;
@@ -21,10 +24,14 @@ public class DeleteCommandSystemTest extends DiveLogSystemTest {
 
     @Test
     public void delete() {
+
         Model defaultModel = getModel();
         /* ----------------- Performing delete operation while an unfiltered list is being shown -------------------- */
 
         /* Case: delete the first dive session in the list -> deleted */
+        String command = DeleteCommand.COMMAND_WORD + " 1";
+        //Index theFirstDelete = Index.fromOneBased(1);
+        //assertCommandSuccess(command, new ModelManager(), DeleteCommand.MESSAGE_DELETE_DIVE_SESSION_SUCCESS, theFirstDelete);
 
 
         /* Case: delete the first dive session in the list, command with leading spaces and trailing spaces ->deleted */
@@ -33,12 +40,16 @@ public class DeleteCommandSystemTest extends DiveLogSystemTest {
 
 
         /* Case: delete the last dive session in the list -> deleted */
-
+        //Index theLastSession = getLastIndex(getModel());
+        int invalidIndex = getModel().getFilteredDiveList().size() +  1;
+        command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
+        //assertCommandSuccess(theLastSession);
+        assertCommandSuccess(command, getModel(), MESSAGE_DELETE_DIVE_SESSION_SUCCESS);
 
         /* Case: undo deleting the last dive session in the list -> last dive session restored */
-        String command = UndoCommand.COMMAND_WORD;
+        command = UndoCommand.COMMAND_WORD;
         String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, defaultModel, expectedResultMessage);
+        assertCommandSuccess(command, getModel(), expectedResultMessage);
         assertSelectedCardUnchanged();
 
         /* Case: redo deleting the last dive session in the list -> last dive session deleted again */
@@ -48,6 +59,8 @@ public class DeleteCommandSystemTest extends DiveLogSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: delete the middle dive session in the list -> deleted */
+        Index middleIndex = getMidIndex(getModel());
+        command = DeleteCommand.COMMAND_WORD + " " +middleIndex.getOneBased();
 
 
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
@@ -62,27 +75,46 @@ public class DeleteCommandSystemTest extends DiveLogSystemTest {
         /* --------------------- Performing delete operation while a dive session card is selected ------------------ */
 
         /* Case: delete the selected dive session -> dive list panel selects the dive before the deleted dive */
+        middleIndex = getMidIndex(getModel());
+        command = SelectCommand.COMMAND_WORD + " " + middleIndex.getOneBased();
+        //select first
+        command = DeleteCommand.COMMAND_WORD + " " + middleIndex.getOneBased();
+        //delete
 
 
         /* --------------------------------- Performing invalid delete operation ------------------------------------ */
 
-        /* Case: invalid index (0) -> rejected */
+        /* Case: no index given -> rejected */
+        assertCommandFailure(DeleteCommand.COMMAND_WORD, (Messages.MESSAGE_INVALID_COMMAND_FORMAT + "\n" + DeleteCommand.MESSAGE_USAGE));
 
+        /* Case: invalid index (0) -> rejected */
+        command = DeleteCommand.COMMAND_WORD + " 0";
+        assertCommandFailure(DeleteCommand.COMMAND_WORD, (Messages.MESSAGE_INVALID_COMMAND_FORMAT + "\n" +DeleteCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (-1) -> rejected */
-
+        command = DeleteCommand.COMMAND_WORD + " -1";
+        assertCommandFailure(DeleteCommand.COMMAND_WORD, (Messages.MESSAGE_INVALID_COMMAND_FORMAT + "\n" +DeleteCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (size + 1) -> rejected */
-
+        Index diveSessionCountMax1 = getLastIndex(getModel());
+        command = DeleteCommand.COMMAND_WORD + " " + diveSessionCountMax1;
+        assertCommandFailure(command, Messages.MESSAGE_INVALID_DIVE_DISPLAYED_INDEX);
 
         /* Case: invalid arguments (alphabets) -> rejected */
-
+        command = DeleteCommand.COMMAND_WORD + " A";
+        assertCommandFailure(command, (Messages.MESSAGE_INVALID_COMMAND_FORMAT + "\n" + DeleteCommand.MESSAGE_USAGE));
 
         /* Case: invalid arguments (extra argument) -> rejected */
-
+        command = DeleteCommand.COMMAND_WORD + " 1 8";
+        assertCommandFailure(command, (Messages.MESSAGE_INVALID_COMMAND_FORMAT + "\n" + DeleteCommand.MESSAGE_USAGE));
 
         /* Case: mixed case command word -> rejected */
+        command = "deLete 1";
+        assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
+        /* Case: mixed case command word -> rejected */
+        command = "Delete 1";
+        assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
     /**
