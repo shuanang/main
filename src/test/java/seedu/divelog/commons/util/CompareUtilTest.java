@@ -1,9 +1,17 @@
 package seedu.divelog.commons.util;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.Test;
 
+//@author Cjunx
+/**
+ * tests
+ */
 public class CompareUtilTest {
 
     @Test
@@ -34,6 +42,7 @@ public class CompareUtilTest {
         long l = Long.parseLong("251020181000");
         assertEquals(answer, l);
     }
+
     @Test
     public void convertTimeToLocal_diffDay_test() throws Exception {
         long answer = CompareUtil.convertTimeToLocal("2359", "25102018", 5);
@@ -45,6 +54,40 @@ public class CompareUtilTest {
         long answer = CompareUtil.convertTimeToLocal("2359", "25102018", -10);
         long l = Long.parseLong("251020181359");
         assertEquals(answer, l);
+    }
+
+    @Test
+    public void convertTimeToUtc_positive_test() throws ParseException {
+        Date answer = CompareUtil.convertTimeToUtc("1000", "25102018", 5);
+        SimpleDateFormat inputFormat = new SimpleDateFormat("ddMMyyyyHHmm");
+        Date expectedDate = inputFormat.parse("251020180500");
+
+        assertEquals(answer, expectedDate);
+    }
+
+    @Test
+    public void convertTimeToUtc_negative_test() throws ParseException {
+        Date answer = CompareUtil.convertTimeToUtc("0400", "25102018", -5);
+        SimpleDateFormat inputFormat = new SimpleDateFormat("ddMMyyyyHHmm");
+        Date expectedDate = inputFormat.parse("251020180900");
+
+        assertEquals(answer, expectedDate);
+    }
+
+    @Test
+    public void convertTimeToUtc_differentday_test() throws ParseException {
+        Date answer = CompareUtil.convertTimeToUtc("0100", "25102018", 5);
+        SimpleDateFormat inputFormat = new SimpleDateFormat("ddMMyyyyHHmm");
+        Date expectedDate = inputFormat.parse("241020182000");
+        assertEquals(answer, expectedDate);
+
+        Date answer1 = CompareUtil.convertTimeToUtc("2300", "25102018", -5);
+        Date expectedDate1 = inputFormat.parse("261020180400");
+        assertEquals(answer1, expectedDate1);
+
+        answer1 = CompareUtil.convertTimeToUtc("0000", "25102018", -12);
+        expectedDate1 = inputFormat.parse("251020181200");
+        assertEquals(answer1, expectedDate1);
     }
 
     //    @Test
@@ -66,6 +109,22 @@ public class CompareUtilTest {
         long datetime = Long.parseLong("251020180510");
         String time1 = CompareUtil.readTimeFromLong(datetime);
         assertEquals(time1, "0510");
+
+        datetime = Long.parseLong("121120181510");
+        time1 = CompareUtil.readTimeFromLong(datetime);
+        assertEquals(time1, "1510");
+
+        datetime = Long.parseLong("121120180030");
+        time1 = CompareUtil.readTimeFromLong(datetime);
+        assertEquals(time1, "0030");
+
+        datetime = Long.parseLong("121120180002");
+        time1 = CompareUtil.readTimeFromLong(datetime);
+        assertEquals(time1, "0002");
+
+//        datetime = Long.parseLong("121120180000");
+//        time1 = CompareUtil.readTimeFromLong(datetime);
+//        assertEquals(time1, "0000");
     }
 
 
@@ -74,6 +133,14 @@ public class CompareUtilTest {
         long datetime = Long.parseLong("051020180510");
         String time1 = CompareUtil.readDateFromLong(datetime);
         assertEquals(time1, "05102018");
+
+        datetime = Long.parseLong("251020180510");
+        time1 = CompareUtil.readDateFromLong(datetime);
+        assertEquals(time1, "25102018");
+
+        datetime = Long.parseLong("010120180510");
+        time1 = CompareUtil.readDateFromLong(datetime);
+        assertEquals(time1, "01012018");
     }
 
 }
