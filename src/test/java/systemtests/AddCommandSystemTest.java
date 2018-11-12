@@ -89,7 +89,8 @@ public class AddCommandSystemTest extends DiveLogSystemTest {
                 .withTimeZone("+8")
                 .withDepth(80)
                 .build();
-        assertCommandFailure(DiveUtil.getAddCommand(diveSession), (Messages.MESSAGE_ERROR_LIMIT_EXCEED + "\n" + Messages.MESSAGE_MAX_DEPTH_EXCEEDED));
+        assertCommandFailure(DiveUtil.getAddCommand(diveSession), (
+                Messages.MESSAGE_ERROR_LIMIT_EXCEED + "\n" + Messages.MESSAGE_MAX_DEPTH_EXCEEDED));
 
         /*
          * Case: Dive is too long
@@ -103,7 +104,8 @@ public class AddCommandSystemTest extends DiveLogSystemTest {
                 .withTimeZone("+8")
                 .withDepth(40)
                 .build();
-        assertCommandFailure(DiveUtil.getAddCommand(diveSession), (Messages.MESSAGE_ERROR_LIMIT_EXCEED + " " + HARDCODE_MAX_TIME));
+        assertCommandFailure(DiveUtil.getAddCommand(diveSession), (
+                Messages.MESSAGE_ERROR_LIMIT_EXCEED + " " + HARDCODE_MAX_TIME));
 
 
         /*
