@@ -11,7 +11,6 @@ import seedu.divelog.model.dive.exceptions.DiveOverlapsException;
 import seedu.divelog.model.dive.exceptions.InvalidTimeException;
 import seedu.divelog.testutil.DiveSessionBuilder;
 import seedu.divelog.testutil.DiveUtil;
-import seedu.divelog.logic.parser.ParserUtil;
 
 public class AddCommandSystemTest extends DiveLogSystemTest {
     public static final String HARDCODE_MAX_TIME = "Max time you can spend at 40.0m is 9.0 minutes";
@@ -105,7 +104,7 @@ public class AddCommandSystemTest extends DiveLogSystemTest {
                 .withDepth(40)
                 .build();
         assertCommandFailure(DiveUtil.getAddCommand(diveSession), (Messages.MESSAGE_ERROR_LIMIT_EXCEED + " " + HARDCODE_MAX_TIME));
-        
+
 
         /*
          * Case: Time Zone invalid as it is too big
@@ -117,7 +116,7 @@ public class AddCommandSystemTest extends DiveLogSystemTest {
                 .withEnd("1600")
                 .withEndDate("11012018")
                 .withTimeZone("+13")
-                .withDepth(-1)
+                .withDepth(10)
                 .build();
         assertCommandFailure(DiveUtil.getAddCommand(diveSession), Messages.MESSAGE_INVALID_TIMEZONE_FORMAT);
 
@@ -131,7 +130,7 @@ public class AddCommandSystemTest extends DiveLogSystemTest {
                 .withEnd("1600")
                 .withEndDate("11012018")
                 .withTimeZone("-13")
-                .withDepth(-1)
+                .withDepth(10)
                 .build();
         assertCommandFailure(DiveUtil.getAddCommand(diveSession), Messages.MESSAGE_INVALID_TIMEZONE_FORMAT);
     }
