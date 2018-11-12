@@ -441,13 +441,12 @@ dives safer. Thus our design considerations could be summed up as follows:
 * *Alternative 2*: Having a separate data structure that only handles mutation after the edited dive.
 ** Pros: Will be more efficient.
 ** Cons: More code will need to be written. Since `VersionedDiveLog` already maintains copies, it is just a matter of passing the reference of the temporary dive list to the system.
-Furthermore, most divers will not have more than 100 dives.
+Furthermore, most divers will not have more than 100 dives. +
 // end::CRUD[]
 
 
 // tag::planning[]
-[[portover]]
-=== New Feature: Planning Mode (with `portover` capability)
+=== New Feature: Planning Mode (with `portover` capability) [[portover]]
 From our verbal surveys with test users and from our user stories, we have decided to implement a Planning mode in order for users to plan their
 dives ahead of their trips safely without worrying about corrupting their current data. Below shows the activity diagram
 of the planning mode.

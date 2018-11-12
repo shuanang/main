@@ -58,6 +58,7 @@ contain methods that are used to help calculate Pressure Group.
 |===
 
 include::../UserGuide.adoc[tag=sortby]
+
 include::../UserGuide.adoc[tag=newplan]
 
 == Contributions to the Developer Guide
@@ -67,5 +68,7 @@ include::../UserGuide.adoc[tag=newplan]
 |===
 
 include::../DeveloperGuide.adoc[tag=newparam]
+
 include::../DeveloperGuide.adoc[tag=sorting]
+
 include::../DeveloperGuide.adoc[tag=planning]
