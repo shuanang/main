@@ -354,26 +354,6 @@
      * The colour changing generator parameters
      */
 
-.thisIsGreenA{
-    -fx-text-fill: #48e234;
-}
-
-.thisIsGreen{
-    -fx-text-fill: GREEN;
-}
-
-.thisIsOrangeP{
-    -fx-text-fill: #ea8c19;
-}
-
-.thisIsOrange{
-    -fx-text-fill: #ff6600;
-}
-
-.thisIsRed{
-    -fx-text-fill: #ff0000;
-}
-
 .thisIsA{
     -fx-text-fill: #0FFF0F;
 }

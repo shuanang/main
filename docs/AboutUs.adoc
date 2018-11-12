@@ -10,7 +10,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Arjo Chakravarty
 image::arjo129.png[width="150", align="left"]
-{empty}[https://arjo129.wordpress.com[homepage]] [https://github.com/arjo129[github]]
+{empty}[https://arjo129.wordpress.com[Homepage]] [https://github.com/arjo129[Github]] [https://cs2113-ay1819s1-w13-2.github.io/main/team/arjo129.html[Portfolio]] +
 Role: Developer +
 Responsibilities: Team Lead
 
@@ -18,7 +18,7 @@ Responsibilities: Team Lead
 
 === Ang Yi Shaun
 image::shuanang.png[width="150", align="left"]
-{empty}[http://github.com/shuanang[github]]
+{empty}[http://github.com/shuanang[github]] [https://cs2113-ay1819s1-w13-2.github.io/main/team/shuanang.html[Portfolio]] +
 Role: Developer +
 Responsibilities: Pressure group calculation
 
@@ -26,7 +26,7 @@ Responsibilities: Pressure group calculation
 
 === Terrence Tan
 image::tttaus.png[width="150", align="left"]
-{empty}[http://github.com/tttaus[github]]
+{empty}[http://github.com/tttaus[github]] [https://cs2113-ay1819s1-w13-2.github.io/main/team/TTTaus.html[Portfolio]] +
 Role: Developer +
 Responsibilities: Dive plot UI
 
@@ -34,7 +34,7 @@ Responsibilities: Dive plot UI
 
 === Chen Jun Xiang
 image::cjunxiang.png[width="150", align="left"]
-{empty}[http://github.com/cjunxiang[github]]
+{empty}[http://github.com/cjunxiang[github]] [https://cs2113-ay1819s1-w13-2.github.io/main/team/Cjunx.html[Portfolio]] +
 Role: Developer +
 Responsibilities: Search
 
