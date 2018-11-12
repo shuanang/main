@@ -105,34 +105,7 @@ public class AddCommandSystemTest extends DiveLogSystemTest {
                 .withDepth(40)
                 .build();
         assertCommandFailure(DiveUtil.getAddCommand(diveSession), (Messages.MESSAGE_ERROR_LIMIT_EXCEED + " " + HARDCODE_MAX_TIME));
-
-        /*
-         * Case: Dive Depth is invalid - zero
-         */
-//        diveSession = new DiveSessionBuilder()
-//                .withStart("1500")
-//                .withStartDate("11012018")
-//                .withSafetyStop("1545")
-//                .withEnd("1600")
-//                .withEndDate("11012018")
-//                .withTimeZone("+8")
-//                .withDepth(0)
-//                .build();
-//        assertCommandFailure(DiveUtil.getAddCommand(diveSession), ParserUtil.MESSAGE_INVALID_DEPTH);
-
-        /*
-         * Case: Dive Depth is invalid - negative
-         */
-        diveSession = new DiveSessionBuilder()
-                .withStart("1500")
-                .withStartDate("11012018")
-                .withSafetyStop("1545")
-                .withEnd("1600")
-                .withEndDate("11012018")
-                .withTimeZone("+8")
-                .withDepth(-1)
-                .build();
-        assertCommandFailure(DiveUtil.getAddCommand(diveSession), ParserUtil.MESSAGE_INVALID_DEPTH);
+        
 
         /*
          * Case: Time Zone invalid as it is too big
