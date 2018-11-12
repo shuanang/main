@@ -30,7 +30,6 @@ public class DeleteCommandSystemTest extends DiveLogSystemTest {
         String command = DeleteCommand.COMMAND_WORD + " 1";
         //Index theFirstDelete = Index.fromOneBased(1);
         //assertCommandSuccess(command, getModel(), (String.format(MESSAGE_DELETE_DIVE_SESSION_SUCCESS, 1)));
-      //  assertCommandSuccess(command, getModel(), command);
 
         /* Case: delete the first dive session in the list, command with leading spaces and trailing spaces ->deleted */
         //assertCommandSuccess("   " + DeleteCommand.COMMAND_WORD + "       ");
