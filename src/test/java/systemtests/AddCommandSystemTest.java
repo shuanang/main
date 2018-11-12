@@ -133,6 +133,7 @@ public class AddCommandSystemTest extends DiveLogSystemTest {
                 .withDepth(10)
                 .build();
         assertCommandFailure(DiveUtil.getAddCommand(diveSession), Messages.MESSAGE_INVALID_TIMEZONE_FORMAT);
+
     }
 
     /**
