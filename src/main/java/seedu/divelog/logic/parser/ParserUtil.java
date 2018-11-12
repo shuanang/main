@@ -190,7 +190,7 @@ public class ParserUtil {
                 || endTime.length() != 4
                 || safetyTime.length() != 4) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_TIME_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
+    }
 
         try {
             Integer.parseInt(endTime);

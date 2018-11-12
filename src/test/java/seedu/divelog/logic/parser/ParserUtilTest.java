@@ -1,5 +1,6 @@
 package seedu.divelog.logic.parser;
 
+import static org.hamcrest.CoreMatchers.startsWith;
 import static org.junit.Assert.assertEquals;
 
 import static seedu.divelog.logic.parser.ParserUtil.MESSAGE_INVALID_DEPTH;
@@ -11,6 +12,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.divelog.commons.core.Messages;
+import seedu.divelog.logic.commands.AddCommand;
 import seedu.divelog.logic.parser.exceptions.ParseException;
 import seedu.divelog.model.dive.DepthProfile;
 import seedu.divelog.model.dive.DiveSession;
@@ -25,7 +27,7 @@ public class ParserUtilTest {
     private static final String WHITESPACE = " \t\r\n";
 
     @Rule
-    public final ExpectedException thrown = ExpectedException.none();
+    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void parseIndex_invalidInput_throwsParseException() throws Exception {
@@ -95,9 +97,10 @@ public class ParserUtilTest {
         PressureGroup answer = ParserUtil.parsePressureGroup("A");
         assertEquals(answer, expected);
 
-        answer = ParserUtil.parsePressureGroup("3");
+
         thrown.expect(ParseException.class);
-        thrown.expectMessage(Messages.MESSAGE_INVALID_PRESSURE_GROUP);
+        thrown.expectMessage(ParserUtil.MESSAGE_INVALID_PRESSURE_GROUP);
+        answer = ParserUtil.parsePressureGroup("3");
     }
 
     @Test
@@ -111,24 +114,36 @@ public class ParserUtilTest {
 
     @Test
     public void checkTimeformat_invalid_length_test() throws ParseException {
-        String startTime = "08000";
+        String startTime = "0860";
         String endTime = "0900";
         String safetyTime = "0930";
-        ParserUtil.checkTimeformat(startTime, endTime, safetyTime);
+
         thrown.expect(ParseException.class);
+        thrown.expectMessage(startsWith("Minutes component of the time is more than 59!"));
+        ParserUtil.checkTimeformat(startTime, endTime, safetyTime);
 
         startTime = "0800";
         endTime = "09";
         safetyTime = "0930";
-        ParserUtil.checkTimeformat(startTime, endTime, safetyTime);
         thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(Messages.MESSAGE_INVALID_TIME_FORMAT, AddCommand.MESSAGE_USAGE));
+        ParserUtil.checkTimeformat(startTime, endTime, safetyTime);
 
         startTime = "0800";
         endTime = "0900";
         safetyTime = "09333";
-        ParserUtil.checkTimeformat(startTime, endTime, safetyTime);
         thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(Messages.MESSAGE_INVALID_TIME_FORMAT, AddCommand.MESSAGE_USAGE));
+        ParserUtil.checkTimeformat(startTime, endTime, safetyTime);
+
+        startTime = "0800";
+        endTime = "0900";
+        safetyTime = "23000";
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(Messages.MESSAGE_INVALID_TIME_FORMAT, AddCommand.MESSAGE_USAGE));
+        ParserUtil.checkTimeformat(startTime, endTime, safetyTime);
     }
+
 
     @Test
     public void checkTimeformat_invalid_hour_mins_test() throws ParseException {
@@ -140,14 +155,17 @@ public class ParserUtilTest {
         startTime = "0800";
         endTime = "0960";
         safetyTime = "0930";
-        ParserUtil.checkTimeformat(startTime, endTime, safetyTime);
         thrown.expect(ParseException.class);
+        thrown.expectMessage(startsWith("Minutes component of the time is more than 59!"));
+        ParserUtil.checkTimeformat(startTime, endTime, safetyTime);
+
 
         startTime = "0800";
         endTime = "0900";
         safetyTime = "2539";
-        ParserUtil.checkTimeformat(startTime, endTime, safetyTime);
         thrown.expect(ParseException.class);
+        thrown.expectMessage(startsWith("Hour component of the time is more than 23!"));
+        ParserUtil.checkTimeformat(startTime, endTime, safetyTime);
     }
 
     @Test
@@ -158,13 +176,13 @@ public class ParserUtilTest {
         ParserUtil.checkTimeZoneformat("+12");
         ParserUtil.checkTimeZoneformat("-12");
 
-//        ParserUtil.checkTimeZoneformat("+13");
-//        thrown.expect(seedu.divelog.logic.parser.exceptions.ParseException.class);
-//        thrown.expectMessage(String.format(Messages.MESSAGE_INVALID_TIMEZONE_FORMAT, AddCommand.MESSAGE_USAGE));
+        thrown.expect(seedu.divelog.logic.parser.exceptions.ParseException.class);
+        thrown.expectMessage(String.format(Messages.MESSAGE_INVALID_TIMEZONE_FORMAT, AddCommand.MESSAGE_USAGE));
+        ParserUtil.checkTimeZoneformat("+13");
 
-//        ParserUtil.checkTimeZoneformat("-13");
-//        thrown.expect(seedu.divelog.logic.parser.exceptions.ParseException.class);
-//        thrown.expectMessage(String.format(Messages.MESSAGE_INVALID_TIMEZONE_FORMAT, AddCommand.MESSAGE_USAGE));
+        thrown.expect(seedu.divelog.logic.parser.exceptions.ParseException.class);
+        thrown.expectMessage(String.format(Messages.MESSAGE_INVALID_TIMEZONE_FORMAT, AddCommand.MESSAGE_USAGE));
+        ParserUtil.checkTimeZoneformat("-13");
     }
 
     @Test
@@ -207,18 +225,31 @@ public class ParserUtilTest {
     public void checkEditTimeDateLimit_test() throws ParseException {
         DiveSession diveSession = new DiveSessionBuilder()
                 .withStart("1000")
+                .withStartDate("11112018")
+                .withEnd("1030")
+                .withEndDate("11112018")
+                .withDepth(5)
+                .withSafetyStop("0900")
+                .withTimeZone("+8")
+                .build();
+
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(Messages.MESSAGE_INVALID_DATE_LIMITS));
+        ParserUtil.checkEditTimeDateLimit(diveSession);
+
+        diveSession = new DiveSessionBuilder()
+                .withStart("1000")
                 .withStartDate("12112018")
                 .withEnd("1030")
                 .withEndDate("11112018")
                 .withDepth(5)
-                .withSafetyStop("1020")
+                .withSafetyStop("1010")
                 .withTimeZone("+8")
                 .build();
 
-        ParserUtil.checkEditTimeDateLimit(diveSession);
         thrown.expect(ParseException.class);
-        throw new ParseException(Messages.MESSAGE_INVALID_DATE_FORMAT);
-//        //thrown.expectMessage(Messages.MESSAGE_INVALID_DATE_FORMAT);
+        thrown.expectMessage(String.format(Messages.MESSAGE_INVALID_DATE_LIMITS));
+        ParserUtil.checkEditTimeDateLimit(diveSession);
     }
     //@@author
 }
