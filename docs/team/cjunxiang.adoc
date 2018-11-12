@@ -29,7 +29,7 @@ contain methods that are used to help calculate Pressure Group.
 
 * *Other contributions*:
 ** Enhancements to existing features:
-*** Wrote tests for helper method to ensure adequate code coverage (Pull requests https://github.com/cjunxiang/main/commit/ac50bdd38ca56d40b402fc1b6b31300496bcab3b[#58])
+*** Wrote tests for helper method to ensure adequate code coverage (Pull requests https://github.com/cjunxiang/main/commit/ac50bdd38ca56d40b402fc1b6b31300496bcab3b[#58], https://github.com/CS2113-AY1819S1-W13-2/main/pull/154[#154])
 
 ** Documentation:
 *** [UG] Introduced tables to organise information (Cosmetics)
