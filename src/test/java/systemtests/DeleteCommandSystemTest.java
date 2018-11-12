@@ -41,7 +41,7 @@ public class DeleteCommandSystemTest extends DiveLogSystemTest {
         int invalidIndex = getModel().getFilteredDiveList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         //assertCommandSuccess(theLastSession);
-      //  assertCommandSuccess(command, getModel(), MESSAGE_DELETE_DIVE_SESSION_SUCCESS);
+        //assertCommandSuccess(command, getModel(), MESSAGE_DELETE_DIVE_SESSION_SUCCESS);
 
         /* Case: undo deleting the last dive session in the list -> last dive session restored */
         command = UndoCommand.COMMAND_WORD;
@@ -57,7 +57,7 @@ public class DeleteCommandSystemTest extends DiveLogSystemTest {
 
         /* Case: delete the middle dive session in the list -> deleted */
         Index middleIndex = getMidIndex(getModel());
-        command = DeleteCommand.COMMAND_WORD + " " +middleIndex.getOneBased();
+        command = DeleteCommand.COMMAND_WORD + " " + middleIndex.getOneBased();
 
 
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
@@ -82,13 +82,17 @@ public class DeleteCommandSystemTest extends DiveLogSystemTest {
         /* --------------------------------- Performing invalid delete operation ------------------------------------ */
 
         /* Case: no index given -> rejected */
-        //assertCommandFailure(DeleteCommand.COMMAND_WORD, (Messages.MESSAGE_INVALID_COMMAND_FORMAT + "\n" + DeleteCommand.MESSAGE_USAGE));
-        assertCommandFailure(DeleteCommand.COMMAND_WORD, MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
+        //assertCommandFailure(DeleteCommand.COMMAND_WORD, (
+        // Messages.MESSAGE_INVALID_COMMAND_FORMAT + "\n" + DeleteCommand.MESSAGE_USAGE));
+        assertCommandFailure(DeleteCommand.COMMAND_WORD,
+                MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
 
         /* Case: invalid index (0) -> rejected */
         command = DeleteCommand.COMMAND_WORD + " 0";
-        //assertCommandFailure(DeleteCommand.COMMAND_WORD, (Messages.MESSAGE_INVALID_COMMAND_FORMAT + "\n" +DeleteCommand.MESSAGE_USAGE));
-        assertCommandFailure(DeleteCommand.COMMAND_WORD, MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
+        //assertCommandFailure(DeleteCommand.COMMAND_WORD, (
+        // Messages.MESSAGE_INVALID_COMMAND_FORMAT + "\n" +DeleteCommand.MESSAGE_USAGE));
+        assertCommandFailure(DeleteCommand.COMMAND_WORD,
+                MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
 
         /* Case: invalid index (-1) -> rejected */
         command = DeleteCommand.COMMAND_WORD + " -1";
