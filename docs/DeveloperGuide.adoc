@@ -413,7 +413,7 @@ The flow can be seen in the sequence diagram below:
 
 image::ConsistencyCheckSequenceDiagram.png[width: 650px]
 
-In terms of calculations, the pressure group properties of the dives themselves will mutate to support
+In terms of calculations, the pressure group properties of the `DiveSession` objects themselves will mutate.
 
 ==== Design Considerations
 
