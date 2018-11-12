@@ -51,7 +51,7 @@ public class DeleteCommandSystemTest extends DiveLogSystemTest {
 
         /* Case: redo deleting the last dive session in the list -> last dive session deleted again */
         command = RedoCommand.COMMAND_WORD;
-        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
+        String expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         //assertCommandSuccess(command, new ModelManager(), expectedResultMessage);
         //assertSelectedCardUnchanged();
 
