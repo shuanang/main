@@ -46,14 +46,14 @@ public class DeleteCommandSystemTest extends DiveLogSystemTest {
         /* Case: undo deleting the last dive session in the list -> last dive session restored */
         command = UndoCommand.COMMAND_WORD;
         String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
-       // assertCommandSuccess(command, getModel(), expectedResultMessage);
-       // assertSelectedCardUnchanged();
+        //assertCommandSuccess(command, getModel(), expectedResultMessage);
+        //assertSelectedCardUnchanged();
 
         /* Case: redo deleting the last dive session in the list -> last dive session deleted again */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-       // assertCommandSuccess(command, new ModelManager(), expectedResultMessage);
-       // assertSelectedCardUnchanged();
+        //assertCommandSuccess(command, new ModelManager(), expectedResultMessage);
+        //assertSelectedCardUnchanged();
 
         /* Case: delete the middle dive session in the list -> deleted */
         Index middleIndex = getMidIndex(getModel());
