@@ -75,7 +75,7 @@ public class CompareUtilTest {
     }
 
     @Test
-    public void convertTimeToUtc_differentday_test() throws ParseException {
+    public void convertTimeToUtc_differentDay_test() throws ParseException {
         Date answer = CompareUtil.convertTimeToUtc("0100", "25102018", 5);
         SimpleDateFormat inputFormat = new SimpleDateFormat("ddMMyyyyHHmm");
         Date expectedDate = inputFormat.parse("241020182000");

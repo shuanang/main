@@ -103,7 +103,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void checkTimeFormat_invalidlengthtest() throws ParseException {
+    public void checkTimeFormat_invalidLengthTest() throws ParseException {
         String startTime = "0800";
         String endTime = "0900";
         String safetyTime = "0930";
@@ -142,7 +142,7 @@ public class ParserUtilTest {
 
 
     @Test
-    public void checkTimeFormat_invalidhourminstest() throws ParseException {
+    public void checkTimeFormat_invalidHourMinsTest() throws ParseException {
         String startTime = "0800";
         String endTime = "0900";
         String safetyTime = "0930";
