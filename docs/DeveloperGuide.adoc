@@ -460,15 +460,18 @@ image::firstDivePgCalc.png[width="600"]
 
 ==== Calculating pressure group after surface interval
 
+After finishing a dive, divers may want to go for a repetitive dive, and so they have to check for their pressure group after a certain amount of time spent on land. The activity diagram shown below shows that calculating the pressure group after a surface interval requires the end pressure group of their last dive, and the time they spent on land. If they had spent more than three hours on land, their current pressure group would reach the minimum "A". If not, then they would have to refer to Table 2 of the recreational dive planner.
+
 .Pressure Group after Surface Interval Activity Diagram
 image::surfaceIntervalPgCalc.png[width="600"]
 
 ==== Calculating a repetitive dive end pressure group
 
-For a repetitive dive, in addition to the
+For a repetitive dive, the divers would need to take note of the Adjusted no decompression limit (ANDL) at the depth they intend to dive at, by taking into account their residual nitrogen time (RNT) and adding it to their total bottom time - such that the dive remains a no decompression (recreational) dive. They would then run their new total bottom time with the intended depth through the first dive pressure group calculation, to get their new pressure group.
 
 .Repetitive Dive Pressure Group Calculation Activity Diagram
 image::repetitiveDivePgCalc.png[width="600"]
+
 // end::calculatingpg[]
 // tag::planning[]
 === New Feature: Planning Mode (with `portover` capability) [[portover]]
